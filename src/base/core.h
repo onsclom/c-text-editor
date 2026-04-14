@@ -17,6 +17,6 @@ typedef int64_t i64;
 typedef float f32;
 typedef double f64;
 
-void *memset(void *s, i32 c, size_t n);
-void *memcpy(void *dest, const void *src, size_t n);
-i32 memcmp(const void *s1, const void *s2, size_t n);
+void *base_memset(void *s, i32 c, size_t n);
+void *base_memcpy(void *dest, const void *src, size_t n);
+i32 base_memcmp(const void *s1, const void *s2, size_t n);

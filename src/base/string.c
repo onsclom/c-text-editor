@@ -3,7 +3,7 @@
 bool s8_eq(s8 a, s8 b) {
   if (a.length != b.length)
     return false;
-  return memcmp(a.data, b.data, a.length) == 0;
+  return base_memcmp(a.data, b.data, a.length) == 0;
 }
 
 bool is_alpha(u8 c) {
