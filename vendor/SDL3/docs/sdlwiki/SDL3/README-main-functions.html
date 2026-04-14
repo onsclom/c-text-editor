@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>README-main-functions</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">:root {
+color-scheme: dark light; 
+}
+body {
+background-color: white;
+padding: 2vw;
+color: #333;
+max-width: 1200px;
+margin: 0 auto;
+font-size: 16px;
+line-height: 1.5;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+overflow-wrap: break-word;
+}
+a {
+color: #0969da;
+
+}
+a:visited {
+color: #064998;
+}
+h1 {
+border-bottom: 2px solid #efefef;
+}
+h2 {
+border-bottom: 1px solid #efefef;
+}
+p {
+max-width: 85ch;
+}
+li {
+max-width: 85ch;
+}
+div.sourceCode {
+background-color: #f6f8fa;
+max-width: 100%;
+padding: 16px;
+}
+code {
+background-color: #f6f8fa;
+padding: 0px;
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+}
+table {
+border: 1px solid #808080;
+border-collapse: collapse;
+}
+td {
+border: 1px solid #808080;
+padding: 5px;
+}
+tr:nth-child(even) {
+background-color: #f6f8fa;
+}
+.wikitopbanner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #efefef;
+padding: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+.wikibottombanner {
+background-color: #efefef;
+padding: 10px;
+margin-top: 10px;
+width: auto;
+}
+.alertBox {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+max-width: 60%;
+padding: 10;
+margin: auto;
+}
+.anchorImage {
+visibility: hidden;
+padding-left: 0.2em;
+color: #fff;
+}
+.anchorText:hover .anchorImage {
+visibility: visible;
+}
+hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #efefef;
+margin: 1em 0;
+padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+color: #e6edf3;
+background-color: #0d1117;
+}
+h1 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+h2 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+hr {
+border-color: rgba(48, 54, 61, 0.7);
+}
+div.sourceCode {
+background-color: #161b22;
+}
+code {
+background-color: #161b22;
+}
+a {
+color: #4493f8;
+}
+a:visited {
+color: #2f66ad;
+}
+table {
+border-color: rgba(48, 54, 61, 0.7);
+}
+td {
+border-color: rgba(48, 54, 61, 0.7);
+}
+tr:nth-child(even) {
+background-color: #161b22;
+}
+.wikitopbanner {
+background-color: #263040;
+}
+.wikibottombanner {
+background-color: #263040;
+}
+.anchorText:hover .anchorImage {
+filter: invert(100%);
+}
+}
+@media print {
+body {
+font-size: 12px;
+}
+table {
+font-size: inherit;
+}
+a:visited {
+color: #0969da;
+}
+.wikitopbanner,
+.anchorText,
+.wikibottombanner {
+display: none;
+}
+}
+</style>
+  <style type="text/css"> code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+{ position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+{ content: attr(title);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; pointer-events: all; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+@media (prefers-color-scheme: dark) {
+code span.al { color: #95da4c; font-weight: bold; } 
+code span.an { color: #3f8058; } 
+code span.at { color: #2980b9; } 
+code span.bn { color: #f67400; } 
+code span.bu { color: #7f8c8d; } 
+code span.ch { color: #3daee9; } 
+code span.co { color: #7a7c7d; } 
+code span.cv { color: #7f8c8d; } 
+code span.cn { color: #27aeae; font-weight: bold; } 
+code span.cf { color: #fdbc4b; font-weight: bold; } 
+code span.dt { color: #2980b9; } 
+code span.dv { color: #f67400; } 
+code span.do { color: #a43340; } 
+code span.er { color: #da4453; } 
+code span.ex { color: #0099ff; font-weight: bold; } 
+code span.fl { color: #f67400; } 
+code span.fu { color: #8e44ad; } 
+code span.im { color: #27ae60; } 
+code span.in { color: #c45b00; } 
+code span.kw { color: #cfcfc2; font-weight: bold; } 
+code span.op { color: #cfcfc2; } 
+code span.ot { color: #27ae60; } 
+code span.pp { color: #27ae60; } 
+code span.sc { color: #3daee9; } 
+code span.ss { color: #da4453; } 
+code span.st { color: #f44f4f; } 
+code span.va { color: #27aeae; } 
+code span.vs { color: #da4453; } 
+code span.wa { color: #da4453; } 
+}</style>
+</head>
+<body>
+<h1 id="where-an-sdl-program-starts-running">Where an SDL program starts
+running.</h1>
+<h2 id="history">History</h2>
+<p>SDL has a long, complicated history with starting a program.</p>
+<p>In most of the civilized world, an application starts in a C-callable
+function named &quot;main&quot;. You probably learned it a long time ago:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">**</span>argv<span class="op">)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;Hello world!</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>But not all platforms work like this. Windows apps might want a
+different function named &quot;WinMain&quot;, for example, so SDL set out to paper
+over this difference.</p>
+<p>Generally how this would work is: your app would always use the
+&quot;standard&quot; <code>main(argc, argv)</code> function as its entry point,
+and <code>#include</code> the proper SDL header before that, which did
+some macro magic. On platforms that used a standard <code>main</code>,
+it would do nothing and what you saw was what you got.</p>
+<p>But those other platforms! If they needed something that
+<em>wasn&#39;t</em> <code>main</code>, SDL&#39;s macro magic would quietly
+rename your function to <code>SDL_main</code>, and provide its own entry
+point that called it. Your app was none the wiser and your code worked
+everywhere without changes.</p>
+<h2 id="the-main-entry-point-in-sdl3">The main entry point in SDL3</h2>
+<p>Previous versions of SDL had a static library, SDLmain, that you
+would link your app against. SDL3 still has the same macro tricks, but
+the static library is gone. Now it&#39;s supplied by a &quot;single-header
+library,&quot; which means you <code>#include &lt;SDL3/SDL_main.h&gt;</code>
+and that header will insert a small amount of code into the source file
+that included it, so you no longer have to worry about linking against
+an extra library that you might need on some platforms. You just build
+your app and it works.</p>
+<p>You should <em>only</em> include SDL_main.h from one file (the
+umbrella header, SDL.h, does <em>not</em> include it), and know that it
+will <code>#define main</code> to something else, so if you use this
+symbol elsewhere as a variable name, etc, it can cause you unexpected
+problems.</p>
+<p>SDL_main.h will also include platform-specific code (WinMain or
+whatnot) that calls your <em>actual</em> main function. This is compiled
+directly into your program.</p>
+<p>If for some reason you need to include SDL_main.h in a file but also
+<em>don&#39;t</em> want it to generate this platform-specific code, you
+should define a special macro before including the header:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define SDL_MAIN_NOIMPL</span></span></code></pre></div>
+<p>If you are moving from SDL2, remove any references to the SDLmain
+static library from your build system, and you should be done. Things
+should work as they always have.</p>
+<p>If you have never controlled your process&#39;s entry point (you are
+using SDL as a module from a general-purpose scripting language
+interpreter, or you&#39;re using SDL in a plugin for some
+otherwise-unrelated app), then there is nothing required of you here;
+there is no startup code in SDL&#39;s entry point code that is required, so
+using SDL_main.h is completely optional. Just start using the SDL API
+when you are ready.</p>
+<h2 id="main-callbacks-in-sdl3">Main callbacks in SDL3</h2>
+<p>There is a second option in SDL3 for how to structure your program.
+This is completely optional and you can ignore it if you&#39;re happy using
+a standard &quot;main&quot; function.</p>
+<p>Some platforms would rather your program operate in chunks. Most of
+the time, games tend to look like this at the highest level:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">**</span>argv<span class="op">)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    initialize<span class="op">();</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>keep_running<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        handle_new_events<span class="op">();</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        do_one_frame_of_stuff<span class="op">();</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    deinitialize<span class="op">();</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>There are platforms that would rather be in charge of that
+<code>while</code> loop: iOS would rather you return from main()
+immediately and then it will let you know that it&#39;s time to update and
+draw the next frame of video. Emscripten (programs that run on a web
+page) absolutely requires this to function at all. Video targets like
+Wayland can notify the app when to draw a new frame, to save battery
+life and cooperate with the compositor more closely.</p>
+<p>In most cases, you can add special-case code to your program to deal
+with this on different platforms, but SDL3 offers a system to handle
+this transparently on the app&#39;s behalf.</p>
+<p>To use this, you have to redesign the highest level of your app a
+little. Once you do, it&#39;ll work on all supported SDL platforms without
+problems and <code>#ifdef</code>s in your code.</p>
+<p>Instead of providing a &quot;main&quot; function, under this system, you would
+provide several functions that SDL will call as appropriate.</p>
+<p>Using the callback entry points works on every platform, because on
+platforms that don&#39;t require them, we can fake them with a simple loop
+in an internal implementation of the usual SDL_main.</p>
+<p>The primary way we expect people to write SDL apps is still with
+SDL_main, and this is not intended to replace it. If the app chooses to
+use this, it just removes some platform-specific details they might have
+to otherwise manage, and maybe removes a barrier to entry on some future
+platform. And you might find you enjoy structuring your program like
+this more!</p>
+<h2 id="how-to-use-main-callbacks-in-sdl3">How to use main callbacks in
+SDL3</h2>
+<p>To enable the callback entry points, you include SDL_main.h with an
+extra define, from a single source file in your project:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define SDL_MAIN_USE_CALLBACKS</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;SDL3/SDL_main.h&gt;</span></span></code></pre></div>
+<p>Once you do this, you do not write a &quot;main&quot; function at all (and if
+you do, the app will likely fail to link). Instead, you provide the
+following functions:</p>
+<p>First:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>SDL_AppResult SDL_AppInit<span class="op">(</span><span class="dt">void</span> <span class="op">**</span>appstate<span class="op">,</span> <span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">**</span>argv<span class="op">);</span></span></code></pre></div>
+<p>This will be called <em>once</em> before anything else. argc/argv
+work like they always do. If this returns SDL_APP_CONTINUE, the app
+runs. If it returns SDL_APP_FAILURE, the app calls SDL_AppQuit and
+terminates with an exit code that reports an error to the platform. If
+it returns SDL_APP_SUCCESS, the app calls SDL_AppQuit and terminates
+with an exit code that reports success to the platform. This function
+should not go into an infinite mainloop; it should do any one-time
+startup it requires and then return.</p>
+<p>If you want to, you can assign a pointer to <code>*appstate</code>,
+and this pointer will be made available to you in later functions calls
+in their <code>appstate</code> parameter. This allows you to avoid
+global variables, but is totally optional. If you don&#39;t set this, the
+pointer will be NULL in later function calls.</p>
+<p>Then:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>SDL_AppResult SDL_AppIterate<span class="op">(</span><span class="dt">void</span> <span class="op">*</span>appstate<span class="op">);</span></span></code></pre></div>
+<p>This is called over and over, possibly at the refresh rate of the
+display or some other metric that the platform dictates. This is where
+the heart of your app runs. It should return as quickly as reasonably
+possible, but it&#39;s not a &quot;run one memcpy and that&#39;s all the time you
+have&quot; sort of thing. The app should do any game updates, and render a
+frame of video. If it returns SDL_APP_FAILURE, SDL will call SDL_AppQuit
+and terminate the process with an exit code that reports an error to the
+platform. If it returns SDL_APP_SUCCESS, the app calls SDL_AppQuit and
+terminates with an exit code that reports success to the platform. If it
+returns SDL_APP_CONTINUE, then SDL_AppIterate will be called again at
+some regular frequency. The platform may choose to run this more or less
+(perhaps less in the background, etc), or it might just call this
+function in a loop as fast as possible. You do not check the event queue
+in this function (SDL_AppEvent exists for that).</p>
+<p>Next:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>SDL_AppResult SDL_AppEvent<span class="op">(</span><span class="dt">void</span> <span class="op">*</span>appstate<span class="op">,</span> SDL_Event <span class="op">*</span>event<span class="op">);</span></span></code></pre></div>
+<p>This will be called whenever an SDL event arrives. Your app should
+not call SDL_PollEvent, SDL_PumpEvent, etc, as SDL will manage all this
+for you. Return values are the same as from SDL_AppIterate(), so you can
+terminate in response to SDL_EVENT_QUIT, etc.</p>
+<p>Finally:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> SDL_AppQuit<span class="op">(</span><span class="dt">void</span> <span class="op">*</span>appstate<span class="op">,</span> SDL_AppResult result<span class="op">);</span></span></code></pre></div>
+<p>This is called once before terminating the app--assuming the app
+isn&#39;t being forcibly killed or crashed--as a last chance to clean up.
+After this returns, SDL will call SDL_Quit so the app doesn&#39;t have to
+(but it&#39;s safe for the app to call it, too). Process termination
+proceeds as if the app returned normally from main(), so atexit handles
+will run, if your platform supports that.</p>
+<p>If you set <code>*appstate</code> during SDL_AppInit, this is where
+you should free that data, as this pointer will not be provided to your
+app again.</p>
+<p>The SDL_AppResult value that terminated the app is provided here, in
+case it&#39;s useful to know if this was a successful or failing run of the
+app.</p>
+<h2 id="using-main-functions-from-other-languages">Using main functions
+from other languages</h2>
+<p>If you&#39;re not using C/C++, using SDL&#39;s entry points is still possible
+but is more complex. Please refer to <a href="NonstandardStartup.html">https://wiki.libsdl.org/SDL3/NonstandardStartup</a>
+for the technical details.</p>
+<h2 id="summary-and-best-practices">Summary and Best Practices</h2>
+<ul>
+<li><p><strong>Always Include SDL_main.h in One Source File:</strong>
+When working with SDL, remember that SDL_main.h must only be included in
+one source file in your project. Including it in multiple files will
+lead to conflicts and undefined behavior.</p></li>
+<li><p><strong>Avoid Redefining main:</strong> If you&#39;re using SDL&#39;s
+entry point system (which renames <code>main</code> to
+<code>SDL_main</code>), do not define <code>main</code> yourself. SDL
+takes care of this for you, and redefining it can cause issues,
+especially when linking with SDL libraries.</p></li>
+<li><p><strong>Using SDL&#39;s Callback System:</strong> If you&#39;re working
+with more complex scenarios, such as requiring more control over your
+application&#39;s flow (e.g., with games or apps that need extensive event
+handling), consider using SDL&#39;s callback system. Define the necessary
+callbacks and SDL will handle initialization, event processing, and
+cleanup automatically.</p></li>
+<li><p><strong>Platform-Specific Considerations:</strong> On platforms
+like Windows, SDL handles the platform-specific entry point (like
+<code>WinMain</code>) automatically. This means you don&#39;t need to worry
+about writing platform-specific entry code when using SDL.</p></li>
+<li><p><strong>When to Skip SDL_main.h:</strong> If you do not require
+SDL&#39;s custom entry point (for example, if you&#39;re integrating SDL into an
+existing application or a scripting environment), you can omit
+SDL_main.h. However, this will limit SDL&#39;s ability to abstract away
+platform-specific entry point details.</p></li>
+</ul>
+</body>
+</html>

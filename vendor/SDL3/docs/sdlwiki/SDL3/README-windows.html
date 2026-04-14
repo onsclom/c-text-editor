@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>README-windows</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">:root {
+color-scheme: dark light; 
+}
+body {
+background-color: white;
+padding: 2vw;
+color: #333;
+max-width: 1200px;
+margin: 0 auto;
+font-size: 16px;
+line-height: 1.5;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+overflow-wrap: break-word;
+}
+a {
+color: #0969da;
+
+}
+a:visited {
+color: #064998;
+}
+h1 {
+border-bottom: 2px solid #efefef;
+}
+h2 {
+border-bottom: 1px solid #efefef;
+}
+p {
+max-width: 85ch;
+}
+li {
+max-width: 85ch;
+}
+div.sourceCode {
+background-color: #f6f8fa;
+max-width: 100%;
+padding: 16px;
+}
+code {
+background-color: #f6f8fa;
+padding: 0px;
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+}
+table {
+border: 1px solid #808080;
+border-collapse: collapse;
+}
+td {
+border: 1px solid #808080;
+padding: 5px;
+}
+tr:nth-child(even) {
+background-color: #f6f8fa;
+}
+.wikitopbanner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #efefef;
+padding: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+.wikibottombanner {
+background-color: #efefef;
+padding: 10px;
+margin-top: 10px;
+width: auto;
+}
+.alertBox {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+max-width: 60%;
+padding: 10;
+margin: auto;
+}
+.anchorImage {
+visibility: hidden;
+padding-left: 0.2em;
+color: #fff;
+}
+.anchorText:hover .anchorImage {
+visibility: visible;
+}
+hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #efefef;
+margin: 1em 0;
+padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+color: #e6edf3;
+background-color: #0d1117;
+}
+h1 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+h2 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+hr {
+border-color: rgba(48, 54, 61, 0.7);
+}
+div.sourceCode {
+background-color: #161b22;
+}
+code {
+background-color: #161b22;
+}
+a {
+color: #4493f8;
+}
+a:visited {
+color: #2f66ad;
+}
+table {
+border-color: rgba(48, 54, 61, 0.7);
+}
+td {
+border-color: rgba(48, 54, 61, 0.7);
+}
+tr:nth-child(even) {
+background-color: #161b22;
+}
+.wikitopbanner {
+background-color: #263040;
+}
+.wikibottombanner {
+background-color: #263040;
+}
+.anchorText:hover .anchorImage {
+filter: invert(100%);
+}
+}
+@media print {
+body {
+font-size: 12px;
+}
+table {
+font-size: inherit;
+}
+a:visited {
+color: #0969da;
+}
+.wikitopbanner,
+.anchorText,
+.wikibottombanner {
+display: none;
+}
+}
+</style>
+  <style type="text/css"> code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+{ position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+{ content: attr(title);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; pointer-events: all; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+@media (prefers-color-scheme: dark) {
+code span.al { color: #95da4c; font-weight: bold; } 
+code span.an { color: #3f8058; } 
+code span.at { color: #2980b9; } 
+code span.bn { color: #f67400; } 
+code span.bu { color: #7f8c8d; } 
+code span.ch { color: #3daee9; } 
+code span.co { color: #7a7c7d; } 
+code span.cv { color: #7f8c8d; } 
+code span.cn { color: #27aeae; font-weight: bold; } 
+code span.cf { color: #fdbc4b; font-weight: bold; } 
+code span.dt { color: #2980b9; } 
+code span.dv { color: #f67400; } 
+code span.do { color: #a43340; } 
+code span.er { color: #da4453; } 
+code span.ex { color: #0099ff; font-weight: bold; } 
+code span.fl { color: #f67400; } 
+code span.fu { color: #8e44ad; } 
+code span.im { color: #27ae60; } 
+code span.in { color: #c45b00; } 
+code span.kw { color: #cfcfc2; font-weight: bold; } 
+code span.op { color: #cfcfc2; } 
+code span.ot { color: #27ae60; } 
+code span.pp { color: #27ae60; } 
+code span.sc { color: #3daee9; } 
+code span.ss { color: #da4453; } 
+code span.st { color: #f44f4f; } 
+code span.va { color: #27aeae; } 
+code span.vs { color: #da4453; } 
+code span.wa { color: #da4453; } 
+}</style>
+</head>
+<body>
+<h1 id="windows">Windows</h1>
+<h2 id="old-systems">Old systems</h2>
+<p>WinRT, Windows Phone, and UWP are no longer supported.</p>
+<p>All desktop Windows versions, back to Windows XP, are still
+supported.</p>
+<h2 id="llvm-and-intel-c-compiler-support">LLVM and Intel C++ compiler
+support</h2>
+<p>SDL will build with the Visual Studio project files with LLVM-based
+compilers, such as the Intel oneAPI C++ compiler, but you&#39;ll have to
+manually add the &quot;-msse3&quot; command line option to at least the
+SDL_audiocvt.c source file, and possibly others. This may not be
+necessary if you build SDL with CMake instead of the included Visual
+Studio solution.</p>
+<p>Details are here: <a href="https://github.com/libsdl-org/SDL/issues/5186">https://github.com/libsdl-org/SDL/issues/5186</a></p>
+<h2 id="mingw-w64-compiler-support">MinGW-w64 compiler support</h2>
+<p>SDL can be built with MinGW-w64 and CMake. Minimum tested MinGW-w64
+version is 8.0.3.</p>
+<p>On a Windows host, you first need to install and set up the MSYS2
+environment, which provides the MinGW-w64 toolchain. Install MSYS2,
+typically to <code>C:\msys64</code>, and follow the instructions on the
+MSYS2 wiki to use the MinGW-w64 shell to update all components in the
+MSYS2 environment. This generally amounts to running
+<code>pacman -Syuu</code> from the mingw64 shell, but refer to MSYS2&#39;s
+documentation for more details. Once the MSYS2 environment has been
+updated, install the x86_64 MinGW toolchain from the mingw64 shell with
+the command <code>pacman -S mingw-w64-x86_64-toolchain</code>. (You can
+additionally install <code>mingw-w64-i686-toolchain</code> if you intend
+to build 32-bit binaries as well. The remainder of this section assumes
+you only want to build 64-bit binaries.)</p>
+<p>To build and install SDL, you can use PowerShell or any
+CMake-compatible IDE. First, install CMake, Ninja, and Git. These tools
+can be installed using any number of tools, such as the MSYS2&#39;s
+<code>pacman</code>, <code>winget</code>, <code>Chocolatey</code>, or by
+manually downloading and running the installers. Clone SDL to an
+appropriate location with <code>git</code> and run the following
+commands from the root of the cloned repository:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> build</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">-S</span> . <span class="at">-B</span> build <span class="at">-G</span> Ninja <span class="at">-DCMAKE_TOOLCHAIN_FILE</span><span class="op">=</span>build-scripts/cmake-toolchain-mingw64-x86_64.cmake</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">--build</span> build <span class="at">--parallel</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">--install</span> build <span class="at">--prefix</span> C:/Libraries</span></code></pre></div>
+<p>This installs SDL to <code>C:\Libraries</code>. You can specify
+another directory of your choice as desired. Ensure that your
+<code>CMAKE_PREFIX_PATH</code> includes <code>C:\Libraries</code> when
+you want to build against this copy of SDL. The simplest way to do this
+is to pass it to CMake as an option at configuration time:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> .. <span class="at">-G</span> Ninja <span class="at">-DCMAKE_PREFIX_PATH</span><span class="op">=</span>C:/Libraries</span></code></pre></div>
+<p>You will also need to configure CMake to use the MinGW-w64 toolchain
+to build your own project. Here is a minimal toolchain file that you
+could use for this purpose:</p>
+<pre><code>set(CMAKE_SYSTEM_NAME Windows)
+set(CMAKE_SYSTEM_PROCESSOR x86_64)
+
+find_program(CMAKE_C_COMPILER NAMES x86_64-w64-mingw32-gcc REQUIRED)
+find_program(CMAKE_CXX_COMPILER NAMES x86_64-w64-mingw32-g++ REQUIRED)
+find_program(CMAKE_RC_COMPILER NAMES x86_64-w64-mingw32-windres windres REQUIRED)</code></pre>
+<p>Save this in your project and refer to it at configuration time with
+the option <code>-DCMAKE_TOOLCHAIN_FILE</code>.</p>
+<p>On Windows, you also need to copy <code>SDL3.dll</code> to an
+appropriate directory so that the game can find it at runtime. For
+guidance, see <a href="README-cmake.html#how-do-i-copy-a-sdl3-dynamic-library-to-another-location">README-cmake.md</a>.</p>
+<p>Below is a minimal <code>CMakeLists.txt</code> file to build your
+game linked against a system SDL that was built with the MinGW-w64
+toolchain. See <a href="README-cmake.html">README-cmake.md</a> for more
+details on including SDL in your CMake project.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">cmake_minimum_required</span>(<span class="ot">VERSION</span> <span class="dt">3.15</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">project</span>(mygame)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">find_package</span>(SDL3 <span class="ot">REQUIRED</span> <span class="ot">CONFIG</span> <span class="ot">COMPONENTS</span> SDL3-shared)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">add_executable</span>(<span class="bn">mygame</span> <span class="ot">WIN32</span> mygame.c)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">target_link_libraries</span>(<span class="bn">mygame</span> <span class="ot">PRIVATE</span> <span class="bn">SDL3::SDL3</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># On Windows, copy SDL3.dll to the build directory</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="dv">WIN32</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">add_custom_command</span>(</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="ot">TARGET</span> <span class="bn">mygame</span> <span class="bn">POST_BUILD</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        <span class="bn">COMMAND</span> <span class="st">&quot;</span><span class="dv">${CMAKE_COMMAND}</span><span class="st">&quot;</span> <span class="bn">-E</span> <span class="bn">copy</span> <span class="ot">$&lt;</span><span class="kw">TARGET_FILE</span><span class="ot">:</span><span class="bn">SDL3::SDL3-shared</span><span class="ot">&gt;</span> <span class="ot">$&lt;</span><span class="kw">TARGET_FILE_DIR</span><span class="ot">:mygame&gt;</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        <span class="bn">VERBATIM</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="cf">endif</span>()</span></code></pre></div>
+<h2 id="opengl-es-2x-support">OpenGL ES 2.x support</h2>
+<p>SDL has support for OpenGL ES 2.x under Windows via two alternative
+implementations.</p>
+<p>The most straightforward method consists in running your app in a
+system with a graphic card paired with a relatively recent (as of
+November of 2013) driver which supports the
+WGL_EXT_create_context_es2_profile extension. Vendors known to ship said
+extension on Windows currently include nVidia and Intel.</p>
+<p>The other method involves using the <a href="https://code.google.com/p/angleproject/">ANGLE library</a>. If an
+OpenGL ES 2.x context is requested and no
+WGL_EXT_create_context_es2_profile extension is found, SDL will try to
+load the libEGL.dll library provided by ANGLE.</p>
+<p>To obtain the ANGLE binaries, you can either compile from source from
+<a href="https://chromium.googlesource.com/angle/angle">https://chromium.googlesource.com/angle/angle</a>
+or copy the relevant binaries from a recent Chrome/Chromium install for
+Windows. The files you need are:</p>
+<ul>
+<li>libEGL.dll</li>
+<li>libGLESv2.dll</li>
+<li>d3dcompiler_46.dll (supports Windows Vista or later, better shader
+compiler) <em>or</em> d3dcompiler_43.dll (supports Windows XP or
+later)</li>
+</ul>
+<p>If you compile ANGLE from source, you can configure it so it does not
+need the d3dcompiler_* DLL at all (for details on this, see their
+documentation). However, by default SDL will try to preload the
+d3dcompiler_46.dll to comply with ANGLE&#39;s requirements. If you wish SDL
+to preload d3dcompiler_43.dll (to support Windows XP) or to skip this
+step at all, you can use the SDL_HINT_VIDEO_WIN_D3DCOMPILER hint (see
+SDL_hints.h for more details).</p>
+<p>Known Bugs:</p>
+<ul>
+<li>SDL_GL_SetSwapInterval is currently a no op when using ANGLE. It
+appears that there&#39;s a bug in the library which prevents the window
+contents from refreshing if this is set to anything other than the
+default value.</li>
+</ul>
+<h2 id="vulkan-surface-support">Vulkan Surface Support</h2>
+<p>Support for creating Vulkan surfaces is configured on by default. To
+disable it change the value of <code>SDL_VIDEO_VULKAN</code> to 0 in
+<code>SDL_config_windows.h</code>. You must install the <a href="https://www.lunarg.com/vulkan-sdk/">Vulkan SDK</a> in order to use
+Vulkan graphics in your application.</p>
+<h2 id="transparent-window-support">Transparent Window Support</h2>
+<p>SDL uses the Desktop Window Manager (DWM) to create transparent
+windows. DWM is always enabled from Windows 8 and above. Windows 7 only
+enables DWM with Aero Glass theme.</p>
+<p>However, it cannot be guaranteed to work on all hardware
+configurations (an example is hybrid GPU systems, such as NVIDIA Optimus
+laptops).</p>
+</body>
+</html>

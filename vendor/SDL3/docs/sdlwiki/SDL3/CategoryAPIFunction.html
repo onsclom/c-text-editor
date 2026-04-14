@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>CategoryAPIFunction</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">:root {
+color-scheme: dark light; 
+}
+body {
+background-color: white;
+padding: 2vw;
+color: #333;
+max-width: 1200px;
+margin: 0 auto;
+font-size: 16px;
+line-height: 1.5;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+overflow-wrap: break-word;
+}
+a {
+color: #0969da;
+
+}
+a:visited {
+color: #064998;
+}
+h1 {
+border-bottom: 2px solid #efefef;
+}
+h2 {
+border-bottom: 1px solid #efefef;
+}
+p {
+max-width: 85ch;
+}
+li {
+max-width: 85ch;
+}
+div.sourceCode {
+background-color: #f6f8fa;
+max-width: 100%;
+padding: 16px;
+}
+code {
+background-color: #f6f8fa;
+padding: 0px;
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+}
+table {
+border: 1px solid #808080;
+border-collapse: collapse;
+}
+td {
+border: 1px solid #808080;
+padding: 5px;
+}
+tr:nth-child(even) {
+background-color: #f6f8fa;
+}
+.wikitopbanner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #efefef;
+padding: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+.wikibottombanner {
+background-color: #efefef;
+padding: 10px;
+margin-top: 10px;
+width: auto;
+}
+.alertBox {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+max-width: 60%;
+padding: 10;
+margin: auto;
+}
+.anchorImage {
+visibility: hidden;
+padding-left: 0.2em;
+color: #fff;
+}
+.anchorText:hover .anchorImage {
+visibility: visible;
+}
+hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #efefef;
+margin: 1em 0;
+padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+color: #e6edf3;
+background-color: #0d1117;
+}
+h1 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+h2 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+hr {
+border-color: rgba(48, 54, 61, 0.7);
+}
+div.sourceCode {
+background-color: #161b22;
+}
+code {
+background-color: #161b22;
+}
+a {
+color: #4493f8;
+}
+a:visited {
+color: #2f66ad;
+}
+table {
+border-color: rgba(48, 54, 61, 0.7);
+}
+td {
+border-color: rgba(48, 54, 61, 0.7);
+}
+tr:nth-child(even) {
+background-color: #161b22;
+}
+.wikitopbanner {
+background-color: #263040;
+}
+.wikibottombanner {
+background-color: #263040;
+}
+.anchorText:hover .anchorImage {
+filter: invert(100%);
+}
+}
+@media print {
+body {
+font-size: 12px;
+}
+table {
+font-size: inherit;
+}
+a:visited {
+color: #0969da;
+}
+.wikitopbanner,
+.anchorText,
+.wikibottombanner {
+display: none;
+}
+}
+</style>
+  <style type="text/css"> code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+{ position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+{ content: attr(title);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; pointer-events: all; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+@media (prefers-color-scheme: dark) {
+code span.al { color: #95da4c; font-weight: bold; } 
+code span.an { color: #3f8058; } 
+code span.at { color: #2980b9; } 
+code span.bn { color: #f67400; } 
+code span.bu { color: #7f8c8d; } 
+code span.ch { color: #3daee9; } 
+code span.co { color: #7a7c7d; } 
+code span.cv { color: #7f8c8d; } 
+code span.cn { color: #27aeae; font-weight: bold; } 
+code span.cf { color: #fdbc4b; font-weight: bold; } 
+code span.dt { color: #2980b9; } 
+code span.dv { color: #f67400; } 
+code span.do { color: #a43340; } 
+code span.er { color: #da4453; } 
+code span.ex { color: #0099ff; font-weight: bold; } 
+code span.fl { color: #f67400; } 
+code span.fu { color: #8e44ad; } 
+code span.im { color: #27ae60; } 
+code span.in { color: #c45b00; } 
+code span.kw { color: #cfcfc2; font-weight: bold; } 
+code span.op { color: #cfcfc2; } 
+code span.ot { color: #27ae60; } 
+code span.pp { color: #27ae60; } 
+code span.sc { color: #3daee9; } 
+code span.ss { color: #da4453; } 
+code span.st { color: #f44f4f; } 
+code span.va { color: #27aeae; } 
+code span.vs { color: #da4453; } 
+code span.wa { color: #da4453; } 
+}</style>
+</head>
+<body>
+<h1 id="categoryapifunction">CategoryAPIFunction</h1>
+<p>These are all the functions in SDL, in alphabetic order. It might be
+easier to look at the Functions section <a href="APIByCategory.html">in
+a specific category</a> instead.</p>
+<!-- END CATEGORY DOCUMENTATION -->
+
+<h2 id="functions">Functions</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryAPIFunction -->
+
+<ul>
+<li><a href="SDL_abs.html">SDL_abs</a></li>
+<li><a href="SDL_acos.html">SDL_acos</a></li>
+<li><a href="SDL_acosf.html">SDL_acosf</a></li>
+<li><a href="SDL_AcquireCameraFrame.html">SDL_AcquireCameraFrame</a></li>
+<li><a href="SDL_AcquireGPUCommandBuffer.html">SDL_AcquireGPUCommandBuffer</a></li>
+<li><a href="SDL_AcquireGPUSwapchainTexture.html">SDL_AcquireGPUSwapchainTexture</a></li>
+<li><a href="SDL_AddAtomicInt.html">SDL_AddAtomicInt</a></li>
+<li><a href="SDL_AddAtomicU32.html">SDL_AddAtomicU32</a></li>
+<li><a href="SDL_AddEventWatch.html">SDL_AddEventWatch</a></li>
+<li><a href="SDL_AddGamepadMapping.html">SDL_AddGamepadMapping</a></li>
+<li><a href="SDL_AddGamepadMappingsFromFile.html">SDL_AddGamepadMappingsFromFile</a></li>
+<li><a href="SDL_AddGamepadMappingsFromIO.html">SDL_AddGamepadMappingsFromIO</a></li>
+<li><a href="SDL_AddHintCallback.html">SDL_AddHintCallback</a></li>
+<li><a href="SDL_AddSurfaceAlternateImage.html">SDL_AddSurfaceAlternateImage</a></li>
+<li><a href="SDL_AddTimer.html">SDL_AddTimer</a></li>
+<li><a href="SDL_AddTimerNS.html">SDL_AddTimerNS</a></li>
+<li><a href="SDL_AddVulkanRenderSemaphores.html">SDL_AddVulkanRenderSemaphores</a></li>
+<li><a href="SDL_aligned_alloc.html">SDL_aligned_alloc</a></li>
+<li><a href="SDL_aligned_free.html">SDL_aligned_free</a></li>
+<li><a href="SDL_AppEvent.html">SDL_AppEvent</a></li>
+<li><a href="SDL_AppInit.html">SDL_AppInit</a></li>
+<li><a href="SDL_AppIterate.html">SDL_AppIterate</a></li>
+<li><a href="SDL_AppQuit.html">SDL_AppQuit</a></li>
+<li><a href="SDL_asin.html">SDL_asin</a></li>
+<li><a href="SDL_asinf.html">SDL_asinf</a></li>
+<li><a href="SDL_asprintf.html">SDL_asprintf</a></li>
+<li><a href="SDL_AsyncIOFromFile.html">SDL_AsyncIOFromFile</a></li>
+<li><a href="SDL_atan.html">SDL_atan</a></li>
+<li><a href="SDL_atan2.html">SDL_atan2</a></li>
+<li><a href="SDL_atan2f.html">SDL_atan2f</a></li>
+<li><a href="SDL_atanf.html">SDL_atanf</a></li>
+<li><a href="SDL_atof.html">SDL_atof</a></li>
+<li><a href="SDL_atoi.html">SDL_atoi</a></li>
+<li><a href="SDL_AttachVirtualJoystick.html">SDL_AttachVirtualJoystick</a></li>
+<li><a href="SDL_AudioDevicePaused.html">SDL_AudioDevicePaused</a></li>
+<li><a href="SDL_AudioStreamDevicePaused.html">SDL_AudioStreamDevicePaused</a></li>
+<li><a href="SDL_BeginGPUComputePass.html">SDL_BeginGPUComputePass</a></li>
+<li><a href="SDL_BeginGPUCopyPass.html">SDL_BeginGPUCopyPass</a></li>
+<li><a href="SDL_BeginGPURenderPass.html">SDL_BeginGPURenderPass</a></li>
+<li><a href="SDL_BindAudioStream.html">SDL_BindAudioStream</a></li>
+<li><a href="SDL_BindAudioStreams.html">SDL_BindAudioStreams</a></li>
+<li><a href="SDL_BindGPUComputePipeline.html">SDL_BindGPUComputePipeline</a></li>
+<li><a href="SDL_BindGPUComputeSamplers.html">SDL_BindGPUComputeSamplers</a></li>
+<li><a href="SDL_BindGPUComputeStorageBuffers.html">SDL_BindGPUComputeStorageBuffers</a></li>
+<li><a href="SDL_BindGPUComputeStorageTextures.html">SDL_BindGPUComputeStorageTextures</a></li>
+<li><a href="SDL_BindGPUFragmentSamplers.html">SDL_BindGPUFragmentSamplers</a></li>
+<li><a href="SDL_BindGPUFragmentStorageBuffers.html">SDL_BindGPUFragmentStorageBuffers</a></li>
+<li><a href="SDL_BindGPUFragmentStorageTextures.html">SDL_BindGPUFragmentStorageTextures</a></li>
+<li><a href="SDL_BindGPUGraphicsPipeline.html">SDL_BindGPUGraphicsPipeline</a></li>
+<li><a href="SDL_BindGPUIndexBuffer.html">SDL_BindGPUIndexBuffer</a></li>
+<li><a href="SDL_BindGPUVertexBuffers.html">SDL_BindGPUVertexBuffers</a></li>
+<li><a href="SDL_BindGPUVertexSamplers.html">SDL_BindGPUVertexSamplers</a></li>
+<li><a href="SDL_BindGPUVertexStorageBuffers.html">SDL_BindGPUVertexStorageBuffers</a></li>
+<li><a href="SDL_BindGPUVertexStorageTextures.html">SDL_BindGPUVertexStorageTextures</a></li>
+<li><a href="SDL_BlitGPUTexture.html">SDL_BlitGPUTexture</a></li>
+<li><a href="SDL_BlitSurface.html">SDL_BlitSurface</a></li>
+<li><a href="SDL_BlitSurface9Grid.html">SDL_BlitSurface9Grid</a></li>
+<li><a href="SDL_BlitSurfaceScaled.html">SDL_BlitSurfaceScaled</a></li>
+<li><a href="SDL_BlitSurfaceTiled.html">SDL_BlitSurfaceTiled</a></li>
+<li><a href="SDL_BlitSurfaceTiledWithScale.html">SDL_BlitSurfaceTiledWithScale</a></li>
+<li><a href="SDL_BlitSurfaceUnchecked.html">SDL_BlitSurfaceUnchecked</a></li>
+<li><a href="SDL_BlitSurfaceUncheckedScaled.html">SDL_BlitSurfaceUncheckedScaled</a></li>
+<li><a href="SDL_BroadcastCondition.html">SDL_BroadcastCondition</a></li>
+<li><a href="SDL_bsearch.html">SDL_bsearch</a></li>
+<li><a href="SDL_bsearch_r.html">SDL_bsearch_r</a></li>
+<li><a href="SDL_CalculateGPUTextureFormatSize.html">SDL_CalculateGPUTextureFormatSize</a></li>
+<li><a href="SDL_calloc.html">SDL_calloc</a></li>
+<li><a href="SDL_CancelGPUCommandBuffer.html">SDL_CancelGPUCommandBuffer</a></li>
+<li><a href="SDL_CaptureMouse.html">SDL_CaptureMouse</a></li>
+<li><a href="SDL_ceil.html">SDL_ceil</a></li>
+<li><a href="SDL_ceilf.html">SDL_ceilf</a></li>
+<li><a href="SDL_ClaimWindowForGPUDevice.html">SDL_ClaimWindowForGPUDevice</a></li>
+<li><a href="SDL_CleanupTLS.html">SDL_CleanupTLS</a></li>
+<li><a href="SDL_ClearAudioStream.html">SDL_ClearAudioStream</a></li>
+<li><a href="SDL_ClearClipboardData.html">SDL_ClearClipboardData</a></li>
+<li><a href="SDL_ClearComposition.html">SDL_ClearComposition</a></li>
+<li><a href="SDL_ClearError.html">SDL_ClearError</a></li>
+<li><a href="SDL_ClearProperty.html">SDL_ClearProperty</a></li>
+<li><a href="SDL_ClearSurface.html">SDL_ClearSurface</a></li>
+<li><a href="SDL_ClickTrayEntry.html">SDL_ClickTrayEntry</a></li>
+<li><a href="SDL_CloseAsyncIO.html">SDL_CloseAsyncIO</a></li>
+<li><a href="SDL_CloseAudioDevice.html">SDL_CloseAudioDevice</a></li>
+<li><a href="SDL_CloseCamera.html">SDL_CloseCamera</a></li>
+<li><a href="SDL_CloseGamepad.html">SDL_CloseGamepad</a></li>
+<li><a href="SDL_CloseHaptic.html">SDL_CloseHaptic</a></li>
+<li><a href="SDL_CloseIO.html">SDL_CloseIO</a></li>
+<li><a href="SDL_CloseJoystick.html">SDL_CloseJoystick</a></li>
+<li><a href="SDL_CloseSensor.html">SDL_CloseSensor</a></li>
+<li><a href="SDL_CloseStorage.html">SDL_CloseStorage</a></li>
+<li><a href="SDL_CompareAndSwapAtomicInt.html">SDL_CompareAndSwapAtomicInt</a></li>
+<li><a href="SDL_CompareAndSwapAtomicPointer.html">SDL_CompareAndSwapAtomicPointer</a></li>
+<li><a href="SDL_CompareAndSwapAtomicU32.html">SDL_CompareAndSwapAtomicU32</a></li>
+<li><a href="SDL_ComposeCustomBlendMode.html">SDL_ComposeCustomBlendMode</a></li>
+<li><a href="SDL_ConvertAudioSamples.html">SDL_ConvertAudioSamples</a></li>
+<li><a href="SDL_ConvertEventToRenderCoordinates.html">SDL_ConvertEventToRenderCoordinates</a></li>
+<li><a href="SDL_ConvertPixels.html">SDL_ConvertPixels</a></li>
+<li><a href="SDL_ConvertPixelsAndColorspace.html">SDL_ConvertPixelsAndColorspace</a></li>
+<li><a href="SDL_ConvertSurface.html">SDL_ConvertSurface</a></li>
+<li><a href="SDL_ConvertSurfaceAndColorspace.html">SDL_ConvertSurfaceAndColorspace</a></li>
+<li><a href="SDL_CopyFile.html">SDL_CopyFile</a></li>
+<li><a href="SDL_CopyGPUBufferToBuffer.html">SDL_CopyGPUBufferToBuffer</a></li>
+<li><a href="SDL_CopyGPUTextureToTexture.html">SDL_CopyGPUTextureToTexture</a></li>
+<li><a href="SDL_CopyProperties.html">SDL_CopyProperties</a></li>
+<li><a href="SDL_copysign.html">SDL_copysign</a></li>
+<li><a href="SDL_copysignf.html">SDL_copysignf</a></li>
+<li><a href="SDL_CopyStorageFile.html">SDL_CopyStorageFile</a></li>
+<li><a href="SDL_cos.html">SDL_cos</a></li>
+<li><a href="SDL_cosf.html">SDL_cosf</a></li>
+<li><a href="SDL_crc16.html">SDL_crc16</a></li>
+<li><a href="SDL_crc32.html">SDL_crc32</a></li>
+<li><a href="SDL_CreateAnimatedCursor.html">SDL_CreateAnimatedCursor</a></li>
+<li><a href="SDL_CreateAsyncIOQueue.html">SDL_CreateAsyncIOQueue</a></li>
+<li><a href="SDL_CreateAudioStream.html">SDL_CreateAudioStream</a></li>
+<li><a href="SDL_CreateColorCursor.html">SDL_CreateColorCursor</a></li>
+<li><a href="SDL_CreateCondition.html">SDL_CreateCondition</a></li>
+<li><a href="SDL_CreateCursor.html">SDL_CreateCursor</a></li>
+<li><a href="SDL_CreateDirectory.html">SDL_CreateDirectory</a></li>
+<li><a href="SDL_CreateEnvironment.html">SDL_CreateEnvironment</a></li>
+<li><a href="SDL_CreateGPUBuffer.html">SDL_CreateGPUBuffer</a></li>
+<li><a href="SDL_CreateGPUComputePipeline.html">SDL_CreateGPUComputePipeline</a></li>
+<li><a href="SDL_CreateGPUDevice.html">SDL_CreateGPUDevice</a></li>
+<li><a href="SDL_CreateGPUDeviceWithProperties.html">SDL_CreateGPUDeviceWithProperties</a></li>
+<li><a href="SDL_CreateGPUGraphicsPipeline.html">SDL_CreateGPUGraphicsPipeline</a></li>
+<li><a href="SDL_CreateGPURenderer.html">SDL_CreateGPURenderer</a></li>
+<li><a href="SDL_CreateGPURenderState.html">SDL_CreateGPURenderState</a></li>
+<li><a href="SDL_CreateGPUSampler.html">SDL_CreateGPUSampler</a></li>
+<li><a href="SDL_CreateGPUShader.html">SDL_CreateGPUShader</a></li>
+<li><a href="SDL_CreateGPUTexture.html">SDL_CreateGPUTexture</a></li>
+<li><a href="SDL_CreateGPUTransferBuffer.html">SDL_CreateGPUTransferBuffer</a></li>
+<li><a href="SDL_CreateGPUXRSession.html">SDL_CreateGPUXRSession</a></li>
+<li><a href="SDL_CreateGPUXRSwapchain.html">SDL_CreateGPUXRSwapchain</a></li>
+<li><a href="SDL_CreateHapticEffect.html">SDL_CreateHapticEffect</a></li>
+<li><a href="SDL_CreateMutex.html">SDL_CreateMutex</a></li>
+<li><a href="SDL_CreatePalette.html">SDL_CreatePalette</a></li>
+<li><a href="SDL_CreatePopupWindow.html">SDL_CreatePopupWindow</a></li>
+<li><a href="SDL_CreateProcess.html">SDL_CreateProcess</a></li>
+<li><a href="SDL_CreateProcessWithProperties.html">SDL_CreateProcessWithProperties</a></li>
+<li><a href="SDL_CreateProperties.html">SDL_CreateProperties</a></li>
+<li><a href="SDL_CreateRenderer.html">SDL_CreateRenderer</a></li>
+<li><a href="SDL_CreateRendererWithProperties.html">SDL_CreateRendererWithProperties</a></li>
+<li><a href="SDL_CreateRWLock.html">SDL_CreateRWLock</a></li>
+<li><a href="SDL_CreateSemaphore.html">SDL_CreateSemaphore</a></li>
+<li><a href="SDL_CreateSoftwareRenderer.html">SDL_CreateSoftwareRenderer</a></li>
+<li><a href="SDL_CreateStorageDirectory.html">SDL_CreateStorageDirectory</a></li>
+<li><a href="SDL_CreateSurface.html">SDL_CreateSurface</a></li>
+<li><a href="SDL_CreateSurfaceFrom.html">SDL_CreateSurfaceFrom</a></li>
+<li><a href="SDL_CreateSurfacePalette.html">SDL_CreateSurfacePalette</a></li>
+<li><a href="SDL_CreateSystemCursor.html">SDL_CreateSystemCursor</a></li>
+<li><a href="SDL_CreateTexture.html">SDL_CreateTexture</a></li>
+<li><a href="SDL_CreateTextureFromSurface.html">SDL_CreateTextureFromSurface</a></li>
+<li><a href="SDL_CreateTextureWithProperties.html">SDL_CreateTextureWithProperties</a></li>
+<li><a href="SDL_CreateThread.html">SDL_CreateThread</a></li>
+<li><a href="SDL_CreateThreadWithProperties.html">SDL_CreateThreadWithProperties</a></li>
+<li><a href="SDL_CreateTray.html">SDL_CreateTray</a></li>
+<li><a href="SDL_CreateTrayMenu.html">SDL_CreateTrayMenu</a></li>
+<li><a href="SDL_CreateTraySubmenu.html">SDL_CreateTraySubmenu</a></li>
+<li><a href="SDL_CreateTrayWithProperties.html">SDL_CreateTrayWithProperties</a></li>
+<li><a href="SDL_CreateWindow.html">SDL_CreateWindow</a></li>
+<li><a href="SDL_CreateWindowAndRenderer.html">SDL_CreateWindowAndRenderer</a></li>
+<li><a href="SDL_CreateWindowWithProperties.html">SDL_CreateWindowWithProperties</a></li>
+<li><a href="SDL_CursorVisible.html">SDL_CursorVisible</a></li>
+<li><a href="SDL_DateTimeToTime.html">SDL_DateTimeToTime</a></li>
+<li><a href="SDL_Delay.html">SDL_Delay</a></li>
+<li><a href="SDL_DelayNS.html">SDL_DelayNS</a></li>
+<li><a href="SDL_DelayPrecise.html">SDL_DelayPrecise</a></li>
+<li><a href="SDL_DestroyAsyncIOQueue.html">SDL_DestroyAsyncIOQueue</a></li>
+<li><a href="SDL_DestroyAudioStream.html">SDL_DestroyAudioStream</a></li>
+<li><a href="SDL_DestroyCondition.html">SDL_DestroyCondition</a></li>
+<li><a href="SDL_DestroyCursor.html">SDL_DestroyCursor</a></li>
+<li><a href="SDL_DestroyEnvironment.html">SDL_DestroyEnvironment</a></li>
+<li><a href="SDL_DestroyGPUDevice.html">SDL_DestroyGPUDevice</a></li>
+<li><a href="SDL_DestroyGPURenderState.html">SDL_DestroyGPURenderState</a></li>
+<li><a href="SDL_DestroyGPUXRSwapchain.html">SDL_DestroyGPUXRSwapchain</a></li>
+<li><a href="SDL_DestroyHapticEffect.html">SDL_DestroyHapticEffect</a></li>
+<li><a href="SDL_DestroyMutex.html">SDL_DestroyMutex</a></li>
+<li><a href="SDL_DestroyPalette.html">SDL_DestroyPalette</a></li>
+<li><a href="SDL_DestroyProcess.html">SDL_DestroyProcess</a></li>
+<li><a href="SDL_DestroyProperties.html">SDL_DestroyProperties</a></li>
+<li><a href="SDL_DestroyRenderer.html">SDL_DestroyRenderer</a></li>
+<li><a href="SDL_DestroyRWLock.html">SDL_DestroyRWLock</a></li>
+<li><a href="SDL_DestroySemaphore.html">SDL_DestroySemaphore</a></li>
+<li><a href="SDL_DestroySurface.html">SDL_DestroySurface</a></li>
+<li><a href="SDL_DestroyTexture.html">SDL_DestroyTexture</a></li>
+<li><a href="SDL_DestroyTray.html">SDL_DestroyTray</a></li>
+<li><a href="SDL_DestroyWindow.html">SDL_DestroyWindow</a></li>
+<li><a href="SDL_DestroyWindowSurface.html">SDL_DestroyWindowSurface</a></li>
+<li><a href="SDL_DetachThread.html">SDL_DetachThread</a></li>
+<li><a href="SDL_DetachVirtualJoystick.html">SDL_DetachVirtualJoystick</a></li>
+<li><a href="SDL_DisableScreenSaver.html">SDL_DisableScreenSaver</a></li>
+<li><a href="SDL_DispatchGPUCompute.html">SDL_DispatchGPUCompute</a></li>
+<li><a href="SDL_DispatchGPUComputeIndirect.html">SDL_DispatchGPUComputeIndirect</a></li>
+<li><a href="SDL_DownloadFromGPUBuffer.html">SDL_DownloadFromGPUBuffer</a></li>
+<li><a href="SDL_DownloadFromGPUTexture.html">SDL_DownloadFromGPUTexture</a></li>
+<li><a href="SDL_DrawGPUIndexedPrimitives.html">SDL_DrawGPUIndexedPrimitives</a></li>
+<li><a href="SDL_DrawGPUIndexedPrimitivesIndirect.html">SDL_DrawGPUIndexedPrimitivesIndirect</a></li>
+<li><a href="SDL_DrawGPUPrimitives.html">SDL_DrawGPUPrimitives</a></li>
+<li><a href="SDL_DrawGPUPrimitivesIndirect.html">SDL_DrawGPUPrimitivesIndirect</a></li>
+<li><a href="SDL_DuplicateSurface.html">SDL_DuplicateSurface</a></li>
+<li><a href="SDL_EGL_GetCurrentConfig.html">SDL_EGL_GetCurrentConfig</a></li>
+<li><a href="SDL_EGL_GetCurrentDisplay.html">SDL_EGL_GetCurrentDisplay</a></li>
+<li><a href="SDL_EGL_GetProcAddress.html">SDL_EGL_GetProcAddress</a></li>
+<li><a href="SDL_EGL_GetWindowSurface.html">SDL_EGL_GetWindowSurface</a></li>
+<li><a href="SDL_EGL_SetAttributeCallbacks.html">SDL_EGL_SetAttributeCallbacks</a></li>
+<li><a href="SDL_EnableScreenSaver.html">SDL_EnableScreenSaver</a></li>
+<li><a href="SDL_EndGPUComputePass.html">SDL_EndGPUComputePass</a></li>
+<li><a href="SDL_EndGPUCopyPass.html">SDL_EndGPUCopyPass</a></li>
+<li><a href="SDL_EndGPURenderPass.html">SDL_EndGPURenderPass</a></li>
+<li><a href="SDL_EnterAppMainCallbacks.html">SDL_EnterAppMainCallbacks</a></li>
+<li><a href="SDL_EnumerateDirectory.html">SDL_EnumerateDirectory</a></li>
+<li><a href="SDL_EnumerateProperties.html">SDL_EnumerateProperties</a></li>
+<li><a href="SDL_EnumerateStorageDirectory.html">SDL_EnumerateStorageDirectory</a></li>
+<li><a href="SDL_EventEnabled.html">SDL_EventEnabled</a></li>
+<li><a href="SDL_exp.html">SDL_exp</a></li>
+<li><a href="SDL_expf.html">SDL_expf</a></li>
+<li><a href="SDL_fabs.html">SDL_fabs</a></li>
+<li><a href="SDL_fabsf.html">SDL_fabsf</a></li>
+<li><a href="SDL_FillSurfaceRect.html">SDL_FillSurfaceRect</a></li>
+<li><a href="SDL_FillSurfaceRects.html">SDL_FillSurfaceRects</a></li>
+<li><a href="SDL_FilterEvents.html">SDL_FilterEvents</a></li>
+<li><a href="SDL_FlashWindow.html">SDL_FlashWindow</a></li>
+<li><a href="SDL_FlipSurface.html">SDL_FlipSurface</a></li>
+<li><a href="SDL_floor.html">SDL_floor</a></li>
+<li><a href="SDL_floorf.html">SDL_floorf</a></li>
+<li><a href="SDL_FlushAudioStream.html">SDL_FlushAudioStream</a></li>
+<li><a href="SDL_FlushEvent.html">SDL_FlushEvent</a></li>
+<li><a href="SDL_FlushEvents.html">SDL_FlushEvents</a></li>
+<li><a href="SDL_FlushIO.html">SDL_FlushIO</a></li>
+<li><a href="SDL_FlushRenderer.html">SDL_FlushRenderer</a></li>
+<li><a href="SDL_fmod.html">SDL_fmod</a></li>
+<li><a href="SDL_fmodf.html">SDL_fmodf</a></li>
+<li><a href="SDL_free.html">SDL_free</a></li>
+<li><a href="SDL_GamepadConnected.html">SDL_GamepadConnected</a></li>
+<li><a href="SDL_GamepadEventsEnabled.html">SDL_GamepadEventsEnabled</a></li>
+<li><a href="SDL_GamepadHasAxis.html">SDL_GamepadHasAxis</a></li>
+<li><a href="SDL_GamepadHasButton.html">SDL_GamepadHasButton</a></li>
+<li><a href="SDL_GamepadHasSensor.html">SDL_GamepadHasSensor</a></li>
+<li><a href="SDL_GamepadSensorEnabled.html">SDL_GamepadSensorEnabled</a></li>
+<li><a href="SDL_GDKResumeGPU.html">SDL_GDKResumeGPU</a></li>
+<li><a href="SDL_GDKResumeRenderer.html">SDL_GDKResumeRenderer</a></li>
+<li><a href="SDL_GDKSuspendComplete.html">SDL_GDKSuspendComplete</a></li>
+<li><a href="SDL_GDKSuspendGPU.html">SDL_GDKSuspendGPU</a></li>
+<li><a href="SDL_GDKSuspendRenderer.html">SDL_GDKSuspendRenderer</a></li>
+<li><a href="SDL_GenerateMipmapsForGPUTexture.html">SDL_GenerateMipmapsForGPUTexture</a></li>
+<li><a href="SDL_GetAndroidActivity.html">SDL_GetAndroidActivity</a></li>
+<li><a href="SDL_GetAndroidCachePath.html">SDL_GetAndroidCachePath</a></li>
+<li><a href="SDL_GetAndroidExternalStoragePath.html">SDL_GetAndroidExternalStoragePath</a></li>
+<li><a href="SDL_GetAndroidExternalStorageState.html">SDL_GetAndroidExternalStorageState</a></li>
+<li><a href="SDL_GetAndroidInternalStoragePath.html">SDL_GetAndroidInternalStoragePath</a></li>
+<li><a href="SDL_GetAndroidJNIEnv.html">SDL_GetAndroidJNIEnv</a></li>
+<li><a href="SDL_GetAndroidSDKVersion.html">SDL_GetAndroidSDKVersion</a></li>
+<li><a href="SDL_GetAppMetadataProperty.html">SDL_GetAppMetadataProperty</a></li>
+<li><a href="SDL_GetAssertionHandler.html">SDL_GetAssertionHandler</a></li>
+<li><a href="SDL_GetAssertionReport.html">SDL_GetAssertionReport</a></li>
+<li><a href="SDL_GetAsyncIOResult.html">SDL_GetAsyncIOResult</a></li>
+<li><a href="SDL_GetAsyncIOSize.html">SDL_GetAsyncIOSize</a></li>
+<li><a href="SDL_GetAtomicInt.html">SDL_GetAtomicInt</a></li>
+<li><a href="SDL_GetAtomicPointer.html">SDL_GetAtomicPointer</a></li>
+<li><a href="SDL_GetAtomicU32.html">SDL_GetAtomicU32</a></li>
+<li><a href="SDL_GetAudioDeviceChannelMap.html">SDL_GetAudioDeviceChannelMap</a></li>
+<li><a href="SDL_GetAudioDeviceFormat.html">SDL_GetAudioDeviceFormat</a></li>
+<li><a href="SDL_GetAudioDeviceGain.html">SDL_GetAudioDeviceGain</a></li>
+<li><a href="SDL_GetAudioDeviceName.html">SDL_GetAudioDeviceName</a></li>
+<li><a href="SDL_GetAudioDriver.html">SDL_GetAudioDriver</a></li>
+<li><a href="SDL_GetAudioFormatName.html">SDL_GetAudioFormatName</a></li>
+<li><a href="SDL_GetAudioPlaybackDevices.html">SDL_GetAudioPlaybackDevices</a></li>
+<li><a href="SDL_GetAudioRecordingDevices.html">SDL_GetAudioRecordingDevices</a></li>
+<li><a href="SDL_GetAudioStreamAvailable.html">SDL_GetAudioStreamAvailable</a></li>
+<li><a href="SDL_GetAudioStreamData.html">SDL_GetAudioStreamData</a></li>
+<li><a href="SDL_GetAudioStreamDevice.html">SDL_GetAudioStreamDevice</a></li>
+<li><a href="SDL_GetAudioStreamFormat.html">SDL_GetAudioStreamFormat</a></li>
+<li><a href="SDL_GetAudioStreamFrequencyRatio.html">SDL_GetAudioStreamFrequencyRatio</a></li>
+<li><a href="SDL_GetAudioStreamGain.html">SDL_GetAudioStreamGain</a></li>
+<li><a href="SDL_GetAudioStreamInputChannelMap.html">SDL_GetAudioStreamInputChannelMap</a></li>
+<li><a href="SDL_GetAudioStreamOutputChannelMap.html">SDL_GetAudioStreamOutputChannelMap</a></li>
+<li><a href="SDL_GetAudioStreamProperties.html">SDL_GetAudioStreamProperties</a></li>
+<li><a href="SDL_GetAudioStreamQueued.html">SDL_GetAudioStreamQueued</a></li>
+<li><a href="SDL_GetBasePath.html">SDL_GetBasePath</a></li>
+<li><a href="SDL_GetBooleanProperty.html">SDL_GetBooleanProperty</a></li>
+<li><a href="SDL_GetCameraDriver.html">SDL_GetCameraDriver</a></li>
+<li><a href="SDL_GetCameraFormat.html">SDL_GetCameraFormat</a></li>
+<li><a href="SDL_GetCameraID.html">SDL_GetCameraID</a></li>
+<li><a href="SDL_GetCameraName.html">SDL_GetCameraName</a></li>
+<li><a href="SDL_GetCameraPermissionState.html">SDL_GetCameraPermissionState</a></li>
+<li><a href="SDL_GetCameraPosition.html">SDL_GetCameraPosition</a></li>
+<li><a href="SDL_GetCameraProperties.html">SDL_GetCameraProperties</a></li>
+<li><a href="SDL_GetCameras.html">SDL_GetCameras</a></li>
+<li><a href="SDL_GetCameraSupportedFormats.html">SDL_GetCameraSupportedFormats</a></li>
+<li><a href="SDL_GetClipboardData.html">SDL_GetClipboardData</a></li>
+<li><a href="SDL_GetClipboardMimeTypes.html">SDL_GetClipboardMimeTypes</a></li>
+<li><a href="SDL_GetClipboardText.html">SDL_GetClipboardText</a></li>
+<li><a href="SDL_GetClosestFullscreenDisplayMode.html">SDL_GetClosestFullscreenDisplayMode</a></li>
+<li><a href="SDL_GetCPUCacheLineSize.html">SDL_GetCPUCacheLineSize</a></li>
+<li><a href="SDL_GetCurrentAudioDriver.html">SDL_GetCurrentAudioDriver</a></li>
+<li><a href="SDL_GetCurrentCameraDriver.html">SDL_GetCurrentCameraDriver</a></li>
+<li><a href="SDL_GetCurrentDirectory.html">SDL_GetCurrentDirectory</a></li>
+<li><a href="SDL_GetCurrentDisplayMode.html">SDL_GetCurrentDisplayMode</a></li>
+<li><a href="SDL_GetCurrentDisplayOrientation.html">SDL_GetCurrentDisplayOrientation</a></li>
+<li><a href="SDL_GetCurrentRenderOutputSize.html">SDL_GetCurrentRenderOutputSize</a></li>
+<li><a href="SDL_GetCurrentThreadID.html">SDL_GetCurrentThreadID</a></li>
+<li><a href="SDL_GetCurrentTime.html">SDL_GetCurrentTime</a></li>
+<li><a href="SDL_GetCurrentVideoDriver.html">SDL_GetCurrentVideoDriver</a></li>
+<li><a href="SDL_GetCursor.html">SDL_GetCursor</a></li>
+<li><a href="SDL_GetDateTimeLocalePreferences.html">SDL_GetDateTimeLocalePreferences</a></li>
+<li><a href="SDL_GetDayOfWeek.html">SDL_GetDayOfWeek</a></li>
+<li><a href="SDL_GetDayOfYear.html">SDL_GetDayOfYear</a></li>
+<li><a href="SDL_GetDaysInMonth.html">SDL_GetDaysInMonth</a></li>
+<li><a href="SDL_GetDefaultAssertionHandler.html">SDL_GetDefaultAssertionHandler</a></li>
+<li><a href="SDL_GetDefaultCursor.html">SDL_GetDefaultCursor</a></li>
+<li><a href="SDL_GetDefaultLogOutputFunction.html">SDL_GetDefaultLogOutputFunction</a></li>
+<li><a href="SDL_GetDefaultTextureScaleMode.html">SDL_GetDefaultTextureScaleMode</a></li>
+<li><a href="SDL_GetDesktopDisplayMode.html">SDL_GetDesktopDisplayMode</a></li>
+<li><a href="SDL_GetDirect3D9AdapterIndex.html">SDL_GetDirect3D9AdapterIndex</a></li>
+<li><a href="SDL_GetDisplayBounds.html">SDL_GetDisplayBounds</a></li>
+<li><a href="SDL_GetDisplayContentScale.html">SDL_GetDisplayContentScale</a></li>
+<li><a href="SDL_GetDisplayForPoint.html">SDL_GetDisplayForPoint</a></li>
+<li><a href="SDL_GetDisplayForRect.html">SDL_GetDisplayForRect</a></li>
+<li><a href="SDL_GetDisplayForWindow.html">SDL_GetDisplayForWindow</a></li>
+<li><a href="SDL_GetDisplayName.html">SDL_GetDisplayName</a></li>
+<li><a href="SDL_GetDisplayProperties.html">SDL_GetDisplayProperties</a></li>
+<li><a href="SDL_GetDisplays.html">SDL_GetDisplays</a></li>
+<li><a href="SDL_GetDisplayUsableBounds.html">SDL_GetDisplayUsableBounds</a></li>
+<li><a href="SDL_GetDXGIOutputInfo.html">SDL_GetDXGIOutputInfo</a></li>
+<li><a href="SDL_getenv.html">SDL_getenv</a></li>
+<li><a href="SDL_getenv_unsafe.html">SDL_getenv_unsafe</a></li>
+<li><a href="SDL_GetEnvironment.html">SDL_GetEnvironment</a></li>
+<li><a href="SDL_GetEnvironmentVariable.html">SDL_GetEnvironmentVariable</a></li>
+<li><a href="SDL_GetEnvironmentVariables.html">SDL_GetEnvironmentVariables</a></li>
+<li><a href="SDL_GetError.html">SDL_GetError</a></li>
+<li><a href="SDL_GetEventDescription.html">SDL_GetEventDescription</a></li>
+<li><a href="SDL_GetEventFilter.html">SDL_GetEventFilter</a></li>
+<li><a href="SDL_GetFloatProperty.html">SDL_GetFloatProperty</a></li>
+<li><a href="SDL_GetFullscreenDisplayModes.html">SDL_GetFullscreenDisplayModes</a></li>
+<li><a href="SDL_GetGamepadAppleSFSymbolsNameForAxis.html">SDL_GetGamepadAppleSFSymbolsNameForAxis</a></li>
+<li><a href="SDL_GetGamepadAppleSFSymbolsNameForButton.html">SDL_GetGamepadAppleSFSymbolsNameForButton</a></li>
+<li><a href="SDL_GetGamepadAxis.html">SDL_GetGamepadAxis</a></li>
+<li><a href="SDL_GetGamepadAxisFromString.html">SDL_GetGamepadAxisFromString</a></li>
+<li><a href="SDL_GetGamepadBindings.html">SDL_GetGamepadBindings</a></li>
+<li><a href="SDL_GetGamepadButton.html">SDL_GetGamepadButton</a></li>
+<li><a href="SDL_GetGamepadButtonFromString.html">SDL_GetGamepadButtonFromString</a></li>
+<li><a href="SDL_GetGamepadButtonLabel.html">SDL_GetGamepadButtonLabel</a></li>
+<li><a href="SDL_GetGamepadButtonLabelForType.html">SDL_GetGamepadButtonLabelForType</a></li>
+<li><a href="SDL_GetGamepadConnectionState.html">SDL_GetGamepadConnectionState</a></li>
+<li><a href="SDL_GetGamepadFirmwareVersion.html">SDL_GetGamepadFirmwareVersion</a></li>
+<li><a href="SDL_GetGamepadFromID.html">SDL_GetGamepadFromID</a></li>
+<li><a href="SDL_GetGamepadFromPlayerIndex.html">SDL_GetGamepadFromPlayerIndex</a></li>
+<li><a href="SDL_GetGamepadGUIDForID.html">SDL_GetGamepadGUIDForID</a></li>
+<li><a href="SDL_GetGamepadID.html">SDL_GetGamepadID</a></li>
+<li><a href="SDL_GetGamepadJoystick.html">SDL_GetGamepadJoystick</a></li>
+<li><a href="SDL_GetGamepadMapping.html">SDL_GetGamepadMapping</a></li>
+<li><a href="SDL_GetGamepadMappingForGUID.html">SDL_GetGamepadMappingForGUID</a></li>
+<li><a href="SDL_GetGamepadMappingForID.html">SDL_GetGamepadMappingForID</a></li>
+<li><a href="SDL_GetGamepadMappings.html">SDL_GetGamepadMappings</a></li>
+<li><a href="SDL_GetGamepadName.html">SDL_GetGamepadName</a></li>
+<li><a href="SDL_GetGamepadNameForID.html">SDL_GetGamepadNameForID</a></li>
+<li><a href="SDL_GetGamepadPath.html">SDL_GetGamepadPath</a></li>
+<li><a href="SDL_GetGamepadPathForID.html">SDL_GetGamepadPathForID</a></li>
+<li><a href="SDL_GetGamepadPlayerIndex.html">SDL_GetGamepadPlayerIndex</a></li>
+<li><a href="SDL_GetGamepadPlayerIndexForID.html">SDL_GetGamepadPlayerIndexForID</a></li>
+<li><a href="SDL_GetGamepadPowerInfo.html">SDL_GetGamepadPowerInfo</a></li>
+<li><a href="SDL_GetGamepadProduct.html">SDL_GetGamepadProduct</a></li>
+<li><a href="SDL_GetGamepadProductForID.html">SDL_GetGamepadProductForID</a></li>
+<li><a href="SDL_GetGamepadProductVersion.html">SDL_GetGamepadProductVersion</a></li>
+<li><a href="SDL_GetGamepadProductVersionForID.html">SDL_GetGamepadProductVersionForID</a></li>
+<li><a href="SDL_GetGamepadProperties.html">SDL_GetGamepadProperties</a></li>
+<li><a href="SDL_GetGamepads.html">SDL_GetGamepads</a></li>
+<li><a href="SDL_GetGamepadSensorData.html">SDL_GetGamepadSensorData</a></li>
+<li><a href="SDL_GetGamepadSensorDataRate.html">SDL_GetGamepadSensorDataRate</a></li>
+<li><a href="SDL_GetGamepadSerial.html">SDL_GetGamepadSerial</a></li>
+<li><a href="SDL_GetGamepadSteamHandle.html">SDL_GetGamepadSteamHandle</a></li>
+<li><a href="SDL_GetGamepadStringForAxis.html">SDL_GetGamepadStringForAxis</a></li>
+<li><a href="SDL_GetGamepadStringForButton.html">SDL_GetGamepadStringForButton</a></li>
+<li><a href="SDL_GetGamepadStringForType.html">SDL_GetGamepadStringForType</a></li>
+<li><a href="SDL_GetGamepadTouchpadFinger.html">SDL_GetGamepadTouchpadFinger</a></li>
+<li><a href="SDL_GetGamepadType.html">SDL_GetGamepadType</a></li>
+<li><a href="SDL_GetGamepadTypeForID.html">SDL_GetGamepadTypeForID</a></li>
+<li><a href="SDL_GetGamepadTypeFromString.html">SDL_GetGamepadTypeFromString</a></li>
+<li><a href="SDL_GetGamepadVendor.html">SDL_GetGamepadVendor</a></li>
+<li><a href="SDL_GetGamepadVendorForID.html">SDL_GetGamepadVendorForID</a></li>
+<li><a href="SDL_GetGDKDefaultUser.html">SDL_GetGDKDefaultUser</a></li>
+<li><a href="SDL_GetGDKTaskQueue.html">SDL_GetGDKTaskQueue</a></li>
+<li><a href="SDL_GetGlobalMouseState.html">SDL_GetGlobalMouseState</a></li>
+<li><a href="SDL_GetGlobalProperties.html">SDL_GetGlobalProperties</a></li>
+<li><a href="SDL_GetGPUDeviceDriver.html">SDL_GetGPUDeviceDriver</a></li>
+<li><a href="SDL_GetGPUDeviceProperties.html">SDL_GetGPUDeviceProperties</a></li>
+<li><a href="SDL_GetGPUDriver.html">SDL_GetGPUDriver</a></li>
+<li><a href="SDL_GetGPURendererDevice.html">SDL_GetGPURendererDevice</a></li>
+<li><a href="SDL_GetGPUShaderFormats.html">SDL_GetGPUShaderFormats</a></li>
+<li><a href="SDL_GetGPUSwapchainTextureFormat.html">SDL_GetGPUSwapchainTextureFormat</a></li>
+<li><a href="SDL_GetGPUTextureFormatFromPixelFormat.html">SDL_GetGPUTextureFormatFromPixelFormat</a></li>
+<li><a href="SDL_GetGPUXRSwapchainFormats.html">SDL_GetGPUXRSwapchainFormats</a></li>
+<li><a href="SDL_GetGrabbedWindow.html">SDL_GetGrabbedWindow</a></li>
+<li><a href="SDL_GetHapticEffectStatus.html">SDL_GetHapticEffectStatus</a></li>
+<li><a href="SDL_GetHapticFeatures.html">SDL_GetHapticFeatures</a></li>
+<li><a href="SDL_GetHapticFromID.html">SDL_GetHapticFromID</a></li>
+<li><a href="SDL_GetHapticID.html">SDL_GetHapticID</a></li>
+<li><a href="SDL_GetHapticName.html">SDL_GetHapticName</a></li>
+<li><a href="SDL_GetHapticNameForID.html">SDL_GetHapticNameForID</a></li>
+<li><a href="SDL_GetHaptics.html">SDL_GetHaptics</a></li>
+<li><a href="SDL_GetHint.html">SDL_GetHint</a></li>
+<li><a href="SDL_GetHintBoolean.html">SDL_GetHintBoolean</a></li>
+<li><a href="SDL_GetIOProperties.html">SDL_GetIOProperties</a></li>
+<li><a href="SDL_GetIOSize.html">SDL_GetIOSize</a></li>
+<li><a href="SDL_GetIOStatus.html">SDL_GetIOStatus</a></li>
+<li><a href="SDL_GetJoystickAxis.html">SDL_GetJoystickAxis</a></li>
+<li><a href="SDL_GetJoystickAxisInitialState.html">SDL_GetJoystickAxisInitialState</a></li>
+<li><a href="SDL_GetJoystickBall.html">SDL_GetJoystickBall</a></li>
+<li><a href="SDL_GetJoystickButton.html">SDL_GetJoystickButton</a></li>
+<li><a href="SDL_GetJoystickConnectionState.html">SDL_GetJoystickConnectionState</a></li>
+<li><a href="SDL_GetJoystickFirmwareVersion.html">SDL_GetJoystickFirmwareVersion</a></li>
+<li><a href="SDL_GetJoystickFromID.html">SDL_GetJoystickFromID</a></li>
+<li><a href="SDL_GetJoystickFromPlayerIndex.html">SDL_GetJoystickFromPlayerIndex</a></li>
+<li><a href="SDL_GetJoystickGUID.html">SDL_GetJoystickGUID</a></li>
+<li><a href="SDL_GetJoystickGUIDForID.html">SDL_GetJoystickGUIDForID</a></li>
+<li><a href="SDL_GetJoystickGUIDInfo.html">SDL_GetJoystickGUIDInfo</a></li>
+<li><a href="SDL_GetJoystickHat.html">SDL_GetJoystickHat</a></li>
+<li><a href="SDL_GetJoystickID.html">SDL_GetJoystickID</a></li>
+<li><a href="SDL_GetJoystickName.html">SDL_GetJoystickName</a></li>
+<li><a href="SDL_GetJoystickNameForID.html">SDL_GetJoystickNameForID</a></li>
+<li><a href="SDL_GetJoystickPath.html">SDL_GetJoystickPath</a></li>
+<li><a href="SDL_GetJoystickPathForID.html">SDL_GetJoystickPathForID</a></li>
+<li><a href="SDL_GetJoystickPlayerIndex.html">SDL_GetJoystickPlayerIndex</a></li>
+<li><a href="SDL_GetJoystickPlayerIndexForID.html">SDL_GetJoystickPlayerIndexForID</a></li>
+<li><a href="SDL_GetJoystickPowerInfo.html">SDL_GetJoystickPowerInfo</a></li>
+<li><a href="SDL_GetJoystickProduct.html">SDL_GetJoystickProduct</a></li>
+<li><a href="SDL_GetJoystickProductForID.html">SDL_GetJoystickProductForID</a></li>
+<li><a href="SDL_GetJoystickProductVersion.html">SDL_GetJoystickProductVersion</a></li>
+<li><a href="SDL_GetJoystickProductVersionForID.html">SDL_GetJoystickProductVersionForID</a></li>
+<li><a href="SDL_GetJoystickProperties.html">SDL_GetJoystickProperties</a></li>
+<li><a href="SDL_GetJoysticks.html">SDL_GetJoysticks</a></li>
+<li><a href="SDL_GetJoystickSerial.html">SDL_GetJoystickSerial</a></li>
+<li><a href="SDL_GetJoystickType.html">SDL_GetJoystickType</a></li>
+<li><a href="SDL_GetJoystickTypeForID.html">SDL_GetJoystickTypeForID</a></li>
+<li><a href="SDL_GetJoystickVendor.html">SDL_GetJoystickVendor</a></li>
+<li><a href="SDL_GetJoystickVendorForID.html">SDL_GetJoystickVendorForID</a></li>
+<li><a href="SDL_GetKeyboardFocus.html">SDL_GetKeyboardFocus</a></li>
+<li><a href="SDL_GetKeyboardNameForID.html">SDL_GetKeyboardNameForID</a></li>
+<li><a href="SDL_GetKeyboards.html">SDL_GetKeyboards</a></li>
+<li><a href="SDL_GetKeyboardState.html">SDL_GetKeyboardState</a></li>
+<li><a href="SDL_GetKeyFromName.html">SDL_GetKeyFromName</a></li>
+<li><a href="SDL_GetKeyFromScancode.html">SDL_GetKeyFromScancode</a></li>
+<li><a href="SDL_GetKeyName.html">SDL_GetKeyName</a></li>
+<li><a href="SDL_GetLogOutputFunction.html">SDL_GetLogOutputFunction</a></li>
+<li><a href="SDL_GetLogPriority.html">SDL_GetLogPriority</a></li>
+<li><a href="SDL_GetMasksForPixelFormat.html">SDL_GetMasksForPixelFormat</a></li>
+<li><a href="SDL_GetMaxHapticEffects.html">SDL_GetMaxHapticEffects</a></li>
+<li><a href="SDL_GetMaxHapticEffectsPlaying.html">SDL_GetMaxHapticEffectsPlaying</a></li>
+<li><a href="SDL_GetMemoryFunctions.html">SDL_GetMemoryFunctions</a></li>
+<li><a href="SDL_GetMice.html">SDL_GetMice</a></li>
+<li><a href="SDL_GetModState.html">SDL_GetModState</a></li>
+<li><a href="SDL_GetMouseFocus.html">SDL_GetMouseFocus</a></li>
+<li><a href="SDL_GetMouseNameForID.html">SDL_GetMouseNameForID</a></li>
+<li><a href="SDL_GetMouseState.html">SDL_GetMouseState</a></li>
+<li><a href="SDL_GetNaturalDisplayOrientation.html">SDL_GetNaturalDisplayOrientation</a></li>
+<li><a href="SDL_GetNumAllocations.html">SDL_GetNumAllocations</a></li>
+<li><a href="SDL_GetNumAudioDrivers.html">SDL_GetNumAudioDrivers</a></li>
+<li><a href="SDL_GetNumberProperty.html">SDL_GetNumberProperty</a></li>
+<li><a href="SDL_GetNumCameraDrivers.html">SDL_GetNumCameraDrivers</a></li>
+<li><a href="SDL_GetNumGamepadTouchpadFingers.html">SDL_GetNumGamepadTouchpadFingers</a></li>
+<li><a href="SDL_GetNumGamepadTouchpads.html">SDL_GetNumGamepadTouchpads</a></li>
+<li><a href="SDL_GetNumGPUDrivers.html">SDL_GetNumGPUDrivers</a></li>
+<li><a href="SDL_GetNumHapticAxes.html">SDL_GetNumHapticAxes</a></li>
+<li><a href="SDL_GetNumJoystickAxes.html">SDL_GetNumJoystickAxes</a></li>
+<li><a href="SDL_GetNumJoystickBalls.html">SDL_GetNumJoystickBalls</a></li>
+<li><a href="SDL_GetNumJoystickButtons.html">SDL_GetNumJoystickButtons</a></li>
+<li><a href="SDL_GetNumJoystickHats.html">SDL_GetNumJoystickHats</a></li>
+<li><a href="SDL_GetNumLogicalCPUCores.html">SDL_GetNumLogicalCPUCores</a></li>
+<li><a href="SDL_GetNumRenderDrivers.html">SDL_GetNumRenderDrivers</a></li>
+<li><a href="SDL_GetNumVideoDrivers.html">SDL_GetNumVideoDrivers</a></li>
+<li><a href="SDL_GetOriginalMemoryFunctions.html">SDL_GetOriginalMemoryFunctions</a></li>
+<li><a href="SDL_GetPathInfo.html">SDL_GetPathInfo</a></li>
+<li><a href="SDL_GetPenDeviceType.html">SDL_GetPenDeviceType</a></li>
+<li><a href="SDL_GetPerformanceCounter.html">SDL_GetPerformanceCounter</a></li>
+<li><a href="SDL_GetPerformanceFrequency.html">SDL_GetPerformanceFrequency</a></li>
+<li><a href="SDL_GetPixelFormatDetails.html">SDL_GetPixelFormatDetails</a></li>
+<li><a href="SDL_GetPixelFormatForMasks.html">SDL_GetPixelFormatForMasks</a></li>
+<li><a href="SDL_GetPixelFormatFromGPUTextureFormat.html">SDL_GetPixelFormatFromGPUTextureFormat</a></li>
+<li><a href="SDL_GetPixelFormatName.html">SDL_GetPixelFormatName</a></li>
+<li><a href="SDL_GetPlatform.html">SDL_GetPlatform</a></li>
+<li><a href="SDL_GetPointerProperty.html">SDL_GetPointerProperty</a></li>
+<li><a href="SDL_GetPowerInfo.html">SDL_GetPowerInfo</a></li>
+<li><a href="SDL_GetPreferredLocales.html">SDL_GetPreferredLocales</a></li>
+<li><a href="SDL_GetPrefPath.html">SDL_GetPrefPath</a></li>
+<li><a href="SDL_GetPrimaryDisplay.html">SDL_GetPrimaryDisplay</a></li>
+<li><a href="SDL_GetPrimarySelectionText.html">SDL_GetPrimarySelectionText</a></li>
+<li><a href="SDL_GetProcessInput.html">SDL_GetProcessInput</a></li>
+<li><a href="SDL_GetProcessOutput.html">SDL_GetProcessOutput</a></li>
+<li><a href="SDL_GetProcessProperties.html">SDL_GetProcessProperties</a></li>
+<li><a href="SDL_GetPropertyType.html">SDL_GetPropertyType</a></li>
+<li><a href="SDL_GetRealGamepadType.html">SDL_GetRealGamepadType</a></li>
+<li><a href="SDL_GetRealGamepadTypeForID.html">SDL_GetRealGamepadTypeForID</a></li>
+<li><a href="SDL_GetRectAndLineIntersection.html">SDL_GetRectAndLineIntersection</a></li>
+<li><a href="SDL_GetRectAndLineIntersectionFloat.html">SDL_GetRectAndLineIntersectionFloat</a></li>
+<li><a href="SDL_GetRectEnclosingPoints.html">SDL_GetRectEnclosingPoints</a></li>
+<li><a href="SDL_GetRectEnclosingPointsFloat.html">SDL_GetRectEnclosingPointsFloat</a></li>
+<li><a href="SDL_GetRectIntersection.html">SDL_GetRectIntersection</a></li>
+<li><a href="SDL_GetRectIntersectionFloat.html">SDL_GetRectIntersectionFloat</a></li>
+<li><a href="SDL_GetRectUnion.html">SDL_GetRectUnion</a></li>
+<li><a href="SDL_GetRectUnionFloat.html">SDL_GetRectUnionFloat</a></li>
+<li><a href="SDL_GetRelativeMouseState.html">SDL_GetRelativeMouseState</a></li>
+<li><a href="SDL_GetRenderClipRect.html">SDL_GetRenderClipRect</a></li>
+<li><a href="SDL_GetRenderColorScale.html">SDL_GetRenderColorScale</a></li>
+<li><a href="SDL_GetRenderDrawBlendMode.html">SDL_GetRenderDrawBlendMode</a></li>
+<li><a href="SDL_GetRenderDrawColor.html">SDL_GetRenderDrawColor</a></li>
+<li><a href="SDL_GetRenderDrawColorFloat.html">SDL_GetRenderDrawColorFloat</a></li>
+<li><a href="SDL_GetRenderDriver.html">SDL_GetRenderDriver</a></li>
+<li><a href="SDL_GetRenderer.html">SDL_GetRenderer</a></li>
+<li><a href="SDL_GetRendererFromTexture.html">SDL_GetRendererFromTexture</a></li>
+<li><a href="SDL_GetRendererName.html">SDL_GetRendererName</a></li>
+<li><a href="SDL_GetRendererProperties.html">SDL_GetRendererProperties</a></li>
+<li><a href="SDL_GetRenderLogicalPresentation.html">SDL_GetRenderLogicalPresentation</a></li>
+<li><a href="SDL_GetRenderLogicalPresentationRect.html">SDL_GetRenderLogicalPresentationRect</a></li>
+<li><a href="SDL_GetRenderMetalCommandEncoder.html">SDL_GetRenderMetalCommandEncoder</a></li>
+<li><a href="SDL_GetRenderMetalLayer.html">SDL_GetRenderMetalLayer</a></li>
+<li><a href="SDL_GetRenderOutputSize.html">SDL_GetRenderOutputSize</a></li>
+<li><a href="SDL_GetRenderSafeArea.html">SDL_GetRenderSafeArea</a></li>
+<li><a href="SDL_GetRenderScale.html">SDL_GetRenderScale</a></li>
+<li><a href="SDL_GetRenderTarget.html">SDL_GetRenderTarget</a></li>
+<li><a href="SDL_GetRenderTextureAddressMode.html">SDL_GetRenderTextureAddressMode</a></li>
+<li><a href="SDL_GetRenderViewport.html">SDL_GetRenderViewport</a></li>
+<li><a href="SDL_GetRenderVSync.html">SDL_GetRenderVSync</a></li>
+<li><a href="SDL_GetRenderWindow.html">SDL_GetRenderWindow</a></li>
+<li><a href="SDL_GetRevision.html">SDL_GetRevision</a></li>
+<li><a href="SDL_GetRGB.html">SDL_GetRGB</a></li>
+<li><a href="SDL_GetRGBA.html">SDL_GetRGBA</a></li>
+<li><a href="SDL_GetSandbox.html">SDL_GetSandbox</a></li>
+<li><a href="SDL_GetScancodeFromKey.html">SDL_GetScancodeFromKey</a></li>
+<li><a href="SDL_GetScancodeFromName.html">SDL_GetScancodeFromName</a></li>
+<li><a href="SDL_GetScancodeName.html">SDL_GetScancodeName</a></li>
+<li><a href="SDL_GetSemaphoreValue.html">SDL_GetSemaphoreValue</a></li>
+<li><a href="SDL_GetSensorData.html">SDL_GetSensorData</a></li>
+<li><a href="SDL_GetSensorFromID.html">SDL_GetSensorFromID</a></li>
+<li><a href="SDL_GetSensorID.html">SDL_GetSensorID</a></li>
+<li><a href="SDL_GetSensorName.html">SDL_GetSensorName</a></li>
+<li><a href="SDL_GetSensorNameForID.html">SDL_GetSensorNameForID</a></li>
+<li><a href="SDL_GetSensorNonPortableType.html">SDL_GetSensorNonPortableType</a></li>
+<li><a href="SDL_GetSensorNonPortableTypeForID.html">SDL_GetSensorNonPortableTypeForID</a></li>
+<li><a href="SDL_GetSensorProperties.html">SDL_GetSensorProperties</a></li>
+<li><a href="SDL_GetSensors.html">SDL_GetSensors</a></li>
+<li><a href="SDL_GetSensorType.html">SDL_GetSensorType</a></li>
+<li><a href="SDL_GetSensorTypeForID.html">SDL_GetSensorTypeForID</a></li>
+<li><a href="SDL_GetSilenceValueForFormat.html">SDL_GetSilenceValueForFormat</a></li>
+<li><a href="SDL_GetSIMDAlignment.html">SDL_GetSIMDAlignment</a></li>
+<li><a href="SDL_GetStorageFileSize.html">SDL_GetStorageFileSize</a></li>
+<li><a href="SDL_GetStoragePathInfo.html">SDL_GetStoragePathInfo</a></li>
+<li><a href="SDL_GetStorageSpaceRemaining.html">SDL_GetStorageSpaceRemaining</a></li>
+<li><a href="SDL_GetStringProperty.html">SDL_GetStringProperty</a></li>
+<li><a href="SDL_GetSurfaceAlphaMod.html">SDL_GetSurfaceAlphaMod</a></li>
+<li><a href="SDL_GetSurfaceBlendMode.html">SDL_GetSurfaceBlendMode</a></li>
+<li><a href="SDL_GetSurfaceClipRect.html">SDL_GetSurfaceClipRect</a></li>
+<li><a href="SDL_GetSurfaceColorKey.html">SDL_GetSurfaceColorKey</a></li>
+<li><a href="SDL_GetSurfaceColorMod.html">SDL_GetSurfaceColorMod</a></li>
+<li><a href="SDL_GetSurfaceColorspace.html">SDL_GetSurfaceColorspace</a></li>
+<li><a href="SDL_GetSurfaceImages.html">SDL_GetSurfaceImages</a></li>
+<li><a href="SDL_GetSurfacePalette.html">SDL_GetSurfacePalette</a></li>
+<li><a href="SDL_GetSurfaceProperties.html">SDL_GetSurfaceProperties</a></li>
+<li><a href="SDL_GetSystemPageSize.html">SDL_GetSystemPageSize</a></li>
+<li><a href="SDL_GetSystemRAM.html">SDL_GetSystemRAM</a></li>
+<li><a href="SDL_GetSystemTheme.html">SDL_GetSystemTheme</a></li>
+<li><a href="SDL_GetTextInputArea.html">SDL_GetTextInputArea</a></li>
+<li><a href="SDL_GetTextureAlphaMod.html">SDL_GetTextureAlphaMod</a></li>
+<li><a href="SDL_GetTextureAlphaModFloat.html">SDL_GetTextureAlphaModFloat</a></li>
+<li><a href="SDL_GetTextureBlendMode.html">SDL_GetTextureBlendMode</a></li>
+<li><a href="SDL_GetTextureColorMod.html">SDL_GetTextureColorMod</a></li>
+<li><a href="SDL_GetTextureColorModFloat.html">SDL_GetTextureColorModFloat</a></li>
+<li><a href="SDL_GetTexturePalette.html">SDL_GetTexturePalette</a></li>
+<li><a href="SDL_GetTextureProperties.html">SDL_GetTextureProperties</a></li>
+<li><a href="SDL_GetTextureScaleMode.html">SDL_GetTextureScaleMode</a></li>
+<li><a href="SDL_GetTextureSize.html">SDL_GetTextureSize</a></li>
+<li><a href="SDL_GetThreadID.html">SDL_GetThreadID</a></li>
+<li><a href="SDL_GetThreadName.html">SDL_GetThreadName</a></li>
+<li><a href="SDL_GetThreadState.html">SDL_GetThreadState</a></li>
+<li><a href="SDL_GetTicks.html">SDL_GetTicks</a></li>
+<li><a href="SDL_GetTicksNS.html">SDL_GetTicksNS</a></li>
+<li><a href="SDL_GetTLS.html">SDL_GetTLS</a></li>
+<li><a href="SDL_GetTouchDeviceName.html">SDL_GetTouchDeviceName</a></li>
+<li><a href="SDL_GetTouchDevices.html">SDL_GetTouchDevices</a></li>
+<li><a href="SDL_GetTouchDeviceType.html">SDL_GetTouchDeviceType</a></li>
+<li><a href="SDL_GetTouchFingers.html">SDL_GetTouchFingers</a></li>
+<li><a href="SDL_GetTrayEntries.html">SDL_GetTrayEntries</a></li>
+<li><a href="SDL_GetTrayEntryChecked.html">SDL_GetTrayEntryChecked</a></li>
+<li><a href="SDL_GetTrayEntryEnabled.html">SDL_GetTrayEntryEnabled</a></li>
+<li><a href="SDL_GetTrayEntryLabel.html">SDL_GetTrayEntryLabel</a></li>
+<li><a href="SDL_GetTrayEntryParent.html">SDL_GetTrayEntryParent</a></li>
+<li><a href="SDL_GetTrayMenu.html">SDL_GetTrayMenu</a></li>
+<li><a href="SDL_GetTrayMenuParentEntry.html">SDL_GetTrayMenuParentEntry</a></li>
+<li><a href="SDL_GetTrayMenuParentTray.html">SDL_GetTrayMenuParentTray</a></li>
+<li><a href="SDL_GetTraySubmenu.html">SDL_GetTraySubmenu</a></li>
+<li><a href="SDL_GetUserFolder.html">SDL_GetUserFolder</a></li>
+<li><a href="SDL_GetVersion.html">SDL_GetVersion</a></li>
+<li><a href="SDL_GetVideoDriver.html">SDL_GetVideoDriver</a></li>
+<li><a href="SDL_GetWindowAspectRatio.html">SDL_GetWindowAspectRatio</a></li>
+<li><a href="SDL_GetWindowBordersSize.html">SDL_GetWindowBordersSize</a></li>
+<li><a href="SDL_GetWindowDisplayScale.html">SDL_GetWindowDisplayScale</a></li>
+<li><a href="SDL_GetWindowFlags.html">SDL_GetWindowFlags</a></li>
+<li><a href="SDL_GetWindowFromEvent.html">SDL_GetWindowFromEvent</a></li>
+<li><a href="SDL_GetWindowFromID.html">SDL_GetWindowFromID</a></li>
+<li><a href="SDL_GetWindowFullscreenMode.html">SDL_GetWindowFullscreenMode</a></li>
+<li><a href="SDL_GetWindowICCProfile.html">SDL_GetWindowICCProfile</a></li>
+<li><a href="SDL_GetWindowID.html">SDL_GetWindowID</a></li>
+<li><a href="SDL_GetWindowKeyboardGrab.html">SDL_GetWindowKeyboardGrab</a></li>
+<li><a href="SDL_GetWindowMaximumSize.html">SDL_GetWindowMaximumSize</a></li>
+<li><a href="SDL_GetWindowMinimumSize.html">SDL_GetWindowMinimumSize</a></li>
+<li><a href="SDL_GetWindowMouseGrab.html">SDL_GetWindowMouseGrab</a></li>
+<li><a href="SDL_GetWindowMouseRect.html">SDL_GetWindowMouseRect</a></li>
+<li><a href="SDL_GetWindowOpacity.html">SDL_GetWindowOpacity</a></li>
+<li><a href="SDL_GetWindowParent.html">SDL_GetWindowParent</a></li>
+<li><a href="SDL_GetWindowPixelDensity.html">SDL_GetWindowPixelDensity</a></li>
+<li><a href="SDL_GetWindowPixelFormat.html">SDL_GetWindowPixelFormat</a></li>
+<li><a href="SDL_GetWindowPosition.html">SDL_GetWindowPosition</a></li>
+<li><a href="SDL_GetWindowProgressState.html">SDL_GetWindowProgressState</a></li>
+<li><a href="SDL_GetWindowProgressValue.html">SDL_GetWindowProgressValue</a></li>
+<li><a href="SDL_GetWindowProperties.html">SDL_GetWindowProperties</a></li>
+<li><a href="SDL_GetWindowRelativeMouseMode.html">SDL_GetWindowRelativeMouseMode</a></li>
+<li><a href="SDL_GetWindows.html">SDL_GetWindows</a></li>
+<li><a href="SDL_GetWindowSafeArea.html">SDL_GetWindowSafeArea</a></li>
+<li><a href="SDL_GetWindowSize.html">SDL_GetWindowSize</a></li>
+<li><a href="SDL_GetWindowSizeInPixels.html">SDL_GetWindowSizeInPixels</a></li>
+<li><a href="SDL_GetWindowSurface.html">SDL_GetWindowSurface</a></li>
+<li><a href="SDL_GetWindowSurfaceVSync.html">SDL_GetWindowSurfaceVSync</a></li>
+<li><a href="SDL_GetWindowTitle.html">SDL_GetWindowTitle</a></li>
+<li><a href="SDL_GL_CreateContext.html">SDL_GL_CreateContext</a></li>
+<li><a href="SDL_GL_DestroyContext.html">SDL_GL_DestroyContext</a></li>
+<li><a href="SDL_GL_ExtensionSupported.html">SDL_GL_ExtensionSupported</a></li>
+<li><a href="SDL_GL_GetAttribute.html">SDL_GL_GetAttribute</a></li>
+<li><a href="SDL_GL_GetCurrentContext.html">SDL_GL_GetCurrentContext</a></li>
+<li><a href="SDL_GL_GetCurrentWindow.html">SDL_GL_GetCurrentWindow</a></li>
+<li><a href="SDL_GL_GetProcAddress.html">SDL_GL_GetProcAddress</a></li>
+<li><a href="SDL_GL_GetSwapInterval.html">SDL_GL_GetSwapInterval</a></li>
+<li><a href="SDL_GL_LoadLibrary.html">SDL_GL_LoadLibrary</a></li>
+<li><a href="SDL_GL_MakeCurrent.html">SDL_GL_MakeCurrent</a></li>
+<li><a href="SDL_GL_ResetAttributes.html">SDL_GL_ResetAttributes</a></li>
+<li><a href="SDL_GL_SetAttribute.html">SDL_GL_SetAttribute</a></li>
+<li><a href="SDL_GL_SetSwapInterval.html">SDL_GL_SetSwapInterval</a></li>
+<li><a href="SDL_GL_SwapWindow.html">SDL_GL_SwapWindow</a></li>
+<li><a href="SDL_GL_UnloadLibrary.html">SDL_GL_UnloadLibrary</a></li>
+<li><a href="SDL_GlobDirectory.html">SDL_GlobDirectory</a></li>
+<li><a href="SDL_GlobStorageDirectory.html">SDL_GlobStorageDirectory</a></li>
+<li><a href="SDL_GPUSupportsProperties.html">SDL_GPUSupportsProperties</a></li>
+<li><a href="SDL_GPUSupportsShaderFormats.html">SDL_GPUSupportsShaderFormats</a></li>
+<li><a href="SDL_GPUTextureFormatTexelBlockSize.html">SDL_GPUTextureFormatTexelBlockSize</a></li>
+<li><a href="SDL_GPUTextureSupportsFormat.html">SDL_GPUTextureSupportsFormat</a></li>
+<li><a href="SDL_GPUTextureSupportsSampleCount.html">SDL_GPUTextureSupportsSampleCount</a></li>
+<li><a href="SDL_GUIDToString.html">SDL_GUIDToString</a></li>
+<li><a href="SDL_HapticEffectSupported.html">SDL_HapticEffectSupported</a></li>
+<li><a href="SDL_HapticRumbleSupported.html">SDL_HapticRumbleSupported</a></li>
+<li><a href="SDL_HasAltiVec.html">SDL_HasAltiVec</a></li>
+<li><a href="SDL_HasARMSIMD.html">SDL_HasARMSIMD</a></li>
+<li><a href="SDL_HasAVX.html">SDL_HasAVX</a></li>
+<li><a href="SDL_HasAVX2.html">SDL_HasAVX2</a></li>
+<li><a href="SDL_HasAVX512F.html">SDL_HasAVX512F</a></li>
+<li><a href="SDL_HasClipboardData.html">SDL_HasClipboardData</a></li>
+<li><a href="SDL_HasClipboardText.html">SDL_HasClipboardText</a></li>
+<li><a href="SDL_HasEvent.html">SDL_HasEvent</a></li>
+<li><a href="SDL_HasEvents.html">SDL_HasEvents</a></li>
+<li><a href="SDL_HasExactlyOneBitSet32.html">SDL_HasExactlyOneBitSet32</a></li>
+<li><a href="SDL_HasGamepad.html">SDL_HasGamepad</a></li>
+<li><a href="SDL_HasJoystick.html">SDL_HasJoystick</a></li>
+<li><a href="SDL_HasKeyboard.html">SDL_HasKeyboard</a></li>
+<li><a href="SDL_HasLASX.html">SDL_HasLASX</a></li>
+<li><a href="SDL_HasLSX.html">SDL_HasLSX</a></li>
+<li><a href="SDL_HasMMX.html">SDL_HasMMX</a></li>
+<li><a href="SDL_HasMouse.html">SDL_HasMouse</a></li>
+<li><a href="SDL_HasNEON.html">SDL_HasNEON</a></li>
+<li><a href="SDL_HasPrimarySelectionText.html">SDL_HasPrimarySelectionText</a></li>
+<li><a href="SDL_HasProperty.html">SDL_HasProperty</a></li>
+<li><a href="SDL_HasRectIntersection.html">SDL_HasRectIntersection</a></li>
+<li><a href="SDL_HasRectIntersectionFloat.html">SDL_HasRectIntersectionFloat</a></li>
+<li><a href="SDL_HasScreenKeyboardSupport.html">SDL_HasScreenKeyboardSupport</a></li>
+<li><a href="SDL_HasSSE.html">SDL_HasSSE</a></li>
+<li><a href="SDL_HasSSE2.html">SDL_HasSSE2</a></li>
+<li><a href="SDL_HasSSE3.html">SDL_HasSSE3</a></li>
+<li><a href="SDL_HasSSE41.html">SDL_HasSSE41</a></li>
+<li><a href="SDL_HasSSE42.html">SDL_HasSSE42</a></li>
+<li><a href="SDL_hid_ble_scan.html">SDL_hid_ble_scan</a></li>
+<li><a href="SDL_hid_close.html">SDL_hid_close</a></li>
+<li><a href="SDL_hid_device_change_count.html">SDL_hid_device_change_count</a></li>
+<li><a href="SDL_hid_enumerate.html">SDL_hid_enumerate</a></li>
+<li><a href="SDL_hid_exit.html">SDL_hid_exit</a></li>
+<li><a href="SDL_hid_free_enumeration.html">SDL_hid_free_enumeration</a></li>
+<li><a href="SDL_hid_get_device_info.html">SDL_hid_get_device_info</a></li>
+<li><a href="SDL_hid_get_feature_report.html">SDL_hid_get_feature_report</a></li>
+<li><a href="SDL_hid_get_indexed_string.html">SDL_hid_get_indexed_string</a></li>
+<li><a href="SDL_hid_get_input_report.html">SDL_hid_get_input_report</a></li>
+<li><a href="SDL_hid_get_manufacturer_string.html">SDL_hid_get_manufacturer_string</a></li>
+<li><a href="SDL_hid_get_product_string.html">SDL_hid_get_product_string</a></li>
+<li><a href="SDL_hid_get_properties.html">SDL_hid_get_properties</a></li>
+<li><a href="SDL_hid_get_report_descriptor.html">SDL_hid_get_report_descriptor</a></li>
+<li><a href="SDL_hid_get_serial_number_string.html">SDL_hid_get_serial_number_string</a></li>
+<li><a href="SDL_hid_init.html">SDL_hid_init</a></li>
+<li><a href="SDL_hid_open.html">SDL_hid_open</a></li>
+<li><a href="SDL_hid_open_path.html">SDL_hid_open_path</a></li>
+<li><a href="SDL_hid_read.html">SDL_hid_read</a></li>
+<li><a href="SDL_hid_read_timeout.html">SDL_hid_read_timeout</a></li>
+<li><a href="SDL_hid_send_feature_report.html">SDL_hid_send_feature_report</a></li>
+<li><a href="SDL_hid_set_nonblocking.html">SDL_hid_set_nonblocking</a></li>
+<li><a href="SDL_hid_write.html">SDL_hid_write</a></li>
+<li><a href="SDL_HideCursor.html">SDL_HideCursor</a></li>
+<li><a href="SDL_HideWindow.html">SDL_HideWindow</a></li>
+<li><a href="SDL_iconv.html">SDL_iconv</a></li>
+<li><a href="SDL_iconv_close.html">SDL_iconv_close</a></li>
+<li><a href="SDL_iconv_open.html">SDL_iconv_open</a></li>
+<li><a href="SDL_iconv_string.html">SDL_iconv_string</a></li>
+<li><a href="SDL_Init.html">SDL_Init</a></li>
+<li><a href="SDL_InitHapticRumble.html">SDL_InitHapticRumble</a></li>
+<li><a href="SDL_InitSubSystem.html">SDL_InitSubSystem</a></li>
+<li><a href="SDL_InsertGPUDebugLabel.html">SDL_InsertGPUDebugLabel</a></li>
+<li><a href="SDL_InsertTrayEntryAt.html">SDL_InsertTrayEntryAt</a></li>
+<li><a href="SDL_IOFromConstMem.html">SDL_IOFromConstMem</a></li>
+<li><a href="SDL_IOFromDynamicMem.html">SDL_IOFromDynamicMem</a></li>
+<li><a href="SDL_IOFromFile.html">SDL_IOFromFile</a></li>
+<li><a href="SDL_IOFromMem.html">SDL_IOFromMem</a></li>
+<li><a href="SDL_IOprintf.html">SDL_IOprintf</a></li>
+<li><a href="SDL_IOvprintf.html">SDL_IOvprintf</a></li>
+<li><a href="SDL_isalnum.html">SDL_isalnum</a></li>
+<li><a href="SDL_isalpha.html">SDL_isalpha</a></li>
+<li><a href="SDL_IsAudioDevicePhysical.html">SDL_IsAudioDevicePhysical</a></li>
+<li><a href="SDL_IsAudioDevicePlayback.html">SDL_IsAudioDevicePlayback</a></li>
+<li><a href="SDL_isblank.html">SDL_isblank</a></li>
+<li><a href="SDL_IsChromebook.html">SDL_IsChromebook</a></li>
+<li><a href="SDL_iscntrl.html">SDL_iscntrl</a></li>
+<li><a href="SDL_IsDeXMode.html">SDL_IsDeXMode</a></li>
+<li><a href="SDL_isdigit.html">SDL_isdigit</a></li>
+<li><a href="SDL_IsGamepad.html">SDL_IsGamepad</a></li>
+<li><a href="SDL_isgraph.html">SDL_isgraph</a></li>
+<li><a href="SDL_isinf.html">SDL_isinf</a></li>
+<li><a href="SDL_isinff.html">SDL_isinff</a></li>
+<li><a href="SDL_IsJoystickHaptic.html">SDL_IsJoystickHaptic</a></li>
+<li><a href="SDL_IsJoystickVirtual.html">SDL_IsJoystickVirtual</a></li>
+<li><a href="SDL_islower.html">SDL_islower</a></li>
+<li><a href="SDL_IsMainThread.html">SDL_IsMainThread</a></li>
+<li><a href="SDL_IsMouseHaptic.html">SDL_IsMouseHaptic</a></li>
+<li><a href="SDL_isnan.html">SDL_isnan</a></li>
+<li><a href="SDL_isnanf.html">SDL_isnanf</a></li>
+<li><a href="SDL_IsPhone.html">SDL_IsPhone</a></li>
+<li><a href="SDL_isprint.html">SDL_isprint</a></li>
+<li><a href="SDL_ispunct.html">SDL_ispunct</a></li>
+<li><a href="SDL_isspace.html">SDL_isspace</a></li>
+<li><a href="SDL_IsTablet.html">SDL_IsTablet</a></li>
+<li><a href="SDL_IsTV.html">SDL_IsTV</a></li>
+<li><a href="SDL_isupper.html">SDL_isupper</a></li>
+<li><a href="SDL_isxdigit.html">SDL_isxdigit</a></li>
+<li><a href="SDL_itoa.html">SDL_itoa</a></li>
+<li><a href="SDL_JoystickConnected.html">SDL_JoystickConnected</a></li>
+<li><a href="SDL_JoystickEventsEnabled.html">SDL_JoystickEventsEnabled</a></li>
+<li><a href="SDL_KillProcess.html">SDL_KillProcess</a></li>
+<li><a href="SDL_lltoa.html">SDL_lltoa</a></li>
+<li><a href="SDL_LoadBMP.html">SDL_LoadBMP</a></li>
+<li><a href="SDL_LoadBMP_IO.html">SDL_LoadBMP_IO</a></li>
+<li><a href="SDL_LoadFile.html">SDL_LoadFile</a></li>
+<li><a href="SDL_LoadFile_IO.html">SDL_LoadFile_IO</a></li>
+<li><a href="SDL_LoadFileAsync.html">SDL_LoadFileAsync</a></li>
+<li><a href="SDL_LoadFunction.html">SDL_LoadFunction</a></li>
+<li><a href="SDL_LoadObject.html">SDL_LoadObject</a></li>
+<li><a href="SDL_LoadPNG.html">SDL_LoadPNG</a></li>
+<li><a href="SDL_LoadPNG_IO.html">SDL_LoadPNG_IO</a></li>
+<li><a href="SDL_LoadSurface.html">SDL_LoadSurface</a></li>
+<li><a href="SDL_LoadSurface_IO.html">SDL_LoadSurface_IO</a></li>
+<li><a href="SDL_LoadWAV.html">SDL_LoadWAV</a></li>
+<li><a href="SDL_LoadWAV_IO.html">SDL_LoadWAV_IO</a></li>
+<li><a href="SDL_LockAudioStream.html">SDL_LockAudioStream</a></li>
+<li><a href="SDL_LockJoysticks.html">SDL_LockJoysticks</a></li>
+<li><a href="SDL_LockMutex.html">SDL_LockMutex</a></li>
+<li><a href="SDL_LockProperties.html">SDL_LockProperties</a></li>
+<li><a href="SDL_LockRWLockForReading.html">SDL_LockRWLockForReading</a></li>
+<li><a href="SDL_LockRWLockForWriting.html">SDL_LockRWLockForWriting</a></li>
+<li><a href="SDL_LockSpinlock.html">SDL_LockSpinlock</a></li>
+<li><a href="SDL_LockSurface.html">SDL_LockSurface</a></li>
+<li><a href="SDL_LockTexture.html">SDL_LockTexture</a></li>
+<li><a href="SDL_LockTextureToSurface.html">SDL_LockTextureToSurface</a></li>
+<li><a href="SDL_Log.html">SDL_Log</a></li>
+<li><a href="SDL_log.html">SDL_log</a></li>
+<li><a href="SDL_log10.html">SDL_log10</a></li>
+<li><a href="SDL_log10f.html">SDL_log10f</a></li>
+<li><a href="SDL_LogCritical.html">SDL_LogCritical</a></li>
+<li><a href="SDL_LogDebug.html">SDL_LogDebug</a></li>
+<li><a href="SDL_LogError.html">SDL_LogError</a></li>
+<li><a href="SDL_logf.html">SDL_logf</a></li>
+<li><a href="SDL_LogInfo.html">SDL_LogInfo</a></li>
+<li><a href="SDL_LogMessage.html">SDL_LogMessage</a></li>
+<li><a href="SDL_LogMessageV.html">SDL_LogMessageV</a></li>
+<li><a href="SDL_LogTrace.html">SDL_LogTrace</a></li>
+<li><a href="SDL_LogVerbose.html">SDL_LogVerbose</a></li>
+<li><a href="SDL_LogWarn.html">SDL_LogWarn</a></li>
+<li><a href="SDL_lround.html">SDL_lround</a></li>
+<li><a href="SDL_lroundf.html">SDL_lroundf</a></li>
+<li><a href="SDL_ltoa.html">SDL_ltoa</a></li>
+<li><a href="SDL_main.html">SDL_main</a></li>
+<li><a href="SDL_malloc.html">SDL_malloc</a></li>
+<li><a href="SDL_MapGPUTransferBuffer.html">SDL_MapGPUTransferBuffer</a></li>
+<li><a href="SDL_MapRGB.html">SDL_MapRGB</a></li>
+<li><a href="SDL_MapRGBA.html">SDL_MapRGBA</a></li>
+<li><a href="SDL_MapSurfaceRGB.html">SDL_MapSurfaceRGB</a></li>
+<li><a href="SDL_MapSurfaceRGBA.html">SDL_MapSurfaceRGBA</a></li>
+<li><a href="SDL_MaximizeWindow.html">SDL_MaximizeWindow</a></li>
+<li><a href="SDL_memcmp.html">SDL_memcmp</a></li>
+<li><a href="SDL_memcpy.html">SDL_memcpy</a></li>
+<li><a href="SDL_memmove.html">SDL_memmove</a></li>
+<li><a href="SDL_MemoryBarrierAcquireFunction.html">SDL_MemoryBarrierAcquireFunction</a></li>
+<li><a href="SDL_MemoryBarrierReleaseFunction.html">SDL_MemoryBarrierReleaseFunction</a></li>
+<li><a href="SDL_memset.html">SDL_memset</a></li>
+<li><a href="SDL_memset4.html">SDL_memset4</a></li>
+<li><a href="SDL_Metal_CreateView.html">SDL_Metal_CreateView</a></li>
+<li><a href="SDL_Metal_DestroyView.html">SDL_Metal_DestroyView</a></li>
+<li><a href="SDL_Metal_GetLayer.html">SDL_Metal_GetLayer</a></li>
+<li><a href="SDL_MinimizeWindow.html">SDL_MinimizeWindow</a></li>
+<li><a href="SDL_MixAudio.html">SDL_MixAudio</a></li>
+<li><a href="SDL_modf.html">SDL_modf</a></li>
+<li><a href="SDL_modff.html">SDL_modff</a></li>
+<li><a href="SDL_MostSignificantBitIndex32.html">SDL_MostSignificantBitIndex32</a></li>
+<li><a href="SDL_murmur3_32.html">SDL_murmur3_32</a></li>
+<li><a href="SDL_OnApplicationDidChangeStatusBarOrientation.html">SDL_OnApplicationDidChangeStatusBarOrientation</a></li>
+<li><a href="SDL_OnApplicationDidEnterBackground.html">SDL_OnApplicationDidEnterBackground</a></li>
+<li><a href="SDL_OnApplicationDidEnterForeground.html">SDL_OnApplicationDidEnterForeground</a></li>
+<li><a href="SDL_OnApplicationDidReceiveMemoryWarning.html">SDL_OnApplicationDidReceiveMemoryWarning</a></li>
+<li><a href="SDL_OnApplicationWillEnterBackground.html">SDL_OnApplicationWillEnterBackground</a></li>
+<li><a href="SDL_OnApplicationWillEnterForeground.html">SDL_OnApplicationWillEnterForeground</a></li>
+<li><a href="SDL_OnApplicationWillTerminate.html">SDL_OnApplicationWillTerminate</a></li>
+<li><a href="SDL_OpenAudioDevice.html">SDL_OpenAudioDevice</a></li>
+<li><a href="SDL_OpenAudioDeviceStream.html">SDL_OpenAudioDeviceStream</a></li>
+<li><a href="SDL_OpenCamera.html">SDL_OpenCamera</a></li>
+<li><a href="SDL_OpenFileStorage.html">SDL_OpenFileStorage</a></li>
+<li><a href="SDL_OpenGamepad.html">SDL_OpenGamepad</a></li>
+<li><a href="SDL_OpenHaptic.html">SDL_OpenHaptic</a></li>
+<li><a href="SDL_OpenHapticFromJoystick.html">SDL_OpenHapticFromJoystick</a></li>
+<li><a href="SDL_OpenHapticFromMouse.html">SDL_OpenHapticFromMouse</a></li>
+<li><a href="SDL_OpenIO.html">SDL_OpenIO</a></li>
+<li><a href="SDL_OpenJoystick.html">SDL_OpenJoystick</a></li>
+<li><a href="SDL_OpenSensor.html">SDL_OpenSensor</a></li>
+<li><a href="SDL_OpenStorage.html">SDL_OpenStorage</a></li>
+<li><a href="SDL_OpenTitleStorage.html">SDL_OpenTitleStorage</a></li>
+<li><a href="SDL_OpenURL.html">SDL_OpenURL</a></li>
+<li><a href="SDL_OpenUserStorage.html">SDL_OpenUserStorage</a></li>
+<li><a href="SDL_OpenXR_GetXrGetInstanceProcAddr.html">SDL_OpenXR_GetXrGetInstanceProcAddr</a></li>
+<li><a href="SDL_OpenXR_LoadLibrary.html">SDL_OpenXR_LoadLibrary</a></li>
+<li><a href="SDL_OpenXR_UnloadLibrary.html">SDL_OpenXR_UnloadLibrary</a></li>
+<li><a href="SDL_OutOfMemory.html">SDL_OutOfMemory</a></li>
+<li><a href="SDL_PauseAudioDevice.html">SDL_PauseAudioDevice</a></li>
+<li><a href="SDL_PauseAudioStreamDevice.html">SDL_PauseAudioStreamDevice</a></li>
+<li><a href="SDL_PauseHaptic.html">SDL_PauseHaptic</a></li>
+<li><a href="SDL_PeepEvents.html">SDL_PeepEvents</a></li>
+<li><a href="SDL_PlayHapticRumble.html">SDL_PlayHapticRumble</a></li>
+<li><a href="SDL_PointInRect.html">SDL_PointInRect</a></li>
+<li><a href="SDL_PointInRectFloat.html">SDL_PointInRectFloat</a></li>
+<li><a href="SDL_PollEvent.html">SDL_PollEvent</a></li>
+<li><a href="SDL_PopGPUDebugGroup.html">SDL_PopGPUDebugGroup</a></li>
+<li><a href="SDL_pow.html">SDL_pow</a></li>
+<li><a href="SDL_powf.html">SDL_powf</a></li>
+<li><a href="SDL_PremultiplyAlpha.html">SDL_PremultiplyAlpha</a></li>
+<li><a href="SDL_PremultiplySurfaceAlpha.html">SDL_PremultiplySurfaceAlpha</a></li>
+<li><a href="SDL_PumpEvents.html">SDL_PumpEvents</a></li>
+<li><a href="SDL_PushEvent.html">SDL_PushEvent</a></li>
+<li><a href="SDL_PushGPUComputeUniformData.html">SDL_PushGPUComputeUniformData</a></li>
+<li><a href="SDL_PushGPUDebugGroup.html">SDL_PushGPUDebugGroup</a></li>
+<li><a href="SDL_PushGPUFragmentUniformData.html">SDL_PushGPUFragmentUniformData</a></li>
+<li><a href="SDL_PushGPUVertexUniformData.html">SDL_PushGPUVertexUniformData</a></li>
+<li><a href="SDL_PutAudioStreamData.html">SDL_PutAudioStreamData</a></li>
+<li><a href="SDL_PutAudioStreamDataNoCopy.html">SDL_PutAudioStreamDataNoCopy</a></li>
+<li><a href="SDL_PutAudioStreamPlanarData.html">SDL_PutAudioStreamPlanarData</a></li>
+<li><a href="SDL_qsort.html">SDL_qsort</a></li>
+<li><a href="SDL_qsort_r.html">SDL_qsort_r</a></li>
+<li><a href="SDL_QueryGPUFence.html">SDL_QueryGPUFence</a></li>
+<li><a href="SDL_Quit.html">SDL_Quit</a></li>
+<li><a href="SDL_QuitSubSystem.html">SDL_QuitSubSystem</a></li>
+<li><a href="SDL_RaiseWindow.html">SDL_RaiseWindow</a></li>
+<li><a href="SDL_rand.html">SDL_rand</a></li>
+<li><a href="SDL_rand_bits.html">SDL_rand_bits</a></li>
+<li><a href="SDL_rand_bits_r.html">SDL_rand_bits_r</a></li>
+<li><a href="SDL_rand_r.html">SDL_rand_r</a></li>
+<li><a href="SDL_randf.html">SDL_randf</a></li>
+<li><a href="SDL_randf_r.html">SDL_randf_r</a></li>
+<li><a href="SDL_ReadAsyncIO.html">SDL_ReadAsyncIO</a></li>
+<li><a href="SDL_ReadIO.html">SDL_ReadIO</a></li>
+<li><a href="SDL_ReadProcess.html">SDL_ReadProcess</a></li>
+<li><a href="SDL_ReadS16BE.html">SDL_ReadS16BE</a></li>
+<li><a href="SDL_ReadS16LE.html">SDL_ReadS16LE</a></li>
+<li><a href="SDL_ReadS32BE.html">SDL_ReadS32BE</a></li>
+<li><a href="SDL_ReadS32LE.html">SDL_ReadS32LE</a></li>
+<li><a href="SDL_ReadS64BE.html">SDL_ReadS64BE</a></li>
+<li><a href="SDL_ReadS64LE.html">SDL_ReadS64LE</a></li>
+<li><a href="SDL_ReadS8.html">SDL_ReadS8</a></li>
+<li><a href="SDL_ReadStorageFile.html">SDL_ReadStorageFile</a></li>
+<li><a href="SDL_ReadSurfacePixel.html">SDL_ReadSurfacePixel</a></li>
+<li><a href="SDL_ReadSurfacePixelFloat.html">SDL_ReadSurfacePixelFloat</a></li>
+<li><a href="SDL_ReadU16BE.html">SDL_ReadU16BE</a></li>
+<li><a href="SDL_ReadU16LE.html">SDL_ReadU16LE</a></li>
+<li><a href="SDL_ReadU32BE.html">SDL_ReadU32BE</a></li>
+<li><a href="SDL_ReadU32LE.html">SDL_ReadU32LE</a></li>
+<li><a href="SDL_ReadU64BE.html">SDL_ReadU64BE</a></li>
+<li><a href="SDL_ReadU64LE.html">SDL_ReadU64LE</a></li>
+<li><a href="SDL_ReadU8.html">SDL_ReadU8</a></li>
+<li><a href="SDL_realloc.html">SDL_realloc</a></li>
+<li><a href="SDL_RectEmpty.html">SDL_RectEmpty</a></li>
+<li><a href="SDL_RectEmptyFloat.html">SDL_RectEmptyFloat</a></li>
+<li><a href="SDL_RectsEqual.html">SDL_RectsEqual</a></li>
+<li><a href="SDL_RectsEqualEpsilon.html">SDL_RectsEqualEpsilon</a></li>
+<li><a href="SDL_RectsEqualFloat.html">SDL_RectsEqualFloat</a></li>
+<li><a href="SDL_RectToFRect.html">SDL_RectToFRect</a></li>
+<li><a href="SDL_RegisterApp.html">SDL_RegisterApp</a></li>
+<li><a href="SDL_RegisterEvents.html">SDL_RegisterEvents</a></li>
+<li><a href="SDL_ReleaseCameraFrame.html">SDL_ReleaseCameraFrame</a></li>
+<li><a href="SDL_ReleaseGPUBuffer.html">SDL_ReleaseGPUBuffer</a></li>
+<li><a href="SDL_ReleaseGPUComputePipeline.html">SDL_ReleaseGPUComputePipeline</a></li>
+<li><a href="SDL_ReleaseGPUFence.html">SDL_ReleaseGPUFence</a></li>
+<li><a href="SDL_ReleaseGPUGraphicsPipeline.html">SDL_ReleaseGPUGraphicsPipeline</a></li>
+<li><a href="SDL_ReleaseGPUSampler.html">SDL_ReleaseGPUSampler</a></li>
+<li><a href="SDL_ReleaseGPUShader.html">SDL_ReleaseGPUShader</a></li>
+<li><a href="SDL_ReleaseGPUTexture.html">SDL_ReleaseGPUTexture</a></li>
+<li><a href="SDL_ReleaseGPUTransferBuffer.html">SDL_ReleaseGPUTransferBuffer</a></li>
+<li><a href="SDL_ReleaseWindowFromGPUDevice.html">SDL_ReleaseWindowFromGPUDevice</a></li>
+<li><a href="SDL_ReloadGamepadMappings.html">SDL_ReloadGamepadMappings</a></li>
+<li><a href="SDL_RemoveEventWatch.html">SDL_RemoveEventWatch</a></li>
+<li><a href="SDL_RemoveHintCallback.html">SDL_RemoveHintCallback</a></li>
+<li><a href="SDL_RemovePath.html">SDL_RemovePath</a></li>
+<li><a href="SDL_RemoveStoragePath.html">SDL_RemoveStoragePath</a></li>
+<li><a href="SDL_RemoveSurfaceAlternateImages.html">SDL_RemoveSurfaceAlternateImages</a></li>
+<li><a href="SDL_RemoveTimer.html">SDL_RemoveTimer</a></li>
+<li><a href="SDL_RemoveTrayEntry.html">SDL_RemoveTrayEntry</a></li>
+<li><a href="SDL_RenamePath.html">SDL_RenamePath</a></li>
+<li><a href="SDL_RenameStoragePath.html">SDL_RenameStoragePath</a></li>
+<li><a href="SDL_RenderClear.html">SDL_RenderClear</a></li>
+<li><a href="SDL_RenderClipEnabled.html">SDL_RenderClipEnabled</a></li>
+<li><a href="SDL_RenderCoordinatesFromWindow.html">SDL_RenderCoordinatesFromWindow</a></li>
+<li><a href="SDL_RenderCoordinatesToWindow.html">SDL_RenderCoordinatesToWindow</a></li>
+<li><a href="SDL_RenderDebugText.html">SDL_RenderDebugText</a></li>
+<li><a href="SDL_RenderDebugTextFormat.html">SDL_RenderDebugTextFormat</a></li>
+<li><a href="SDL_RenderFillRect.html">SDL_RenderFillRect</a></li>
+<li><a href="SDL_RenderFillRects.html">SDL_RenderFillRects</a></li>
+<li><a href="SDL_RenderGeometry.html">SDL_RenderGeometry</a></li>
+<li><a href="SDL_RenderGeometryRaw.html">SDL_RenderGeometryRaw</a></li>
+<li><a href="SDL_RenderLine.html">SDL_RenderLine</a></li>
+<li><a href="SDL_RenderLines.html">SDL_RenderLines</a></li>
+<li><a href="SDL_RenderPoint.html">SDL_RenderPoint</a></li>
+<li><a href="SDL_RenderPoints.html">SDL_RenderPoints</a></li>
+<li><a href="SDL_RenderPresent.html">SDL_RenderPresent</a></li>
+<li><a href="SDL_RenderReadPixels.html">SDL_RenderReadPixels</a></li>
+<li><a href="SDL_RenderRect.html">SDL_RenderRect</a></li>
+<li><a href="SDL_RenderRects.html">SDL_RenderRects</a></li>
+<li><a href="SDL_RenderTexture.html">SDL_RenderTexture</a></li>
+<li><a href="SDL_RenderTexture9Grid.html">SDL_RenderTexture9Grid</a></li>
+<li><a href="SDL_RenderTexture9GridTiled.html">SDL_RenderTexture9GridTiled</a></li>
+<li><a href="SDL_RenderTextureAffine.html">SDL_RenderTextureAffine</a></li>
+<li><a href="SDL_RenderTextureRotated.html">SDL_RenderTextureRotated</a></li>
+<li><a href="SDL_RenderTextureTiled.html">SDL_RenderTextureTiled</a></li>
+<li><a href="SDL_RenderViewportSet.html">SDL_RenderViewportSet</a></li>
+<li><a href="SDL_ReportAssertion.html">SDL_ReportAssertion</a></li>
+<li><a href="SDL_RequestAndroidPermission.html">SDL_RequestAndroidPermission</a></li>
+<li><a href="SDL_ResetAssertionReport.html">SDL_ResetAssertionReport</a></li>
+<li><a href="SDL_ResetHint.html">SDL_ResetHint</a></li>
+<li><a href="SDL_ResetHints.html">SDL_ResetHints</a></li>
+<li><a href="SDL_ResetKeyboard.html">SDL_ResetKeyboard</a></li>
+<li><a href="SDL_ResetLogPriorities.html">SDL_ResetLogPriorities</a></li>
+<li><a href="SDL_RestoreWindow.html">SDL_RestoreWindow</a></li>
+<li><a href="SDL_ResumeAudioDevice.html">SDL_ResumeAudioDevice</a></li>
+<li><a href="SDL_ResumeAudioStreamDevice.html">SDL_ResumeAudioStreamDevice</a></li>
+<li><a href="SDL_ResumeHaptic.html">SDL_ResumeHaptic</a></li>
+<li><a href="SDL_RotateSurface.html">SDL_RotateSurface</a></li>
+<li><a href="SDL_round.html">SDL_round</a></li>
+<li><a href="SDL_roundf.html">SDL_roundf</a></li>
+<li><a href="SDL_RumbleGamepad.html">SDL_RumbleGamepad</a></li>
+<li><a href="SDL_RumbleGamepadTriggers.html">SDL_RumbleGamepadTriggers</a></li>
+<li><a href="SDL_RumbleJoystick.html">SDL_RumbleJoystick</a></li>
+<li><a href="SDL_RumbleJoystickTriggers.html">SDL_RumbleJoystickTriggers</a></li>
+<li><a href="SDL_RunApp.html">SDL_RunApp</a></li>
+<li><a href="SDL_RunHapticEffect.html">SDL_RunHapticEffect</a></li>
+<li><a href="SDL_RunOnMainThread.html">SDL_RunOnMainThread</a></li>
+<li><a href="SDL_SaveBMP.html">SDL_SaveBMP</a></li>
+<li><a href="SDL_SaveBMP_IO.html">SDL_SaveBMP_IO</a></li>
+<li><a href="SDL_SaveFile.html">SDL_SaveFile</a></li>
+<li><a href="SDL_SaveFile_IO.html">SDL_SaveFile_IO</a></li>
+<li><a href="SDL_SavePNG.html">SDL_SavePNG</a></li>
+<li><a href="SDL_SavePNG_IO.html">SDL_SavePNG_IO</a></li>
+<li><a href="SDL_scalbn.html">SDL_scalbn</a></li>
+<li><a href="SDL_scalbnf.html">SDL_scalbnf</a></li>
+<li><a href="SDL_ScaleSurface.html">SDL_ScaleSurface</a></li>
+<li><a href="SDL_ScreenKeyboardShown.html">SDL_ScreenKeyboardShown</a></li>
+<li><a href="SDL_ScreenSaverEnabled.html">SDL_ScreenSaverEnabled</a></li>
+<li><a href="SDL_SeekIO.html">SDL_SeekIO</a></li>
+<li><a href="SDL_SendAndroidBackButton.html">SDL_SendAndroidBackButton</a></li>
+<li><a href="SDL_SendAndroidMessage.html">SDL_SendAndroidMessage</a></li>
+<li><a href="SDL_SendGamepadEffect.html">SDL_SendGamepadEffect</a></li>
+<li><a href="SDL_SendJoystickEffect.html">SDL_SendJoystickEffect</a></li>
+<li><a href="SDL_SendJoystickVirtualSensorData.html">SDL_SendJoystickVirtualSensorData</a></li>
+<li><a href="SDL_SetAppMetadata.html">SDL_SetAppMetadata</a></li>
+<li><a href="SDL_SetAppMetadataProperty.html">SDL_SetAppMetadataProperty</a></li>
+<li><a href="SDL_SetAssertionHandler.html">SDL_SetAssertionHandler</a></li>
+<li><a href="SDL_SetAtomicInt.html">SDL_SetAtomicInt</a></li>
+<li><a href="SDL_SetAtomicPointer.html">SDL_SetAtomicPointer</a></li>
+<li><a href="SDL_SetAtomicU32.html">SDL_SetAtomicU32</a></li>
+<li><a href="SDL_SetAudioDeviceGain.html">SDL_SetAudioDeviceGain</a></li>
+<li><a href="SDL_SetAudioPostmixCallback.html">SDL_SetAudioPostmixCallback</a></li>
+<li><a href="SDL_SetAudioStreamFormat.html">SDL_SetAudioStreamFormat</a></li>
+<li><a href="SDL_SetAudioStreamFrequencyRatio.html">SDL_SetAudioStreamFrequencyRatio</a></li>
+<li><a href="SDL_SetAudioStreamGain.html">SDL_SetAudioStreamGain</a></li>
+<li><a href="SDL_SetAudioStreamGetCallback.html">SDL_SetAudioStreamGetCallback</a></li>
+<li><a href="SDL_SetAudioStreamInputChannelMap.html">SDL_SetAudioStreamInputChannelMap</a></li>
+<li><a href="SDL_SetAudioStreamOutputChannelMap.html">SDL_SetAudioStreamOutputChannelMap</a></li>
+<li><a href="SDL_SetAudioStreamPutCallback.html">SDL_SetAudioStreamPutCallback</a></li>
+<li><a href="SDL_SetBooleanProperty.html">SDL_SetBooleanProperty</a></li>
+<li><a href="SDL_SetClipboardData.html">SDL_SetClipboardData</a></li>
+<li><a href="SDL_SetClipboardText.html">SDL_SetClipboardText</a></li>
+<li><a href="SDL_SetCurrentThreadPriority.html">SDL_SetCurrentThreadPriority</a></li>
+<li><a href="SDL_SetCursor.html">SDL_SetCursor</a></li>
+<li><a href="SDL_SetDefaultTextureScaleMode.html">SDL_SetDefaultTextureScaleMode</a></li>
+<li><a href="SDL_setenv_unsafe.html">SDL_setenv_unsafe</a></li>
+<li><a href="SDL_SetEnvironmentVariable.html">SDL_SetEnvironmentVariable</a></li>
+<li><a href="SDL_SetError.html">SDL_SetError</a></li>
+<li><a href="SDL_SetErrorV.html">SDL_SetErrorV</a></li>
+<li><a href="SDL_SetEventEnabled.html">SDL_SetEventEnabled</a></li>
+<li><a href="SDL_SetEventFilter.html">SDL_SetEventFilter</a></li>
+<li><a href="SDL_SetFloatProperty.html">SDL_SetFloatProperty</a></li>
+<li><a href="SDL_SetGamepadEventsEnabled.html">SDL_SetGamepadEventsEnabled</a></li>
+<li><a href="SDL_SetGamepadLED.html">SDL_SetGamepadLED</a></li>
+<li><a href="SDL_SetGamepadMapping.html">SDL_SetGamepadMapping</a></li>
+<li><a href="SDL_SetGamepadPlayerIndex.html">SDL_SetGamepadPlayerIndex</a></li>
+<li><a href="SDL_SetGamepadSensorEnabled.html">SDL_SetGamepadSensorEnabled</a></li>
+<li><a href="SDL_SetGPUAllowedFramesInFlight.html">SDL_SetGPUAllowedFramesInFlight</a></li>
+<li><a href="SDL_SetGPUBlendConstants.html">SDL_SetGPUBlendConstants</a></li>
+<li><a href="SDL_SetGPUBufferName.html">SDL_SetGPUBufferName</a></li>
+<li><a href="SDL_SetGPURenderState.html">SDL_SetGPURenderState</a></li>
+<li><a href="SDL_SetGPURenderStateFragmentUniforms.html">SDL_SetGPURenderStateFragmentUniforms</a></li>
+<li><a href="SDL_SetGPURenderStateSamplerBindings.html">SDL_SetGPURenderStateSamplerBindings</a></li>
+<li><a href="SDL_SetGPURenderStateStorageBuffers.html">SDL_SetGPURenderStateStorageBuffers</a></li>
+<li><a href="SDL_SetGPURenderStateStorageTextures.html">SDL_SetGPURenderStateStorageTextures</a></li>
+<li><a href="SDL_SetGPUScissor.html">SDL_SetGPUScissor</a></li>
+<li><a href="SDL_SetGPUStencilReference.html">SDL_SetGPUStencilReference</a></li>
+<li><a href="SDL_SetGPUSwapchainParameters.html">SDL_SetGPUSwapchainParameters</a></li>
+<li><a href="SDL_SetGPUTextureName.html">SDL_SetGPUTextureName</a></li>
+<li><a href="SDL_SetGPUViewport.html">SDL_SetGPUViewport</a></li>
+<li><a href="SDL_SetHapticAutocenter.html">SDL_SetHapticAutocenter</a></li>
+<li><a href="SDL_SetHapticGain.html">SDL_SetHapticGain</a></li>
+<li><a href="SDL_SetHint.html">SDL_SetHint</a></li>
+<li><a href="SDL_SetHintWithPriority.html">SDL_SetHintWithPriority</a></li>
+<li><a href="SDL_SetInitialized.html">SDL_SetInitialized</a></li>
+<li><a href="SDL_SetiOSAnimationCallback.html">SDL_SetiOSAnimationCallback</a></li>
+<li><a href="SDL_SetiOSEventPump.html">SDL_SetiOSEventPump</a></li>
+<li><a href="SDL_SetJoystickEventsEnabled.html">SDL_SetJoystickEventsEnabled</a></li>
+<li><a href="SDL_SetJoystickLED.html">SDL_SetJoystickLED</a></li>
+<li><a href="SDL_SetJoystickPlayerIndex.html">SDL_SetJoystickPlayerIndex</a></li>
+<li><a href="SDL_SetJoystickVirtualAxis.html">SDL_SetJoystickVirtualAxis</a></li>
+<li><a href="SDL_SetJoystickVirtualBall.html">SDL_SetJoystickVirtualBall</a></li>
+<li><a href="SDL_SetJoystickVirtualButton.html">SDL_SetJoystickVirtualButton</a></li>
+<li><a href="SDL_SetJoystickVirtualHat.html">SDL_SetJoystickVirtualHat</a></li>
+<li><a href="SDL_SetJoystickVirtualTouchpad.html">SDL_SetJoystickVirtualTouchpad</a></li>
+<li><a href="SDL_SetLinuxThreadPriority.html">SDL_SetLinuxThreadPriority</a></li>
+<li><a href="SDL_SetLinuxThreadPriorityAndPolicy.html">SDL_SetLinuxThreadPriorityAndPolicy</a></li>
+<li><a href="SDL_SetLogOutputFunction.html">SDL_SetLogOutputFunction</a></li>
+<li><a href="SDL_SetLogPriorities.html">SDL_SetLogPriorities</a></li>
+<li><a href="SDL_SetLogPriority.html">SDL_SetLogPriority</a></li>
+<li><a href="SDL_SetLogPriorityPrefix.html">SDL_SetLogPriorityPrefix</a></li>
+<li><a href="SDL_SetMainReady.html">SDL_SetMainReady</a></li>
+<li><a href="SDL_SetMemoryFunctions.html">SDL_SetMemoryFunctions</a></li>
+<li><a href="SDL_SetModState.html">SDL_SetModState</a></li>
+<li><a href="SDL_SetNumberProperty.html">SDL_SetNumberProperty</a></li>
+<li><a href="SDL_SetPaletteColors.html">SDL_SetPaletteColors</a></li>
+<li><a href="SDL_SetPointerProperty.html">SDL_SetPointerProperty</a></li>
+<li><a href="SDL_SetPointerPropertyWithCleanup.html">SDL_SetPointerPropertyWithCleanup</a></li>
+<li><a href="SDL_SetPrimarySelectionText.html">SDL_SetPrimarySelectionText</a></li>
+<li><a href="SDL_SetRelativeMouseTransform.html">SDL_SetRelativeMouseTransform</a></li>
+<li><a href="SDL_SetRenderClipRect.html">SDL_SetRenderClipRect</a></li>
+<li><a href="SDL_SetRenderColorScale.html">SDL_SetRenderColorScale</a></li>
+<li><a href="SDL_SetRenderDrawBlendMode.html">SDL_SetRenderDrawBlendMode</a></li>
+<li><a href="SDL_SetRenderDrawColor.html">SDL_SetRenderDrawColor</a></li>
+<li><a href="SDL_SetRenderDrawColorFloat.html">SDL_SetRenderDrawColorFloat</a></li>
+<li><a href="SDL_SetRenderLogicalPresentation.html">SDL_SetRenderLogicalPresentation</a></li>
+<li><a href="SDL_SetRenderScale.html">SDL_SetRenderScale</a></li>
+<li><a href="SDL_SetRenderTarget.html">SDL_SetRenderTarget</a></li>
+<li><a href="SDL_SetRenderTextureAddressMode.html">SDL_SetRenderTextureAddressMode</a></li>
+<li><a href="SDL_SetRenderViewport.html">SDL_SetRenderViewport</a></li>
+<li><a href="SDL_SetRenderVSync.html">SDL_SetRenderVSync</a></li>
+<li><a href="SDL_SetScancodeName.html">SDL_SetScancodeName</a></li>
+<li><a href="SDL_SetStringProperty.html">SDL_SetStringProperty</a></li>
+<li><a href="SDL_SetSurfaceAlphaMod.html">SDL_SetSurfaceAlphaMod</a></li>
+<li><a href="SDL_SetSurfaceBlendMode.html">SDL_SetSurfaceBlendMode</a></li>
+<li><a href="SDL_SetSurfaceClipRect.html">SDL_SetSurfaceClipRect</a></li>
+<li><a href="SDL_SetSurfaceColorKey.html">SDL_SetSurfaceColorKey</a></li>
+<li><a href="SDL_SetSurfaceColorMod.html">SDL_SetSurfaceColorMod</a></li>
+<li><a href="SDL_SetSurfaceColorspace.html">SDL_SetSurfaceColorspace</a></li>
+<li><a href="SDL_SetSurfacePalette.html">SDL_SetSurfacePalette</a></li>
+<li><a href="SDL_SetSurfaceRLE.html">SDL_SetSurfaceRLE</a></li>
+<li><a href="SDL_SetTextInputArea.html">SDL_SetTextInputArea</a></li>
+<li><a href="SDL_SetTextureAlphaMod.html">SDL_SetTextureAlphaMod</a></li>
+<li><a href="SDL_SetTextureAlphaModFloat.html">SDL_SetTextureAlphaModFloat</a></li>
+<li><a href="SDL_SetTextureBlendMode.html">SDL_SetTextureBlendMode</a></li>
+<li><a href="SDL_SetTextureColorMod.html">SDL_SetTextureColorMod</a></li>
+<li><a href="SDL_SetTextureColorModFloat.html">SDL_SetTextureColorModFloat</a></li>
+<li><a href="SDL_SetTexturePalette.html">SDL_SetTexturePalette</a></li>
+<li><a href="SDL_SetTextureScaleMode.html">SDL_SetTextureScaleMode</a></li>
+<li><a href="SDL_SetTLS.html">SDL_SetTLS</a></li>
+<li><a href="SDL_SetTrayEntryCallback.html">SDL_SetTrayEntryCallback</a></li>
+<li><a href="SDL_SetTrayEntryChecked.html">SDL_SetTrayEntryChecked</a></li>
+<li><a href="SDL_SetTrayEntryEnabled.html">SDL_SetTrayEntryEnabled</a></li>
+<li><a href="SDL_SetTrayEntryLabel.html">SDL_SetTrayEntryLabel</a></li>
+<li><a href="SDL_SetTrayIcon.html">SDL_SetTrayIcon</a></li>
+<li><a href="SDL_SetTrayTooltip.html">SDL_SetTrayTooltip</a></li>
+<li><a href="SDL_SetWindowAlwaysOnTop.html">SDL_SetWindowAlwaysOnTop</a></li>
+<li><a href="SDL_SetWindowAspectRatio.html">SDL_SetWindowAspectRatio</a></li>
+<li><a href="SDL_SetWindowBordered.html">SDL_SetWindowBordered</a></li>
+<li><a href="SDL_SetWindowFillDocument.html">SDL_SetWindowFillDocument</a></li>
+<li><a href="SDL_SetWindowFocusable.html">SDL_SetWindowFocusable</a></li>
+<li><a href="SDL_SetWindowFullscreen.html">SDL_SetWindowFullscreen</a></li>
+<li><a href="SDL_SetWindowFullscreenMode.html">SDL_SetWindowFullscreenMode</a></li>
+<li><a href="SDL_SetWindowHitTest.html">SDL_SetWindowHitTest</a></li>
+<li><a href="SDL_SetWindowIcon.html">SDL_SetWindowIcon</a></li>
+<li><a href="SDL_SetWindowKeyboardGrab.html">SDL_SetWindowKeyboardGrab</a></li>
+<li><a href="SDL_SetWindowMaximumSize.html">SDL_SetWindowMaximumSize</a></li>
+<li><a href="SDL_SetWindowMinimumSize.html">SDL_SetWindowMinimumSize</a></li>
+<li><a href="SDL_SetWindowModal.html">SDL_SetWindowModal</a></li>
+<li><a href="SDL_SetWindowMouseGrab.html">SDL_SetWindowMouseGrab</a></li>
+<li><a href="SDL_SetWindowMouseRect.html">SDL_SetWindowMouseRect</a></li>
+<li><a href="SDL_SetWindowOpacity.html">SDL_SetWindowOpacity</a></li>
+<li><a href="SDL_SetWindowParent.html">SDL_SetWindowParent</a></li>
+<li><a href="SDL_SetWindowPosition.html">SDL_SetWindowPosition</a></li>
+<li><a href="SDL_SetWindowProgressState.html">SDL_SetWindowProgressState</a></li>
+<li><a href="SDL_SetWindowProgressValue.html">SDL_SetWindowProgressValue</a></li>
+<li><a href="SDL_SetWindowRelativeMouseMode.html">SDL_SetWindowRelativeMouseMode</a></li>
+<li><a href="SDL_SetWindowResizable.html">SDL_SetWindowResizable</a></li>
+<li><a href="SDL_SetWindowShape.html">SDL_SetWindowShape</a></li>
+<li><a href="SDL_SetWindowSize.html">SDL_SetWindowSize</a></li>
+<li><a href="SDL_SetWindowsMessageHook.html">SDL_SetWindowsMessageHook</a></li>
+<li><a href="SDL_SetWindowSurfaceVSync.html">SDL_SetWindowSurfaceVSync</a></li>
+<li><a href="SDL_SetWindowTitle.html">SDL_SetWindowTitle</a></li>
+<li><a href="SDL_SetX11EventHook.html">SDL_SetX11EventHook</a></li>
+<li><a href="SDL_ShouldInit.html">SDL_ShouldInit</a></li>
+<li><a href="SDL_ShouldQuit.html">SDL_ShouldQuit</a></li>
+<li><a href="SDL_ShowAndroidToast.html">SDL_ShowAndroidToast</a></li>
+<li><a href="SDL_ShowCursor.html">SDL_ShowCursor</a></li>
+<li><a href="SDL_ShowFileDialogWithProperties.html">SDL_ShowFileDialogWithProperties</a></li>
+<li><a href="SDL_ShowMessageBox.html">SDL_ShowMessageBox</a></li>
+<li><a href="SDL_ShowOpenFileDialog.html">SDL_ShowOpenFileDialog</a></li>
+<li><a href="SDL_ShowOpenFolderDialog.html">SDL_ShowOpenFolderDialog</a></li>
+<li><a href="SDL_ShowSaveFileDialog.html">SDL_ShowSaveFileDialog</a></li>
+<li><a href="SDL_ShowSimpleMessageBox.html">SDL_ShowSimpleMessageBox</a></li>
+<li><a href="SDL_ShowWindow.html">SDL_ShowWindow</a></li>
+<li><a href="SDL_ShowWindowSystemMenu.html">SDL_ShowWindowSystemMenu</a></li>
+<li><a href="SDL_SignalAsyncIOQueue.html">SDL_SignalAsyncIOQueue</a></li>
+<li><a href="SDL_SignalCondition.html">SDL_SignalCondition</a></li>
+<li><a href="SDL_SignalSemaphore.html">SDL_SignalSemaphore</a></li>
+<li><a href="SDL_sin.html">SDL_sin</a></li>
+<li><a href="SDL_sinf.html">SDL_sinf</a></li>
+<li><a href="SDL_size_add_check_overflow.html">SDL_size_add_check_overflow</a></li>
+<li><a href="SDL_size_mul_check_overflow.html">SDL_size_mul_check_overflow</a></li>
+<li><a href="SDL_snprintf.html">SDL_snprintf</a></li>
+<li><a href="SDL_sqrt.html">SDL_sqrt</a></li>
+<li><a href="SDL_sqrtf.html">SDL_sqrtf</a></li>
+<li><a href="SDL_srand.html">SDL_srand</a></li>
+<li><a href="SDL_sscanf.html">SDL_sscanf</a></li>
+<li><a href="SDL_StartTextInput.html">SDL_StartTextInput</a></li>
+<li><a href="SDL_StartTextInputWithProperties.html">SDL_StartTextInputWithProperties</a></li>
+<li><a href="SDL_StepBackUTF8.html">SDL_StepBackUTF8</a></li>
+<li><a href="SDL_StepUTF8.html">SDL_StepUTF8</a></li>
+<li><a href="SDL_StopHapticEffect.html">SDL_StopHapticEffect</a></li>
+<li><a href="SDL_StopHapticEffects.html">SDL_StopHapticEffects</a></li>
+<li><a href="SDL_StopHapticRumble.html">SDL_StopHapticRumble</a></li>
+<li><a href="SDL_StopTextInput.html">SDL_StopTextInput</a></li>
+<li><a href="SDL_StorageReady.html">SDL_StorageReady</a></li>
+<li><a href="SDL_strcasecmp.html">SDL_strcasecmp</a></li>
+<li><a href="SDL_strcasestr.html">SDL_strcasestr</a></li>
+<li><a href="SDL_strchr.html">SDL_strchr</a></li>
+<li><a href="SDL_strcmp.html">SDL_strcmp</a></li>
+<li><a href="SDL_strdup.html">SDL_strdup</a></li>
+<li><a href="SDL_StretchSurface.html">SDL_StretchSurface</a></li>
+<li><a href="SDL_StringToGUID.html">SDL_StringToGUID</a></li>
+<li><a href="SDL_strlcat.html">SDL_strlcat</a></li>
+<li><a href="SDL_strlcpy.html">SDL_strlcpy</a></li>
+<li><a href="SDL_strlen.html">SDL_strlen</a></li>
+<li><a href="SDL_strlwr.html">SDL_strlwr</a></li>
+<li><a href="SDL_strncasecmp.html">SDL_strncasecmp</a></li>
+<li><a href="SDL_strncmp.html">SDL_strncmp</a></li>
+<li><a href="SDL_strndup.html">SDL_strndup</a></li>
+<li><a href="SDL_strnlen.html">SDL_strnlen</a></li>
+<li><a href="SDL_strnstr.html">SDL_strnstr</a></li>
+<li><a href="SDL_strpbrk.html">SDL_strpbrk</a></li>
+<li><a href="SDL_strrchr.html">SDL_strrchr</a></li>
+<li><a href="SDL_strrev.html">SDL_strrev</a></li>
+<li><a href="SDL_strstr.html">SDL_strstr</a></li>
+<li><a href="SDL_strtod.html">SDL_strtod</a></li>
+<li><a href="SDL_strtok_r.html">SDL_strtok_r</a></li>
+<li><a href="SDL_strtol.html">SDL_strtol</a></li>
+<li><a href="SDL_strtoll.html">SDL_strtoll</a></li>
+<li><a href="SDL_strtoul.html">SDL_strtoul</a></li>
+<li><a href="SDL_strtoull.html">SDL_strtoull</a></li>
+<li><a href="SDL_strupr.html">SDL_strupr</a></li>
+<li><a href="SDL_SubmitGPUCommandBuffer.html">SDL_SubmitGPUCommandBuffer</a></li>
+<li><a href="SDL_SubmitGPUCommandBufferAndAcquireFence.html">SDL_SubmitGPUCommandBufferAndAcquireFence</a></li>
+<li><a href="SDL_SurfaceHasAlternateImages.html">SDL_SurfaceHasAlternateImages</a></li>
+<li><a href="SDL_SurfaceHasColorKey.html">SDL_SurfaceHasColorKey</a></li>
+<li><a href="SDL_SurfaceHasRLE.html">SDL_SurfaceHasRLE</a></li>
+<li><a href="SDL_Swap16.html">SDL_Swap16</a></li>
+<li><a href="SDL_Swap32.html">SDL_Swap32</a></li>
+<li><a href="SDL_Swap64.html">SDL_Swap64</a></li>
+<li><a href="SDL_SwapFloat.html">SDL_SwapFloat</a></li>
+<li><a href="SDL_swprintf.html">SDL_swprintf</a></li>
+<li><a href="SDL_SyncWindow.html">SDL_SyncWindow</a></li>
+<li><a href="SDL_tan.html">SDL_tan</a></li>
+<li><a href="SDL_tanf.html">SDL_tanf</a></li>
+<li><a href="SDL_TellIO.html">SDL_TellIO</a></li>
+<li><a href="SDL_TextInputActive.html">SDL_TextInputActive</a></li>
+<li><a href="SDL_TimeFromWindows.html">SDL_TimeFromWindows</a></li>
+<li><a href="SDL_TimeToDateTime.html">SDL_TimeToDateTime</a></li>
+<li><a href="SDL_TimeToWindows.html">SDL_TimeToWindows</a></li>
+<li><a href="SDL_tolower.html">SDL_tolower</a></li>
+<li><a href="SDL_toupper.html">SDL_toupper</a></li>
+<li><a href="SDL_trunc.html">SDL_trunc</a></li>
+<li><a href="SDL_truncf.html">SDL_truncf</a></li>
+<li><a href="SDL_TryLockJoysticks.html">SDL_TryLockJoysticks</a></li>
+<li><a href="SDL_TryLockMutex.html">SDL_TryLockMutex</a></li>
+<li><a href="SDL_TryLockRWLockForReading.html">SDL_TryLockRWLockForReading</a></li>
+<li><a href="SDL_TryLockRWLockForWriting.html">SDL_TryLockRWLockForWriting</a></li>
+<li><a href="SDL_TryLockSpinlock.html">SDL_TryLockSpinlock</a></li>
+<li><a href="SDL_TryWaitSemaphore.html">SDL_TryWaitSemaphore</a></li>
+<li><a href="SDL_UCS4ToUTF8.html">SDL_UCS4ToUTF8</a></li>
+<li><a href="SDL_uitoa.html">SDL_uitoa</a></li>
+<li><a href="SDL_ulltoa.html">SDL_ulltoa</a></li>
+<li><a href="SDL_ultoa.html">SDL_ultoa</a></li>
+<li><a href="SDL_UnbindAudioStream.html">SDL_UnbindAudioStream</a></li>
+<li><a href="SDL_UnbindAudioStreams.html">SDL_UnbindAudioStreams</a></li>
+<li><a href="SDL_UnloadObject.html">SDL_UnloadObject</a></li>
+<li><a href="SDL_UnlockAudioStream.html">SDL_UnlockAudioStream</a></li>
+<li><a href="SDL_UnlockJoysticks.html">SDL_UnlockJoysticks</a></li>
+<li><a href="SDL_UnlockMutex.html">SDL_UnlockMutex</a></li>
+<li><a href="SDL_UnlockProperties.html">SDL_UnlockProperties</a></li>
+<li><a href="SDL_UnlockRWLock.html">SDL_UnlockRWLock</a></li>
+<li><a href="SDL_UnlockSpinlock.html">SDL_UnlockSpinlock</a></li>
+<li><a href="SDL_UnlockSurface.html">SDL_UnlockSurface</a></li>
+<li><a href="SDL_UnlockTexture.html">SDL_UnlockTexture</a></li>
+<li><a href="SDL_UnmapGPUTransferBuffer.html">SDL_UnmapGPUTransferBuffer</a></li>
+<li><a href="SDL_UnregisterApp.html">SDL_UnregisterApp</a></li>
+<li><a href="SDL_unsetenv_unsafe.html">SDL_unsetenv_unsafe</a></li>
+<li><a href="SDL_UnsetEnvironmentVariable.html">SDL_UnsetEnvironmentVariable</a></li>
+<li><a href="SDL_UpdateGamepads.html">SDL_UpdateGamepads</a></li>
+<li><a href="SDL_UpdateHapticEffect.html">SDL_UpdateHapticEffect</a></li>
+<li><a href="SDL_UpdateJoysticks.html">SDL_UpdateJoysticks</a></li>
+<li><a href="SDL_UpdateNVTexture.html">SDL_UpdateNVTexture</a></li>
+<li><a href="SDL_UpdateSensors.html">SDL_UpdateSensors</a></li>
+<li><a href="SDL_UpdateTexture.html">SDL_UpdateTexture</a></li>
+<li><a href="SDL_UpdateTrays.html">SDL_UpdateTrays</a></li>
+<li><a href="SDL_UpdateWindowSurface.html">SDL_UpdateWindowSurface</a></li>
+<li><a href="SDL_UpdateWindowSurfaceRects.html">SDL_UpdateWindowSurfaceRects</a></li>
+<li><a href="SDL_UpdateYUVTexture.html">SDL_UpdateYUVTexture</a></li>
+<li><a href="SDL_UploadToGPUBuffer.html">SDL_UploadToGPUBuffer</a></li>
+<li><a href="SDL_UploadToGPUTexture.html">SDL_UploadToGPUTexture</a></li>
+<li><a href="SDL_utf8strlcpy.html">SDL_utf8strlcpy</a></li>
+<li><a href="SDL_utf8strlen.html">SDL_utf8strlen</a></li>
+<li><a href="SDL_utf8strnlen.html">SDL_utf8strnlen</a></li>
+<li><a href="SDL_vasprintf.html">SDL_vasprintf</a></li>
+<li><a href="SDL_vsnprintf.html">SDL_vsnprintf</a></li>
+<li><a href="SDL_vsscanf.html">SDL_vsscanf</a></li>
+<li><a href="SDL_vswprintf.html">SDL_vswprintf</a></li>
+<li><a href="SDL_Vulkan_CreateSurface.html">SDL_Vulkan_CreateSurface</a></li>
+<li><a href="SDL_Vulkan_DestroySurface.html">SDL_Vulkan_DestroySurface</a></li>
+<li><a href="SDL_Vulkan_GetInstanceExtensions.html">SDL_Vulkan_GetInstanceExtensions</a></li>
+<li><a href="SDL_Vulkan_GetPresentationSupport.html">SDL_Vulkan_GetPresentationSupport</a></li>
+<li><a href="SDL_Vulkan_GetVkGetInstanceProcAddr.html">SDL_Vulkan_GetVkGetInstanceProcAddr</a></li>
+<li><a href="SDL_Vulkan_LoadLibrary.html">SDL_Vulkan_LoadLibrary</a></li>
+<li><a href="SDL_Vulkan_UnloadLibrary.html">SDL_Vulkan_UnloadLibrary</a></li>
+<li><a href="SDL_WaitAndAcquireGPUSwapchainTexture.html">SDL_WaitAndAcquireGPUSwapchainTexture</a></li>
+<li><a href="SDL_WaitAsyncIOResult.html">SDL_WaitAsyncIOResult</a></li>
+<li><a href="SDL_WaitCondition.html">SDL_WaitCondition</a></li>
+<li><a href="SDL_WaitConditionTimeout.html">SDL_WaitConditionTimeout</a></li>
+<li><a href="SDL_WaitEvent.html">SDL_WaitEvent</a></li>
+<li><a href="SDL_WaitEventTimeout.html">SDL_WaitEventTimeout</a></li>
+<li><a href="SDL_WaitForGPUFences.html">SDL_WaitForGPUFences</a></li>
+<li><a href="SDL_WaitForGPUIdle.html">SDL_WaitForGPUIdle</a></li>
+<li><a href="SDL_WaitForGPUSwapchain.html">SDL_WaitForGPUSwapchain</a></li>
+<li><a href="SDL_WaitProcess.html">SDL_WaitProcess</a></li>
+<li><a href="SDL_WaitSemaphore.html">SDL_WaitSemaphore</a></li>
+<li><a href="SDL_WaitSemaphoreTimeout.html">SDL_WaitSemaphoreTimeout</a></li>
+<li><a href="SDL_WaitThread.html">SDL_WaitThread</a></li>
+<li><a href="SDL_WarpMouseGlobal.html">SDL_WarpMouseGlobal</a></li>
+<li><a href="SDL_WarpMouseInWindow.html">SDL_WarpMouseInWindow</a></li>
+<li><a href="SDL_WasInit.html">SDL_WasInit</a></li>
+<li><a href="SDL_wcscasecmp.html">SDL_wcscasecmp</a></li>
+<li><a href="SDL_wcscmp.html">SDL_wcscmp</a></li>
+<li><a href="SDL_wcsdup.html">SDL_wcsdup</a></li>
+<li><a href="SDL_wcslcat.html">SDL_wcslcat</a></li>
+<li><a href="SDL_wcslcpy.html">SDL_wcslcpy</a></li>
+<li><a href="SDL_wcslen.html">SDL_wcslen</a></li>
+<li><a href="SDL_wcsncasecmp.html">SDL_wcsncasecmp</a></li>
+<li><a href="SDL_wcsncmp.html">SDL_wcsncmp</a></li>
+<li><a href="SDL_wcsnlen.html">SDL_wcsnlen</a></li>
+<li><a href="SDL_wcsnstr.html">SDL_wcsnstr</a></li>
+<li><a href="SDL_wcsstr.html">SDL_wcsstr</a></li>
+<li><a href="SDL_wcstol.html">SDL_wcstol</a></li>
+<li><a href="SDL_WindowHasSurface.html">SDL_WindowHasSurface</a></li>
+<li><a href="SDL_WindowSupportsGPUPresentMode.html">SDL_WindowSupportsGPUPresentMode</a></li>
+<li><a href="SDL_WindowSupportsGPUSwapchainComposition.html">SDL_WindowSupportsGPUSwapchainComposition</a></li>
+<li><a href="SDL_WriteAsyncIO.html">SDL_WriteAsyncIO</a></li>
+<li><a href="SDL_WriteIO.html">SDL_WriteIO</a></li>
+<li><a href="SDL_WriteS16BE.html">SDL_WriteS16BE</a></li>
+<li><a href="SDL_WriteS16LE.html">SDL_WriteS16LE</a></li>
+<li><a href="SDL_WriteS32BE.html">SDL_WriteS32BE</a></li>
+<li><a href="SDL_WriteS32LE.html">SDL_WriteS32LE</a></li>
+<li><a href="SDL_WriteS64BE.html">SDL_WriteS64BE</a></li>
+<li><a href="SDL_WriteS64LE.html">SDL_WriteS64LE</a></li>
+<li><a href="SDL_WriteS8.html">SDL_WriteS8</a></li>
+<li><a href="SDL_WriteStorageFile.html">SDL_WriteStorageFile</a></li>
+<li><a href="SDL_WriteSurfacePixel.html">SDL_WriteSurfacePixel</a></li>
+<li><a href="SDL_WriteSurfacePixelFloat.html">SDL_WriteSurfacePixelFloat</a></li>
+<li><a href="SDL_WriteU16BE.html">SDL_WriteU16BE</a></li>
+<li><a href="SDL_WriteU16LE.html">SDL_WriteU16LE</a></li>
+<li><a href="SDL_WriteU32BE.html">SDL_WriteU32BE</a></li>
+<li><a href="SDL_WriteU32LE.html">SDL_WriteU32LE</a></li>
+<li><a href="SDL_WriteU64BE.html">SDL_WriteU64BE</a></li>
+<li><a href="SDL_WriteU64LE.html">SDL_WriteU64LE</a></li>
+<li><a href="SDL_WriteU8.html">SDL_WriteU8</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+</body>
+</html>

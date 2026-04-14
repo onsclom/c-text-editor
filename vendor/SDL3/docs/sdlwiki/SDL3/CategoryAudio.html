@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>CategoryAudio</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">:root {
+color-scheme: dark light; 
+}
+body {
+background-color: white;
+padding: 2vw;
+color: #333;
+max-width: 1200px;
+margin: 0 auto;
+font-size: 16px;
+line-height: 1.5;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+overflow-wrap: break-word;
+}
+a {
+color: #0969da;
+
+}
+a:visited {
+color: #064998;
+}
+h1 {
+border-bottom: 2px solid #efefef;
+}
+h2 {
+border-bottom: 1px solid #efefef;
+}
+p {
+max-width: 85ch;
+}
+li {
+max-width: 85ch;
+}
+div.sourceCode {
+background-color: #f6f8fa;
+max-width: 100%;
+padding: 16px;
+}
+code {
+background-color: #f6f8fa;
+padding: 0px;
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+}
+table {
+border: 1px solid #808080;
+border-collapse: collapse;
+}
+td {
+border: 1px solid #808080;
+padding: 5px;
+}
+tr:nth-child(even) {
+background-color: #f6f8fa;
+}
+.wikitopbanner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #efefef;
+padding: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+.wikibottombanner {
+background-color: #efefef;
+padding: 10px;
+margin-top: 10px;
+width: auto;
+}
+.alertBox {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+max-width: 60%;
+padding: 10;
+margin: auto;
+}
+.anchorImage {
+visibility: hidden;
+padding-left: 0.2em;
+color: #fff;
+}
+.anchorText:hover .anchorImage {
+visibility: visible;
+}
+hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #efefef;
+margin: 1em 0;
+padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+color: #e6edf3;
+background-color: #0d1117;
+}
+h1 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+h2 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+hr {
+border-color: rgba(48, 54, 61, 0.7);
+}
+div.sourceCode {
+background-color: #161b22;
+}
+code {
+background-color: #161b22;
+}
+a {
+color: #4493f8;
+}
+a:visited {
+color: #2f66ad;
+}
+table {
+border-color: rgba(48, 54, 61, 0.7);
+}
+td {
+border-color: rgba(48, 54, 61, 0.7);
+}
+tr:nth-child(even) {
+background-color: #161b22;
+}
+.wikitopbanner {
+background-color: #263040;
+}
+.wikibottombanner {
+background-color: #263040;
+}
+.anchorText:hover .anchorImage {
+filter: invert(100%);
+}
+}
+@media print {
+body {
+font-size: 12px;
+}
+table {
+font-size: inherit;
+}
+a:visited {
+color: #0969da;
+}
+.wikitopbanner,
+.anchorText,
+.wikibottombanner {
+display: none;
+}
+}
+</style>
+  <style type="text/css"> code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+{ position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+{ content: attr(title);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; pointer-events: all; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+@media (prefers-color-scheme: dark) {
+code span.al { color: #95da4c; font-weight: bold; } 
+code span.an { color: #3f8058; } 
+code span.at { color: #2980b9; } 
+code span.bn { color: #f67400; } 
+code span.bu { color: #7f8c8d; } 
+code span.ch { color: #3daee9; } 
+code span.co { color: #7a7c7d; } 
+code span.cv { color: #7f8c8d; } 
+code span.cn { color: #27aeae; font-weight: bold; } 
+code span.cf { color: #fdbc4b; font-weight: bold; } 
+code span.dt { color: #2980b9; } 
+code span.dv { color: #f67400; } 
+code span.do { color: #a43340; } 
+code span.er { color: #da4453; } 
+code span.ex { color: #0099ff; font-weight: bold; } 
+code span.fl { color: #f67400; } 
+code span.fu { color: #8e44ad; } 
+code span.im { color: #27ae60; } 
+code span.in { color: #c45b00; } 
+code span.kw { color: #cfcfc2; font-weight: bold; } 
+code span.op { color: #cfcfc2; } 
+code span.ot { color: #27ae60; } 
+code span.pp { color: #27ae60; } 
+code span.sc { color: #3daee9; } 
+code span.ss { color: #da4453; } 
+code span.st { color: #f44f4f; } 
+code span.va { color: #27aeae; } 
+code span.vs { color: #da4453; } 
+code span.wa { color: #da4453; } 
+}</style>
+</head>
+<body>
+<h1 id="categoryaudio">CategoryAudio</h1>
+<p>Audio functionality for the SDL library.</p>
+<p>All audio in SDL3 revolves around <a href="SDL_AudioStream.html">SDL_AudioStream</a>. Whether you want to
+play or record audio, convert it, stream it, buffer it, or mix it,
+you&#39;re going to be passing it through an audio stream.</p>
+<p>Audio streams are quite flexible; they can accept any amount of data
+at a time, in any supported format, and output it as needed in any other
+format, even if the data format changes on either side halfway
+through.</p>
+<p>An app opens an audio device and binds any number of audio streams to
+it, feeding more data to the streams as available. When the device needs
+more data, it will pull it from all bound streams and mix them together
+for playback.</p>
+<p>Audio streams can also use an app-provided callback to supply data
+on-demand, which maps pretty closely to the SDL2 audio model.</p>
+<p>SDL also provides a simple .WAV loader in <a href="SDL_LoadWAV.html">SDL_LoadWAV</a> (and <a href="SDL_LoadWAV_IO.html">SDL_LoadWAV_IO</a> if you aren&#39;t reading from
+a file) as a basic means to load sound data into your program.</p>
+<h2 id="logical-audio-devices">Logical audio devices</h2>
+<p>In SDL3, opening a physical device (like a SoundBlaster 16 Pro) gives
+you a logical device ID that you can bind audio streams to. In almost
+all cases, logical devices can be used anywhere in the API that a
+physical device is normally used. However, since each device opening
+generates a new logical device, different parts of the program (say, a
+VoIP library, or text-to-speech framework, or maybe some other sort of
+mixer on top of SDL) can have their own device opens that do not
+interfere with each other; each logical device will mix its separate
+audio down to a single buffer, fed to the physical device, behind the
+scenes. As many logical devices as you like can come and go; SDL will
+only have to open the physical device at the OS level once, and will
+manage all the logical devices on top of it internally.</p>
+<p>One other benefit of logical devices: if you don&#39;t open a specific
+physical device, instead opting for the default, SDL can automatically
+migrate those logical devices to different hardware as circumstances
+change: a user plugged in headphones? The system default changed? SDL
+can transparently migrate the logical devices to the correct physical
+device seamlessly and keep playing; the app doesn&#39;t even have to know it
+happened if it doesn&#39;t want to.</p>
+<h2 id="simplified-audio">Simplified audio</h2>
+<p>As a simplified model for when a single source of audio is all that&#39;s
+needed, an app can use <a href="SDL_OpenAudioDeviceStream.html">SDL_OpenAudioDeviceStream</a>,
+which is a single function to open an audio device, create an audio
+stream, bind that stream to the newly-opened device, and (optionally)
+provide a callback for obtaining audio data. When using this function,
+the primary interface is the <a href="SDL_AudioStream.html">SDL_AudioStream</a> and the device handle is
+mostly hidden away; destroying a stream created through this function
+will also close the device, stream bindings cannot be changed, etc. One
+other quirk of this is that the device is started in a <em>paused</em>
+state and must be explicitly resumed; this is partially to offer a clean
+migration for SDL2 apps and partially because the app might have to do
+more setup before playback begins; in the non-simplified form, nothing
+will play until a stream is bound to a device, so they start
+<em>unpaused</em>.</p>
+<h2 id="channel-layouts">Channel layouts</h2>
+<p>Audio data passing through SDL is uncompressed PCM data, interleaved.
+One can provide their own decompression through an MP3, etc, decoder,
+but SDL does not provide this directly. Each interleaved channel of data
+is meant to be in a specific order.</p>
+<p>Abbreviations:</p>
+<ul>
+<li>FRONT = single mono speaker</li>
+<li>FL = front left speaker</li>
+<li>FR = front right speaker</li>
+<li>FC = front center speaker</li>
+<li>BL = back left speaker</li>
+<li>BR = back right speaker</li>
+<li>SR = surround right speaker</li>
+<li>SL = surround left speaker</li>
+<li>BC = back center speaker</li>
+<li>LFE = low-frequency speaker</li>
+</ul>
+<p>These are listed in the order they are laid out in memory, so &quot;FL,
+FR&quot; means &quot;the front left speaker is laid out in memory first, then the
+front right, then it repeats for the next audio frame&quot;.</p>
+<ul>
+<li>1 channel (mono) layout: FRONT</li>
+<li>2 channels (stereo) layout: FL, FR</li>
+<li>3 channels (2.1) layout: FL, FR, LFE</li>
+<li>4 channels (quad) layout: FL, FR, BL, BR</li>
+<li>5 channels (4.1) layout: FL, FR, LFE, BL, BR</li>
+<li>6 channels (5.1) layout: FL, FR, FC, LFE, BL, BR (last two can also
+be SL, SR)</li>
+<li>7 channels (6.1) layout: FL, FR, FC, LFE, BC, SL, SR</li>
+<li>8 channels (7.1) layout: FL, FR, FC, LFE, BL, BR, SL, SR</li>
+</ul>
+<p>This is the same order as DirectSound expects, but applied to all
+platforms; SDL will swizzle the channels as necessary if a platform
+expects something different.</p>
+<p><a href="SDL_AudioStream.html">SDL_AudioStream</a> can also be
+provided channel maps to change this ordering to whatever is necessary,
+in other audio processing scenarios.</p>
+<!-- END CATEGORY DOCUMENTATION -->
+
+<h2 id="functions">Functions</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryAudio, CategoryAPIFunction -->
+
+<ul>
+<li><a href="SDL_AudioDevicePaused.html">SDL_AudioDevicePaused</a></li>
+<li><a href="SDL_AudioStreamDevicePaused.html">SDL_AudioStreamDevicePaused</a></li>
+<li><a href="SDL_BindAudioStream.html">SDL_BindAudioStream</a></li>
+<li><a href="SDL_BindAudioStreams.html">SDL_BindAudioStreams</a></li>
+<li><a href="SDL_ClearAudioStream.html">SDL_ClearAudioStream</a></li>
+<li><a href="SDL_CloseAudioDevice.html">SDL_CloseAudioDevice</a></li>
+<li><a href="SDL_ConvertAudioSamples.html">SDL_ConvertAudioSamples</a></li>
+<li><a href="SDL_CreateAudioStream.html">SDL_CreateAudioStream</a></li>
+<li><a href="SDL_DestroyAudioStream.html">SDL_DestroyAudioStream</a></li>
+<li><a href="SDL_FlushAudioStream.html">SDL_FlushAudioStream</a></li>
+<li><a href="SDL_GetAudioDeviceChannelMap.html">SDL_GetAudioDeviceChannelMap</a></li>
+<li><a href="SDL_GetAudioDeviceFormat.html">SDL_GetAudioDeviceFormat</a></li>
+<li><a href="SDL_GetAudioDeviceGain.html">SDL_GetAudioDeviceGain</a></li>
+<li><a href="SDL_GetAudioDeviceName.html">SDL_GetAudioDeviceName</a></li>
+<li><a href="SDL_GetAudioDriver.html">SDL_GetAudioDriver</a></li>
+<li><a href="SDL_GetAudioFormatName.html">SDL_GetAudioFormatName</a></li>
+<li><a href="SDL_GetAudioPlaybackDevices.html">SDL_GetAudioPlaybackDevices</a></li>
+<li><a href="SDL_GetAudioRecordingDevices.html">SDL_GetAudioRecordingDevices</a></li>
+<li><a href="SDL_GetAudioStreamAvailable.html">SDL_GetAudioStreamAvailable</a></li>
+<li><a href="SDL_GetAudioStreamData.html">SDL_GetAudioStreamData</a></li>
+<li><a href="SDL_GetAudioStreamDevice.html">SDL_GetAudioStreamDevice</a></li>
+<li><a href="SDL_GetAudioStreamFormat.html">SDL_GetAudioStreamFormat</a></li>
+<li><a href="SDL_GetAudioStreamFrequencyRatio.html">SDL_GetAudioStreamFrequencyRatio</a></li>
+<li><a href="SDL_GetAudioStreamGain.html">SDL_GetAudioStreamGain</a></li>
+<li><a href="SDL_GetAudioStreamInputChannelMap.html">SDL_GetAudioStreamInputChannelMap</a></li>
+<li><a href="SDL_GetAudioStreamOutputChannelMap.html">SDL_GetAudioStreamOutputChannelMap</a></li>
+<li><a href="SDL_GetAudioStreamProperties.html">SDL_GetAudioStreamProperties</a></li>
+<li><a href="SDL_GetAudioStreamQueued.html">SDL_GetAudioStreamQueued</a></li>
+<li><a href="SDL_GetCurrentAudioDriver.html">SDL_GetCurrentAudioDriver</a></li>
+<li><a href="SDL_GetNumAudioDrivers.html">SDL_GetNumAudioDrivers</a></li>
+<li><a href="SDL_GetSilenceValueForFormat.html">SDL_GetSilenceValueForFormat</a></li>
+<li><a href="SDL_IsAudioDevicePhysical.html">SDL_IsAudioDevicePhysical</a></li>
+<li><a href="SDL_IsAudioDevicePlayback.html">SDL_IsAudioDevicePlayback</a></li>
+<li><a href="SDL_LoadWAV.html">SDL_LoadWAV</a></li>
+<li><a href="SDL_LoadWAV_IO.html">SDL_LoadWAV_IO</a></li>
+<li><a href="SDL_LockAudioStream.html">SDL_LockAudioStream</a></li>
+<li><a href="SDL_MixAudio.html">SDL_MixAudio</a></li>
+<li><a href="SDL_OpenAudioDevice.html">SDL_OpenAudioDevice</a></li>
+<li><a href="SDL_OpenAudioDeviceStream.html">SDL_OpenAudioDeviceStream</a></li>
+<li><a href="SDL_PauseAudioDevice.html">SDL_PauseAudioDevice</a></li>
+<li><a href="SDL_PauseAudioStreamDevice.html">SDL_PauseAudioStreamDevice</a></li>
+<li><a href="SDL_PutAudioStreamData.html">SDL_PutAudioStreamData</a></li>
+<li><a href="SDL_PutAudioStreamDataNoCopy.html">SDL_PutAudioStreamDataNoCopy</a></li>
+<li><a href="SDL_PutAudioStreamPlanarData.html">SDL_PutAudioStreamPlanarData</a></li>
+<li><a href="SDL_ResumeAudioDevice.html">SDL_ResumeAudioDevice</a></li>
+<li><a href="SDL_ResumeAudioStreamDevice.html">SDL_ResumeAudioStreamDevice</a></li>
+<li><a href="SDL_SetAudioDeviceGain.html">SDL_SetAudioDeviceGain</a></li>
+<li><a href="SDL_SetAudioPostmixCallback.html">SDL_SetAudioPostmixCallback</a></li>
+<li><a href="SDL_SetAudioStreamFormat.html">SDL_SetAudioStreamFormat</a></li>
+<li><a href="SDL_SetAudioStreamFrequencyRatio.html">SDL_SetAudioStreamFrequencyRatio</a></li>
+<li><a href="SDL_SetAudioStreamGain.html">SDL_SetAudioStreamGain</a></li>
+<li><a href="SDL_SetAudioStreamGetCallback.html">SDL_SetAudioStreamGetCallback</a></li>
+<li><a href="SDL_SetAudioStreamInputChannelMap.html">SDL_SetAudioStreamInputChannelMap</a></li>
+<li><a href="SDL_SetAudioStreamOutputChannelMap.html">SDL_SetAudioStreamOutputChannelMap</a></li>
+<li><a href="SDL_SetAudioStreamPutCallback.html">SDL_SetAudioStreamPutCallback</a></li>
+<li><a href="SDL_UnbindAudioStream.html">SDL_UnbindAudioStream</a></li>
+<li><a href="SDL_UnbindAudioStreams.html">SDL_UnbindAudioStreams</a></li>
+<li><a href="SDL_UnlockAudioStream.html">SDL_UnlockAudioStream</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<h2 id="datatypes">Datatypes</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryAudio, CategoryAPIDatatype -->
+
+<ul>
+<li><a href="SDL_AudioDeviceID.html">SDL_AudioDeviceID</a></li>
+<li><a href="SDL_AudioPostmixCallback.html">SDL_AudioPostmixCallback</a></li>
+<li><a href="SDL_AudioStream.html">SDL_AudioStream</a></li>
+<li><a href="SDL_AudioStreamCallback.html">SDL_AudioStreamCallback</a></li>
+<li><a href="SDL_AudioStreamDataCompleteCallback.html">SDL_AudioStreamDataCompleteCallback</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<h2 id="structs">Structs</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryAudio, CategoryAPIStruct -->
+
+<ul>
+<li><a href="SDL_AudioSpec.html">SDL_AudioSpec</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<h2 id="enums">Enums</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryAudio, CategoryAPIEnum -->
+
+<ul>
+<li><a href="SDL_AudioFormat.html">SDL_AudioFormat</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<h2 id="macros">Macros</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryAudio, CategoryAPIMacro -->
+
+<ul>
+<li><a href="SDL_AUDIO_BITSIZE.html">SDL_AUDIO_BITSIZE</a></li>
+<li><a href="SDL_AUDIO_BYTESIZE.html">SDL_AUDIO_BYTESIZE</a></li>
+<li><a href="SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK.html">SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK</a></li>
+<li><a href="SDL_AUDIO_DEVICE_DEFAULT_RECORDING.html">SDL_AUDIO_DEVICE_DEFAULT_RECORDING</a></li>
+<li><a href="SDL_AUDIO_FRAMESIZE.html">SDL_AUDIO_FRAMESIZE</a></li>
+<li><a href="SDL_AUDIO_ISBIGENDIAN.html">SDL_AUDIO_ISBIGENDIAN</a></li>
+<li><a href="SDL_AUDIO_ISFLOAT.html">SDL_AUDIO_ISFLOAT</a></li>
+<li><a href="SDL_AUDIO_ISINT.html">SDL_AUDIO_ISINT</a></li>
+<li><a href="SDL_AUDIO_ISLITTLEENDIAN.html">SDL_AUDIO_ISLITTLEENDIAN</a></li>
+<li><a href="SDL_AUDIO_ISSIGNED.html">SDL_AUDIO_ISSIGNED</a></li>
+<li><a href="SDL_AUDIO_ISUNSIGNED.html">SDL_AUDIO_ISUNSIGNED</a></li>
+<li><a href="SDL_AUDIO_MASK_BIG_ENDIAN.html">SDL_AUDIO_MASK_BIG_ENDIAN</a></li>
+<li><a href="SDL_AUDIO_MASK_BITSIZE.html">SDL_AUDIO_MASK_BITSIZE</a></li>
+<li><a href="SDL_AUDIO_MASK_FLOAT.html">SDL_AUDIO_MASK_FLOAT</a></li>
+<li><a href="SDL_AUDIO_MASK_SIGNED.html">SDL_AUDIO_MASK_SIGNED</a></li>
+<li><a href="SDL_DEFINE_AUDIO_FORMAT.html">SDL_DEFINE_AUDIO_FORMAT</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<hr />
+<p><a href="CategoryAPICategory.html">CategoryAPICategory</a></p>
+</body>
+</html>

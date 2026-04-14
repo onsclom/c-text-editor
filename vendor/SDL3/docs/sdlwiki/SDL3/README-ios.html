@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>README-ios</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">:root {
+color-scheme: dark light; 
+}
+body {
+background-color: white;
+padding: 2vw;
+color: #333;
+max-width: 1200px;
+margin: 0 auto;
+font-size: 16px;
+line-height: 1.5;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+overflow-wrap: break-word;
+}
+a {
+color: #0969da;
+
+}
+a:visited {
+color: #064998;
+}
+h1 {
+border-bottom: 2px solid #efefef;
+}
+h2 {
+border-bottom: 1px solid #efefef;
+}
+p {
+max-width: 85ch;
+}
+li {
+max-width: 85ch;
+}
+div.sourceCode {
+background-color: #f6f8fa;
+max-width: 100%;
+padding: 16px;
+}
+code {
+background-color: #f6f8fa;
+padding: 0px;
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+}
+table {
+border: 1px solid #808080;
+border-collapse: collapse;
+}
+td {
+border: 1px solid #808080;
+padding: 5px;
+}
+tr:nth-child(even) {
+background-color: #f6f8fa;
+}
+.wikitopbanner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #efefef;
+padding: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+.wikibottombanner {
+background-color: #efefef;
+padding: 10px;
+margin-top: 10px;
+width: auto;
+}
+.alertBox {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+max-width: 60%;
+padding: 10;
+margin: auto;
+}
+.anchorImage {
+visibility: hidden;
+padding-left: 0.2em;
+color: #fff;
+}
+.anchorText:hover .anchorImage {
+visibility: visible;
+}
+hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #efefef;
+margin: 1em 0;
+padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+color: #e6edf3;
+background-color: #0d1117;
+}
+h1 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+h2 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+hr {
+border-color: rgba(48, 54, 61, 0.7);
+}
+div.sourceCode {
+background-color: #161b22;
+}
+code {
+background-color: #161b22;
+}
+a {
+color: #4493f8;
+}
+a:visited {
+color: #2f66ad;
+}
+table {
+border-color: rgba(48, 54, 61, 0.7);
+}
+td {
+border-color: rgba(48, 54, 61, 0.7);
+}
+tr:nth-child(even) {
+background-color: #161b22;
+}
+.wikitopbanner {
+background-color: #263040;
+}
+.wikibottombanner {
+background-color: #263040;
+}
+.anchorText:hover .anchorImage {
+filter: invert(100%);
+}
+}
+@media print {
+body {
+font-size: 12px;
+}
+table {
+font-size: inherit;
+}
+a:visited {
+color: #0969da;
+}
+.wikitopbanner,
+.anchorText,
+.wikibottombanner {
+display: none;
+}
+}
+</style>
+  <style type="text/css"> code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+{ position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+{ content: attr(title);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; pointer-events: all; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+@media (prefers-color-scheme: dark) {
+code span.al { color: #95da4c; font-weight: bold; } 
+code span.an { color: #3f8058; } 
+code span.at { color: #2980b9; } 
+code span.bn { color: #f67400; } 
+code span.bu { color: #7f8c8d; } 
+code span.ch { color: #3daee9; } 
+code span.co { color: #7a7c7d; } 
+code span.cv { color: #7f8c8d; } 
+code span.cn { color: #27aeae; font-weight: bold; } 
+code span.cf { color: #fdbc4b; font-weight: bold; } 
+code span.dt { color: #2980b9; } 
+code span.dv { color: #f67400; } 
+code span.do { color: #a43340; } 
+code span.er { color: #da4453; } 
+code span.ex { color: #0099ff; font-weight: bold; } 
+code span.fl { color: #f67400; } 
+code span.fu { color: #8e44ad; } 
+code span.im { color: #27ae60; } 
+code span.in { color: #c45b00; } 
+code span.kw { color: #cfcfc2; font-weight: bold; } 
+code span.op { color: #cfcfc2; } 
+code span.ot { color: #27ae60; } 
+code span.pp { color: #27ae60; } 
+code span.sc { color: #3daee9; } 
+code span.ss { color: #da4453; } 
+code span.st { color: #f44f4f; } 
+code span.va { color: #27aeae; } 
+code span.vs { color: #da4453; } 
+code span.wa { color: #da4453; } 
+}</style>
+</head>
+<body>
+<h1 id="ios">iOS</h1>
+<h1 id="building-the-simple-directmedia-layer-for-ios-110">Building the
+Simple DirectMedia Layer for iOS 11.0+</h1>
+<p>Please note that building SDL requires at least Xcode 12.2 and the
+iOS 14.2 SDK.</p>
+<p>Instructions:</p>
+<ol type="1">
+<li>Open SDL.xcodeproj (located in Xcode/SDL) in Xcode.</li>
+<li>Select your desired target, and hit build.</li>
+</ol>
+<h1 id="using-the-simple-directmedia-layer-for-ios-with-the-sdl3-xcframework">Using
+the Simple DirectMedia Layer for iOS with the SDL3 xcFramework</h1>
+<p>The recommended way to use SDL for iOS is by including the
+SDL3.xcframework which is now a build target of the SDL.xcodeproj file.
+An xcframework is a new (Xcode 11) uber-framework which can handle any
+combination of processor type and target OS platform. You can either
+build the SDL3.xcframework yourself or download the latest release disk
+image asset (*.dmg).</p>
+<p>In the past, iOS devices were always an ARM variant processor, and
+the simulator was always i386 or x86_64, and thus libraries could be
+combined into a single framework for both simulator and device. With the
+introduction of the Apple Silicon ARM-based machines, regular frameworks
+would collide as CPU type was no longer sufficient to differentiate the
+platform. So Apple created the new xcframework library package.</p>
+<p>The xcframework target builds into a Products directory alongside the
+SDL.xcodeproj file, as SDL3.xcframework. This can be brought in to any
+iOS project and will function properly for both simulator and device, no
+matter their CPUs. Note that Intel Macs cannot cross-compile for Apple
+Silicon Macs. If you need AS compatibility, perform this build on an
+Apple Silicon Mac.</p>
+<p>This target requires Xcode 11 or later. The target will simply fail
+to build if attempted on older Xcodes.</p>
+<p>In addition, on Apple platforms, main() cannot be in a dynamically
+loaded library. However, unlike in SDL2, in SDL3 SDL_main is implemented
+inline in SDL_main.h, so you don&#39;t need to link against a static
+libSDL3main.lib, and you don&#39;t need to copy a .c file from the SDL3
+source either. This means that iOS apps which used the statically-linked
+libSDL3.lib and now link with the xcframwork can just
+<code>#include &lt;SDL3/SDL_main.h&gt;</code> in the source file that
+contains their standard <code>int main(int argc, char *argv[])</code>
+function to get a header-only SDL_main implementation that calls the
+<code>SDL_RunApp()</code> with your standard main function.</p>
+<p>To use the SDL3.xcframework follow these steps:</p>
+<ol type="1">
+<li>Run Xcode and create a new project using the iOS Game template,
+selecting the Objective C language and Metal game technology.</li>
+<li>In the main view, delete all files except for Assets and
+LaunchScreen</li>
+<li>Select the project in the main view, go to the &quot;General&quot; tab, scroll
+down to &quot;Frameworks, Libraries, and Embedded Content&quot;, and drag and drop
+the SDL3.xcframework</li>
+<li>Still in &quot;Frameworks, Libraries, and Embedded Content&quot;, select
+&quot;Embed &amp; Sign&quot; for the SDL3.xcframework.</li>
+<li>Add the source files that you would normally have for an SDL
+program, making sure to have #include &lt;SDL3/SDL_main.h&gt; at the top
+of the file containing your main() function.</li>
+<li>Add any assets that your application needs.</li>
+<li>Enjoy!</li>
+</ol>
+<p>Using an xcFramework is similar to using a regular framework.
+However, issues have been seen with the build system not seeing the
+headers in the xcFramework. To remedy this, add the path to the
+xcFramework in your app&#39;s target ==&gt; Build Settings ==&gt; Framework
+Search Paths and mark it recursive (this is critical). Also critical is
+to remove &quot;*.framework&quot; from Build Settings ==&gt; Sub-Directories to
+Exclude in Recursive Searches. Clean the build folder, and on your next
+build the build system should be able to see any of these in your code,
+as expected:</p>
+<p>#include &quot;SDL3/SDL_main.h&quot; #include &lt;SDL3/SDL.h&gt; #include
+&lt;SDL3/SDL_main.h&gt;</p>
+<h1 id="using-the-simple-directmedia-layer-for-ios-by-adding-the-sdl3-xcode-project">Using
+the Simple DirectMedia Layer for iOS by adding the SDL3 Xcode
+project</h1>
+<p>To maintain compatibility with older Xcode versions than version 11
+you can add the SDL3 Xcode project file to your project:</p>
+<ol type="1">
+<li>Run Xcode and create a new project using the iOS Game template,
+selecting the Objective C language and Metal game technology.</li>
+<li>In the main view, delete all files except for Assets and
+LaunchScreen</li>
+<li>Right click the project in the main view, select &quot;Add Files...&quot;, and
+add the SDL project, Xcode/SDL/SDL.xcodeproj</li>
+<li>Select the project in the main view, go to the &quot;Info&quot; tab and under
+&quot;Custom iOS Target Properties&quot; remove the line &quot;Main storyboard file
+base name&quot;</li>
+<li>Select the project in the main view, go to the &quot;Build Settings&quot; tab,
+select &quot;All&quot;, and edit &quot;Header Search Path&quot; and drag over the SDL
+&quot;Public Headers&quot; folder from the left</li>
+<li>Select the project in the main view, go to the &quot;Build Phases&quot; tab,
+select &quot;Link Binary With Libraries&quot;, and add SDL3.framework from
+&quot;Framework-iOS&quot;</li>
+<li>Select the project in the main view, go to the &quot;General&quot; tab, scroll
+down to &quot;Frameworks, Libraries, and Embedded Content&quot;, and select &quot;Embed
+&amp; Sign&quot; for the SDL library.</li>
+<li>Add the source files that you would normally have for an SDL
+program, making sure to have #include &lt;SDL3/SDL_main.h&gt; at the top
+of the file containing your main() function.</li>
+<li>Add any assets that your application needs.</li>
+<li>Enjoy!</li>
+</ol>
+<p>Notes for distributing your iOS app on the AppStore when using the
+embedded SDL3 Xcode project: Embedding the SDL3 Xcode project makes
+SDL3.framework a target of your app, so it will be included in the
+archive created during the &quot;Archive&quot; step required for App Store
+submission. As this prevents successful distribution, remove the
+framework via a script in the Build Phase after the &quot;Embed &amp; Sign&quot;
+step.</p>
+<ol type="1">
+<li>Select the project in the main view, go to the &quot;Build Phases&quot; tab,
+click on the big &#39;+&#39; in this tab and click &quot;New Run Script Phase&quot;.</li>
+<li>Scroll down to &quot;Run Script&quot; (after the &quot;Embed SDL3 Framework&quot;) and
+enter the following script:</li>
+</ol>
+<pre><code>    if [ -d &quot;$INSTALL_ROOT/Library&quot; ]; then
+        echo &quot;Removing SDL3.framework from INSTALL_ROOT for archiving&quot;
+        rm -rf &quot;$INSTALL_ROOT/Library&quot;
+    fi</code></pre>
+<ol start="3" type="1">
+<li>Below the script entry uncheck the &quot;Run Script:&quot; options &quot;For
+install builds only&quot; and &quot;Based on dependency analysis&quot;</li>
+<li>Edit the Build Settings and set &quot;User Script Sandboxing&quot; to
+&quot;No&quot;.</li>
+</ol>
+<p>TODO: Add information regarding App Store requirements such as icons,
+etc.</p>
+<h1 id="notes----retina--high-dpi-and-window-sizes">Notes -- Retina /
+High-DPI and window sizes</h1>
+<p>Window and display mode sizes in SDL are in points rather than in
+pixels. On iOS this means that a window created on an iPhone 6 will have
+a size in points of 375 x 667, rather than a size in pixels of 750 x
+1334. All iOS apps are expected to size their content based on points
+rather than pixels, as this allows different iOS devices to have
+different pixel densities (Retina versus non-Retina screens, etc.)
+without apps caring too much.</p>
+<p>SDL_GetWindowSize() and mouse coordinates are in points rather than
+pixels, but the window will have a much greater pixel density when the
+device supports it, and the SDL_GetWindowSizeInPixels() can be called to
+determine the size in pixels of the drawable screen framebuffer.</p>
+<p>The SDL 2D rendering API will automatically handle this for you, by
+default providing a rendering area in points, and you can call
+SDL_SetRenderLogicalPresentation() to gain access to the higher density
+resolution.</p>
+<p>Some OpenGL ES functions such as glViewport expect sizes in pixels
+rather than sizes in points. When doing 2D rendering with OpenGL ES, an
+orthographic projection matrix using the size in points
+(SDL_GetWindowSize()) can be used in order to display content at the
+same scale no matter whether a Retina device is used or not.</p>
+<h1 id="notes----getting-full-screen-resolution">Notes -- Getting full
+screen resolution</h1>
+<p>Make sure that you have a Launch Screen key in your Info.plist,
+e.g.</p>
+<pre><code>    &lt;key&gt;UILaunchScreen&lt;/key&gt;
+    &lt;dict/&gt;</code></pre>
+<p>If you don&#39;t specify a launch screen, then the OS will assume that
+your application needs an older compatibility mode and will get a
+limited resolution screen.</p>
+<h1 id="notes----application-events">Notes -- Application events</h1>
+<p>On iOS the application goes through a fixed life cycle and you will
+get notifications of state changes via application events. When these
+events are delivered you must handle them in an event callback because
+the OS may not give you any processing time after the events are
+delivered.</p>
+<p>e.g.</p>
+<pre><code>bool HandleAppEvents(void *userdata, SDL_Event *event)
+{
+    switch (event-&gt;type)
+    {
+    case SDL_EVENT_TERMINATING:
+        /* Terminate the app.
+           Shut everything down before returning from this function.
+        */
+        return false;
+    case SDL_EVENT_LOW_MEMORY:
+        /* You will get this when your app is paused and iOS wants more memory.
+           Release as much memory as possible.
+        */
+        return false;
+    case SDL_EVENT_WILL_ENTER_BACKGROUND:
+        /* Prepare your app to go into the background.  Stop loops, etc.
+           This gets called when the user hits the home button, or gets a call.
+        */
+        return false;
+    case SDL_EVENT_DID_ENTER_BACKGROUND:
+        /* This will get called if the user accepted whatever sent your app to the background.
+           If the user got a phone call and canceled it, you&#39;ll instead get an SDL_EVENT_DID_ENTER_FOREGROUND event and restart your loops.
+           When you get this, you have 5 seconds to save all your state or the app will be terminated.
+           Your app is NOT active at this point.
+        */
+        return false;
+    case SDL_EVENT_WILL_ENTER_FOREGROUND:
+        /* This call happens when your app is coming back to the foreground.
+           Restore all your state here.
+        */
+        return false;
+    case SDL_EVENT_DID_ENTER_FOREGROUND:
+        /* Restart your loops here.
+           Your app is interactive and getting CPU again.
+        */
+        return false;
+    default:
+        /* No special processing, add it to the event queue */
+        return true;
+    }
+}
+
+int main(int argc, char *argv[])
+{
+    SDL_SetEventFilter(HandleAppEvents, NULL);
+
+    ... run your main loop
+
+    return 0;
+}</code></pre>
+<p>Note that if you are using main callbacks instead of a standard C
+main() function, your SDL_AppEvent() callback will run as these events
+arrive and you do not need to use SDL_SetEventFilter.</p>
+<h1 id="notes----keyboard">Notes -- Keyboard</h1>
+<p>The SDL keyboard API has been extended to support on-screen
+keyboards:</p>
+<p>void SDL_StartTextInput() -- enables text events and reveals the
+onscreen keyboard.</p>
+<p>void SDL_StopTextInput() -- disables text events and hides the
+onscreen keyboard.</p>
+<p>bool SDL_TextInputActive() -- returns whether or not text events are
+enabled (and the onscreen keyboard is visible)</p>
+<h1 id="notes----mouse">Notes -- Mouse</h1>
+<p>iOS now supports Bluetooth mice on iPad, but by default will provide
+the mouse input as touch. In order for SDL to see the real mouse events,
+you should set the key UIApplicationSupportsIndirectInputEvents to true
+in your Info.plist</p>
+<p>From iOS 17 onward, the key now defaults to true.</p>
+<h1 id="notes----reading-and-writing-files">Notes -- Reading and Writing
+files</h1>
+<p>Each application installed on iPhone resides in a sandbox which
+includes its own application home directory. Your application may not
+access files outside this directory.</p>
+<p>When your SDL based iPhone application starts up, it sets the working
+directory to the main bundle, where your application resources are
+stored. You cannot write to this directory. Instead, you should write
+document files to the directory returned by
+SDL_GetUserFolder(SDL_FOLDER_DOCUMENTS) and preferences to the directory
+returned by SDL_GetPrefPath().</p>
+<p>More information on this subject is available here: <a href="http://developer.apple.com/library/ios/#documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/Introduction/Introduction.html">http://developer.apple.com/library/ios/#documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/Introduction/Introduction.html</a></p>
+<h1 id="notes----iphone-sdl-limitations">Notes -- iPhone SDL
+limitations</h1>
+<p>Windows: Full-size, single window applications only. You cannot
+create multi-window SDL applications for iPhone OS. The application
+window will fill the display, though you have the option of turning on
+or off the menu-bar (pass SDL_CreateWindow() the flag
+SDL_WINDOW_BORDERLESS).</p>
+<p>Textures: The optimal texture formats on iOS are
+SDL_PIXELFORMAT_ABGR8888, SDL_PIXELFORMAT_ABGR8888,
+SDL_PIXELFORMAT_XBGR8888, and SDL_PIXELFORMAT_RGB24 pixel formats.</p>
+<h1 id="notes----corebluetoothframework">Notes --
+CoreBluetooth.framework</h1>
+<p>SDL_JOYSTICK_HIDAPI is disabled by default. It can give you access to
+a lot more game controller devices, but it requires permission from the
+user before your app will be able to talk to the Bluetooth hardware.
+&quot;Made For iOS&quot; branded controllers do not need this as we don&#39;t have to
+speak to them directly with raw bluetooth, so many apps can live without
+this.</p>
+<p>You&#39;ll need to link with CoreBluetooth.framework and add something
+like this to your Info.plist:</p>
+<p><key>NSBluetoothPeripheralUsageDescription</key> <string>MyApp would
+like to remain connected to nearby bluetooth Game Controllers and Game
+Pads even when you&#39;re not using the app.</string></p>
+<h1 id="game-center">Game Center</h1>
+<p>Game Center integration might require that you break up your main
+loop in order to yield control back to the system. In other words,
+instead of running an endless main loop, you run each frame in a
+callback function, using:</p>
+<pre><code>bool SDL_SetiOSAnimationCallback(SDL_Window * window, int interval, SDL_iOSAnimationCallback callback, void *callbackParam);</code></pre>
+<p>This will set up the given function to be called back on the
+animation callback, and then you have to return from main() to let the
+Cocoa event loop run.</p>
+<p>e.g.</p>
+<pre><code>extern &quot;C&quot;
+void ShowFrame(void*)
+{
+    ... do event handling, frame logic and rendering ...
+}
+
+int main(int argc, char *argv[])
+{
+    ... initialize game ...
+
+#ifdef SDL_PLATFORM_IOS
+    // Initialize the Game Center for scoring and matchmaking
+    InitGameCenter();
+
+    // Set up the game to run in the window animation callback on iOS
+    // so that Game Center and so forth works correctly.
+    SDL_SetiOSAnimationCallback(window, 1, ShowFrame, NULL);
+#else
+    while ( running ) {
+        ShowFrame(0);
+        DelayFrame();
+    }
+#endif
+    return 0;
+}</code></pre>
+<p>Note that if you are using main callbacks instead of a standard C
+main() function, your SDL_AppIterate() callback is already doing this
+and you don&#39;t need to use SDL_SetiOSAnimationCallback.</p>
+<h1 id="deploying-to-older-versions-of-ios">Deploying to older versions
+of iOS</h1>
+<p>SDL supports deploying to older versions of iOS than are supported by
+the latest version of Xcode, all the way back to iOS 11.0</p>
+<p>In order to do that you need to download an older version of Xcode:
+<a href="https://developer.apple.com/download/more/?name=Xcode">https://developer.apple.com/download/more/?name=Xcode</a></p>
+<p>Open the package contents of the older Xcode and your newer version
+of Xcode and copy over the folders in
+Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/DeviceSupport</p>
+<p>Then open the file
+Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/SDKSettings.plist
+and add the versions of iOS you want to deploy to the key
+Root/DefaultProperties/DEPLOYMENT_TARGET_SUGGESTED_VALUES</p>
+<p>Open your project and set your deployment target to the desired
+version of iOS</p>
+<p>Finally, remove GameController from the list of frameworks linked by
+your application and edit the build settings for &quot;Other Linker Flags&quot;
+and add -weak_framework GameController</p>
+</body>
+</html>

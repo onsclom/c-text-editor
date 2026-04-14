@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>README-documentation-rules</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">:root {
+color-scheme: dark light; 
+}
+body {
+background-color: white;
+padding: 2vw;
+color: #333;
+max-width: 1200px;
+margin: 0 auto;
+font-size: 16px;
+line-height: 1.5;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+overflow-wrap: break-word;
+}
+a {
+color: #0969da;
+
+}
+a:visited {
+color: #064998;
+}
+h1 {
+border-bottom: 2px solid #efefef;
+}
+h2 {
+border-bottom: 1px solid #efefef;
+}
+p {
+max-width: 85ch;
+}
+li {
+max-width: 85ch;
+}
+div.sourceCode {
+background-color: #f6f8fa;
+max-width: 100%;
+padding: 16px;
+}
+code {
+background-color: #f6f8fa;
+padding: 0px;
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+}
+table {
+border: 1px solid #808080;
+border-collapse: collapse;
+}
+td {
+border: 1px solid #808080;
+padding: 5px;
+}
+tr:nth-child(even) {
+background-color: #f6f8fa;
+}
+.wikitopbanner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #efefef;
+padding: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+.wikibottombanner {
+background-color: #efefef;
+padding: 10px;
+margin-top: 10px;
+width: auto;
+}
+.alertBox {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+max-width: 60%;
+padding: 10;
+margin: auto;
+}
+.anchorImage {
+visibility: hidden;
+padding-left: 0.2em;
+color: #fff;
+}
+.anchorText:hover .anchorImage {
+visibility: visible;
+}
+hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #efefef;
+margin: 1em 0;
+padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+color: #e6edf3;
+background-color: #0d1117;
+}
+h1 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+h2 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+hr {
+border-color: rgba(48, 54, 61, 0.7);
+}
+div.sourceCode {
+background-color: #161b22;
+}
+code {
+background-color: #161b22;
+}
+a {
+color: #4493f8;
+}
+a:visited {
+color: #2f66ad;
+}
+table {
+border-color: rgba(48, 54, 61, 0.7);
+}
+td {
+border-color: rgba(48, 54, 61, 0.7);
+}
+tr:nth-child(even) {
+background-color: #161b22;
+}
+.wikitopbanner {
+background-color: #263040;
+}
+.wikibottombanner {
+background-color: #263040;
+}
+.anchorText:hover .anchorImage {
+filter: invert(100%);
+}
+}
+@media print {
+body {
+font-size: 12px;
+}
+table {
+font-size: inherit;
+}
+a:visited {
+color: #0969da;
+}
+.wikitopbanner,
+.anchorText,
+.wikibottombanner {
+display: none;
+}
+}
+</style>
+  <style type="text/css"> code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+{ position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+{ content: attr(title);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; pointer-events: all; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+@media (prefers-color-scheme: dark) {
+code span.al { color: #95da4c; font-weight: bold; } 
+code span.an { color: #3f8058; } 
+code span.at { color: #2980b9; } 
+code span.bn { color: #f67400; } 
+code span.bu { color: #7f8c8d; } 
+code span.ch { color: #3daee9; } 
+code span.co { color: #7a7c7d; } 
+code span.cv { color: #7f8c8d; } 
+code span.cn { color: #27aeae; font-weight: bold; } 
+code span.cf { color: #fdbc4b; font-weight: bold; } 
+code span.dt { color: #2980b9; } 
+code span.dv { color: #f67400; } 
+code span.do { color: #a43340; } 
+code span.er { color: #da4453; } 
+code span.ex { color: #0099ff; font-weight: bold; } 
+code span.fl { color: #f67400; } 
+code span.fu { color: #8e44ad; } 
+code span.im { color: #27ae60; } 
+code span.in { color: #c45b00; } 
+code span.kw { color: #cfcfc2; font-weight: bold; } 
+code span.op { color: #cfcfc2; } 
+code span.ot { color: #27ae60; } 
+code span.pp { color: #27ae60; } 
+code span.sc { color: #3daee9; } 
+code span.ss { color: #da4453; } 
+code span.st { color: #f44f4f; } 
+code span.va { color: #27aeae; } 
+code span.vs { color: #da4453; } 
+code span.wa { color: #da4453; } 
+}</style>
+</head>
+<body>
+<h1 id="rules-for-documentation">Rules for documentation</h1>
+<p>These are the rules for the care and feeding of wikiheaders.pl.</p>
+<h2 id="no-style-guide">No style guide</h2>
+<p>When adding or editing documentation, we don&#39;t (currently) have a
+style guide for what it should read like, so try to make it consistent
+with the rest of the existing text. It generally should read more like
+technical reference manuals and not sound conversational in tone.</p>
+<p>Most of these rules are about how to make sure the documentation
+works on a <em>technical</em> level, as scripts need to parse it, and
+there are a few simple rules we need to obey to cooperate with those
+scripts.</p>
+<h2 id="the-wiki-and-headers-share-the-same-text">The wiki and headers
+share the same text.</h2>
+<p>There is a massive Perl script
+(<code>build-scripts/wikiheaders.pl</code>, hereafter referred to as
+&quot;wikiheaders&quot;) that can read both the wiki and the public headers, and
+move changes in one across to the other.</p>
+<p>If you prefer to use the wiki, go ahead and edit there. If you prefer
+to use your own text editor, or command line tools to batch-process
+text, etc, you can <a href="https://github.com/libsdl-org/sdlwiki">clone
+the wiki as a git repo</a> and work locally.</p>
+<h2 id="dont-taunt-wikiheaders">Don&#39;t taunt wikiheaders.</h2>
+<p>The script isn&#39;t magic; it&#39;s a massive pile of Regular Expressions
+and not a full C or markdown parser. While it isn&#39;t <em>fragile</em>, if
+you try to do clever things, you might confuse it. This is to the
+benefit of documentation, though, where we would rather you not do
+surprising things.</p>
+<h2 id="utf-8-only">UTF-8 only!</h2>
+<p>All text must be UTF-8 encoded. The wiki will refuse to update files
+that are malformed.</p>
+<h2 id="we-sort-of-write-in-doxygen-format">We <em>sort of</em> write in
+Doxygen format.</h2>
+<p>To document a symbol, we use something that looks like Doxygen (and
+Javadoc) standard comment format:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * This is a function that does something.</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"> *</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"> * It can be used for frozzling bobbles. Be aware that the Frozulator module</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"> * _must_ be initialized before calling this.</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"> *</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span><span class="an">\param</span><span class="co"> </span><span class="cv">frozzlevel</span><span class="co"> The amount of frozzling to perform.</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span><span class="an">\param</span><span class="co"> </span><span class="cv">color</span><span class="co"> What color bobble to frozzle. 0 is red, 1 is green.</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span><span class="an">\returns</span><span class="co"> the number of bobbles that were actually frozzled, -1 on error.</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"> *</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span><span class="an">\threadsafety</span><span class="co"> Do not call this from two threads at once, or the bobbles</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"> *               won&#39;t all frozzle correctly!</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"> *</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span><span class="an">\since</span><span class="co"> This function is available since SDL 7.3.1.</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"> *</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span><span class="an">\sa</span><span class="co"> SDL_DoSomethingElse</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="kw">extern</span> SDL_DECLSPEC <span class="dt">int</span> SDLCALL SDL_DoSomething<span class="op">(</span><span class="dt">int</span> frozzlevel<span class="op">,</span> <span class="dt">int</span> color<span class="op">);</span></span></code></pre></div>
+<p>Note the <code>/**</code> at the start of the comment. That&#39;s a
+&quot;Doxygen-style&quot; comment, and wikiheaders will treat this differently
+than a comment with one <code>*</code>, as this signifies that this is
+not just a comment, but <em>documentation</em>.</p>
+<p>These comments <em>must</em> start in the first column of the line,
+or wikiheaders will ignore them, even with the &quot;/**&quot; start (we should
+improve the script someday to handle this, but currently this is a
+requirement).</p>
+<p>We do <em>not</em> parse every magic Doxygen tag, and we don&#39;t parse
+them in <code>@param</code> format. The goal here was to mostly coexist
+with people that might want to run Doxygen on the SDL headers, not to
+build Doxygen from scratch. That being said, compatibility with Doxygen
+is not a hard requirement here.</p>
+<p>wikiheaders uses these specific tags to turn this comment into a
+(hopefully) well-formatted wiki page, and also can generate manpages and
+books in LaTeX format from it!</p>
+<p>Text markup in the headers is <em>always</em> done in Markdown
+format! But less is more: try not to markup text more than
+necessary.</p>
+<h2 id="doxygen-tags-we-support">Doxygen tags we support:</h2>
+<ul>
+<li><code>\brief one-line description</code> (Not required, and
+wikiheaders will remove tag).</li>
+<li><code>\param varname description</code> (One for each function/macro
+parameter)</li>
+<li><code>\returns description</code> (One for each function, don&#39;t use
+on <code>void</code> returns).</li>
+<li><code>\sa</code> (each of these get tucked into a &quot;See Also&quot; section
+on the wiki)</li>
+<li><code>\since This function is available since SDL 3.0.0.</code> (one
+per Doxygen comment)</li>
+<li><code>\threadsafety description</code> (one per
+function/macro).</li>
+<li><code>\deprecated description</code> (one per symbol, if symbol is
+deprecated!)</li>
+</ul>
+<p>Other Doxygen things might exist in the headers, but they aren&#39;t
+understood by wikiheaders.</p>
+<h2 id="use-markdown">Use Markdown.</h2>
+<p>The wiki also supports MediaWiki format, but we are transitioning
+away from it. The headers always use Markdown. If you&#39;re editing the
+wiki from a git clone, just make .md files and the wiki will know what
+to do with them.</p>
+<h2 id="most-things-in-the-headers-can-be-documented">Most things in the
+headers can be documented.</h2>
+<p>wikiheaders understands functions, typedefs, structs/unions/enums,
+<code>#defines</code> ... basically most of what makes up a C header.
+Just slap a Doxygen-style comment in front of most things and it&#39;ll
+work.</p>
+<h2 id="defines-right-below-typedefs-and-functions-bind">Defines right
+below typedefs and functions bind.</h2>
+<p>Any <code>#define</code> directly below a function or
+non-struct/union/enum typedef is considered part of that declaration.
+This happens to work well with how our headers work, as these defines
+tend to be bitflags and such that are related to that symbol.</p>
+<p>wikiheaders will include those defines in the syntax section of the
+wiki page, and generate stub pages for each define that simply says
+&quot;please refer to (The Actual Symbol You Care About)&quot; with a link. It
+will also pull in any blank lines and most preprocessor directives for
+the syntax text, too.</p>
+<p>Sometimes an unrelated define, by itself, just happens to be right
+below one of these symbols in the header. The easiest way to deal with
+this is either to document that define with a Doxygen-style comment, if
+it makes sense to do so, or just add a normal C comment right above it
+if not, so wikiheaders doesn&#39;t bind it to the previous symbol.</p>
+<h2 id="dont-document-the-sdl_testh-headers">Don&#39;t document the
+<code>SDL_test*.h</code> headers.</h2>
+<p>These are in the public headers but they aren&#39;t really considered
+public APIs. They live in a separate library that doesn&#39;t, or at least
+probably shouldn&#39;t, ship to end users. As such, we don&#39;t want it
+documented on the wiki.</p>
+<p>For now, we do this by not having any Doxygen-style comments in these
+files. Please keep it that way! If you want to document these headers,
+just don&#39;t use the magic two-<code>*</code> comment.</p>
+<h2 id="the-first-line-is-the-summary">The first line is the
+summary.</h2>
+<p>The first line of a piece of documentation is meant to be a succinct
+description. This is what Doxygen would call the <code>\brief</code>
+tag. wikiheaders will split this text out until the first period (end of
+sentence!), and when word wrapping, shuffle the overflow into a new
+paragraph below it.</p>
+<h2 id="split-paragraphs-with-a-blank-line">Split paragraphs with a
+blank line.</h2>
+<p>And don&#39;t indent them at all (indenting in Markdown is treated as
+preformatted text).</p>
+<p>wikiheaders will wordwrap header comments so they fit in 80 columns,
+so if you don&#39;t leave a blank line between paragraphs, they will smush
+into a single block of text when wordwrapping.</p>
+<h2 id="lists-must-be-the-start-of-a-new-paragraph">Lists must be the
+start of a new paragraph.</h2>
+<p>If you write this:</p>
+<pre><code>Here is some text without a blank line
+before an unordered list!
+- item a
+- item b
+- item c</code></pre>
+<p>...then wikiheaders will word wrap this as a single paragraph,
+mangling the list.</p>
+<p>Put a blank line before the list, and everything will format and wrap
+correctly.</p>
+<p>This is a limitation of wikiheaders. Don&#39;t get bit by it!</p>
+<h2 id="dont-worry-about-word-wrapping">Don&#39;t worry about word
+wrapping.</h2>
+<p>If you don&#39;t word-wrap your header edits perfectly (and you won&#39;t, I
+promise), wikiheaders will send your change to the wiki, and then to
+make things match, send it right back to the headers with correct word
+wrapping. Since this happens right after you push your changes, you
+might as well just write however you like and assume the system will
+clean it up for you.</p>
+<h2 id="things-that-start-with-sdl_-will-automatically-become-wiki-links">Things
+that start with <code>SDL_</code> will automatically become wiki
+links.</h2>
+<p>wikiheaders knows to turn these into links to other pages, so if you
+reference an SDL symbol in the header documentation, you don&#39;t need to
+link to it. You can optionally wrap the symbol in backticks, and
+wikiheaders will know to link the backticked thing. It will not generate
+links in three-backtick code/preformatted blocks.</p>
+<h2 id="urls-will-automatically-become-links">URLs will automatically
+become links.</h2>
+<p>You can use Markdown&#39;s
+<code>[link markup format](https://example.com/)</code>, but sometimes
+it&#39;s clearer to list bare URLs; the URL will be visible on the wiki
+page, but also clickable to follow the link. This is up to your judgment
+on a case-by-case basis.</p>
+<h2 id="hide-stuff-from-wikiheaders">Hide stuff from wikiheaders.</h2>
+<p>If all else fails, you can block off pieces of the header with this
+magic line (whitespace is ignored):</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#ifndef SDL_WIKI_DOCUMENTATION_SECTION</span></span></code></pre></div>
+<p>Everything between this line and the next <code>#endif</code> will
+just be skipped by wikiheaders. Note that wikiheaders is not a C
+preprocessor! Don&#39;t try to nest conditionals or use
+<code>!defined</code>.</p>
+<p>Just block off sections if you need to. And: you almost never need
+to.</p>
+<h2 id="hide-stuff-from-the-compiler">Hide stuff from the compiler.</h2>
+<p>If you need to put something that&#39;s only of interest to wikiheaders,
+the convention is to put it in a block like this:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#ifdef SDL_WIKI_DOCUMENTATION_SECTION</span></span></code></pre></div>
+<p>Generally this is used when there&#39;s a collection of preprocessor
+conditionals to define the same symbol differently in different
+circumstances. You put that symbol in this block with some reasonable
+generic version <em>and the Doxygen-style comment</em>. Because
+wikiheaders doesn&#39;t care about this preprocessor magic, and the C
+compiler can be as fancy as it wants, this is strictly a useful
+convention.</p>
+<h2 id="structunionenum-typedefs-must-have-the-name-on-the-first-line">Struct/union/enum
+typedefs must have the name on the first line.</h2>
+<p>This is because wikiheaders is not a full C parser. Don&#39;t write
+this:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">struct</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> a<span class="op">;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> b<span class="op">;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> SDL_MyStruct<span class="op">;</span></span></code></pre></div>
+<p>...make sure the name is at the start, too:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">struct</span> SDL_MyStruct</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> a<span class="op">;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> b<span class="op">;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> SDL_MyStruct<span class="op">;</span></span></code></pre></div>
+<p>wikiheaders will complain loudly if you don&#39;t do this, and exit with
+an error message.</p>
+<h2 id="dont-repeat-type-names-in-param-and-returns-sections">Don&#39;t
+repeat type names in <code>\param</code> and <code>\returns</code>
+sections.</h2>
+<p>Wikiheaders will explicitly mention the datatype for each parameter
+and the return value, linking to the datatype&#39;s wikipage. Users reading
+the headers can see the types in the function signature right below the
+documentation comment. So don&#39;t mention the type a second time in the
+documentation if possible. It looks cluttered and repetitive to do
+so.</p>
+<h2 id="keep-param-and-returns-sections-short">Keep <code>\param</code>
+and <code>\returns</code> sections short.</h2>
+<p>These strings end up in a table that we don&#39;t want to be bulky. Try
+to keep these to one sentence/phrase where possible. If you need more
+detail--even extremely common details, like &quot;you need to free the
+returned pointer&quot;--put that information in the general Remarks section,
+where you can be as verbose as you like.</p>
+<p>(One exception for SDL: the return value almost always notes that on
+error, you should call SDL_GetError() to get more information. The
+documentation is so saturated with this that it&#39;s just the standard
+now.)</p>
+<p>Convention at the moment is that pointer params that are permitted to
+be NULL, which is somewhat uncommon, end with terse &quot;May be NULL.&quot;
+sentence at the end, and pointers that must be non-NULL (most of them)
+say nothing. This is fine.</p>
+<h2 id="code-examples-go-in-the-wiki">Code examples go in the wiki.</h2>
+<p>We don&#39;t want the headers cluttered up with code examples. These live
+on the wiki pages, and wikiheaders knows to not bridge them back to the
+headers.</p>
+<p>Put them in a <code>## Code Examples</code> section, and make sure to
+wrap them in a three-backtick-c section for formatting purposes. Only
+write code in C, please.</p>
+<h2 id="do-you-need-a-code-example">Do you <em>need</em> a code
+example?</h2>
+<p>Most code examples aren&#39;t actually useful. If your code example is
+just <code>SDL_CreateWindow(&quot;Hello SDL&quot;, 640, 480, 0);</code> then just
+delete it; if all you&#39;re showing is how to call a function in C, it&#39;s
+not a useful code example. Not all functions need an example. One with
+complex setup or usage details might, though!</p>
+<h2 id="code-examples-are-compiled-by-github-actions">Code examples are
+compiled by GitHub Actions.</h2>
+<p>On each change to the wiki, there is a script that pulls out all the
+code examples into discrete C files and attempts to compile them, and
+complains if they don&#39;t work.</p>
+<h2 id="unrecognized-sections-are-left-alone-in-the-wiki">Unrecognized
+sections are left alone in the wiki.</h2>
+<p>A wiki section that starts with <code>## Section Name</code> (or
+<code>== Section Name ==</code> in MediaWiki format) that isn&#39;t one of
+the recognized names will be left alone by wikiheaders. Recognized
+sections might get overwritten with new content from the headers, but
+the wiki file will not have other sections cleaned out (this is how Code
+Examples remain wiki only, for example). You can use this to add
+Wiki-specific text, or stuff that doesn&#39;t make sense in a header, or
+would merely clutter it up.</p>
+<p>A possibly-incomplete list of sections that will be overwritten by
+changes to the headers:</p>
+<ul>
+<li>The page title line, and the &quot;brief&quot; one-sentence description
+section.</li>
+<li>&quot;Deprecated&quot;</li>
+<li>&quot;Header File&quot;</li>
+<li>&quot;Syntax&quot;</li>
+<li>&quot;Function Parameters&quot;</li>
+<li>&quot;Macro Parameters&quot;</li>
+<li>&quot;Fields&quot;</li>
+<li>&quot;Values&quot;</li>
+<li>&quot;Return Value&quot;</li>
+<li>&quot;Remarks&quot;</li>
+<li>&quot;Thread Safety&quot;</li>
+<li>&quot;Version&quot;</li>
+<li>&quot;See Also&quot;</li>
+</ul>
+<h2 id="unrecognized-sections-are-removed-from-the-headers">Unrecognized
+sections are removed from the headers!</h2>
+<p>If you add Doxygen with a <code>##</code> (<code>###</code>, etc)
+section header, it&#39;ll migrate to the wiki and be <em>removed</em> from
+the headers. Generally the correct thing to do is <em>never use section
+headers in the Doxygen</em>.</p>
+<h2 id="wikiheaders-will-reorder-standard-sections">wikiheaders will
+reorder standard sections.</h2>
+<p>The standard sections are always kept in a consistent order by
+wikiheaders, both in the headers and the wiki. If they&#39;re placed in a
+non-standard order, wikiheaders will reorder them.</p>
+<p>For sections that aren&#39;t standard, wikiheaders will place them at the
+end of the wiki page, in the order they were seen when it loaded the
+page for processing.</p>
+<h2 id="its-okay-to-repeat-yourself">It&#39;s okay to repeat yourself.</h2>
+<p>Each individual piece of documentation becomes a separate page on the
+wiki, so small repeated details can just exist in different pieces of
+documentation. If it&#39;s complicated, it&#39;s not unreasonable to say &quot;Please
+refer to SDL_SomeOtherFunction for more details&quot; ... wiki users can
+click right through, header users can search for the function name.</p>
+<h2 id="the-docs-directory-is-bridged-to-the-wiki-too">The docs
+directory is bridged to the wiki, too.</h2>
+<p>You might be reading this document on the wiki! Any
+<code>README-*.md</code> files in the docs directory are bridged to the
+wiki, so <code>docs/README-linux.md</code> lands at <a href="README-linux.html">https://wiki.libsdl.org/SDL3/README-linux</a>
+...these are just copied directly without any further processing by
+wikiheaders, and changes go in both directions.</p>
+<h2 id="the-wiki-can-have-its-own-pages-too">The wiki can have its own
+pages, too.</h2>
+<p>If a page name isn&#39;t a symbol that wikiheaders sees in the headers,
+or a README in the source&#39;s <code>docs</code> directory, or a few other
+exceptions, it&#39;ll assume it&#39;s an unrelated wiki page and leave it alone.
+So feel free to write any wiki-only pages that make sense and not worry
+about it junking up the headers!</p>
+<h2 id="wiki-categories-are-mostly-managed-automatically">Wiki
+categories are (mostly) managed automatically.</h2>
+<p>The wiki will see this pattern as the last thing on a page and treat
+it as a list of categories that page belongs to:</p>
+<pre><code>----
+[CategoryStuff](CategoryStuff), [CategoryWhatever](CategoryWhatever)</code></pre>
+<p>You can use this to simply tag a page as part of a category, and the
+user can click directly to see other pages in that category. The wiki
+will automatically manage a <code>Category*</code> pages that list any
+tagged pages.</p>
+<p>You <em>should not</em> add tags to the public headers. They don&#39;t
+mean anything there. wikiheaders will add a few tags that make sense
+when generating wiki content from the header files, and it will preserve
+other tags already present on the page, so if you want to add extra
+categories to something, tag it on the wiki itself.</p>
+<p>The wiki uses some magic HTML comment tags to decide how to list
+items on Category pages and let other content live on the page as well.
+You can see an example of this in action at:</p>
+<p><a href="https://raw.githubusercontent.com/libsdl-org/sdlwiki/main/SDL3/CategoryEvents.md">https://raw.githubusercontent.com/libsdl-org/sdlwiki/main/SDL3/CategoryEvents.md</a></p>
+<h2 id="categorizing-the-headers">Categorizing the headers.</h2>
+<p>To put a symbol in a specific category, we use three approaches in
+SDL:</p>
+<ul>
+<li>Things in the <code>SDL_test*.h</code> headers aren&#39;t categorized at
+all (and you shouldn&#39;t document them!)</li>
+<li>Most files are categorized by header name: we strip off the leading
+<code>SDL_</code> and capitalize the first letter of what&#39;s left. So
+everything in SDL_audio.h is in the &quot;Audio&quot; category, everything in
+SDL_video.h is in the &quot;Video&quot; category, etc.</li>
+<li>If wikiheaders sees a comment like this on a line by itself...
+<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* WIKI CATEGORY: Blah */</span></span></code></pre></div>
+...then all symbols below that will land in the &quot;Blah&quot; category. We use
+this at the top of a few headers where the simple
+chop-off-SDL_-and-captialize-the-first-letter trick doesn&#39;t work well,
+but one could theoretically use this for headers that have some overlap
+in category.</li>
+</ul>
+<h2 id="category-documentation-lives-in-headers">Category documentation
+lives in headers.</h2>
+<p>To document a category (text that lives before the item lists on a
+wiki category page), you have to follow a simple rule:</p>
+<p>The <em>first</em> Doxygen-style comment in a header must start
+with:</p>
+<pre><code>/**
+ * # CategoryABC</code></pre>
+<p>If these conditions aren&#39;t met, wikiheaders will assume that
+documentation belongs to whatever is below it instead of the
+Category.</p>
+<p>The text of this comment will be added to the appropriate wiki
+Category page, at the top, replacing everything in the file until it
+sees a line that starts with an HTML comment (<code>&lt;!--</code>), or
+a line that starts with <code>----</code>. Everything after that in the
+wiki file will be preserved.</p>
+<p>Likewise, when bridging <em>back</em> to the headers, if wikiheaders
+sees one of these comments, it&#39;ll copy the top section of the Category
+page back into the comment.</p>
+<p>Beyond stripping the initial <code>*</code> portion off each line,
+these comments are treated as pure Markdown. They don&#39;t support any
+Doxygen tags like <code>\sa</code> or <code>\since</code>.</p>
+<h2 id="enumstruct-versioning">Enum/struct versioning</h2>
+<p>If you have an enum or struct, it&#39;ll list its <code>\since</code>
+field as the first SDL release it was available in. However, we might
+later add new values to an enum or fields to a struct. These lines,
+arriving in a newer version, should have a note about that, like this
+one on SDL_SCALEMODE_PIXELART:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">enum</span> SDL_ScaleMode</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    SDL_SCALEMODE_INVALID <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">,</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    SDL_SCALEMODE_NEAREST<span class="op">,</span>  <span class="co">/**&lt; nearest pixel sampling */</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    SDL_SCALEMODE_LINEAR<span class="op">,</span>   <span class="co">/**&lt; linear filtering */</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    SDL_SCALEMODE_PIXELART  <span class="co">/**&lt; nearest pixel sampling with improved scaling for pixel art (since SDL 3.3.0) */</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> SDL_ScaleMode<span class="op">;</span></span></code></pre></div>
+</body>
+</html>

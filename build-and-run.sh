@@ -1,0 +1,24 @@
+cc src/main.c -Wall -Wextra -std=c99 \
+  -Ivendor/SDL3/include \
+  -Lvendor/SDL3/lib/macos \
+  -lSDL3 \
+  -framework Cocoa \
+  -framework IOKit \
+  -framework CoreVideo \
+  -framework CoreAudio \
+  -framework AudioToolbox \
+  -framework Metal \
+  -framework QuartzCore \
+  -framework GameController \
+  -framework CoreHaptics \
+  -framework UniformTypeIdentifiers \
+  -framework AVFoundation \
+  -framework CoreMedia \
+  -framework ForceFeedback \
+  -framework Carbon \
+  -framework CoreFoundation \
+  -framework CoreGraphics \
+  -framework CoreServices \
+  -liconv \
+  -ObjC \
+  -o ted && ./ted

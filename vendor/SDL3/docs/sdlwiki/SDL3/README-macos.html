@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>README-macos</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">:root {
+color-scheme: dark light; 
+}
+body {
+background-color: white;
+padding: 2vw;
+color: #333;
+max-width: 1200px;
+margin: 0 auto;
+font-size: 16px;
+line-height: 1.5;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+overflow-wrap: break-word;
+}
+a {
+color: #0969da;
+
+}
+a:visited {
+color: #064998;
+}
+h1 {
+border-bottom: 2px solid #efefef;
+}
+h2 {
+border-bottom: 1px solid #efefef;
+}
+p {
+max-width: 85ch;
+}
+li {
+max-width: 85ch;
+}
+div.sourceCode {
+background-color: #f6f8fa;
+max-width: 100%;
+padding: 16px;
+}
+code {
+background-color: #f6f8fa;
+padding: 0px;
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+}
+table {
+border: 1px solid #808080;
+border-collapse: collapse;
+}
+td {
+border: 1px solid #808080;
+padding: 5px;
+}
+tr:nth-child(even) {
+background-color: #f6f8fa;
+}
+.wikitopbanner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #efefef;
+padding: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+.wikibottombanner {
+background-color: #efefef;
+padding: 10px;
+margin-top: 10px;
+width: auto;
+}
+.alertBox {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+max-width: 60%;
+padding: 10;
+margin: auto;
+}
+.anchorImage {
+visibility: hidden;
+padding-left: 0.2em;
+color: #fff;
+}
+.anchorText:hover .anchorImage {
+visibility: visible;
+}
+hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #efefef;
+margin: 1em 0;
+padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+color: #e6edf3;
+background-color: #0d1117;
+}
+h1 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+h2 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+hr {
+border-color: rgba(48, 54, 61, 0.7);
+}
+div.sourceCode {
+background-color: #161b22;
+}
+code {
+background-color: #161b22;
+}
+a {
+color: #4493f8;
+}
+a:visited {
+color: #2f66ad;
+}
+table {
+border-color: rgba(48, 54, 61, 0.7);
+}
+td {
+border-color: rgba(48, 54, 61, 0.7);
+}
+tr:nth-child(even) {
+background-color: #161b22;
+}
+.wikitopbanner {
+background-color: #263040;
+}
+.wikibottombanner {
+background-color: #263040;
+}
+.anchorText:hover .anchorImage {
+filter: invert(100%);
+}
+}
+@media print {
+body {
+font-size: 12px;
+}
+table {
+font-size: inherit;
+}
+a:visited {
+color: #0969da;
+}
+.wikitopbanner,
+.anchorText,
+.wikibottombanner {
+display: none;
+}
+}
+</style>
+  <style type="text/css"> code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+{ position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+{ content: attr(title);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; pointer-events: all; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+@media (prefers-color-scheme: dark) {
+code span.al { color: #95da4c; font-weight: bold; } 
+code span.an { color: #3f8058; } 
+code span.at { color: #2980b9; } 
+code span.bn { color: #f67400; } 
+code span.bu { color: #7f8c8d; } 
+code span.ch { color: #3daee9; } 
+code span.co { color: #7a7c7d; } 
+code span.cv { color: #7f8c8d; } 
+code span.cn { color: #27aeae; font-weight: bold; } 
+code span.cf { color: #fdbc4b; font-weight: bold; } 
+code span.dt { color: #2980b9; } 
+code span.dv { color: #f67400; } 
+code span.do { color: #a43340; } 
+code span.er { color: #da4453; } 
+code span.ex { color: #0099ff; font-weight: bold; } 
+code span.fl { color: #f67400; } 
+code span.fu { color: #8e44ad; } 
+code span.im { color: #27ae60; } 
+code span.in { color: #c45b00; } 
+code span.kw { color: #cfcfc2; font-weight: bold; } 
+code span.op { color: #cfcfc2; } 
+code span.ot { color: #27ae60; } 
+code span.pp { color: #27ae60; } 
+code span.sc { color: #3daee9; } 
+code span.ss { color: #da4453; } 
+code span.st { color: #f44f4f; } 
+code span.va { color: #27aeae; } 
+code span.vs { color: #da4453; } 
+code span.wa { color: #da4453; } 
+}</style>
+</head>
+<body>
+<h1 id="macos">macOS</h1>
+<p>These instructions are for people using Apple&#39;s macOS.</p>
+<p>From the developer&#39;s point of view, macOS is a sort of hybrid Mac and
+Unix system, and you have the option of using either traditional command
+line tools or Apple&#39;s IDE Xcode.</p>
+<h1 id="command-line-build">Command Line Build</h1>
+<p>To build SDL using the command line, use the CMake build script:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> build</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> build</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> .. <span class="at">-DCMAKE_OSX_DEPLOYMENT_TARGET</span><span class="op">=</span>10.13</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">--build</span> .</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> cmake <span class="at">--install</span> .</span></code></pre></div>
+<p>You can also build SDL as a Universal library (a single binary for
+both 64-bit Intel and ARM architectures):</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> build</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> build</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> .. <span class="st">&quot;-DCMAKE_OSX_ARCHITECTURES=arm64;x86_64&quot;</span> <span class="at">-DCMAKE_OSX_DEPLOYMENT_TARGET</span><span class="op">=</span>10.13</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">--build</span> .</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> cmake <span class="at">--install</span> .</span></code></pre></div>
+<p>Please note that building SDL requires at least Xcode 12.2 and the
+macOS 11.0 SDK.</p>
+<p>If you are getting errors building SDL_mfijoystick.m with Xcode 12.2,
+find your SDKs directory and move MacOSX10.15.sdk out of the way so it
+isn&#39;t accidentally being used by the build environment.</p>
+<p>To use the library once it&#39;s built, you essential have two
+possibilities: use the traditional autoconf/automake/make method, or use
+Xcode.</p>
+<h1 id="caveats-for-using-sdl-with-macos">Caveats for using SDL with
+macOS</h1>
+<p>If you register your own NSApplicationDelegate (using [NSApp
+setDelegate:]), SDL will not register its own. This means that SDL will
+not terminate using SDL_Quit if it receives a termination request, it
+will terminate like a normal app, and it will not send a
+SDL_EVENT_DROP_FILE when you request to open a file with the app. To
+solve these issues, put the following code in your NSApplicationDelegate
+implementation:</p>
+<pre class="objc"><code>- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
+{
+    if (SDL_EventEnabled(SDL_EVENT_QUIT)) {
+        SDL_Event event;
+        SDL_zero(event);
+        event.type = SDL_EVENT_QUIT;
+        SDL_PushEvent(&amp;event);
+    }
+
+    return NSTerminateCancel;
+}
+
+- (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename
+{
+    if (SDL_EventEnabled(SDL_EVENT_DROP_FILE)) {
+        SDL_Event event;
+        SDL_zero(event);
+        event.type = SDL_EVENT_DROP_FILE;
+        event.drop.file = SDL_strdup([filename UTF8String]);
+        return SDL_PushEvent(&amp;event);
+    }
+
+    return NO;
+}</code></pre>
+<p>SDL is <a href="README-platforms.html#setuid">not designed to be used
+in setuid or setgid executables</a>.</p>
+<h1 id="using-the-simple-directmedia-layer-with-a-traditional-makefile">Using
+the Simple DirectMedia Layer with a traditional Makefile</h1>
+<p>An existing build system for your SDL app has good chances to work
+almost unchanged on macOS, as long as you link with the SDL framework.
+However, to produce a &quot;real&quot; Mac binary that you can distribute to
+users, you need to put the generated binary into a so called &quot;bundle&quot;,
+which is basically a fancy folder with a name like &quot;MyCoolGame.app&quot;.</p>
+<p>To get this build automatically, add something like the following
+rule to your Makefile.am:</p>
+<pre class="make"><code>bundle_contents = APP_NAME.app/Contents
+APP_NAME_bundle: EXE_NAME
+    mkdir -p $(bundle_contents)/MacOS
+    mkdir -p $(bundle_contents)/Resources
+    echo &quot;APPL????&quot; &gt; $(bundle_contents)/PkgInfo
+    $(INSTALL_PROGRAM) $&lt; $(bundle_contents)/MacOS/</code></pre>
+<p>You should replace <code>EXE_NAME</code> with the name of the
+executable. <code>APP_NAME</code> is what will be visible to the user in
+the Finder. Usually it will be the same as <code>EXE_NAME</code> but
+capitalized. E.g. if <code>EXE_NAME</code> is &quot;testgame&quot; then
+<code>APP_NAME</code> usually is &quot;TestGame&quot;. You might also want to use
+<code>@PACKAGE@</code> to use the package name as specified in your
+configure.ac file.</p>
+<p>If your project builds more than one application, you will have to do
+a bit more. For each of your target applications, you need a separate
+rule.</p>
+<p>If you want the created bundles to be installed, you may want to add
+this rule to your Makefile.am:</p>
+<pre class="make"><code>install-exec-hook: APP_NAME_bundle
+    rm -rf $(DESTDIR)$(prefix)/Applications/APP_NAME.app
+    mkdir -p $(DESTDIR)$(prefix)/Applications/
+    cp -r $&lt; /$(DESTDIR)$(prefix)Applications/</code></pre>
+<p>This rule takes the Bundle created by the rule from step 3 and
+installs them into &quot;<span class="math inline">(<em>D</em><em>E</em><em>S</em><em>T</em><em>D</em><em>I</em><em>R</em>)</span>(prefix)/Applications/&quot;.</p>
+<p>Again, if you want to install multiple applications, you will have to
+augment the make rule accordingly.</p>
+<p>But beware! That is only part of the story! With the above, you end
+up with a barebones .app bundle, which is double-clickable from the
+Finder. But there are some more things you should do before shipping
+your product...</p>
+<ol type="1">
+<li><p>You&#39;ll need to copy the SDL framework into the
+Contents/Frameworks folder in your bundle, so it is included along with
+your application.</p></li>
+<li><p>Add an &#39;Info.plist&#39; to your application. That is a special XML
+file which contains some meta-information about your application (like
+some copyright information, the version of your app, the name of an
+optional icon file, and other things). Part of that information is
+displayed by the Finder when you click on the .app, or if you look at
+the &quot;Get Info&quot; window. More information about Info.plist files can be
+found on Apple&#39;s homepage.</p></li>
+</ol>
+<p>As a final remark, let me add that I use some of the techniques (and
+some variations of them) in <a href="https://github.com/exult/exult">Exult</a> and <a href="https://github.com/scummvm/scummvm">ScummVM</a>; both are
+available in source on the net, so feel free to take a peek at them for
+inspiration!</p>
+<h1 id="using-the-simple-directmedia-layer-with-xcode">Using the Simple
+DirectMedia Layer with Xcode</h1>
+<p>These instructions are for using Apple&#39;s Xcode IDE to build SDL
+applications.</p>
+<h2 id="first-steps">First steps</h2>
+<p>The first thing to do is to unpack the Xcode.tar.gz archive in the
+top level SDL directory (where the Xcode.tar.gz archive resides).
+Because Stuffit Expander will unpack the archive into a subdirectory,
+you should unpack the archive manually from the command line:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="pp">[</span><span class="ss">path_to_SDL_source</span><span class="pp">]</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> zxf Xcode.tar.gz</span></code></pre></div>
+<p>This will create a new folder called Xcode, which you can browse
+normally from the Finder.</p>
+<h2 id="building-the-framework">Building the Framework</h2>
+<p>The SDL Library is packaged as a framework bundle, an organized
+relocatable folder hierarchy of executable code, interface headers, and
+additional resources. For practical purposes, you can think of a
+framework as a more user and system-friendly shared library, whose
+library file behaves more or less like a standard UNIX shared
+library.</p>
+<p>To build the framework, simply open the framework project and build
+it. By default, the framework bundle &quot;SDL.framework&quot; is installed in
+/Library/Frameworks. Therefore, the testers and project stationary
+expect it to be located there. However, it will function the same in any
+of the following locations:</p>
+<ul>
+<li>~/Library/Frameworks</li>
+<li>/Local/Library/Frameworks</li>
+<li>/System/Library/Frameworks</li>
+</ul>
+<h2 id="build-options">Build Options</h2>
+<p>There are two &quot;Build Styles&quot; (See the &quot;Targets&quot; tab) for SDL.
+&quot;Deployment&quot; should be used if you aren&#39;t tweaking the SDL library.
+&quot;Development&quot; should be used to debug SDL apps or the library
+itself.</p>
+<h2 id="building-the-testers">Building the Testers</h2>
+<p>Open the SDLTest project and build away!</p>
+<h2 id="using-the-project-stationary">Using the Project Stationary</h2>
+<p>Copy the stationary to the indicated folders to access it from the
+&quot;New Project&quot; and &quot;Add target&quot; menus. What could be easier?</p>
+<h2 id="setting-up-a-new-project-by-hand">Setting up a new project by
+hand</h2>
+<p>Some of you won&#39;t want to use the Stationary so I&#39;ll give some
+tips:</p>
+<p>(this is accurate as of Xcode 12.5.)</p>
+<ul>
+<li>Click &quot;File&quot; -&gt; &quot;New&quot; -&gt; &quot;Project...</li>
+<li>Choose &quot;macOS&quot; and then &quot;App&quot; from the &quot;Application&quot; section.</li>
+<li>Fill out the options in the next window. User interface is &quot;XIB&quot; and
+Language is &quot;Objective-C&quot;.</li>
+<li>Remove &quot;main.m&quot; from your project</li>
+<li>Remove &quot;MainMenu.xib&quot; from your project</li>
+<li>Remove &quot;AppDelegates.*&quot; from your project</li>
+<li>Add &quot;$(HOME)/Library/Frameworks/SDL.framework/Headers&quot; to include
+path</li>
+<li>Add &quot;$(HOME)/Library/Frameworks&quot; to the frameworks search path</li>
+<li>Add &quot;-framework SDL -framework Foundation -framework AppKit&quot; to
+&quot;OTHER_LDFLAGS&quot;</li>
+<li>Add your files</li>
+<li>Clean and build</li>
+</ul>
+<h2 id="building-from-command-line">Building from command line</h2>
+<p>Use <code>xcode-build</code> in the same directory as your .pbxproj
+file</p>
+<h2 id="running-your-app">Running your app</h2>
+<p>You can send command line args to your app by either invoking it from
+the command line (in *.app/Contents/MacOS) or by entering them in the
+Executables&quot; panel of the target settings.</p>
+<h1 id="implementation-notes">Implementation Notes</h1>
+<p>Some things that may be of interest about how it all works...</p>
+<h2 id="working-directory">Working directory</h2>
+<p>In SDL 1.2, the working directory of your SDL app is by default set
+to its parent, but this is no longer the case in SDL 2.0 and later. SDL2
+does not change the working directory, which means it&#39;ll be whatever the
+command line prompt that launched the program was using, or if launched
+by double-clicking in the Finder, it will be &quot;/&quot;, the <em>root of the
+filesystem</em>. Plan accordingly! You can use SDL_GetBasePath() to find
+where the program is running from and chdir() there directly.</p>
+<h2 id="you-have-a-cocoa-app">You have a Cocoa App!</h2>
+<p>Your SDL app is essentially a Cocoa application. When your app starts
+up and the libraries finish loading, a Cocoa procedure is called, which
+sets up the working directory and calls your main() method. You are free
+to modify your Cocoa app with generally no consequence to SDL. You
+cannot, however, easily change the SDL window itself. Functionality may
+be added in the future to help this.</p>
+<h2 id="raw-mouse-input">Raw Mouse Input</h2>
+<p>On macOS 11.0 (Big Sur) and later, SDL uses the Game Controller
+framework&#39;s GCMouse API to provide raw, unaccelerated mouse input in
+relative mode. This is ideal for games and applications requiring
+precise 1:1 mouse movement.</p>
+<p>On older macOS versions, SDL falls back to NSEvent-based mouse input,
+which includes system mouse acceleration.</p>
+<p>To use accelerated (system-scaled) mouse movement on macOS 11.0+, set
+the hint:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>SDL_SetHint<span class="op">(</span>SDL_HINT_MOUSE_RELATIVE_SYSTEM_SCALE<span class="op">,</span> <span class="st">&quot;1&quot;</span><span class="op">);</span></span></code></pre></div>
+<h1 id="bug-reports">Bug reports</h1>
+<p>Bugs are tracked at <a href="https://github.com/libsdl-org/SDL/issues/">the GitHub issue
+tracker</a>. Please feel free to report bugs there!</p>
+</body>
+</html>

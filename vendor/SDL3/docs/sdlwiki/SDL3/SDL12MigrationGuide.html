@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SDL12MigrationGuide</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">:root {
+color-scheme: dark light; 
+}
+body {
+background-color: white;
+padding: 2vw;
+color: #333;
+max-width: 1200px;
+margin: 0 auto;
+font-size: 16px;
+line-height: 1.5;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+overflow-wrap: break-word;
+}
+a {
+color: #0969da;
+
+}
+a:visited {
+color: #064998;
+}
+h1 {
+border-bottom: 2px solid #efefef;
+}
+h2 {
+border-bottom: 1px solid #efefef;
+}
+p {
+max-width: 85ch;
+}
+li {
+max-width: 85ch;
+}
+div.sourceCode {
+background-color: #f6f8fa;
+max-width: 100%;
+padding: 16px;
+}
+code {
+background-color: #f6f8fa;
+padding: 0px;
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+}
+table {
+border: 1px solid #808080;
+border-collapse: collapse;
+}
+td {
+border: 1px solid #808080;
+padding: 5px;
+}
+tr:nth-child(even) {
+background-color: #f6f8fa;
+}
+.wikitopbanner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #efefef;
+padding: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+.wikibottombanner {
+background-color: #efefef;
+padding: 10px;
+margin-top: 10px;
+width: auto;
+}
+.alertBox {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+max-width: 60%;
+padding: 10;
+margin: auto;
+}
+.anchorImage {
+visibility: hidden;
+padding-left: 0.2em;
+color: #fff;
+}
+.anchorText:hover .anchorImage {
+visibility: visible;
+}
+hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #efefef;
+margin: 1em 0;
+padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+color: #e6edf3;
+background-color: #0d1117;
+}
+h1 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+h2 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+hr {
+border-color: rgba(48, 54, 61, 0.7);
+}
+div.sourceCode {
+background-color: #161b22;
+}
+code {
+background-color: #161b22;
+}
+a {
+color: #4493f8;
+}
+a:visited {
+color: #2f66ad;
+}
+table {
+border-color: rgba(48, 54, 61, 0.7);
+}
+td {
+border-color: rgba(48, 54, 61, 0.7);
+}
+tr:nth-child(even) {
+background-color: #161b22;
+}
+.wikitopbanner {
+background-color: #263040;
+}
+.wikibottombanner {
+background-color: #263040;
+}
+.anchorText:hover .anchorImage {
+filter: invert(100%);
+}
+}
+@media print {
+body {
+font-size: 12px;
+}
+table {
+font-size: inherit;
+}
+a:visited {
+color: #0969da;
+}
+.wikitopbanner,
+.anchorText,
+.wikibottombanner {
+display: none;
+}
+}
+</style>
+  <style type="text/css"> code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+{ position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+{ content: attr(title);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; pointer-events: all; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+@media (prefers-color-scheme: dark) {
+code span.al { color: #95da4c; font-weight: bold; } 
+code span.an { color: #3f8058; } 
+code span.at { color: #2980b9; } 
+code span.bn { color: #f67400; } 
+code span.bu { color: #7f8c8d; } 
+code span.ch { color: #3daee9; } 
+code span.co { color: #7a7c7d; } 
+code span.cv { color: #7f8c8d; } 
+code span.cn { color: #27aeae; font-weight: bold; } 
+code span.cf { color: #fdbc4b; font-weight: bold; } 
+code span.dt { color: #2980b9; } 
+code span.dv { color: #f67400; } 
+code span.do { color: #a43340; } 
+code span.er { color: #da4453; } 
+code span.ex { color: #0099ff; font-weight: bold; } 
+code span.fl { color: #f67400; } 
+code span.fu { color: #8e44ad; } 
+code span.im { color: #27ae60; } 
+code span.in { color: #c45b00; } 
+code span.kw { color: #cfcfc2; font-weight: bold; } 
+code span.op { color: #cfcfc2; } 
+code span.ot { color: #27ae60; } 
+code span.pp { color: #27ae60; } 
+code span.sc { color: #3daee9; } 
+code span.ss { color: #da4453; } 
+code span.st { color: #f44f4f; } 
+code span.va { color: #27aeae; } 
+code span.vs { color: #da4453; } 
+code span.wa { color: #da4453; } 
+}</style>
+</head>
+<body>
+<h1 id="sdl-12-to-30-migration-guide">SDL 1.2 to 3.0 Migration
+Guide</h1>
+<h2 id="introduction">Introduction</h2>
+<p>SDL3 is finally here! If you hesitated to migrate your SDL 1.2 app to
+SDL2, now is the time to give SDL3 a try instead!</p>
+<p>We are quite proud of it, and we&#39;d like any remaining games that are
+using SDL 1.2 to move up right away. As this can feel like a daunting
+task, this document is a simple walkthrough of how to migrate to the new
+library. We think you&#39;ll find it&#39;s not as hard as you think, and often
+times, you&#39;ll be either replacing function calls with direct equivalents
+or undoing some hacks in your code to deal with 1.2 deficiencies.</p>
+<p>We think you&#39;ll be very happy with SDL3, both for the new features
+and the better experience over SDL 1.2. This document doesn&#39;t try to
+cover all the awesome new things in SDL3--and there are many--but just
+the things you need to do to get running <em>right now</em>. Once you&#39;ve
+ported your code, definitely check out the new stuff; you&#39;ll probably
+want to add some of it to your application, too.</p>
+<h3 id="looking-for-more-information">Looking for more information</h3>
+<p>The best places for information are:</p>
+<ul>
+<li>this wiki :)</li>
+<li>the tests included in SDL, in the <code>test/</code> directory. You
+can browse it online <a href="https://github.com/libsdl-org/SDL/tree/main/test">here</a>.</li>
+<li>the SDL <a href="https://discourse.libsdl.org/">forums/mailing
+list</a></li>
+</ul>
+<h2 id="moving-from-sdl-12-to-30">Moving from SDL 1.2 to 3.0</h2>
+<h3 id="some-general-truths">Some general truths</h3>
+<p>Do you <em>need</em> to migrate? You might be able to use <a href="https://github.com/libsdl-org/sdl12-compat">sdl12-compat</a>,
+chained to <a href="https://github.com/libsdl-org/sdl2-compat">sdl2-compat</a>, to get
+your SDL-1.2-based app to use SDL3 behind the scenes, perhaps without
+even recompiling your code. If modifying the game&#39;s source code is out
+of the question, or you just need access to new platforms and fixes but
+don&#39;t need new features, this might be a feasible (and low-effort)
+solution.</p>
+<p>There is no compatibility layer built directly into SDL3. The 1.2 API
+is effectively gone at this point. If you point your 1.2 program at the
+3.0 headers, it will fail to compile. This document will try to talk you
+through the most important changes, and the ones most likely to trip you
+up.</p>
+<p>There&#39;s no SDL_main! Well, okay, there <em>is</em>, and it now does
+what it was always meant to: be a small piece of code (that lives in a
+header now, not a static library) that hides the difference between
+<code>main()</code> and <code>WinMain()</code> on Windows, and other
+platforms. There&#39;s no significant initialization code in it, and it&#39;s
+completely optional. This means you can use SDL without it taking over
+your mainline, which is nice for plugins that use SDL, or scripting
+languages with an SDL module. All the stuff you&#39;d want the 1.2 SDL_main
+for is now in SDL_Init() where it belongs.</p>
+<p>There&#39;s no SDL parachute anymore. What 1.2 called
+<code>SDL_INIT_NOPARACHUTE</code> is a default and only state now. This
+would cause problems if something other than the main thread crashed,
+and it would interfere with apps setting up their own signal/exception
+handlers. On the downside, some platforms don&#39;t clean up fullscreen
+video well when crashing. You should install your own crash handler, or
+call <a href="SDL_Quit.html">SDL_Quit</a>() in an <code>atexit()</code>
+function or whatnot if this is a concern. Note that on Unix platforms,
+SDL still catches <code>SIGINT</code> and maps it to an <a href="SDL_EventType.html">SDL_EVENT_QUIT</a> event.</p>
+<h3 id="video">Video</h3>
+<h4 id="setting-up-a-game-with-the-new-video-api">Setting up a game with
+the new video API</h4>
+<p>The video API is the most dramatic change from 1.2. Needs have
+changed a great deal since SDL 1.2&#39;s API was designed in the late
+1990&#39;s. To deal with modern hardware and OS features, we have completely
+replaced the old 1.2 video API.</p>
+<p>Don&#39;t worry, the new one is pretty great, and once you understand
+what&#39;s changed, you&#39;re going to be very happy with the new features it
+can bring to your 1.2 game. We&#39;ll discuss those later.</p>
+<p>The good news: if your game used OpenGL, you probably don&#39;t have much
+to do: change a handful of function calls to their SDL3 equivalents, and
+you&#39;re good to go.</p>
+<p>For 2D graphics, SDL 1.2 offered a concept called &quot;surfaces,&quot; which
+were memory buffers of pixels. The screen itself was a &quot;surface,&quot; if you
+were doing 2D software rendering, and we provided functions to copy
+(&quot;blit&quot;) pixels between surfaces, converting formats as necessary. You
+were almost always working on the CPU in system RAM, not on the GPU in
+video memory. SDL3 changes this; you almost always get hardware
+acceleration now, and the API has changed to reflect this.</p>
+<p>If you have a 2D game, chances are you&#39;ve taken one of three
+approaches to rendering. We&#39;ll go through them all, but first, let&#39;s
+talk about introductory stuff.</p>
+<p>Remember <code>SDL_SetVideoMode()</code>? It&#39;s completely gone. SDL3
+allows you to have multiple windows, so the old function didn&#39;t make
+sense any more.</p>
+<p>So you might have had something like this:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>SDL_WM_SetCaption<span class="op">(</span><span class="st">&quot;My Game Window&quot;</span><span class="op">,</span> <span class="st">&quot;game&quot;</span><span class="op">);</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>SDL_Surface <span class="op">*</span>screen <span class="op">=</span> SDL_SetVideoMode<span class="op">(</span><span class="dv">640</span><span class="op">,</span> <span class="dv">480</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> SDL_FULLSCREEN <span class="op">|</span> SDL_OPENGL<span class="op">);</span></span></code></pre></div>
+<p>Which is now this:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>SDL_Window <span class="op">*</span>screen <span class="op">=</span> SDL_CreateWindow<span class="op">(</span><span class="st">&quot;My Game Window&quot;</span><span class="op">,</span> <span class="dv">640</span><span class="op">,</span> <span class="dv">480</span><span class="op">,</span> SDL_WINDOW_FULLSCREEN <span class="op">|</span> SDL_WINDOW_OPENGL<span class="op">);</span></span></code></pre></div>
+<p>You can see that this maps pretty closely to 1.2. The difference is
+that you can have multiple windows (if you want), and you can control
+them more. <code>SDL_WM_SetCaption()</code> is gone, because we want to
+allow each window to have its own title (you can change it later with <a href="SDL_SetWindowTitle.html">SDL_SetWindowTitle</a>().</p>
+<p>So now that your window is back on the screen, let&#39;s talk strategy.
+SDL3 still has <a href="SDL_Surface.html">SDL_Surface</a>, but what you
+want, if possible, is the new <a href="SDL_Texture.html">SDL_Texture</a>. Surfaces are always in system
+RAM now, and are always operated on by the CPU, so we want to get away
+from there. SDL3 has a new rendering API. It&#39;s meant for use by simple
+2D games, but most notably, it&#39;s meant to get all that software
+rendering into video RAM and onto the GPU. And even if you just want to
+use it to get your software renderer&#39;s work to the screen, it brings
+some very nice benefits: if possible, it will use the GPU behind the
+scenes, which means you&#39;ll get faster blits, a working Steam Overlay,
+and scaling for free.</p>
+<p>The setup looks like this.</p>
+<p><code>SDL_SetVideoMode()</code> becomes <a href="SDL_CreateWindow.html">SDL_CreateWindow</a>(), as we discussed
+before. But what do we put for the resolution? If your game was
+hardcoded to 640x480, for example, you probably were running into
+monitors that couldn&#39;t do that fullscreen resolution at this point, and
+in windowed mode, your game probably looked like an animated postage
+stamp on really high-end monitors. There&#39;s a better solution in
+SDL3.</p>
+<p>We don&#39;t call <code>SDL_ListModes()</code> anymore. There&#39;s an
+equivalent in SDL3 (call <a href="SDL_GetFullscreenDisplayModes.html">SDL_GetFullscreenDisplayModes</a>),
+but instead we&#39;re going to use a new feature called &quot;fullscreen
+desktop,&quot; which tells SDL &quot;give me the whole screen and don&#39;t change the
+resolution.&quot; For our hypothetical 640x480 game, it might look like
+this:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>SDL_Window <span class="op">*</span>sdlWindow <span class="op">=</span> SDL_CreateWindow<span class="op">(</span>title<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> SDL_WINDOW_FULLSCREEN_DESKTOP<span class="op">);</span></span></code></pre></div>
+<p>Notice how we didn&#39;t specify 640 or 480? Fullscreen desktop gives you
+the whole display and ignores any dimensions you specify. The game
+window should come up immediately, without waiting for the monitor to
+click into a new resolution, and we&#39;ll be using the GPU to scale to the
+desktop size, which tends to be faster and cleaner-looking than if an
+LCD is faking a lower resolution. Added bonus: none of your background
+windows are resizing themselves right now.</p>
+<p>Now we need a rendering context.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>SDL_Renderer <span class="op">*</span>renderer <span class="op">=</span> SDL_CreateRenderer<span class="op">(</span>sdlWindow<span class="op">,</span> NULL<span class="op">);</span></span></code></pre></div>
+<p>A renderer hides the details of how we draw into the window. This
+might be using Direct3D, OpenGL, Metal, or software surfaces behind the
+scenes, depending on what the system offers; your code doesn&#39;t change,
+regardless of what SDL chooses (although you <em>are</em> welcome to
+force one kind of renderer or another). If you want to attempt to force
+sync-to-vblank to reduce tearing, you can call
+<code>SDL_SetRenderVSync</code> after creating the renderer. You
+shouldn&#39;t create a window with the <code>SDL_WINDOW_OPENGL</code> flag
+here. If <a href="SDL_CreateRenderer.html">SDL_CreateRenderer</a>()
+decides it wants to use OpenGL, it&#39;ll update the window appropriately
+for you.</p>
+<p>Now that you understand how this works, you can also do this all in
+one step with <a href="SDL_CreateWindowAndRenderer.html">SDL_CreateWindowAndRenderer</a>(),
+if you don&#39;t want anything fancy:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>SDL_Window <span class="op">*</span>sdlWindow<span class="op">;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>SDL_Renderer <span class="op">*</span>sdlRenderer<span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>SDL_CreateWindowAndRenderer<span class="op">(</span>title<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> SDL_WINDOW_FULLSCREEN_DESKTOP<span class="op">,</span> <span class="op">&amp;</span>sdlWindow<span class="op">,</span> <span class="op">&amp;</span>sdlRenderer<span class="op">);</span></span></code></pre></div>
+<p>Assuming these functions didn&#39;t fail (always check for NULLs!), you
+are ready to start drawing to the screen. Let&#39;s get started by clearing
+the screen to black.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>SDL_SetRenderDrawColor<span class="op">(</span>sdlRenderer<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">255</span><span class="op">);</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>SDL_RenderClear<span class="op">(</span>sdlRenderer<span class="op">);</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>SDL_RenderPresent<span class="op">(</span>sdlRenderer<span class="op">);</span></span></code></pre></div>
+<p>This works like you might think; draw in black (r,g,b all zero, alpha
+full), clear the whole window, put the cleared window on the screen.
+That&#39;s right, if you&#39;ve been using <code>SDL_UpdateRect()</code> or
+<code>SDL_Flip()</code> to get your bits to the screen, the render API
+uses <a href="SDL_RenderPresent.html">SDL_RenderPresent</a>().</p>
+<p>One more general thing to set up here. Since we&#39;re using
+<code>SDL_WINDOW_FULLSCREEN_DESKTOP</code>, we don&#39;t actually
+<em>know</em> how much screen we&#39;ve got to draw to. Fortunately, we
+don&#39;t have to know. One of the nice things about 1.2 is that you could
+say &quot;I want a 640x480 window and I don&#39;t care how you get it done,&quot; even
+if getting it done meant centering the window in a larger resolution on
+behalf of your application.</p>
+<p>For SDL3, the render API lets you do this...</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>SDL_SetRenderLogicalPresentation<span class="op">(</span>sdlRenderer<span class="op">,</span> <span class="dv">640</span><span class="op">,</span> <span class="dv">480</span><span class="op">,</span> SDL_LOGICAL_PRESENTATION_LETTERBOX<span class="op">,</span> SDL_SCALEMODE_LINEAR<span class="op">);</span></span></code></pre></div>
+<p>...and it will do the right thing for you. Instead of trying to make
+the system work with your rendering size, we can now make your rendering
+size work with the system. On my 1920x1200 monitor, this app thinks it&#39;s
+talking to a 640x480 resolution now, but SDL is using the GPU to scale
+it up to use all those pixels. Note that 640x480 and 1920x1200 aren&#39;t
+the same aspect ratio: SDL takes care of that, too, scaling as much as
+possible and letterboxing the difference.</p>
+<p>Using <code>SDL_SCALEMODE_LINEAR</code> makes the scaling look
+smoother, but depending on the app, this might make it look
+<em>blurry</em>. You can also try SDL_SCALEMODE_NEAREST, which will make
+it look sharp but pixelated, but that might be exactly the effect you&#39;re
+going for anyhow.</p>
+<p>Now we&#39;re ready to start drawing for real.</p>
+<h4 id="if-your-game-just-wants-to-get-fully-rendered-frames-to-the-screen">If
+your game just wants to get fully-rendered frames to the screen</h4>
+<p>A special case for old school software rendered games: the
+application wants to draw every pixel itself and get that final set of
+pixels to the screen efficiently in one big blit. An example of a game
+like this is <em>Doom</em>, or <em>Duke Nukem 3D</em>, or many
+others.</p>
+<p>For this, you&#39;re going to want a single SDL_Texture that will
+represent the screen. Let&#39;s create one now for our 640x480 game:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sdlTexture <span class="op">=</span> SDL_CreateTexture<span class="op">(</span>sdlRenderer<span class="op">,</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                               SDL_PIXELFORMAT_ARGB8888<span class="op">,</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                               SDL_TEXTUREACCESS_STREAMING<span class="op">,</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                               <span class="dv">640</span><span class="op">,</span> <span class="dv">480</span><span class="op">);</span></span></code></pre></div>
+<p>This represents a texture on the GPU. The gameplan is to finish each
+frame by uploading pixels to this texture, drawing the texture to the
+window, and flipping this drawing onto the screen.
+<code>SDL_TEXTUREACCESS_STREAMING</code> tells SDL that this texture&#39;s
+contents are going to change frequently.</p>
+<p>Before you probably had an <a href="SDL_Surface.html">SDL_Surface</a>
+for the screen that your app drew into, then called
+<code>SDL_Flip()</code> to put to the screen. Now you can create an <a href="SDL_Surface.html">SDL_Surface</a> that is always in RAM instead of
+using the one you would have gotten from
+<code>SDL_SetVideoMode()</code>, or just malloc() a block of pixels to
+write into. Ideally you write to a buffer of RGBA pixels, but if you
+need to do a conversion, that&#39;s okay too.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">extern</span> Uint32 <span class="op">*</span>myPixels<span class="op">;</span>  <span class="co">// maybe this is a surface-&gt;pixels, or a malloc()&#39;d buffer, or whatever.</span></span></code></pre></div>
+<p>At the end of the frame, we want to upload to the texture like
+this:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>SDL_UpdateTexture<span class="op">(</span>sdlTexture<span class="op">,</span> NULL<span class="op">,</span> myPixels<span class="op">,</span> <span class="dv">640</span> <span class="op">*</span> <span class="kw">sizeof</span> <span class="op">(</span>Uint32<span class="op">));</span></span></code></pre></div>
+<p>This will upload your pixels to GPU memory. That NULL can be a
+subregion if you want to mess around with dirty rectangles, but chances
+are modern hardware can just swallow the whole framebuffer without much
+trouble. The final argument is the pitch--the number of bytes from the
+start of one row to the next--and since we have a linear RGBA buffer in
+this example, it&#39;s just 640 times 4 (r,g,b,a).</p>
+<p>Now get that texture to the screen:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>SDL_RenderClear<span class="op">(</span>sdlRenderer<span class="op">);</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>SDL_RenderTexture<span class="op">(</span>sdlRenderer<span class="op">,</span> sdlTexture<span class="op">,</span> NULL<span class="op">,</span> NULL<span class="op">);</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>SDL_RenderPresent<span class="op">(</span>sdlRenderer<span class="op">);</span></span></code></pre></div>
+<p>That&#39;s all. <a href="SDL_RenderClear.html">SDL_RenderClear</a>()
+wipes out the existing video framebuffer (in case, say, the Steam
+Overlay wrote over it last frame), <a href="SDL_RenderTexture.html">SDL_RenderTexture</a>() moves the
+texture&#39;s contents to the video framebuffer (and thanks to <a href="SDL_SetRenderLogicalPresentation.html">SDL_SetRenderLogicalPresentation</a>(),
+it will be scaled/centered as if the monitor was 640x480), and <a href="SDL_RenderPresent.html">SDL_RenderPresent</a>() puts it on the
+screen.</p>
+<h4 id="if-your-game-wants-to-blit-surfaces-to-the-screen">If your game
+wants to blit surfaces to the screen</h4>
+<p>This scenario has your SDL 1.2 game loading a bunch of graphics from
+disk into a bunch of <a href="SDL_Surface.html">SDL_Surfaces</a>,
+possibly trying to get them into video RAM with
+<code>SDL_HWSURFACE</code>. You load these once, and you blit them over
+and over to the framebuffer as necessary, but otherwise they never
+change. A simple 2D platformer might do this. If you tend to think of
+your surfaces as &quot;sprites,&quot; and not buffers of pixels, then this is
+probably you.</p>
+<p>You can build individual textures (surfaces that live in GPU memory)
+like we did for that one big texture:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sdlTexture <span class="op">=</span> SDL_CreateTexture<span class="op">(</span>sdlRenderer<span class="op">,</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                               SDL_PIXELFORMAT_ARGB8888<span class="op">,</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                               SDL_TEXTUREACCESS_STATIC<span class="op">,</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                               myWidth<span class="op">,</span> myHeight<span class="op">);</span></span></code></pre></div>
+<p>Which does what you&#39;d expect. We use
+<code>SDL_TEXTUREACCESS_STATIC</code>, because we&#39;re going to upload our
+pixels once instead of over and over. But a more convenient solution
+might be:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sdlTexture <span class="op">=</span> SDL_CreateTextureFromSurface<span class="op">(</span>sdlRenderer<span class="op">,</span> mySurface<span class="op">);</span></span></code></pre></div>
+<p>Use this, and you load your <a href="SDL_Surface.html">SDL_Surface</a> as usual, but then at the end
+you make a texture out of it. Once you have an <a href="SDL_Texture.html">SDL_Texture</a>, you can free the original
+surface.</p>
+<p>At this point, your 1.2 game had a bunch of <a href="SDL_Surface.html">SDL_Surfaces</a>, which it would <a href="SDL_BlitSurface.html">SDL_BlitSurface</a>() to the screen surface
+to compose the final framebuffer, and eventually <code>SDL_Flip()</code>
+to the screen. For SDL3, you have a bunch of <a href="SDL_Texture.html">SDL_Textures</a>, that you will <a href="SDL_RenderTexture.html">SDL_RenderTexture</a>() to your Renderer
+to compose the final framebuffer, and eventually <a href="SDL_RenderPresent.html">SDL_RenderPresent</a>() to the screen.
+It&#39;s that simple. If these textures never need modification, you might
+find your framerate has just gone through the roof, too.</p>
+<h4 id="if-your-game-wants-to-do-both">If your game wants to do
+both</h4>
+<p>Things get slightly more complicated if you want to blit surfaces
+<em>and</em> modify individual pixels in the framebuffer. Round
+trips--reading data back from textures--can be painfully expensive;
+generally you want to be pushing data in one direction always. You are
+probably best off, in this case, keeping everything in software until
+the final push to the screen, so we&#39;ll combine the two previous
+techniques.</p>
+<p>The good news: the 1.2 <a href="SDL_Surface.html">SDL_Surface</a> API
+mostly still exists. So change your screen surface from this:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>SDL_Surface <span class="op">*</span>screen <span class="op">=</span> SDL_SetVideoMode<span class="op">(</span><span class="dv">640</span><span class="op">,</span> <span class="dv">480</span><span class="op">,</span> <span class="dv">32</span><span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span></code></pre></div>
+<p>...to this...</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>SDL_Surface <span class="op">*</span>screen <span class="op">=</span> SDL_CreateSurface<span class="op">(</span><span class="dv">640</span><span class="op">,</span> <span class="dv">480</span><span class="op">,</span> SDL_PIXELFORMAT_ARGB8888<span class="op">);</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>SDL_Texture <span class="op">*</span>sdlTexture <span class="op">=</span> SDL_CreateTexture<span class="op">(</span>sdlRenderer<span class="op">,</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                                            SDL_PIXELFORMAT_ARGB8888<span class="op">,</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                                            SDL_TEXTUREACCESS_STREAMING<span class="op">,</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                                            <span class="dv">640</span><span class="op">,</span> <span class="dv">480</span><span class="op">);</span></span></code></pre></div>
+<p>...and continue blitting things around and tweaking pixels as before,
+composing your final framebuffer into your <a href="SDL_Surface.html">SDL_Surface</a>. Once you&#39;re ready to get those
+pixels on the screen, you do this just like in our first scenario:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>SDL_UpdateTexture<span class="op">(</span>sdlTexture<span class="op">,</span> NULL<span class="op">,</span> screen<span class="op">-&gt;</span>pixels<span class="op">,</span> screen<span class="op">-&gt;</span>pitch<span class="op">);</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>SDL_RenderClear<span class="op">(</span>sdlRenderer<span class="op">);</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>SDL_RenderTexture<span class="op">(</span>sdlRenderer<span class="op">,</span> sdlTexture<span class="op">,</span> NULL<span class="op">,</span> NULL<span class="op">);</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>SDL_RenderPresent<span class="op">(</span>sdlRenderer<span class="op">);</span></span></code></pre></div>
+<p>Note that texture creation may be both expensive and a limited
+resource: don&#39;t call <a href="SDL_CreateTextureFromSurface.html">SDL_CreateTextureFromSurface</a>()
+every frame. Set up one texture and one surface and update the former
+from the latter.</p>
+<p>There are more features to the Render API, some of which may be able
+to replace your application&#39;s code: scaling, line drawing, etc. If you
+are reading this section because you have simple needs beyond blitting
+surfaces, you might be able to stop poking individual pixels and move
+everything onto the GPU, which will give your program a significant
+speed boost and probably simplify your code greatly.</p>
+<h4 id="other-renderer-api-notes">Other Renderer API notes</h4>
+<p>You can do some simple effects with the render API without having to
+get down into direct pixel manipulation. Some of these were available on
+1.2 surfaces.</p>
+<ul>
+<li>Color alpha: <a href="SDL_Color.html">SDL_Color</a> now contains a
+fourth, &#39;&#39;&#39;alpha&#39;&#39;&#39; component. Your 1.2 code that deals with SDL_Colors
+might be not copying/setting that value (which was named
+<code>unused</code>). In SDL3, you should.</li>
+<li>Alpha blending: use <a href="SDL_SetSurfaceAlphaMod.html">SDL_SetSurfaceAlphaMod</a> and <a href="SDL_SetTextureAlphaMod.html">SDL_SetTextureAlphaMod</a> instead of
+<code>SDL_SetAlpha()</code>. Alpha-blending on surfaces can be disabled
+via <a href="SDL_SetSurfaceBlendMode.html">SDL_SetSurfaceBlendMode</a>()
+and on textures with <a href="SDL_SetTextureBlendMode.html">SDL_SetTextureBlendMode</a>().</li>
+<li>Colorkey: When calling <a href="SDL_SetSurfaceColorKey.html">SDL_SetSurfaceColorKey</a>(), you
+should pass <code>true</code> instead of
+<code>SDL_SRCCOLORKEY</code>.</li>
+<li>Color modulation: Renderers now support a global color alteration
+(<code>srcC = srcC * color</code>), check <a href="SDL_SetTextureColorMod.html">SDL_SetTextureColorMod</a>() for
+details.</li>
+</ul>
+<h3 id="opengl">OpenGL</h3>
+<p>If you were already using OpenGL directly, your migration is pretty
+simple. Change your <code>SDL_SetVideoMode()</code> call to <a href="SDL_CreateWindow.html">SDL_CreateWindow</a>() with a <a href="SDL_WindowFlags.html">SDL_WINDOW_OPENGL</a> flag, followed by <a href="SDL_GL_CreateContext.html">SDL_GL_CreateContext</a>(), and your
+<code>SDL_GL_SwapBuffers()</code> call to <a href="SDL_GL_SwapWindow.html">SDL_GL_SwapWindow</a>(window). All the
+actual calls into the GL itself are exactly the same.</p>
+<p>If you had used <a href="SDL_GL_SetAttribute.html">SDL_GL_SetAttribute</a>(SDL_GL_SWAP_CONTROL,
+x), this has changed. There is now an <a href="SDL_GL_SetSwapInterval.html">SDL_GL_SetSwapInterval</a>(x) call,
+so you can change this on an existing GL context.</p>
+<p>Note that SDL3 can toggle windowed/fullscreen and back with OpenGL
+windows without losing the GL context (hooray!). Use <a href="SDL_SetWindowFullscreen.html">SDL_SetWindowFullscreen</a>() for
+this.</p>
+<h3 id="input">Input</h3>
+<p>The good news is that SDL3 has made Unicode input usable. The bad
+news is that it will take some minor changes to your application.</p>
+<p>In 1.2, many applications that only cared about US English still
+called <code>SDL_EnableUNICODE(1)</code>, because it was useful to get
+the character that was associated with a keypress. This didn&#39;t work well
+once you got outside of English, and it really didn&#39;t work <em>at
+all</em> once you got to Asian languages.</p>
+<p>It turns out, i18n is hard.</p>
+<p>SDL changed this. <code>SDL_EnableUNICODE()</code> is gone, and so is
+<a href="SDL_Keysym.html">SDL_Keysym</a>&#39;s <code>unicode</code> field.
+You no longer get character input from <code>SDL_KEYDOWN</code> events.
+Use SDL3&#39;s <a href="SDL_EventType.html">SDL_EVENT_KEY_DOWN</a> event to
+treat the keyboard like a 101-button joystick now. Text input comes from
+somewhere else.</p>
+<p>The new event is <a href="SDL_EventType.html">SDL_EVENT_TEXT_INPUT</a>. This is triggered
+whenever there&#39;s new text entered by the user. Note that this text might
+be coming from keypresses, or it might be coming from some sort of IME
+(which is a fancy way of entering complicated, multi-character text).
+This event returns entire strings, which might be one char long, or
+several codepoints of multi-character data. This string is always in
+UTF-8 encoding.</p>
+<p>If all you care about is whether the user pressed a certain key,
+that&#39;s still <a href="SDL_EventType.html">SDL_EVENT_KEY_DOWN</a>, but
+we&#39;ve split this system into two pieces since 1.2: <a href="SDL_Keycode.html">keycodes</a> and <a href="SDL_Scancode.html">scancodes</a>.</p>
+<p>Scancodes are meant to be layout-independent. Think of this as &quot;the
+user pressed the Q key as it would be on a US QWERTY keyboard&quot;
+regardless of whether this is actually a European keyboard or a Dvorak
+keyboard or whatever. The scancode is always the same key position.</p>
+<p>Keycodes are meant to be layout-dependent. Think of this as &quot;the user
+pressed the key that is labelled &#39;Q&#39; on their specific keyboard.&quot;</p>
+<p>As an example, if you pressed the key that&#39;s two keys to the right of
+CAPS LOCK on a US QWERTY keyboard, it&#39;ll report a scancode of
+<code>SDL_SCANCODE_S</code> and a keycode of <code>SDLK_S</code>. The
+same key on a Dvorak keyboard, will report a scancode of
+<code>SDL_SCANCODE_S</code> and a keycode of <code>SDLK_O</code>.</p>
+<p>Note that both keycodes and scancodes are now 32 bits, and use a wide
+range of numbers. There&#39;s no <code>SDLK_LAST</code> anymore. If your
+program had a lookup table of <code>SDLK_LAST</code> elements, to map
+between SDL keys and whatever your application wanted internally, that&#39;s
+no longer feasible. Use a hash table instead. A <code>std::map</code>
+will do in C++. If you&#39;re mapping scancodes instead of keycodes, there&#39;s
+<code>SDL_NUM_SCANCODES</code>, which you can use for array bounds. It&#39;s
+512 at the moment.</p>
+<p><code>SDLMod</code> is now <a href="SDL_Keymod.html">SDL_Keymod</a>
+and its &quot;META&quot; keys (the &quot;Windows&quot; keys) are now called the &quot;GUI&quot;
+keys.</p>
+<p><code>SDL_GetKeyState()</code> has been renamed to <a href="SDL_GetKeyboardState.html">SDL_GetKeyboardState</a>(). The
+returned array should now be indexed by <code>SDL_SCANCODE_*</code>
+values (see <a href="SDL_Scancode.html">SDL_Scancode</a>) instead of <a href="SDL_Keysym.html">SDL_Keysym</a> values.</p>
+<p>Now, for mouse input.</p>
+<p>The first change, simply enough, is that the mousewheel is no longer
+a button. This was a mistake of history, and we&#39;ve corrected it in SDL3.
+Look for <a href="SDL_EventType.html">SDL_EVENT_MOUSE_WHEEL</a> events.
+We support both vertical and horizontal wheels, and some platforms can
+treat two-finger scrolling on a trackpad as wheel input, too. You will
+no longer receive <code>SDL_BUTTONDOWN</code> events for mouse wheels,
+and buttons 4 and 5 are real mouse buttons now.</p>
+<p>If your game needed to roll the mouse in one direction forever, for
+example to let a player in an FPS to spin around without the mouse
+hitting the edge of the screen and stopping, you probably hid the mouse
+cursor and grabbed input:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* in SDL 1.2 ... */</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>SDL_ShowCursor<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>SDL_WM_GrabInput<span class="op">(</span>SDL_GRAB_ON<span class="op">);</span></span></code></pre></div>
+<p>In SDL3, this works slightly differently. You call...</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>SDL_SetWindowRelativeMouseMode<span class="op">(</span>window<span class="op">,</span> <span class="kw">true</span><span class="op">);</span></span></code></pre></div>
+<p>...and SDL does the rest.</p>
+<h3 id="events">Events</h3>
+<p><a href="SDL_PushEvent.html">SDL_PushEvent</a>() now returns true on
+success instead of 0.</p>
+<p>Events mask are now specified using ranges:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>SDL_PeepEvents<span class="op">(&amp;</span>event<span class="op">,</span> <span class="dv">1</span><span class="op">,</span> SDL_GETEVENT<span class="op">,</span> SDL_EVENTMASK<span class="op">(</span>SDL_EVENT_MOUSE_BUTTON_DOWN<span class="op">));</span></span></code></pre></div>
+<p>becomes:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>SDL_PeepEvents<span class="op">(&amp;</span>event<span class="op">,</span> <span class="dv">1</span><span class="op">,</span> SDL_GETEVENT<span class="op">,</span> SDL_EVENT_MOUSE_BUTTON_DOWN<span class="op">,</span> SDL_EVENT_MOUSE_BUTTON_DOWN<span class="op">);</span></span></code></pre></div>
+<h3 id="audio">Audio</h3>
+<p>SDL3&#39;s audio subsystem is dramatically different from SDL 1.2&#39;s, but
+here&#39;s the fastest way to get back up and running.</p>
+<p>1.2 had you open an audio device and then feed data to it through a
+callback. The new interfaces expect you to feed data to an <a href="SDL_AudioStream.html">SDL_AudioStream</a> in any amount you like,
+and it will get it to the device as needed, converting formats and
+resampling if necessary.</p>
+<p>The simplest migration path from 1.2 looks like this:</p>
+<p>In 1.2, you might have had:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">void</span> SDLCALL my_audio_callback<span class="op">(</span><span class="dt">void</span> <span class="op">*</span>userdata<span class="op">,</span> Uint8 <span class="op">*</span>stream<span class="op">,</span> <span class="dt">int</span> len<span class="op">)</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* fill `stream` with `len` bytes of data */</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    memcpy<span class="op">(</span>stream<span class="op">,</span> my_audio_data<span class="op">,</span> len<span class="op">);</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co">/* somewhere near startup... */</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>SDL_AudioSpec spec<span class="op">;</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>spec<span class="op">.</span>freq <span class="op">=</span> <span class="dv">22050</span><span class="op">;</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>spec<span class="op">.</span>format <span class="op">=</span> AUDIO_S16SYS<span class="op">;</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>spec<span class="op">.</span>channels <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>spec<span class="op">.</span>samples <span class="op">=</span> <span class="dv">1024</span><span class="op">;</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>spec<span class="op">.</span>callback <span class="op">=</span> my_audio_callback<span class="op">;</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>spec<span class="op">.</span>userdata <span class="op">=</span> whatever<span class="op">;</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>SDL_OpenAudio<span class="op">(&amp;</span>spec<span class="op">,</span> NULL<span class="op">)</span> <span class="op">==</span> <span class="op">-</span><span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* oh no, we failed, report an error and quit. */</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>SDL_PauseAudio<span class="op">(</span><span class="dv">0</span><span class="op">);</span>  <span class="co">/* now the callback will start. */</span></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="co">/* at the end of the program ... */</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>SDL_CloseAudio<span class="op">();</span></span></code></pre></div>
+<p>A rough equivalent of this in SDL3 would be:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">void</span> SDLCALL my_audio_callback<span class="op">(</span><span class="dt">void</span> <span class="op">*</span>userdata<span class="op">,</span> SDL_AudioStream <span class="op">*</span>stream<span class="op">,</span> <span class="dt">int</span> additional_amount<span class="op">,</span> <span class="dt">int</span> total_amount<span class="op">)</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* fill `stream` with `additional_amount` bytes of data */</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* any amount of audio can be added, but we need `additional_amount` right now! This number can vary between calls! */</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    SDL_PutAudioStreamData<span class="op">(</span>stream<span class="op">,</span> my_audio_data<span class="op">,</span> additional_amount<span class="op">);</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co">/* somewhere near startup... */</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>SDL_AudioSpec spec<span class="op">;</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>spec<span class="op">.</span>freq <span class="op">=</span> <span class="dv">22050</span><span class="op">;</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>spec<span class="op">.</span>format <span class="op">=</span> SDL_AUDIO_S16SYS<span class="op">;</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>spec<span class="op">.</span>channels <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>SDL_AudioStream <span class="op">*</span>stream <span class="op">=</span> SDL_OpenAudioDeviceStream<span class="op">(</span>SDL_AUDIO_DEVICE_DEFAULT_OUTPUT<span class="op">,</span> <span class="op">&amp;</span>spec<span class="op">,</span> my_audio_callback<span class="op">,</span> whatever<span class="op">);</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(!</span>stream<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* oh no, we failed, report an error and quit. */</span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>SDL_UnpauseAudioDeviceStream<span class="op">(</span>stream<span class="op">);</span></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="co">/* at the end of the program ... */</span></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>SDL_DestroyAudioStream<span class="op">(</span>stream<span class="op">);</span></span></code></pre></div>
+<p>If you need to use <code>SDL_LockAudio()</code> to temporarily block
+off the audio callback, you lock the audio stream instead now with <a href="SDL_LockAudioStream.html">SDL_LockAudioStream</a>().</p>
+<p><code>SDL_ConvertAudio</code> and <code>SDL_BuildAudioCVT</code> are
+gone. If you want to convert and/or resample a discrete block of audio,
+it&#39;s done in a single call now: <a href="SDL_ConvertAudioSamples.html">SDL_ConvertAudioSamples</a>. Note
+that if you want to resample audio that you&#39;ll be providing in chunks,
+this never worked well in SDL 1.2, and you shouldn&#39;t use this function
+unless you have the complete audio data to resample in a single
+operation. If you need to resample or convert in chunks, you can create
+an <a href="SDL_AudioStream.html">SDL_AudioStream</a> and feed it data
+with <a href="SDL_PutAudioStreamData.html">SDL_PutAudioStreamData</a>,
+and get the converted audio out the other side of it with <a href="SDL_GetAudioStreamData.html">SDL_GetAudioStreamData</a>. If you
+were only converting data to hand it off in your audio callback, you&#39;re
+already using an audio stream! Just remove this code and make sure the
+audio stream is set to the format you expect it to be.</p>
+<p><code>SDL_MixAudio</code> is gone, as it only mixed in the format of
+the opened audio device. <a href="SDL_MixAudioFormat.html">SDL_MixAudioFormat</a> is the same thing
+but you specify the format per-call.</p>
+<p><code>SDL_FreeWAV</code> is gone; just use the generic <a href="SDL_free.html">SDL_free</a> now.</p>
+<h3 id="joysticks">Joysticks</h3>
+<p>Joystick events now refer to an SDL_JoystickID. This is because SDL3
+can handle joysticks coming and going, as devices are plugged in and
+pulled out during your game&#39;s lifetime, so the index into the device
+list that 1.2 uses would be meaningless as the available device list
+changes.</p>
+<p>To get an SDL_JoystickID for your opened SDL_Joystick*, call:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>SDL_JoystickID myID <span class="op">=</span> SDL_GetJoystickInstanceID<span class="op">(</span>myOpenedStick<span class="op">);</span></span></code></pre></div>
+<p>And compare the joystick events&#39; <code>which</code> field against
+<code>myID</code>. If you aren&#39;t using the event queue for joysticks, <a href="SDL_GetJoystickAxis.html">SDL_GetJoystickAxis</a>() and friends
+work just like SDL 1.2.</p>
+<p>You should also check out the new <a href="CategoryGamepad.html">Gamepad API</a> too, because it&#39;s cool, and
+maybe you did a lot of tap dancing with the 1.2 API that this new code
+would solve more cleanly. You can find it in SDL_gamepad.h. The Game
+Controller API integrates really nicely with Steam Big Picture Mode: you
+get automatic configuration of most controllers, and a nice UI if you
+have to manually configure it. In either case, Steam passes this
+configuration on to your SDL application.</p>
+<h3 id="threads">Threads</h3>
+<p><code>SDL_KillThread()</code> is gone. It was never safe or reliable.
+The best replacement is to set a flag that tells a thread it should
+quit. That thread should check the flag with some frequency, and then
+the &quot;killing&quot; thread calls <a href="SDL_WaitThread.html">SDL_WaitThread</a>() to clean up. If you
+can&#39;t wait for the thread to terminate, you can call <a href="SDL_DetachThread.html">SDL_DetachThread</a>() and when the thread
+is complete, it will clean up without being waited on.</p>
+<p><a href="SDL_CreateThread.html">SDL_CreateThread</a>() takes an extra
+parameter now, a name for the thread, which can be used by debuggers to
+identify it. If you don&#39;t care about that, just stuff an extra NULL into
+your function call.</p>
+<h3 id="audio-cds">Audio CDs</h3>
+<p>The 1.2 CD API is completely gone. There&#39;s no replacement. Chances
+are you aren&#39;t shipping your music as CD-Audio tracks on a disc at this
+point, if you&#39;re shipping a disc at all. You can use <a href="http://www.vorbis.com/">Ogg Vorbis</a> or some other audio file
+format for music, many of which are provided by <a href="https://github.com/libsdl-org/SDL_mixer">SDL_mixer</a>.</p>
+<h3 id="dead-platforms">Dead platforms</h3>
+<p>We ripped out a bunch of old platforms, like OS/2 and Windows CE and
+Mac OS 9. IF you need to target these platforms, you&#39;re probably going
+to have to remain on SDL 1.2 or make a non-trivial effort to port SDL3
+itself to these platforms.</p>
+<h3 id="mobile-platforms">Mobile platforms</h3>
+<p>There have been, for many years, unofficial ports of SDL 1.2 to iOS
+and Android. SDL now supports these platforms directly, and the SDL3 API
+is much better suited to them. Most of the advice you&#39;ve gotten
+elsewhere in this document applies, but there are a few other things
+worth noting.</p>
+<p>First, there are certain events that only apply to mobile devices, or
+better said, apply to the way mobile device OSes tend to operate in a
+post-iPhone world. We originally tried to map these to the existing SDL
+events (such as &quot;your application is going to the background&quot; being
+treated like a desktop window losing focus), but there&#39;s a more urgent
+concern: most of these events need an immediate response, and if the app
+doesn&#39;t give one, the OS will kill your application.</p>
+<p>As such, we&#39;ve added new SDL events for some Android and iOS specific
+details, but you should set up an SDL event filter to catch them as soon
+as the OS reports them, because waiting until your next <a href="SDL_PollEvent.html">SDL_PollEvent</a>() loop will be too late.</p>
+<p>For example, there&#39;s SDL_EVENT_WILL_ENTER_BACKGROUND, which is iOS&#39;s
+<code>applicationWillResignActive</code>, and if you draw to the screen
+after this event arrives, iOS terminates your process. So you want to
+catch this immediately:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> SDLCALL myEventFilter<span class="op">(</span><span class="dt">void</span> <span class="op">*</span>userdata<span class="op">,</span> SDL_Event <span class="op">*</span> event<span class="op">)</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>event<span class="op">-&gt;</span>type <span class="op">==</span> SDL_EVENT_WILL_ENTER_BACKGROUND<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>        <span class="co">// free up resources, DON&#39;T DRAW ANY MORE until you&#39;re in the foreground again!</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// etc</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co">// somewhere near startup...</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="co">// this calls myEventFilter(data, event) as soon as an event is generated.</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>SDL_AddEventWatch<span class="op">(</span>myEventFilter<span class="op">,</span> data<span class="op">);</span></span></code></pre></div>
+<p>Second, there are real touch events now, instead of trying to map
+this to mouse input. You can track single touches and multiple fingers
+at once. You probably want to use those. Refer to SDL_touch.h for a list
+of these functions, and look for <code>SDL_Finger*</code> in
+SDL_events.h.</p>
+<p>Note that SDL will also map simple touches to look like mouse events
+(with the mouse event&#39;s &quot;which&quot; field set to
+<code>SDL_TOUCH_MOUSEID</code>), which means that if you don&#39;t care
+about more complex touch interfaces, your existing desktop app might
+still work out of the box on a phone where the user is poking the screen
+with a finger. As such: mobile-aware apps should probably ignore
+<code>SDL_TOUCH_MOUSEID</code> events, but still respect &quot;real&quot; mouse
+events in addition to the touch events--some mobile devices support USB
+and Bluetooth mice, after all!--but this is something to consider more
+deeply when you start to polish your app, after you are up and running
+on SDL3.</p>
+<p>There are a handful of other mobile-friendly functions, like <a href="SDL_StartTextInput.html">SDL_StartTextInput</a>(), which will show
+the on-screen keyboard. Make use of them.</p>
+<p>In addition, there are also Android and iOS specific functions, to
+let you access platform-specific features that wouldn&#39;t make sense in a
+general API. Refer to SDL_system.h for a list of these functions.</p>
+<h3 id="rwops">RWops</h3>
+<p><code>SDL_RWops</code> has been renamed <a href="SDL_IOStream.html">SDL_IOStream</a>. The interfaces are more like
+POSIX than stdio now, but the basic idea is the same.</p>
+<p>If you wrote your own <code>SDL_RWops</code> implementation, the
+function signatures have changed. Functions now use <code>Sint64</code>
+and <code>size_t</code> instead of <code>int</code> so they can work
+with large files. As a first step, you can just update your function
+signatures and keep working as before, but if you had bumped up against
+these limitations, you might be happy to have a solution. Calling
+applications should know that the return values have changed.</p>
+<p>There is also a &#39;&#39;&#39;size&#39;&#39;&#39; method in <a href="SDL_IOStream.html">SDL_IOStream</a>, now. It is called
+<code>SDL_SizeIO</code>(). This lets an IOStream report the size of the
+stream without having to make the app seek to zero bytes from the end;
+in other words, you can report a total size for streams that can&#39;t seek.
+For streams that can&#39;t even do that, you can still return -1.</p>
+<p>The entire interface your IOStream needs to implement is detailed in
+(SDL_IOStreamInterface](SDL_IOStreamInterface). You provide this to <a href="SDL_OpenIO.html">SDL_OpenIO</a> to generate an <a href="SDL_IOStream.html">SDL_IOStream</a> that the app can use roughly
+like a 1.2 SDL_RWops. Please note that the function pointers are hidden
+in the final object, so you can&#39;t override them once created.</p>
+<h3 id="add-on-libraries">Add-on libraries</h3>
+<p>The official extensions SDL_image, SDL_ttf, SDL_mixer and SDL_net
+have a version dedicated to SDL3: SDL3_image, SDL3_ttf, SDL3_mixer and
+SDL3_net. You may need to download them from their <a href="https://github.com/orgs/libsdl-org/repositories">GitHub
+repositories</a> for the latest fixes. Subsequently, of course, you will
+have to link e.g. SDL3_image, not SDL_image, to compile your
+program.</p>
+<p>These libraries do not support 1.2 any more, and any compatibility
+with 1.2 is likely to vanish at some point from newer versions, if it
+hasn&#39;t already.</p>
+<h3 id="other-stuff">Other stuff</h3>
+<p>There&#39;s an enormous amount of new and interesting functionality in
+SDL3 that 1.2 couldn&#39;t even dream of. We&#39;ve only tried to explain what
+you might have to do to get your 1.2 program running on SDL3 here, but
+you should explore the documentation for things that you might have
+always wished for and, until now, done without. For example, every game
+I&#39;ve ever ported ended up with a message box function that looked like
+this:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#if USING_SDL</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">&quot;MSGBOX: </span><span class="sc">%s\n%s\n</span><span class="st">&quot;</span><span class="op">,</span> title<span class="op">,</span> text<span class="op">);</span>   <span class="co">// oh well.</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif</span></span></code></pre></div>
+<p>Now there&#39;s <a href="SDL_ShowSimpleMessageBox.html">SDL_ShowSimpleMessageBox</a>().
+You&#39;re welcome!</p>
+<p>Good luck bringing your SDL 1.2 app into the future! Do not be afraid
+to <a href="https://discourse.libsdl.org/">come ask for help</a>,
+too!</p>
+</body>
+</html>

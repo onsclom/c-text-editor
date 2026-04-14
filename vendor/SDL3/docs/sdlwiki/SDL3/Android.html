@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Android</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">:root {
+color-scheme: dark light; 
+}
+body {
+background-color: white;
+padding: 2vw;
+color: #333;
+max-width: 1200px;
+margin: 0 auto;
+font-size: 16px;
+line-height: 1.5;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+overflow-wrap: break-word;
+}
+a {
+color: #0969da;
+
+}
+a:visited {
+color: #064998;
+}
+h1 {
+border-bottom: 2px solid #efefef;
+}
+h2 {
+border-bottom: 1px solid #efefef;
+}
+p {
+max-width: 85ch;
+}
+li {
+max-width: 85ch;
+}
+div.sourceCode {
+background-color: #f6f8fa;
+max-width: 100%;
+padding: 16px;
+}
+code {
+background-color: #f6f8fa;
+padding: 0px;
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+}
+table {
+border: 1px solid #808080;
+border-collapse: collapse;
+}
+td {
+border: 1px solid #808080;
+padding: 5px;
+}
+tr:nth-child(even) {
+background-color: #f6f8fa;
+}
+.wikitopbanner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #efefef;
+padding: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+.wikibottombanner {
+background-color: #efefef;
+padding: 10px;
+margin-top: 10px;
+width: auto;
+}
+.alertBox {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+max-width: 60%;
+padding: 10;
+margin: auto;
+}
+.anchorImage {
+visibility: hidden;
+padding-left: 0.2em;
+color: #fff;
+}
+.anchorText:hover .anchorImage {
+visibility: visible;
+}
+hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #efefef;
+margin: 1em 0;
+padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+color: #e6edf3;
+background-color: #0d1117;
+}
+h1 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+h2 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+hr {
+border-color: rgba(48, 54, 61, 0.7);
+}
+div.sourceCode {
+background-color: #161b22;
+}
+code {
+background-color: #161b22;
+}
+a {
+color: #4493f8;
+}
+a:visited {
+color: #2f66ad;
+}
+table {
+border-color: rgba(48, 54, 61, 0.7);
+}
+td {
+border-color: rgba(48, 54, 61, 0.7);
+}
+tr:nth-child(even) {
+background-color: #161b22;
+}
+.wikitopbanner {
+background-color: #263040;
+}
+.wikibottombanner {
+background-color: #263040;
+}
+.anchorText:hover .anchorImage {
+filter: invert(100%);
+}
+}
+@media print {
+body {
+font-size: 12px;
+}
+table {
+font-size: inherit;
+}
+a:visited {
+color: #0969da;
+}
+.wikitopbanner,
+.anchorText,
+.wikibottombanner {
+display: none;
+}
+}
+</style>
+  <style type="text/css"> code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+{ position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+{ content: attr(title);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; pointer-events: all; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+@media (prefers-color-scheme: dark) {
+code span.al { color: #95da4c; font-weight: bold; } 
+code span.an { color: #3f8058; } 
+code span.at { color: #2980b9; } 
+code span.bn { color: #f67400; } 
+code span.bu { color: #7f8c8d; } 
+code span.ch { color: #3daee9; } 
+code span.co { color: #7a7c7d; } 
+code span.cv { color: #7f8c8d; } 
+code span.cn { color: #27aeae; font-weight: bold; } 
+code span.cf { color: #fdbc4b; font-weight: bold; } 
+code span.dt { color: #2980b9; } 
+code span.dv { color: #f67400; } 
+code span.do { color: #a43340; } 
+code span.er { color: #da4453; } 
+code span.ex { color: #0099ff; font-weight: bold; } 
+code span.fl { color: #f67400; } 
+code span.fu { color: #8e44ad; } 
+code span.im { color: #27ae60; } 
+code span.in { color: #c45b00; } 
+code span.kw { color: #cfcfc2; font-weight: bold; } 
+code span.op { color: #cfcfc2; } 
+code span.ot { color: #27ae60; } 
+code span.pp { color: #27ae60; } 
+code span.sc { color: #3daee9; } 
+code span.ss { color: #da4453; } 
+code span.st { color: #f44f4f; } 
+code span.va { color: #27aeae; } 
+code span.vs { color: #da4453; } 
+code span.wa { color: #da4453; } 
+}</style>
+</head>
+<body>
+<h1 id="building-sdl3-for-android">Building SDL3 for Android</h1>
+<h2 id="draft">Draft</h2>
+<p>This page was roughly updated from the SDL2 version, but needs to be
+inspected for details that are out of date, and a few SDL2isms need to
+be cleaned out still, too. Read this page with some skepticism for
+now.</p>
+<h2 id="existing-documentation">Existing documentation</h2>
+<p>A lot of information can be found in <a href="README-android.html">README-android</a>.</p>
+<p>This page is more walkthrough-oriented.</p>
+<h2 id="pre-requisites">Pre-requisites</h2>
+<ul>
+<li>Install minimal Java environment. For instance, in
+Debian/Ubuntu:</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install openjdk-17-jdk ant android-sdk-platform-tools-common</span></code></pre></div>
+<ul>
+<li>Install NDK (tested with [<a href="https://dl.google.com/android/repository/android-ndk-r10e-linux-x86_64.zip">https://dl.google.com/android/repository/android-ndk-r10e-linux-x86_64.zip</a>
+r10e])</li>
+<li>Install the latest SDK, run <code>tools/bin/sdkmanager</code> (or
+<code>tools/android</code> pre-2017) and install one API (&gt;= 31)</li>
+<li>Configure your environment variables, e.g.:</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">PATH</span><span class="op">=</span><span class="st">&quot;/usr/src/android-ndk-rXXx:</span><span class="va">$PATH</span><span class="st">&quot;</span>                  <span class="co"># for &#39;ndk-build&#39;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="va">PATH</span><span class="op">=</span><span class="st">&quot;/usr/src/android-sdk-linux/tools:</span><span class="va">$PATH</span><span class="st">&quot;</span>           <span class="co"># for &#39;android&#39;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="va">PATH</span><span class="op">=</span><span class="st">&quot;/usr/src/android-sdk-linux/platform-tools:</span><span class="va">$PATH</span><span class="st">&quot;</span>  <span class="co"># for &#39;adb&#39;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">ANDROID_HOME</span><span class="op">=</span><span class="st">&quot;/usr/src/android-sdk-linux&quot;</span>        <span class="co"># for gradle</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">ANDROID_NDK_HOME</span><span class="op">=</span><span class="st">&quot;/usr/src/android-ndk-rXXx&quot;</span>     <span class="co"># for gradle</span></span></code></pre></div>
+<h2 id="simple-builds">Simple builds</h2>
+<h3 id="sdl-wrapper-for-simple-programs">SDL wrapper for simple
+programs</h3>
+<ul>
+<li>Compile a sample app (calls ndk-build):</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /usr/src/SDL3/build-scripts/</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./androidbuild.sh</span> org.libsdl.testgles ../test/testgles.c</span></code></pre></div>
+<ul>
+<li>Follow the instructions to install on your device:</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /usr/src/SDL3/build/org.libsdl.testgles/</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./gradlew</span> installDebug</span></code></pre></div>
+<p>Notes:</p>
+<ul>
+<li>multiple targets armeabi-v7a/arm64-v8a/x86/x86_64 compilation</li>
+<li>application doesn&#39;t quit</li>
+</ul>
+<h4 id="troubleshooting">Troubleshooting</h4>
+<ul>
+<li>use OpenJDK 17: execute
+<code>sudo update-alternatives --config java</code> and select jdk-17 as
+default; or use
+<code>JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64 ./gradlew</code></li>
+<li><code>javax/xml/bind/annotation/XmlSchema, Could not initialize class com.android.sdklib.repository.AndroidSdkHandler</code>:
+check the Android Gradle Plugin version in
+<code>/android-project/build.gradle</code>, e.g.
+<code>classpath &#39;com.android.tools.build:gradle:3.1.0&#39;</code></li>
+<li>You can customize the Gradle version in
+<code>/android-project/gradle/wrapper/gradle-wrapper.properties</code>:
+<code>distributionUrl=https\://services.gradle.org/distributions/gradle-4.9-all.zip</code></li>
+<li>You can customize your SDK/NDK versions in
+<code>android-project/app/build.gradle</code>:</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>android <span class="op">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    buildToolsVersion <span class="st">&quot;28.0.1&quot;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    compileSdkVersion <span class="dv">28</span></span></code></pre></div>
+<ul>
+<li>You can customize your targets depending on the NDK version:</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>externalNativeBuild <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    ndkBuild <span class="op">{</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        arguments <span class="st">&quot;APP_PLATFORM=android-14&quot;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        abiFilters <span class="ch">&#39;a</span><span class="er">rmeabi-v7a</span><span class="ch">&#39;</span><span class="op">,</span> <span class="ch">&#39;a</span><span class="er">rm64-v8a</span><span class="ch">&#39;</span><span class="op">,</span> <span class="ch">&#39;x</span><span class="er">86</span><span class="ch">&#39;</span><span class="op">,</span> <span class="ch">&#39;x</span><span class="er">86_64</span><span class="ch">&#39;</span></span></code></pre></div>
+<ul>
+<li><code>ABIs [x86_64, arm64-v8a] are not supported for platform. Supported ABIs are [armeabi, armeabi-v7a, x86, mips]</code>:
+upgrade to NDK &gt;= 10</li>
+<li>TODO: check how we can use the distro&#39;s gradle instead of executing
+stuff from the Internet -
+<code>apt install gradle libgradle-android-plugin-java</code></li>
+</ul>
+<h3 id="sdl-wrapper--sdl_image-ndk-module">SDL wrapper + SDL_image NDK
+module</h3>
+<p>Let&#39;s modify <code>SDL3_image/showimage.c</code> to show a simple
+embedded image (e.g. XPM).</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;SDL3/SDL.h&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;SDL3/SDL_main.h&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;SDL3/SDL_image.h&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">/* XPM */</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">char</span> <span class="op">*</span> icon_xpm<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;32 23 3 1&quot;</span><span class="op">,</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;     c #FFFFFF&quot;</span><span class="op">,</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;.    c #000000&quot;</span><span class="op">,</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;+    c #FFFF00&quot;</span><span class="op">,</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;                                &quot;</span><span class="op">,</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;            ........            &quot;</span><span class="op">,</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;          ..++++++++..          &quot;</span><span class="op">,</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;         .++++++++++++.         &quot;</span><span class="op">,</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;        .++++++++++++++.        &quot;</span><span class="op">,</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;       .++++++++++++++++.       &quot;</span><span class="op">,</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;      .++++++++++++++++++.      &quot;</span><span class="op">,</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;      .+++....++++....+++.      &quot;</span><span class="op">,</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;     .++++.. .++++.. .++++.     &quot;</span><span class="op">,</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;     .++++....++++....++++.     &quot;</span><span class="op">,</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;     .++++++++++++++++++++.     &quot;</span><span class="op">,</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;     .++++++++++++++++++++.     &quot;</span><span class="op">,</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;     .+++++++++..+++++++++.     &quot;</span><span class="op">,</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;     .+++++++++..+++++++++.     &quot;</span><span class="op">,</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;     .++++++++++++++++++++.     &quot;</span><span class="op">,</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;      .++++++++++++++++++.      &quot;</span><span class="op">,</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;      .++...++++++++...++.      &quot;</span><span class="op">,</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;       .++............++.       &quot;</span><span class="op">,</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;        .++..........++.        &quot;</span><span class="op">,</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;         .+++......+++.         &quot;</span><span class="op">,</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;          ..++++++++..          &quot;</span><span class="op">,</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;            ........            &quot;</span><span class="op">,</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;                                &quot;</span><span class="op">};</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>argv<span class="op">[])</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>  SDL_Window <span class="op">*</span>window<span class="op">;</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>  SDL_Renderer <span class="op">*</span>renderer<span class="op">;</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>  SDL_Surface <span class="op">*</span>surface<span class="op">;</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>  SDL_Texture <span class="op">*</span>texture<span class="op">;</span></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> done<span class="op">;</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>  SDL_Event event<span class="op">;</span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>SDL_CreateWindowAndRenderer<span class="op">(</span><span class="st">&quot;Show a simple image&quot;</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="op">&amp;</span>window<span class="op">,</span> <span class="op">&amp;</span>renderer<span class="op">)</span> <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>    SDL_LogError<span class="op">(</span>SDL_LOG_CATEGORY_APPLICATION<span class="op">,</span></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;SDL_CreateWindowAndRenderer() failed: </span><span class="sc">%s</span><span class="st">&quot;</span><span class="op">,</span> SDL_GetError<span class="op">());</span></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">(</span><span class="dv">2</span><span class="op">);</span></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>  surface <span class="op">=</span> IMG_ReadXPMFromArray<span class="op">(</span>icon_xpm<span class="op">);</span></span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>  texture <span class="op">=</span> SDL_CreateTextureFromSurface<span class="op">(</span>renderer<span class="op">,</span> surface<span class="op">);</span></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(!</span>texture<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>    SDL_LogError<span class="op">(</span>SDL_LOG_CATEGORY_APPLICATION<span class="op">,</span></span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Couldn&#39;t load texture: </span><span class="sc">%s</span><span class="st">&quot;</span><span class="op">,</span> SDL_GetError<span class="op">());</span></span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">(</span><span class="dv">2</span><span class="op">);</span></span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>  SDL_SetWindowSize<span class="op">(</span>window<span class="op">,</span> <span class="dv">800</span><span class="op">,</span> <span class="dv">480</span><span class="op">);</span></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>  done <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> <span class="op">(!</span>done<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>SDL_PollEvent<span class="op">(&amp;</span>event<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> <span class="op">(</span>event<span class="op">.</span>type <span class="op">==</span> SDL_EVENT_QUIT<span class="op">)</span></span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>        done <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>    SDL_RenderTexture<span class="op">(</span>renderer<span class="op">,</span> texture<span class="op">,</span> NULL<span class="op">,</span> NULL<span class="op">);</span></span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>    SDL_RenderPresent<span class="op">(</span>renderer<span class="op">);</span></span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a>    SDL_Delay<span class="op">(</span><span class="dv">100</span><span class="op">);</span></span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>  SDL_DestroyTexture<span class="op">(</span>texture<span class="op">);</span></span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>  SDL_Quit<span class="op">();</span></span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span><span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Then let&#39;s make an Android app out of it. To compile:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /usr/src/SDL3/build-scripts/</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./androidbuild.sh</span> org.libsdl.showimage /usr/src/SDL3_image/showimage.c</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /usr/src/SDL3/build/org.libsdl.showimage/</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> /usr/src/SDL3_image jni/</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> /usr/src/SDL3_image/external/libwebp-0.3.0 jni/webp</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="at">-i</span> <span class="at">-e</span> <span class="st">&#39;s/^LOCAL_SHARED_LIBRARIES.*/&amp; SDL3_image/&#39;</span> jni/src/Android.mk</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="ex">ndk-build</span> <span class="at">-j</span><span class="va">$(</span><span class="fu">nproc</span><span class="va">)</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="ex">ant</span> debug install</span></code></pre></div>
+<p>Notes:</p>
+<ul>
+<li>application doesn&#39;t restart properly</li>
+</ul>
+<h2 id="build-an-autotools-friendly-environment">Build an
+autotools-friendly environment</h2>
+<p>You use autotools in your project and can&#39;t be bothering
+understanding ndk-build&#39;s cryptic errors? This guide is for you!</p>
+<p>Note: this environment can be used for CMake too.</p>
+<h3 id="compile-a-shared-binaries-bundle-for-sdl-and-sdl_">Compile a
+shared binaries bundle for SDL and SDL_*</h3>
+<ul>
+<li>Get the latests SDL3_* releases:</li>
+</ul>
+<p>(FIXME: this needs to be updated for SDL3.)</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /usr/src/</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://libsdl.org/release/SDL2-2.0.5.tar.gz</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.1.tar.gz</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.1.tar.gz</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://www.libsdl.org/projects/SDL_net/release/SDL2_net-2.0.1.tar.gz</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.14.tar.gz</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> xf SDL2-2.0.5.tar.gz</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> xf SDL2_image-2.0.1.tar.gz</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> xf SDL2_mixer-2.0.1.tar.gz</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> xf SDL2_net-2.0.1.tar.gz</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> xf SDL2_ttf-2.0.14.tar.gz</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> SDL2-2.0.5 SDL2</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> SDL2_image-2.0.1 SDL2_image</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> SDL2_mixer-2.0.1 SDL2_mixer</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> SDL2_net-2.0.1 SDL2_net</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> SDL2_ttf-2.0.14 SDL2_ttf</span></code></pre></div>
+<ul>
+<li>Start with a minimal build:</li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /usr/src/SDL3/</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#git checkout -- .  # remove traces of previous builds</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> build-scripts/</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># edit androidbuild.sh and modify $ANDROID update project --target android-XX</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ex">./androidbuild.sh</span> org.libsdl /dev/null</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># doesn&#39;t matter if the actual build fails, it&#39;s just for setup</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../build/org.libsdl/</span></code></pre></div>
+<ul>
+<li>Remove reference to our dummy file:</li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-rf</span> jni/src/</span></code></pre></div>
+<ul>
+<li>Reference SDL_image, SDL_mixer, SDL_ttf, and their dependencies, as
+NDK modules:</li>
+</ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> /usr/src/SDL3_image jni/</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> /usr/src/SDL3_image/external/libwebp-0.3.0 jni/webp</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> /usr/src/SDL3_mixer jni/</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> /usr/src/SDL3_mixer/external/libmikmod-3.1.12 jni/libmikmod</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> /usr/src/SDL3_mixer/external/smpeg2-2.0.0 jni/smpeg2</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> /usr/src/SDL3_net jni/</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> /usr/src/SDL3_ttf jni/</span></code></pre></div>
+<ul>
+<li>Optionnaly edit <code>jni/Android.mk</code> to disable some formats,
+e.g.:</li>
+</ul>
+<pre class="make"><code>SUPPORT_MP3_SMPEG := false
+include $(call all-subdir-makefiles)</code></pre>
+<ul>
+<li>Launch the build!</li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ndk-build</span> <span class="at">-j</span><span class="va">$(</span><span class="fu">nproc</span><span class="va">)</span></span></code></pre></div>
+<p>Note: no need to add <code>System.loadLibrary</code> calls in
+<code>SDLActivity.java</code>, your application will be linked to them
+and Android&#39;s ld-linux loads them automatically.</p>
+<h3 id="install-sdl-in-a-gcc-toolchain">Install SDL in a GCC
+toolchain</h3>
+<p>Now:</p>
+<ul>
+<li>Copy the NDK into a traditional GCC toolchain (leave android-14
+as-is):</li>
+</ul>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/usr/src/android-ndk-r8c/build/tools/make-standalone-toolchain.sh</span> <span class="dt">\</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--platform</span><span class="op">=</span>android-14 <span class="at">--install-dir</span><span class="op">=</span>/usr/src/ndk-standalone-14-arm <span class="at">--arch</span><span class="op">=</span>arm</span></code></pre></div>
+<ul>
+<li>Set your PATH (important, do it before any build):</li>
+</ul>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="va">NDK_STANDALONE</span><span class="op">=</span>/usr/src/ndk-standalone-14-arm</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="va">PATH</span><span class="op">=</span><span class="va">$NDK_STANDALONE</span>/bin:<span class="va">$PATH</span></span></code></pre></div>
+<ul>
+<li>Install the SDL3 binaries in the toolchain:</li>
+</ul>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /usr/src/SDL3/build/org.libsdl/</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> libs/armeabi/<span class="pp">*</span><span class="kw">;</span> <span class="cf">do</span> <span class="fu">ln</span> <span class="at">-nfs</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span>/<span class="va">$i</span> <span class="va">$NDK_STANDALONE</span>/sysroot/usr/lib/<span class="kw">;</span> <span class="cf">done</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="va">$NDK_STANDALONE</span>/sysroot/usr/include/SDL3/</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> jni/SDL/include/<span class="pp">*</span> <span class="va">$NDK_STANDALONE</span>/sysroot/usr/include/SDL3/</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> jni/<span class="pp">*</span>/SDL<span class="pp">*</span>.h <span class="va">$NDK_STANDALONE</span>/sysroot/usr/include/SDL3/</span></code></pre></div>
+<ul>
+<li>Install <code>pkg-config</code> and install a host-triplet-prefixed
+symlink in the PATH (auto-detected by autoconf):</li>
+</ul>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="va">VERSION</span><span class="op">=</span>0.9.12</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /usr/src/</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> http://rabbit.dereferenced.org/~nenolod/distfiles/pkgconf-<span class="va">$VERSION</span>.tar.gz</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> xf pkgconf-<span class="va">$VERSION</span>.tar.gz</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> pkgconf-<span class="va">$VERSION</span>/</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> native-android/ <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> native-android/</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="ex">../configure</span> <span class="at">--prefix</span><span class="op">=</span><span class="va">$NDK_STANDALONE</span>/sysroot/usr</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> <span class="at">-j</span><span class="va">$(</span><span class="fu">nproc</span><span class="va">)</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> install</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> ../sysroot/usr/bin/pkgconf <span class="va">$NDK_STANDALONE</span>/bin/arm-linux-androideabi-pkg-config</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="va">$NDK_STANDALONE</span>/sysroot/usr/lib/pkgconfig/</span></code></pre></div>
+<ul>
+<li>Install pkg-config <code>.pc</code> files for SDL:</li>
+</ul>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;&lt;&#39;EOF&#39;</span> <span class="op">&gt;</span> <span class="va">$NDK_STANDALONE</span>/sysroot/usr/lib/pkgconfig/sdl2.pc</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="st">prefix=/usr/src/ndk-standalone-14-arm/sysroot/usr</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="st">exec_prefix=${prefix}</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="st">libdir=${exec_prefix}/lib</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="st">includedir=${prefix}/include</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="st">Name: sdl2</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="st">Description: Simple DirectMedia Layer is a cross-platform multimedia library designed to provide low level access to audio, keyboard, mouse, joystick, 3D hardware via OpenGL, and 2D video framebuffer.</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="st">Version: 2.0.5</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="st">Requires:</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="st">Conflicts:</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="st">Libs: -lSDL3</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="st">Cflags: -I${includedir}/SDL3   -D_REENTRANT</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;&lt;&#39;EOF&#39;</span> <span class="op">&gt;</span> <span class="va">$NDK_STANDALONE</span>/sysroot/usr/lib/pkgconfig/SDL3_image.pc</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="st">prefix=/usr/src/ndk-standalone-14-arm/sysroot/usr</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="st">exec_prefix=${prefix}</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="st">libdir=${exec_prefix}/lib</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="st">includedir=${prefix}/include</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="st">Name: SDL3_image</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="st">Description: image loading library for Simple DirectMedia Layer</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="st">Version: 2.0.1</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="st">Requires: sdl2 &gt;= 2.0.0</span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="st">Libs: -L${libdir} -lSDL3_image</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="st">Cflags: -I${includedir}/SDL3</span></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;&lt;&#39;EOF&#39;</span> <span class="op">&gt;</span> <span class="va">$NDK_STANDALONE</span>/sysroot/usr/lib/pkgconfig/SDL3_mixer.pc</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a><span class="st">prefix=/usr/src/ndk-standalone-14-arm/sysroot/usr</span></span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a><span class="st">exec_prefix=${prefix}</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a><span class="st">libdir=${exec_prefix}/lib</span></span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a><span class="st">includedir=${prefix}/include</span></span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a><span class="st">Name: SDL3_mixer</span></span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a><span class="st">Description: mixer library for Simple DirectMedia Layer</span></span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a><span class="st">Version: 2.0.1</span></span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a><span class="st">Requires: sdl2 &gt;= 2.0.0</span></span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a><span class="st">Libs: -L${libdir} -lSDL3_mixer</span></span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a><span class="st">Cflags: -I${includedir}/SDL3</span></span>
+<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span>
+<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;&lt;&#39;EOF&#39;</span> <span class="op">&gt;</span> <span class="va">$NDK_STANDALONE</span>/sysroot/usr/lib/pkgconfig/SDL3_net.pc</span>
+<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a><span class="st">prefix=/usr/src/ndk-standalone-14-arm/sysroot/usr</span></span>
+<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a><span class="st">exec_prefix=${prefix}</span></span>
+<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a><span class="st">libdir=${exec_prefix}/lib</span></span>
+<span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a><span class="st">includedir=${prefix}/include</span></span>
+<span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a><span class="st">Name: SDL3_net</span></span>
+<span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a><span class="st">Description: net library for Simple DirectMedia Layer</span></span>
+<span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a><span class="st">Version: 2.0.1</span></span>
+<span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a><span class="st">Requires: sdl2 &gt;= 2.0.0</span></span>
+<span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a><span class="st">Libs: -L${libdir} -lSDL3_net</span></span>
+<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a><span class="st">Cflags: -I${includedir}/SDL3</span></span>
+<span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span>
+<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-54"><a href="#cb19-54" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;&lt;&#39;EOF&#39;</span> <span class="op">&gt;</span> <span class="va">$NDK_STANDALONE</span>/sysroot/usr/lib/pkgconfig/SDL3_ttf.pc</span>
+<span id="cb19-55"><a href="#cb19-55" aria-hidden="true" tabindex="-1"></a><span class="st">prefix=/usr/src/ndk-standalone-14-arm/sysroot/usr</span></span>
+<span id="cb19-56"><a href="#cb19-56" aria-hidden="true" tabindex="-1"></a><span class="st">exec_prefix=${prefix}</span></span>
+<span id="cb19-57"><a href="#cb19-57" aria-hidden="true" tabindex="-1"></a><span class="st">libdir=${exec_prefix}/lib</span></span>
+<span id="cb19-58"><a href="#cb19-58" aria-hidden="true" tabindex="-1"></a><span class="st">includedir=${prefix}/include</span></span>
+<span id="cb19-59"><a href="#cb19-59" aria-hidden="true" tabindex="-1"></a><span class="st">Name: SDL3_ttf</span></span>
+<span id="cb19-60"><a href="#cb19-60" aria-hidden="true" tabindex="-1"></a><span class="st">Description: ttf library for Simple DirectMedia Layer with FreeType 2 support</span></span>
+<span id="cb19-61"><a href="#cb19-61" aria-hidden="true" tabindex="-1"></a><span class="st">Version: 2.0.14</span></span>
+<span id="cb19-62"><a href="#cb19-62" aria-hidden="true" tabindex="-1"></a><span class="st">Requires: sdl2 &gt;= 2.0.0</span></span>
+<span id="cb19-63"><a href="#cb19-63" aria-hidden="true" tabindex="-1"></a><span class="st">Libs: -L${libdir} -lSDL3_ttf</span></span>
+<span id="cb19-64"><a href="#cb19-64" aria-hidden="true" tabindex="-1"></a><span class="st">Cflags: -I${includedir}/SDL3</span></span>
+<span id="cb19-65"><a href="#cb19-65" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span></code></pre></div>
+<h3 id="building-other-dependencies">Building other dependencies</h3>
+<p>You can add any other libraries (e.g.: SDL2_gfx, freetype, gettext,
+gmp...) using commands like:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> cross-android/ <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> cross-android/</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="ex">../configure</span> <span class="at">--host</span><span class="op">=</span>arm-linux-androideabi <span class="at">--prefix</span><span class="op">=</span><span class="va">$NDK_STANDALONE</span>/sysroot/usr <span class="dt">\</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--with-some-option</span> <span class="at">--enable-another-option</span> <span class="dt">\</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--disable-shared</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> <span class="at">-j</span><span class="va">$(</span><span class="fu">nproc</span><span class="va">)</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> install</span></code></pre></div>
+<p>Static builds (<code>--disable-shared</code>) are recommended for
+simplicity (no additional <code>.so</code> to declare).</p>
+<p>(FIXME: is there an SDL3_gfx?)</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Example</span> with SDL2_gfx:</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="va">VERSION</span><span class="op">=</span>1.0.3</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> http://www.ferzkopp.net/Software/SDL2_gfx/SDL2_gfx-<span class="va">$VERSION</span>.tar.gz</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> xf SDL2_gfx-<span class="va">$VERSION</span>.tar.gz</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> SDL2_gfx-<span class="va">$VERSION</span>/ SDL2_gfx/</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> SDL2_gfx/</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> cross-android/ <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> cross-android/</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="ex">../configure</span> <span class="at">--host</span><span class="op">=</span>arm-linux-androideabi <span class="at">--prefix</span><span class="op">=</span><span class="va">$NDK_STANDALONE</span>/sysroot/usr <span class="dt">\</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--disable-shared</span> <span class="at">--disable-mmx</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> <span class="at">-j</span><span class="va">$(</span><span class="fu">nproc</span><span class="va">)</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> install</span></code></pre></div>
+<p>You can compile YOUR application using this technique, with some more
+steps to tell Android how to run it using JNI.</p>
+<h3 id="build-your-autotools-app">Build your autotools app</h3>
+<p>First, prepare an Android project:</p>
+<ul>
+<li>Copy and adapt the <code>/usr/src/SDL3/android-project</code>
+skeleton as explained in <code>README-android.md</code>. You can leave
+it as-is in a first step.</li>
+<li>Make links to the SDL binaries as well:</li>
+</ul>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> libs/armeabi/</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> /usr/src/SDL3/build/org.libsdl/libs/armeabi/<span class="pp">*</span><span class="kw">;</span> <span class="cf">do</span> <span class="fu">ln</span> <span class="at">-nfs</span> <span class="va">$i</span> libs/armeabi/<span class="kw">;</span> <span class="cf">done</span></span></code></pre></div>
+<p>Make your project Android-aware:</p>
+<ul>
+<li>Add <code>/usr/src/SDL3/src/main/android/SDL_android_main.c</code>
+in your project (comment out the line referencing &quot;SDL_internal.h&quot;).
+Compile it as C (not C++).</li>
+<li>In your <code>configure.ac</code>, detect Android:</li>
+</ul>
+<div class="sourceCode" id="cb23"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>AM_CONDITIONAL<span class="op">(</span>ANDROID<span class="op">,</span> test <span class="st">&quot;$host&quot;</span> <span class="op">=</span> <span class="st">&quot;arm-unknown-linux-androideabi&quot;</span><span class="op">)</span></span></code></pre></div>
+<ul>
+<li>In your <code>Makefile.am</code>, tell Automake you&#39;ll build
+executables as libraries, using something like:</li>
+</ul>
+<div class="sourceCode" id="cb24"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> ANDROID</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;!--</span>  Build <span class="op">.</span>so JNI libs rather than executables <span class="op">--&gt;</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  AM_CFLAGS <span class="op">=</span> <span class="op">-</span>fPIC</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  AM_LDFLAGS <span class="op">+=</span> <span class="op">-</span>shared</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  COMMON_OBJS <span class="op">+=</span> SDL_android_main<span class="op">.</span>c</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>endif</span></code></pre></div>
+<ul>
+<li>Cross-compile your project using the GCC toolchain environment we
+created:</li>
+</ul>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="va">PATH</span><span class="op">=</span><span class="va">$NDK_STANDALONE</span>/bin:<span class="va">$PATH</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> cross-android/ <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> cross-android/</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="ex">../configure</span> <span class="at">--host</span><span class="op">=</span>arm-linux-androideabi <span class="dt">\</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--prefix</span><span class="op">=</span>/android-aint-posix <span class="dt">\</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--with-your-option</span> <span class="at">--enable-your-other-option</span> ...</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span></span></code></pre></div>
+<ul>
+<li>Do this again for any additional arch you want to support (TODO: see
+how to support <code>armeabi-v7a</code> and document what devices
+support it); something like:</li>
+</ul>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> cross-android-v7a/ <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> cross-android-v7a/</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># .o: -march=armv5te -mtune=xscale -msoft-float -mthumb  =&gt;  -march=armv7-a -mfpu=vfpv3-d16 -mfloat-abi=softfp -mthumb</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># .so: -march=armv7-a -Wl,--fix-cortex-a8</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="va">CFLAGS</span><span class="op">=</span><span class="st">&quot;-g -O2 -march=armv7-a -mfpu=vfpv3-d16 -mfloat-abi=softfp -mthumb&quot;</span> <span class="va">LFDLAGS</span><span class="op">=</span><span class="st">&quot;-march=armv7-a -Wl,--fix-cortex-a8&quot;</span> <span class="dt">\</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">../configure</span> <span class="at">--host</span><span class="op">=</span>arm-linux-androideabi <span class="dt">\</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  ...</span></code></pre></div>
+<p>Now you can install your pre-built binaries and build the Android
+project:</p>
+<ul>
+<li>Copy your program in
+<code>android-project/libs/armeabi/libmain.so</code>.</li>
+<li>Build your Android <code>.apk</code>:</li>
+</ul>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">android</span> update project <span class="at">--name</span> your_app <span class="at">--path</span> . <span class="at">--target</span> android-XX</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ant</span> debug</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="ex">ant</span> installd</span></code></pre></div>
+<ul>
+<li>You can run the application remotely:</li>
+</ul>
+<div class="sourceCode" id="cb28"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">adb</span> shell am start <span class="at">-a</span> android.intenon.MAIN <span class="at">-n</span> org.libsdl.app/org.libsdl.app.SDLActivity  <span class="co"># replace with your app package</span></span></code></pre></div>
+<ul>
+<li>Your SDL3 Android app is running!</li>
+</ul>
+<h3 id="build-your-cmake-app">Build your CMake app</h3>
+<p>(Work In Progress)</p>
+<p>You can use our Android GCC toolchain using a simple toolchain
+file:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># CMake toolchain file</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span>(<span class="dv">CMAKE_SYSTEM_NAME</span> Linux)  <span class="co"># Tell CMake we&#39;re cross-compiling</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="kw">include</span>(<span class="im">CMakeForceCompiler</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Prefix detection only works with compiler id &quot;GNU&quot;</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">CMAKE_FORCE_C_COMPILER</span>(arm-linux-androideabi-gcc GNU)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span>(<span class="dv">ANDROID</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p>You then call CMake like this:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="va">PATH</span><span class="op">=</span><span class="va">$NDK_STANDALONE</span>/bin:<span class="va">$PATH</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="dt">\</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-D</span> CMAKE_TOOLCHAIN_FILE=../android_toolchain.cmake <span class="dt">\</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  ...</span></code></pre></div>
+<h2 id="troubleshootings">Troubleshootings</h2>
+<p>If <code>ant installd</code> categorically refuses to install with
+<code>Failure [INSTALL_FAILED_INSUFFICIENT_STORAGE]</code>, even if you
+have free local storage, that may mean anything. Check logcat first:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="ex">adb</span> logcat</span></code></pre></div>
+<p>If the error logs are not helpful (likely ;&#39;)) try locating all past
+traces of the application:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">find</span> / <span class="at">-name</span> <span class="st">&quot;org....&quot;</span></span></code></pre></div>
+<p>and remove them all.</p>
+<p>If the problem persists, you may try installing on the SD card:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="ex">adb</span> install <span class="at">-s</span> bin/app-debug.apk</span></code></pre></div>
+<hr />
+<p>If you get in your logcat:</p>
+<p><code>SDL: Couldn&#39;t locate Java callbacks, check that they&#39;re named and typed correctly</code></p>
+<p>this probably means your <code>SDLActivity.java</code> is out-of-sync
+with your libSDL3.so.</p>
+</body>
+</html>

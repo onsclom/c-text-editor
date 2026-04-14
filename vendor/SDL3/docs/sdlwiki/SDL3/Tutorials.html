@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Tutorials</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">:root {
+color-scheme: dark light; 
+}
+body {
+background-color: white;
+padding: 2vw;
+color: #333;
+max-width: 1200px;
+margin: 0 auto;
+font-size: 16px;
+line-height: 1.5;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+overflow-wrap: break-word;
+}
+a {
+color: #0969da;
+
+}
+a:visited {
+color: #064998;
+}
+h1 {
+border-bottom: 2px solid #efefef;
+}
+h2 {
+border-bottom: 1px solid #efefef;
+}
+p {
+max-width: 85ch;
+}
+li {
+max-width: 85ch;
+}
+div.sourceCode {
+background-color: #f6f8fa;
+max-width: 100%;
+padding: 16px;
+}
+code {
+background-color: #f6f8fa;
+padding: 0px;
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+}
+table {
+border: 1px solid #808080;
+border-collapse: collapse;
+}
+td {
+border: 1px solid #808080;
+padding: 5px;
+}
+tr:nth-child(even) {
+background-color: #f6f8fa;
+}
+.wikitopbanner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #efefef;
+padding: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+.wikibottombanner {
+background-color: #efefef;
+padding: 10px;
+margin-top: 10px;
+width: auto;
+}
+.alertBox {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+max-width: 60%;
+padding: 10;
+margin: auto;
+}
+.anchorImage {
+visibility: hidden;
+padding-left: 0.2em;
+color: #fff;
+}
+.anchorText:hover .anchorImage {
+visibility: visible;
+}
+hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #efefef;
+margin: 1em 0;
+padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+color: #e6edf3;
+background-color: #0d1117;
+}
+h1 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+h2 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+hr {
+border-color: rgba(48, 54, 61, 0.7);
+}
+div.sourceCode {
+background-color: #161b22;
+}
+code {
+background-color: #161b22;
+}
+a {
+color: #4493f8;
+}
+a:visited {
+color: #2f66ad;
+}
+table {
+border-color: rgba(48, 54, 61, 0.7);
+}
+td {
+border-color: rgba(48, 54, 61, 0.7);
+}
+tr:nth-child(even) {
+background-color: #161b22;
+}
+.wikitopbanner {
+background-color: #263040;
+}
+.wikibottombanner {
+background-color: #263040;
+}
+.anchorText:hover .anchorImage {
+filter: invert(100%);
+}
+}
+@media print {
+body {
+font-size: 12px;
+}
+table {
+font-size: inherit;
+}
+a:visited {
+color: #0969da;
+}
+.wikitopbanner,
+.anchorText,
+.wikibottombanner {
+display: none;
+}
+}
+</style>
+  <style type="text/css"> code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+{ position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+{ content: attr(title);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; pointer-events: all; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+@media (prefers-color-scheme: dark) {
+code span.al { color: #95da4c; font-weight: bold; } 
+code span.an { color: #3f8058; } 
+code span.at { color: #2980b9; } 
+code span.bn { color: #f67400; } 
+code span.bu { color: #7f8c8d; } 
+code span.ch { color: #3daee9; } 
+code span.co { color: #7a7c7d; } 
+code span.cv { color: #7f8c8d; } 
+code span.cn { color: #27aeae; font-weight: bold; } 
+code span.cf { color: #fdbc4b; font-weight: bold; } 
+code span.dt { color: #2980b9; } 
+code span.dv { color: #f67400; } 
+code span.do { color: #a43340; } 
+code span.er { color: #da4453; } 
+code span.ex { color: #0099ff; font-weight: bold; } 
+code span.fl { color: #f67400; } 
+code span.fu { color: #8e44ad; } 
+code span.im { color: #27ae60; } 
+code span.in { color: #c45b00; } 
+code span.kw { color: #cfcfc2; font-weight: bold; } 
+code span.op { color: #cfcfc2; } 
+code span.ot { color: #27ae60; } 
+code span.pp { color: #27ae60; } 
+code span.sc { color: #3daee9; } 
+code span.ss { color: #da4453; } 
+code span.st { color: #f44f4f; } 
+code span.va { color: #27aeae; } 
+code span.vs { color: #da4453; } 
+code span.wa { color: #da4453; } 
+}</style>
+</head>
+<body>
+<h1 id="sdl-tutorials">SDL Tutorials</h1>
+<p>The best place to find simple SDL3 tutorials at the moment is <a href="https://examples.libsdl.org/SDL3/">examples.libsdl.org</a>, which
+offers small programs that each demonstrate one feature of the library.
+Most of the examples are 100-300 lines of C code. There are also
+simple-but-complete games and apps in the <a href="https://examples.libsdl.org/SDL3/demo/">demo section</a>, which
+are slightly larger (closer to 500 lines of C code), but more
+comprehensive.</p>
+<p>The examples website runs each program directly in the web browser,
+and has a popup tab to show their source code, with all symbols linked
+to their wiki pages for easy research.</p>
+<p>And, of course, all of the examples are included in SDL&#39;s source
+tree, in the <a href="https://github.com/libsdl-org/SDL/tree/main/examples">examples
+directory</a>, for you to tinker with and explore.</p>
+<h2 id="introduction">Introduction</h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=Mi47TQ4Tsr8">How to setup
+SDL3 as a git submodule with Modern CMake</a></li>
+<li><a href="https://www.youtube.com/watch?v=WLjuV9_fQfw">Vulkan Dev
+Starter Pack with SDL3, CMake, C23 and more!</a></li>
+<li><a href="https://www.youtube.com/watch?v=T32B7nf6B-8">How to setup
+SDL 3, SDL_image, SQL and Flecs using Modern CMake on Windows</a></li>
+<li><a href="https://www.youtube.com/watch?v=_i4wRjcp8eU">HOWTO: Use
+Clion for Raylib | SDL2 | SDL3 Using CMake</a></li>
+<li><a href="http://iki.fi/sol/gp2/">Sol&#39;s Graphics Tutorial</a></li>
+<li><a href="https://mccue.dev/pages/12-26-24-sdl3-java">How to use SDL3
+from Java</a>: Covers setting up a basic Java project with SDL3.</li>
+<li><a href="https://www.youtube.com/live/43sDPSSG0-U">Vulkan HPP RAII +
+SDL3 Made Easy – A Live Guide for Beginners!</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLvv0ScY6vfd-5hY-sFyttTjfuUxG5c7OA">SDL
+3 programming with the D programming Language by Mike Shah</a></li>
+</ul>
+<h2 id="sdl-camera">SDL Camera</h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=nvDLBM0l7nA">C Programming
+and SDL3 - accessing webcam, show webcam video, take
+screenshots</a></li>
+</ul>
+<h2 id="sdl-audio">SDL Audio</h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=MLau3hWJBeE">The SDL3 Audio
+Subsystem!</a>: Quick overview of SDL3&#39;s audio model, no code.</li>
+</ul>
+<h2 id="sdl-gpu">SDL GPU</h2>
+<ul>
+<li><a href="https://github.com/TheSpydog/SDL_gpu_examples">Examples
+Repo</a></li>
+<li><a href="https://hamdy-elzanqali.medium.com/let-there-be-triangles-sdl-gpu-edition-bd82cf2ef615">SDL
+GPU Triangle Tutorial</a></li>
+<li><a href="https://moonside.games/posts/sdl-gpu-sprite-batcher/">SDL
+GPU API Concepts: Sprite Batcher</a></li>
+<li><a href="https://www.youtube.com/watch?v=UFuWGECc8w0">SDL 3 GPU
+tutorial with C++23 and Modern CMake (Part 1)</a></li>
+<li><a href="https://www.youtube.com/watch?v=HYb753diRYA">SDL 3 GPU
+tutorial with C++23 and Modern CMake (Part 2)</a></li>
+<li><a href="https://www.youtube.com/watch?v=ddi7V0CDkLQ">SDL 3 GPU
+tutorial with C++23 and Modern CMake (Part 3)</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLI3kBEQ3yd-CbQfRchF70BPLF9G1HEzhy">Odin
+SDL3 GPU Tutorial (Playlist)</a> This tutorial series is in the
+programming language Odin, not C or C++, but it can still be followed
+along with from other languages!</li>
+<li><a href="https://www.youtube.com/watch?v=90mzOdzdJsc&amp;list=PLlKj-4rp1Gz1I1vxBQWAQkeTlvv7E8nIk">Setup
+SDL 3 GPU with CMake and vcpkg in C++ with SDL main callbacks
+(Playlist)</a></li>
+</ul>
+<h2 id="porting-from-sdl-20">Porting from SDL 2.0</h2>
+<ul>
+<li><a href="https://youtu.be/i3yVqWYFbCE">Porting ioquake3 from SDL2 to
+SDL3</a>: Covers a basic port from SDL2.</li>
+<li><a href="https://youtu.be/V_MWXDr3Nu4">Porting DirkSimple from SDL2
+to SDL3</a>: Basic port, new audio subsystem features,
+SDL_EnumerateDirectory, main callbacks, emscripten port.</li>
+<li><a href="https://youtu.be/TfkexYtd62w">Porting Maelstrom from SDL2
+to SDL3</a>: Covers a complete port from SDL3</li>
+</ul>
+<h2 id="multi-subject">Multi-Subject</h2>
+<ul>
+<li><a href="https://glusoft.com/sdl3-tutorials/">Glusoft&#39;s SDL3
+Tutorials</a>: Covers setup of SDL3 and a variety of basic and advanced
+tutorials.</li>
+<li><a href="https://www.youtube.com/playlist?list=PLvv0ScY6vfd-RZSmGbLkZvkgec6lJ0BfX">Mike
+Shah&#39;s SDL3 Tutorial Video Playlist</a>: Covers setup of SDL3 and
+programming tutorials demonstrating the SDL3 API.</li>
+<li><a href="https://darkcybernetics.com">DarkCybernetics</a>: creates
+comprehensive 2D/3D game tutorials using SDL2 and SDL3 also advanced
+Computer Science courses.</li>
+</ul>
+<p>If you come across good tutorials, please click <a href="Tutorials/edit.html">edit</a> and add them!</p>
+</body>
+</html>

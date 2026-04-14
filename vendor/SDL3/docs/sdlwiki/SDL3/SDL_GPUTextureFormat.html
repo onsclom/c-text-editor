@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SDL_GPUTextureFormat</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">:root {
+color-scheme: dark light; 
+}
+body {
+background-color: white;
+padding: 2vw;
+color: #333;
+max-width: 1200px;
+margin: 0 auto;
+font-size: 16px;
+line-height: 1.5;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+overflow-wrap: break-word;
+}
+a {
+color: #0969da;
+
+}
+a:visited {
+color: #064998;
+}
+h1 {
+border-bottom: 2px solid #efefef;
+}
+h2 {
+border-bottom: 1px solid #efefef;
+}
+p {
+max-width: 85ch;
+}
+li {
+max-width: 85ch;
+}
+div.sourceCode {
+background-color: #f6f8fa;
+max-width: 100%;
+padding: 16px;
+}
+code {
+background-color: #f6f8fa;
+padding: 0px;
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+}
+table {
+border: 1px solid #808080;
+border-collapse: collapse;
+}
+td {
+border: 1px solid #808080;
+padding: 5px;
+}
+tr:nth-child(even) {
+background-color: #f6f8fa;
+}
+.wikitopbanner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #efefef;
+padding: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+.wikibottombanner {
+background-color: #efefef;
+padding: 10px;
+margin-top: 10px;
+width: auto;
+}
+.alertBox {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+max-width: 60%;
+padding: 10;
+margin: auto;
+}
+.anchorImage {
+visibility: hidden;
+padding-left: 0.2em;
+color: #fff;
+}
+.anchorText:hover .anchorImage {
+visibility: visible;
+}
+hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #efefef;
+margin: 1em 0;
+padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+color: #e6edf3;
+background-color: #0d1117;
+}
+h1 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+h2 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+hr {
+border-color: rgba(48, 54, 61, 0.7);
+}
+div.sourceCode {
+background-color: #161b22;
+}
+code {
+background-color: #161b22;
+}
+a {
+color: #4493f8;
+}
+a:visited {
+color: #2f66ad;
+}
+table {
+border-color: rgba(48, 54, 61, 0.7);
+}
+td {
+border-color: rgba(48, 54, 61, 0.7);
+}
+tr:nth-child(even) {
+background-color: #161b22;
+}
+.wikitopbanner {
+background-color: #263040;
+}
+.wikibottombanner {
+background-color: #263040;
+}
+.anchorText:hover .anchorImage {
+filter: invert(100%);
+}
+}
+@media print {
+body {
+font-size: 12px;
+}
+table {
+font-size: inherit;
+}
+a:visited {
+color: #0969da;
+}
+.wikitopbanner,
+.anchorText,
+.wikibottombanner {
+display: none;
+}
+}
+</style>
+  <style type="text/css"> code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+{ position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+{ content: attr(title);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; pointer-events: all; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+@media (prefers-color-scheme: dark) {
+code span.al { color: #95da4c; font-weight: bold; } 
+code span.an { color: #3f8058; } 
+code span.at { color: #2980b9; } 
+code span.bn { color: #f67400; } 
+code span.bu { color: #7f8c8d; } 
+code span.ch { color: #3daee9; } 
+code span.co { color: #7a7c7d; } 
+code span.cv { color: #7f8c8d; } 
+code span.cn { color: #27aeae; font-weight: bold; } 
+code span.cf { color: #fdbc4b; font-weight: bold; } 
+code span.dt { color: #2980b9; } 
+code span.dv { color: #f67400; } 
+code span.do { color: #a43340; } 
+code span.er { color: #da4453; } 
+code span.ex { color: #0099ff; font-weight: bold; } 
+code span.fl { color: #f67400; } 
+code span.fu { color: #8e44ad; } 
+code span.im { color: #27ae60; } 
+code span.in { color: #c45b00; } 
+code span.kw { color: #cfcfc2; font-weight: bold; } 
+code span.op { color: #cfcfc2; } 
+code span.ot { color: #27ae60; } 
+code span.pp { color: #27ae60; } 
+code span.sc { color: #3daee9; } 
+code span.ss { color: #da4453; } 
+code span.st { color: #f44f4f; } 
+code span.va { color: #27aeae; } 
+code span.vs { color: #da4453; } 
+code span.wa { color: #da4453; } 
+}</style>
+</head>
+<body>
+<h1 id="sdl_gputextureformat">SDL_GPUTextureFormat</h1>
+<p>Specifies the pixel format of a texture.</p>
+<h2 id="header-file">Header File</h2>
+<p>Defined in <a href="https://github.com/libsdl-org/SDL/blob/main/include/SDL3/SDL_gpu.h">&lt;SDL3/SDL_gpu.h&gt;</a></p>
+<h2 id="syntax">Syntax</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">enum</span> SDL_GPUTextureFormat</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_INVALID<span class="op">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Unsigned Normalized Float Color Formats */</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_A8_UNORM<span class="op">,</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R8_UNORM<span class="op">,</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R8G8_UNORM<span class="op">,</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R8G8B8A8_UNORM<span class="op">,</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R16_UNORM<span class="op">,</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R16G16_UNORM<span class="op">,</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R16G16B16A16_UNORM<span class="op">,</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R10G10B10A2_UNORM<span class="op">,</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_B5G6R5_UNORM<span class="op">,</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_B5G5R5A1_UNORM<span class="op">,</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_B4G4R4A4_UNORM<span class="op">,</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_B8G8R8A8_UNORM<span class="op">,</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Compressed Unsigned Normalized Float Color Formats */</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_BC1_RGBA_UNORM<span class="op">,</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_BC2_RGBA_UNORM<span class="op">,</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_BC3_RGBA_UNORM<span class="op">,</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_BC4_R_UNORM<span class="op">,</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_BC5_RG_UNORM<span class="op">,</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_BC7_RGBA_UNORM<span class="op">,</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Compressed Signed Float Color Formats */</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_BC6H_RGB_FLOAT<span class="op">,</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Compressed Unsigned Float Color Formats */</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_BC6H_RGB_UFLOAT<span class="op">,</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Signed Normalized Float Color Formats  */</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R8_SNORM<span class="op">,</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R8G8_SNORM<span class="op">,</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R8G8B8A8_SNORM<span class="op">,</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R16_SNORM<span class="op">,</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R16G16_SNORM<span class="op">,</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R16G16B16A16_SNORM<span class="op">,</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Signed Float Color Formats */</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R16_FLOAT<span class="op">,</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R16G16_FLOAT<span class="op">,</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R16G16B16A16_FLOAT<span class="op">,</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R32_FLOAT<span class="op">,</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R32G32_FLOAT<span class="op">,</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R32G32B32A32_FLOAT<span class="op">,</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Unsigned Float Color Formats */</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R11G11B10_UFLOAT<span class="op">,</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Unsigned Integer Color Formats */</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R8_UINT<span class="op">,</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R8G8_UINT<span class="op">,</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R8G8B8A8_UINT<span class="op">,</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R16_UINT<span class="op">,</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R16G16_UINT<span class="op">,</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R16G16B16A16_UINT<span class="op">,</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R32_UINT<span class="op">,</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R32G32_UINT<span class="op">,</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R32G32B32A32_UINT<span class="op">,</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Signed Integer Color Formats */</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R8_INT<span class="op">,</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R8G8_INT<span class="op">,</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R8G8B8A8_INT<span class="op">,</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R16_INT<span class="op">,</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R16G16_INT<span class="op">,</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R16G16B16A16_INT<span class="op">,</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R32_INT<span class="op">,</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R32G32_INT<span class="op">,</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R32G32B32A32_INT<span class="op">,</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* SRGB Unsigned Normalized Color Formats */</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_R8G8B8A8_UNORM_SRGB<span class="op">,</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_B8G8R8A8_UNORM_SRGB<span class="op">,</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Compressed SRGB Unsigned Normalized Color Formats */</span></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_BC1_RGBA_UNORM_SRGB<span class="op">,</span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_BC2_RGBA_UNORM_SRGB<span class="op">,</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_BC3_RGBA_UNORM_SRGB<span class="op">,</span></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_BC7_RGBA_UNORM_SRGB<span class="op">,</span></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Depth Formats */</span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_D16_UNORM<span class="op">,</span></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_D24_UNORM<span class="op">,</span></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_D32_FLOAT<span class="op">,</span></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_D24_UNORM_S8_UINT<span class="op">,</span></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_D32_FLOAT_S8_UINT<span class="op">,</span></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Compressed ASTC Normalized Float Color Formats*/</span></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_4x4_UNORM<span class="op">,</span></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_5x4_UNORM<span class="op">,</span></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_5x5_UNORM<span class="op">,</span></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_6x5_UNORM<span class="op">,</span></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_6x6_UNORM<span class="op">,</span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_8x5_UNORM<span class="op">,</span></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_8x6_UNORM<span class="op">,</span></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_8x8_UNORM<span class="op">,</span></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_10x5_UNORM<span class="op">,</span></span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_10x6_UNORM<span class="op">,</span></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_10x8_UNORM<span class="op">,</span></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_10x10_UNORM<span class="op">,</span></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_12x10_UNORM<span class="op">,</span></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_12x12_UNORM<span class="op">,</span></span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Compressed SRGB ASTC Normalized Float Color Formats*/</span></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_4x4_UNORM_SRGB<span class="op">,</span></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_5x4_UNORM_SRGB<span class="op">,</span></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_5x5_UNORM_SRGB<span class="op">,</span></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_6x5_UNORM_SRGB<span class="op">,</span></span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_6x6_UNORM_SRGB<span class="op">,</span></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_8x5_UNORM_SRGB<span class="op">,</span></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_8x6_UNORM_SRGB<span class="op">,</span></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_8x8_UNORM_SRGB<span class="op">,</span></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_10x5_UNORM_SRGB<span class="op">,</span></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_10x6_UNORM_SRGB<span class="op">,</span></span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_10x8_UNORM_SRGB<span class="op">,</span></span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_10x10_UNORM_SRGB<span class="op">,</span></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_12x10_UNORM_SRGB<span class="op">,</span></span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_12x12_UNORM_SRGB<span class="op">,</span></span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Compressed ASTC Signed Float Color Formats*/</span></span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_4x4_FLOAT<span class="op">,</span></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_5x4_FLOAT<span class="op">,</span></span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_5x5_FLOAT<span class="op">,</span></span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_6x5_FLOAT<span class="op">,</span></span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_6x6_FLOAT<span class="op">,</span></span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_8x5_FLOAT<span class="op">,</span></span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_8x6_FLOAT<span class="op">,</span></span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_8x8_FLOAT<span class="op">,</span></span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_10x5_FLOAT<span class="op">,</span></span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_10x6_FLOAT<span class="op">,</span></span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_10x8_FLOAT<span class="op">,</span></span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_10x10_FLOAT<span class="op">,</span></span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_12x10_FLOAT<span class="op">,</span></span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>    SDL_GPU_TEXTUREFORMAT_ASTC_12x12_FLOAT</span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> SDL_GPUTextureFormat<span class="op">;</span></span></code></pre></div>
+<h2 id="remarks">Remarks</h2>
+<p>Texture format support varies depending on driver, hardware, and
+usage flags. In general, you should use <a href="SDL_GPUTextureSupportsFormat.html">SDL_GPUTextureSupportsFormat</a>
+to query if a format is supported before using it. However, there are a
+few guaranteed formats.</p>
+<p>FIXME: Check universal support for 32-bit component formats FIXME:
+Check universal support for SIMULTANEOUS_READ_WRITE</p>
+<p>For SAMPLER usage, the following formats are universally
+supported:</p>
+<ul>
+<li>R8G8B8A8_UNORM</li>
+<li>B8G8R8A8_UNORM</li>
+<li>R8_UNORM</li>
+<li>R8_SNORM</li>
+<li>R8G8_UNORM</li>
+<li>R8G8_SNORM</li>
+<li>R8G8B8A8_SNORM</li>
+<li>R16_FLOAT</li>
+<li>R16G16_FLOAT</li>
+<li>R16G16B16A16_FLOAT</li>
+<li>R32_FLOAT</li>
+<li>R32G32_FLOAT</li>
+<li>R32G32B32A32_FLOAT</li>
+<li>R11G11B10_UFLOAT</li>
+<li>R8G8B8A8_UNORM_SRGB</li>
+<li>B8G8R8A8_UNORM_SRGB</li>
+<li>D16_UNORM</li>
+</ul>
+<p>For COLOR_TARGET usage, the following formats are universally
+supported:</p>
+<ul>
+<li>R8G8B8A8_UNORM</li>
+<li>B8G8R8A8_UNORM</li>
+<li>R8_UNORM</li>
+<li>R16_FLOAT</li>
+<li>R16G16_FLOAT</li>
+<li>R16G16B16A16_FLOAT</li>
+<li>R32_FLOAT</li>
+<li>R32G32_FLOAT</li>
+<li>R32G32B32A32_FLOAT</li>
+<li>R8_UINT</li>
+<li>R8G8_UINT</li>
+<li>R8G8B8A8_UINT</li>
+<li>R16_UINT</li>
+<li>R16G16_UINT</li>
+<li>R16G16B16A16_UINT</li>
+<li>R8_INT</li>
+<li>R8G8_INT</li>
+<li>R8G8B8A8_INT</li>
+<li>R16_INT</li>
+<li>R16G16_INT</li>
+<li>R16G16B16A16_INT</li>
+<li>R8G8B8A8_UNORM_SRGB</li>
+<li>B8G8R8A8_UNORM_SRGB</li>
+</ul>
+<p>For STORAGE usages, the following formats are universally
+supported:</p>
+<ul>
+<li>R8G8B8A8_UNORM</li>
+<li>R8G8B8A8_SNORM</li>
+<li>R16G16B16A16_FLOAT</li>
+<li>R32_FLOAT</li>
+<li>R32G32_FLOAT</li>
+<li>R32G32B32A32_FLOAT</li>
+<li>R8G8B8A8_UINT</li>
+<li>R16G16B16A16_UINT</li>
+<li>R8G8B8A8_INT</li>
+<li>R16G16B16A16_INT</li>
+</ul>
+<p>For DEPTH_STENCIL_TARGET usage, the following formats are universally
+supported:</p>
+<ul>
+<li>D16_UNORM</li>
+<li>Either (but not necessarily both!) D24_UNORM or D32_FLOAT</li>
+<li>Either (but not necessarily both!) D24_UNORM_S8_UINT or
+D32_FLOAT_S8_UINT</li>
+</ul>
+<p>Unless D16_UNORM is sufficient for your purposes, always check which
+of D24/D32 is supported before creating a depth-stencil texture!</p>
+<h2 id="version">Version</h2>
+<p>This enum is available since SDL 3.2.0.</p>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="SDL_CreateGPUTexture.html">SDL_CreateGPUTexture</a></li>
+<li><a href="SDL_GPUTextureSupportsFormat.html">SDL_GPUTextureSupportsFormat</a></li>
+</ul>
+<hr />
+<p><a href="CategoryAPI.html">CategoryAPI</a>, <a href="CategoryAPIEnum.html">CategoryAPIEnum</a>, <a href="CategoryGPU.html">CategoryGPU</a></p>
+</body>
+</html>

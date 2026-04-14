@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>CategoryGamepad</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">:root {
+color-scheme: dark light; 
+}
+body {
+background-color: white;
+padding: 2vw;
+color: #333;
+max-width: 1200px;
+margin: 0 auto;
+font-size: 16px;
+line-height: 1.5;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+overflow-wrap: break-word;
+}
+a {
+color: #0969da;
+
+}
+a:visited {
+color: #064998;
+}
+h1 {
+border-bottom: 2px solid #efefef;
+}
+h2 {
+border-bottom: 1px solid #efefef;
+}
+p {
+max-width: 85ch;
+}
+li {
+max-width: 85ch;
+}
+div.sourceCode {
+background-color: #f6f8fa;
+max-width: 100%;
+padding: 16px;
+}
+code {
+background-color: #f6f8fa;
+padding: 0px;
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+}
+table {
+border: 1px solid #808080;
+border-collapse: collapse;
+}
+td {
+border: 1px solid #808080;
+padding: 5px;
+}
+tr:nth-child(even) {
+background-color: #f6f8fa;
+}
+.wikitopbanner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #efefef;
+padding: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+.wikibottombanner {
+background-color: #efefef;
+padding: 10px;
+margin-top: 10px;
+width: auto;
+}
+.alertBox {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+max-width: 60%;
+padding: 10;
+margin: auto;
+}
+.anchorImage {
+visibility: hidden;
+padding-left: 0.2em;
+color: #fff;
+}
+.anchorText:hover .anchorImage {
+visibility: visible;
+}
+hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #efefef;
+margin: 1em 0;
+padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+color: #e6edf3;
+background-color: #0d1117;
+}
+h1 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+h2 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+hr {
+border-color: rgba(48, 54, 61, 0.7);
+}
+div.sourceCode {
+background-color: #161b22;
+}
+code {
+background-color: #161b22;
+}
+a {
+color: #4493f8;
+}
+a:visited {
+color: #2f66ad;
+}
+table {
+border-color: rgba(48, 54, 61, 0.7);
+}
+td {
+border-color: rgba(48, 54, 61, 0.7);
+}
+tr:nth-child(even) {
+background-color: #161b22;
+}
+.wikitopbanner {
+background-color: #263040;
+}
+.wikibottombanner {
+background-color: #263040;
+}
+.anchorText:hover .anchorImage {
+filter: invert(100%);
+}
+}
+@media print {
+body {
+font-size: 12px;
+}
+table {
+font-size: inherit;
+}
+a:visited {
+color: #0969da;
+}
+.wikitopbanner,
+.anchorText,
+.wikibottombanner {
+display: none;
+}
+}
+</style>
+  <style type="text/css"> code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+{ position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+{ content: attr(title);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; pointer-events: all; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+@media (prefers-color-scheme: dark) {
+code span.al { color: #95da4c; font-weight: bold; } 
+code span.an { color: #3f8058; } 
+code span.at { color: #2980b9; } 
+code span.bn { color: #f67400; } 
+code span.bu { color: #7f8c8d; } 
+code span.ch { color: #3daee9; } 
+code span.co { color: #7a7c7d; } 
+code span.cv { color: #7f8c8d; } 
+code span.cn { color: #27aeae; font-weight: bold; } 
+code span.cf { color: #fdbc4b; font-weight: bold; } 
+code span.dt { color: #2980b9; } 
+code span.dv { color: #f67400; } 
+code span.do { color: #a43340; } 
+code span.er { color: #da4453; } 
+code span.ex { color: #0099ff; font-weight: bold; } 
+code span.fl { color: #f67400; } 
+code span.fu { color: #8e44ad; } 
+code span.im { color: #27ae60; } 
+code span.in { color: #c45b00; } 
+code span.kw { color: #cfcfc2; font-weight: bold; } 
+code span.op { color: #cfcfc2; } 
+code span.ot { color: #27ae60; } 
+code span.pp { color: #27ae60; } 
+code span.sc { color: #3daee9; } 
+code span.ss { color: #da4453; } 
+code span.st { color: #f44f4f; } 
+code span.va { color: #27aeae; } 
+code span.vs { color: #da4453; } 
+code span.wa { color: #da4453; } 
+}</style>
+</head>
+<body>
+<h1 id="categorygamepad">CategoryGamepad</h1>
+<p>SDL provides a low-level joystick API, which just treats joysticks as
+an arbitrary pile of buttons, axes, and hat switches. If you&#39;re planning
+to write your own control configuration screen, this can give you a lot
+of flexibility, but that&#39;s a lot of work, and most things that we
+consider &quot;joysticks&quot; now are actually console-style gamepads. So SDL
+provides the gamepad API on top of the lower-level joystick
+functionality.</p>
+<p>The difference between a joystick and a gamepad is that a gamepad
+tells you <em>where</em> a button or axis is on the device. You don&#39;t
+speak to gamepads in terms of arbitrary numbers like &quot;button 3&quot; or &quot;axis
+2&quot; but in standard locations: the d-pad, the shoulder buttons, triggers,
+A/B/X/Y (or X/O/Square/Triangle, if you will).</p>
+<p>One turns a joystick into a gamepad by providing a magic
+configuration string, which tells SDL the details of a specific device:
+when you see this specific hardware, if button 2 gets pressed, this is
+actually D-Pad Up, etc.</p>
+<p>SDL has many popular controllers configured out of the box, and users
+can add their own controller details through an environment variable if
+it&#39;s otherwise unknown to SDL.</p>
+<p>In order to use these functions, <a href="SDL_Init.html">SDL_Init</a>() must have been called with the <a href="SDL_INIT_GAMEPAD.html">SDL_INIT_GAMEPAD</a> flag. This causes SDL
+to scan the system for gamepads, and load appropriate drivers.</p>
+<p>If you&#39;re using SDL gamepad support in a Steam game, you must call
+SteamAPI_InitEx() before calling <a href="SDL_Init.html">SDL_Init</a>().</p>
+<p>If you would like to receive gamepad updates while the application is
+in the background, you should set the following hint before calling <a href="SDL_Init.html">SDL_Init</a>(): <a href="SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS.html">SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS</a></p>
+<p>Gamepads support various optional features such as rumble, color
+LEDs, touchpad, gyro, etc. The support for these features varies
+depending on the controller and OS support available. You can check for
+LED and rumble capabilities at runtime by calling <a href="SDL_GetGamepadProperties.html">SDL_GetGamepadProperties</a>() and
+checking the various capability properties. You can check for touchpad
+by calling <a href="SDL_GetNumGamepadTouchpads.html">SDL_GetNumGamepadTouchpads</a>()
+and check for gyro and accelerometer by calling <a href="SDL_GamepadHasSensor.html">SDL_GamepadHasSensor</a>().</p>
+<p>By default SDL will try to use the most capable driver available, but
+you can tune which OS drivers to use with the various joystick hints in
+<a href="SDL_hints.html">SDL_hints</a>.h.</p>
+<p>Your application should always support gamepad hotplugging. On some
+platforms like Xbox, Steam Deck, etc., this is a requirement for
+certification. On other platforms, like macOS and Windows when using
+Windows.Gaming.Input, controllers may not be available at startup and
+will come in at some point after you&#39;ve started processing events.</p>
+<!-- END CATEGORY DOCUMENTATION -->
+
+<h2 id="functions">Functions</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryGamepad, CategoryAPIFunction -->
+
+<ul>
+<li><a href="SDL_AddGamepadMapping.html">SDL_AddGamepadMapping</a></li>
+<li><a href="SDL_AddGamepadMappingsFromFile.html">SDL_AddGamepadMappingsFromFile</a></li>
+<li><a href="SDL_AddGamepadMappingsFromIO.html">SDL_AddGamepadMappingsFromIO</a></li>
+<li><a href="SDL_CloseGamepad.html">SDL_CloseGamepad</a></li>
+<li><a href="SDL_GamepadConnected.html">SDL_GamepadConnected</a></li>
+<li><a href="SDL_GamepadEventsEnabled.html">SDL_GamepadEventsEnabled</a></li>
+<li><a href="SDL_GamepadHasAxis.html">SDL_GamepadHasAxis</a></li>
+<li><a href="SDL_GamepadHasButton.html">SDL_GamepadHasButton</a></li>
+<li><a href="SDL_GamepadHasSensor.html">SDL_GamepadHasSensor</a></li>
+<li><a href="SDL_GamepadSensorEnabled.html">SDL_GamepadSensorEnabled</a></li>
+<li><a href="SDL_GetGamepadAppleSFSymbolsNameForAxis.html">SDL_GetGamepadAppleSFSymbolsNameForAxis</a></li>
+<li><a href="SDL_GetGamepadAppleSFSymbolsNameForButton.html">SDL_GetGamepadAppleSFSymbolsNameForButton</a></li>
+<li><a href="SDL_GetGamepadAxis.html">SDL_GetGamepadAxis</a></li>
+<li><a href="SDL_GetGamepadAxisFromString.html">SDL_GetGamepadAxisFromString</a></li>
+<li><a href="SDL_GetGamepadBindings.html">SDL_GetGamepadBindings</a></li>
+<li><a href="SDL_GetGamepadButton.html">SDL_GetGamepadButton</a></li>
+<li><a href="SDL_GetGamepadButtonFromString.html">SDL_GetGamepadButtonFromString</a></li>
+<li><a href="SDL_GetGamepadButtonLabel.html">SDL_GetGamepadButtonLabel</a></li>
+<li><a href="SDL_GetGamepadButtonLabelForType.html">SDL_GetGamepadButtonLabelForType</a></li>
+<li><a href="SDL_GetGamepadConnectionState.html">SDL_GetGamepadConnectionState</a></li>
+<li><a href="SDL_GetGamepadFirmwareVersion.html">SDL_GetGamepadFirmwareVersion</a></li>
+<li><a href="SDL_GetGamepadFromID.html">SDL_GetGamepadFromID</a></li>
+<li><a href="SDL_GetGamepadFromPlayerIndex.html">SDL_GetGamepadFromPlayerIndex</a></li>
+<li><a href="SDL_GetGamepadGUIDForID.html">SDL_GetGamepadGUIDForID</a></li>
+<li><a href="SDL_GetGamepadID.html">SDL_GetGamepadID</a></li>
+<li><a href="SDL_GetGamepadJoystick.html">SDL_GetGamepadJoystick</a></li>
+<li><a href="SDL_GetGamepadMapping.html">SDL_GetGamepadMapping</a></li>
+<li><a href="SDL_GetGamepadMappingForGUID.html">SDL_GetGamepadMappingForGUID</a></li>
+<li><a href="SDL_GetGamepadMappingForID.html">SDL_GetGamepadMappingForID</a></li>
+<li><a href="SDL_GetGamepadMappings.html">SDL_GetGamepadMappings</a></li>
+<li><a href="SDL_GetGamepadName.html">SDL_GetGamepadName</a></li>
+<li><a href="SDL_GetGamepadNameForID.html">SDL_GetGamepadNameForID</a></li>
+<li><a href="SDL_GetGamepadPath.html">SDL_GetGamepadPath</a></li>
+<li><a href="SDL_GetGamepadPathForID.html">SDL_GetGamepadPathForID</a></li>
+<li><a href="SDL_GetGamepadPlayerIndex.html">SDL_GetGamepadPlayerIndex</a></li>
+<li><a href="SDL_GetGamepadPlayerIndexForID.html">SDL_GetGamepadPlayerIndexForID</a></li>
+<li><a href="SDL_GetGamepadPowerInfo.html">SDL_GetGamepadPowerInfo</a></li>
+<li><a href="SDL_GetGamepadProduct.html">SDL_GetGamepadProduct</a></li>
+<li><a href="SDL_GetGamepadProductForID.html">SDL_GetGamepadProductForID</a></li>
+<li><a href="SDL_GetGamepadProductVersion.html">SDL_GetGamepadProductVersion</a></li>
+<li><a href="SDL_GetGamepadProductVersionForID.html">SDL_GetGamepadProductVersionForID</a></li>
+<li><a href="SDL_GetGamepadProperties.html">SDL_GetGamepadProperties</a></li>
+<li><a href="SDL_GetGamepads.html">SDL_GetGamepads</a></li>
+<li><a href="SDL_GetGamepadSensorData.html">SDL_GetGamepadSensorData</a></li>
+<li><a href="SDL_GetGamepadSensorDataRate.html">SDL_GetGamepadSensorDataRate</a></li>
+<li><a href="SDL_GetGamepadSerial.html">SDL_GetGamepadSerial</a></li>
+<li><a href="SDL_GetGamepadSteamHandle.html">SDL_GetGamepadSteamHandle</a></li>
+<li><a href="SDL_GetGamepadStringForAxis.html">SDL_GetGamepadStringForAxis</a></li>
+<li><a href="SDL_GetGamepadStringForButton.html">SDL_GetGamepadStringForButton</a></li>
+<li><a href="SDL_GetGamepadStringForType.html">SDL_GetGamepadStringForType</a></li>
+<li><a href="SDL_GetGamepadTouchpadFinger.html">SDL_GetGamepadTouchpadFinger</a></li>
+<li><a href="SDL_GetGamepadType.html">SDL_GetGamepadType</a></li>
+<li><a href="SDL_GetGamepadTypeForID.html">SDL_GetGamepadTypeForID</a></li>
+<li><a href="SDL_GetGamepadTypeFromString.html">SDL_GetGamepadTypeFromString</a></li>
+<li><a href="SDL_GetGamepadVendor.html">SDL_GetGamepadVendor</a></li>
+<li><a href="SDL_GetGamepadVendorForID.html">SDL_GetGamepadVendorForID</a></li>
+<li><a href="SDL_GetNumGamepadTouchpadFingers.html">SDL_GetNumGamepadTouchpadFingers</a></li>
+<li><a href="SDL_GetNumGamepadTouchpads.html">SDL_GetNumGamepadTouchpads</a></li>
+<li><a href="SDL_GetRealGamepadType.html">SDL_GetRealGamepadType</a></li>
+<li><a href="SDL_GetRealGamepadTypeForID.html">SDL_GetRealGamepadTypeForID</a></li>
+<li><a href="SDL_HasGamepad.html">SDL_HasGamepad</a></li>
+<li><a href="SDL_IsGamepad.html">SDL_IsGamepad</a></li>
+<li><a href="SDL_OpenGamepad.html">SDL_OpenGamepad</a></li>
+<li><a href="SDL_ReloadGamepadMappings.html">SDL_ReloadGamepadMappings</a></li>
+<li><a href="SDL_RumbleGamepad.html">SDL_RumbleGamepad</a></li>
+<li><a href="SDL_RumbleGamepadTriggers.html">SDL_RumbleGamepadTriggers</a></li>
+<li><a href="SDL_SendGamepadEffect.html">SDL_SendGamepadEffect</a></li>
+<li><a href="SDL_SetGamepadEventsEnabled.html">SDL_SetGamepadEventsEnabled</a></li>
+<li><a href="SDL_SetGamepadLED.html">SDL_SetGamepadLED</a></li>
+<li><a href="SDL_SetGamepadMapping.html">SDL_SetGamepadMapping</a></li>
+<li><a href="SDL_SetGamepadPlayerIndex.html">SDL_SetGamepadPlayerIndex</a></li>
+<li><a href="SDL_SetGamepadSensorEnabled.html">SDL_SetGamepadSensorEnabled</a></li>
+<li><a href="SDL_UpdateGamepads.html">SDL_UpdateGamepads</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<h2 id="datatypes">Datatypes</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryGamepad, CategoryAPIDatatype -->
+
+<ul>
+<li><a href="SDL_Gamepad.html">SDL_Gamepad</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<h2 id="structs">Structs</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryGamepad, CategoryAPIStruct -->
+
+<ul>
+<li><a href="SDL_GamepadBinding.html">SDL_GamepadBinding</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<h2 id="enums">Enums</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryGamepad, CategoryAPIEnum -->
+
+<ul>
+<li><a href="SDL_GamepadAxis.html">SDL_GamepadAxis</a></li>
+<li><a href="SDL_GamepadBindingType.html">SDL_GamepadBindingType</a></li>
+<li><a href="SDL_GamepadButton.html">SDL_GamepadButton</a></li>
+<li><a href="SDL_GamepadButtonLabel.html">SDL_GamepadButtonLabel</a></li>
+<li><a href="SDL_GamepadType.html">SDL_GamepadType</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<h2 id="macros">Macros</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryGamepad, CategoryAPIMacro -->
+
+<ul>
+<li>(none.)</li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<hr />
+<p><a href="CategoryAPICategory.html">CategoryAPICategory</a></p>
+</body>
+</html>

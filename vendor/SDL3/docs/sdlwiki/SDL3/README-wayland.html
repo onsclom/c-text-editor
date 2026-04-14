@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>README-wayland</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">:root {
+color-scheme: dark light; 
+}
+body {
+background-color: white;
+padding: 2vw;
+color: #333;
+max-width: 1200px;
+margin: 0 auto;
+font-size: 16px;
+line-height: 1.5;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+overflow-wrap: break-word;
+}
+a {
+color: #0969da;
+
+}
+a:visited {
+color: #064998;
+}
+h1 {
+border-bottom: 2px solid #efefef;
+}
+h2 {
+border-bottom: 1px solid #efefef;
+}
+p {
+max-width: 85ch;
+}
+li {
+max-width: 85ch;
+}
+div.sourceCode {
+background-color: #f6f8fa;
+max-width: 100%;
+padding: 16px;
+}
+code {
+background-color: #f6f8fa;
+padding: 0px;
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+}
+table {
+border: 1px solid #808080;
+border-collapse: collapse;
+}
+td {
+border: 1px solid #808080;
+padding: 5px;
+}
+tr:nth-child(even) {
+background-color: #f6f8fa;
+}
+.wikitopbanner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #efefef;
+padding: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+.wikibottombanner {
+background-color: #efefef;
+padding: 10px;
+margin-top: 10px;
+width: auto;
+}
+.alertBox {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+max-width: 60%;
+padding: 10;
+margin: auto;
+}
+.anchorImage {
+visibility: hidden;
+padding-left: 0.2em;
+color: #fff;
+}
+.anchorText:hover .anchorImage {
+visibility: visible;
+}
+hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #efefef;
+margin: 1em 0;
+padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+color: #e6edf3;
+background-color: #0d1117;
+}
+h1 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+h2 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+hr {
+border-color: rgba(48, 54, 61, 0.7);
+}
+div.sourceCode {
+background-color: #161b22;
+}
+code {
+background-color: #161b22;
+}
+a {
+color: #4493f8;
+}
+a:visited {
+color: #2f66ad;
+}
+table {
+border-color: rgba(48, 54, 61, 0.7);
+}
+td {
+border-color: rgba(48, 54, 61, 0.7);
+}
+tr:nth-child(even) {
+background-color: #161b22;
+}
+.wikitopbanner {
+background-color: #263040;
+}
+.wikibottombanner {
+background-color: #263040;
+}
+.anchorText:hover .anchorImage {
+filter: invert(100%);
+}
+}
+@media print {
+body {
+font-size: 12px;
+}
+table {
+font-size: inherit;
+}
+a:visited {
+color: #0969da;
+}
+.wikitopbanner,
+.anchorText,
+.wikibottombanner {
+display: none;
+}
+}
+</style>
+  <style type="text/css"> code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+{ position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+{ content: attr(title);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; pointer-events: all; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+@media (prefers-color-scheme: dark) {
+code span.al { color: #95da4c; font-weight: bold; } 
+code span.an { color: #3f8058; } 
+code span.at { color: #2980b9; } 
+code span.bn { color: #f67400; } 
+code span.bu { color: #7f8c8d; } 
+code span.ch { color: #3daee9; } 
+code span.co { color: #7a7c7d; } 
+code span.cv { color: #7f8c8d; } 
+code span.cn { color: #27aeae; font-weight: bold; } 
+code span.cf { color: #fdbc4b; font-weight: bold; } 
+code span.dt { color: #2980b9; } 
+code span.dv { color: #f67400; } 
+code span.do { color: #a43340; } 
+code span.er { color: #da4453; } 
+code span.ex { color: #0099ff; font-weight: bold; } 
+code span.fl { color: #f67400; } 
+code span.fu { color: #8e44ad; } 
+code span.im { color: #27ae60; } 
+code span.in { color: #c45b00; } 
+code span.kw { color: #cfcfc2; font-weight: bold; } 
+code span.op { color: #cfcfc2; } 
+code span.ot { color: #27ae60; } 
+code span.pp { color: #27ae60; } 
+code span.sc { color: #3daee9; } 
+code span.ss { color: #da4453; } 
+code span.st { color: #f44f4f; } 
+code span.va { color: #27aeae; } 
+code span.vs { color: #da4453; } 
+code span.wa { color: #da4453; } 
+}</style>
+</head>
+<body>
+<h1 id="wayland">Wayland</h1>
+<p>Wayland is a replacement for the X11 window system protocol and
+architecture and is favored over X11 by default in SDL3 for
+communicating with desktop compositors. It works well for the majority
+of applications, however, applications may encounter limitations or
+behavior that is different from other windowing systems.</p>
+<h2 id="common-issues">Common issues:</h2>
+<h3 id="legacy-dpi-unaware-applications-are-blurry">Legacy, DPI-unaware
+applications are blurry</h3>
+<ul>
+<li>Wayland handles high-DPI displays by scaling the desktop, which
+causes applications that are not designed to be DPI-aware to be
+automatically scaled by the window manager, which results in them being
+blurry. SDL can <em>attempt</em> to scale these applications such that
+they will be output with a 1:1 pixel aspect, however this may be buggy,
+especially with odd-sized windows and/or scale factors that aren&#39;t
+quarter-increments (125%, 150%, etc...). To enable this, set the
+environment variable
+<code>SDL_VIDEO_WAYLAND_SCALE_TO_DISPLAY=1</code></li>
+</ul>
+<h3 id="window-decorations-are-missing-or-the-decorations-look-strange">Window
+decorations are missing, or the decorations look strange</h3>
+<ul>
+<li>On some desktops (i.e. GNOME), Wayland applications use a library
+called <a href="https://gitlab.freedesktop.org/libdecor/libdecor">libdecor</a> to
+provide window decorations. If this library is not installed, the
+decorations will be missing. This library uses plugins to generate
+different decoration styles, and if a plugin to generate native-looking
+decorations is not installed (i.e. the GTK plugin), the decorations will
+not appear to be &#39;native&#39;.</li>
+</ul>
+<h3 id="windows-do-not-appear-immediately-after-creation">Windows do not
+appear immediately after creation</h3>
+<ul>
+<li>Wayland requires that the application initially present a buffer
+before the window becomes visible. Additionally, applications
+<em>must</em> have an event loop and processes messages on a regular
+basis, or the application can appear unresponsive to both the user and
+desktop compositor.</li>
+</ul>
+<h3 id="the-display-reported-as-the-primary-by-sdl_getprimarydisplay-is-incorrect">The
+display reported as the primary by <code>SDL_GetPrimaryDisplay()</code>
+is incorrect</h3>
+<ul>
+<li>Wayland doesn&#39;t natively have the concept of a primary display, so
+SDL attempts to determine it by querying various system settings, and
+falling back to a selection algorithm if this fails. If it is incorrect,
+it can be manually overridden by setting the
+<code>SDL_VIDEO_DISPLAY_PRIORITY</code> hint.</li>
+</ul>
+<h3 id="sdl_setwindowposition-doesnt-work-on-non-popup-windows"><code>SDL_SetWindowPosition()</code>
+doesn&#39;t work on non-popup windows</h3>
+<ul>
+<li>Wayland does not allow toplevel windows to position themselves
+programmatically.</li>
+</ul>
+<h3 id="retrieving-the-global-mouse-cursor-position-when-the-cursor-is-outside-a-window-doesnt-work">Retrieving
+the global mouse cursor position when the cursor is outside a window
+doesn&#39;t work</h3>
+<ul>
+<li>Wayland only provides applications with the cursor position within
+the borders of the application windows. Querying the global position
+when an application window does not have mouse focus returns 0,0 as the
+actual cursor position is unknown. In most cases, applications don&#39;t
+actually need the global cursor position and should use the
+window-relative coordinates as provided by the mouse movement event or
+from <code>SDL_GetMouseState()</code> instead.</li>
+</ul>
+<h3 id="warping-the-mouse-cursor-to-or-from-a-point-outside-the-window-doesnt-work">Warping
+the mouse cursor to or from a point outside the window doesn&#39;t work</h3>
+<ul>
+<li>Warping the cursor on Wayland requires that either the
+<code>wp_pointer_warp_v1</code> or
+<code>zwp_pointer_confinement_v1</code> protocol is supported by the
+compositor. Compositors typically restrict pointer warps to be within
+the window that currently has mouse focus.</li>
+</ul>
+<h3 id="minimizerestored-window-events-are-not-sent-and-the-sdl_window_minimized-flag-is-not-set">Minimize/Restored
+window events are not sent, and the <code>SDL_WINDOW_MINIMIZED</code>
+flag is not set.</h3>
+<ul>
+<li>Wayland windows do not currently report the minimized state, aside
+from when it is activated programmatically via
+<code>SDL_MinimizeWindow()</code>. Minimizing a window from the window
+controls or a desktop shortcut will not send a minimized event or flag
+the window as being minimized.</li>
+</ul>
+<h3 id="the-application-icon-cant-be-set-via-sdl_setwindowicon">The
+application icon can&#39;t be set via <code>SDL_SetWindowIcon()</code></h3>
+<ul>
+<li>Wayland requires compositor support for the
+<code>xdg-toplevel-icon-v1</code> protocol to set window icons
+programmatically. Otherwise, the launcher icon from the associated
+desktop entry file, aka a <code>.desktop</code> file, will typically be
+used. Please see the <a href="https://specifications.freedesktop.org/desktop-entry-spec/latest/">Desktop
+Entry Specification</a> for more information on the format of this file.
+Note that if your application manually sets the application ID via the
+<code>SDL_APP_ID</code> hint string, the desktop entry file name should
+match the application ID. For example, if your application ID is set to
+<code>org.my_org.sdl_app</code>, the desktop entry file should be named
+<code>org.my_org.sdl_app.desktop</code>.</li>
+</ul>
+<h3 id="the-application-progress-bar-cant-be-set-via-sdl_setwindowprogressstate-or-sdl_setwindowprogressvalue">The
+application progress bar can&#39;t be set via
+<code>SDL_SetWindowProgressState()</code> or
+<code>SDL_SetWindowProgressValue()</code></h3>
+<ul>
+<li>Only some Desktop Environments support the underlying API. Known
+compatible DEs: Unity, KDE</li>
+<li>The underlying API requires a desktop entry file, aka a
+<code>.desktop</code> file. Please see the <a href="https://specifications.freedesktop.org/desktop-entry-spec/latest/">Desktop
+Entry Specification</a> for more information on the format of this file.
+Note that if your application manually sets the application ID via the
+<code>SDL_APP_ID</code> hint string, the desktop entry file name should
+match the application ID. For example, if your application ID is set to
+<code>org.my_org.sdl_app</code>, the desktop entry file should be named
+<code>org.my_org.sdl_app.desktop</code>.</li>
+</ul>
+<h3 id="keyboard-grabs-dont-work-when-running-under-xwayland">Keyboard
+grabs don&#39;t work when running under XWayland</h3>
+<ul>
+<li>On GNOME based desktops, the dconf setting
+<code>org/gnome/mutter/wayland/xwayland-allow-grabs</code> must be
+enabled.</li>
+</ul>
+<h2 id="using-custom-wayland-windowing-protocols-with-sdl-windows">Using
+custom Wayland windowing protocols with SDL windows</h2>
+<p>Under normal operation, an <code>SDL_Window</code> corresponds to an
+XDG toplevel window, which provides a standard desktop window. If an
+application wishes to use a different windowing protocol with an SDL
+window (e.g. wlr_layer_shell) while still having SDL handle input and
+rendering, it needs to create a custom, roleless surface and attach that
+surface to its own toplevel window.</p>
+<p>This is done by using <code>SDL_CreateWindowWithProperties()</code>
+and setting the
+<code>SDL_PROP_WINDOW_CREATE_WAYLAND_SURFACE_ROLE_CUSTOM_BOOLEAN</code>
+property to <code>true</code>. Once the window has been successfully
+created, the <code>wl_display</code> and <code>wl_surface</code> objects
+can then be retrieved from the
+<code>SDL_PROP_WINDOW_WAYLAND_DISPLAY_POINTER</code> and
+<code>SDL_PROP_WINDOW_WAYLAND_SURFACE_POINTER</code> properties
+respectively.</p>
+<p>Surfaces don&#39;t receive any size change notifications, so if an
+application changes the window size, it must inform SDL that the surface
+size has changed by calling SDL_SetWindowSize() with the new
+dimensions.</p>
+<p>Custom surfaces will automatically handle scaling internally if the
+window was created with the
+<code>SDL_PROP_WINDOW_CREATE_HIGH_PIXEL_DENSITY_BOOLEAN</code> property
+set to <code>true</code>. In this case, applications should not manually
+attach viewports or change the surface scale value, as SDL will handle
+this internally. Calls to <code>SDL_SetWindowSize()</code> should use
+the logical size of the window, and
+<code>SDL_GetWindowSizeInPixels()</code> should be used to query the
+size of the backbuffer surface in pixels. If this property is not set or
+is <code>false</code>, applications can attach their own viewports or
+change the surface scale manually, and the SDL backend will not
+interfere or change any values internally. In this case, calls to
+<code>SDL_SetWindowSize()</code> should pass the requested surface size
+in pixels, not the logical window size, as no scaling calculations will
+be done internally.</p>
+<p>All window functions that control window state aside from
+<code>SDL_SetWindowSize()</code> are no-ops with custom surfaces.</p>
+<p>Please see the minimal example in
+<code>tests/testwaylandcustom.c</code> for an example of how to use a
+custom, roleless surface and attach it to an application-managed
+toplevel window.</p>
+<h2 id="importing-external-surfaces-into-sdl-windows">Importing external
+surfaces into SDL windows</h2>
+<p>Wayland windows and surfaces are more intrinsically tied to the
+client library than other windowing systems, therefore, when importing
+surfaces, it is necessary for both SDL and the application or toolkit to
+use the same <code>wl_display</code> object. This can be set/queried via
+the global <code>SDL_PROP_GLOBAL_VIDEO_WAYLAND_WL_DISPLAY_POINTER</code>
+property. To import an external <code>wl_display</code>, set this
+property before initializing the SDL video subsystem, and read the value
+to export the internal <code>wl_display</code> after the video subsystem
+has been initialized. Setting this property after the video subsystem
+has been initialized has no effect, and reading it when the video
+subsystem is uninitialized will either return the user provided value,
+if one was set while in the uninitialized state, or NULL.</p>
+<p>Once this is done, and the application has created or obtained the
+<code>wl_surface</code> to be wrapped in an <code>SDL_Window</code>, the
+window is created with <code>SDL_CreateWindowWithProperties()</code>
+with the <code>SDL_PROP_WINDOW_CREATE_WAYLAND_WL_SURFACE_POINTER</code>
+property to set to the <code>wl_surface</code> object that is to be
+imported by SDL.</p>
+<p>SDL receives no notification regarding size changes on external
+surfaces or toplevel windows, so if the external surface needs to be
+resized, SDL must be informed by calling SDL_SetWindowSize() with the
+new dimensions.</p>
+<p>If desired, SDL can automatically handle the scaling for the surface
+by setting the
+<code>SDL_PROP_WINDOW_CREATE_HIGH_PIXEL_DENSITY_BOOLEAN</code> property
+to <code>true</code>, however, if the surface being imported already
+has, or will have, a viewport/fractional scale manager attached to it by
+the application or an external toolkit, a protocol violation will
+result. Avoid setting this property if importing surfaces from toolkits
+such as Qt or GTK.</p>
+<p>If the window is flagged as high pixel density, calls to
+<code>SDL_SetWindowSize()</code> should pass the logical size of the
+window and <code>SDL_GetWindowSizeInPixels()</code> should be used to
+retrieve the backbuffer size in pixels. Otherwise, calls to
+<code>SDL_SetWindowSize()</code> should pass the requested surface size
+in pixels, not the logical window size, as no scaling calculations will
+be done internally.</p>
+<p>All window functions that control window state aside from
+<code>SDL_SetWindowSize()</code> are no-ops with external surfaces.</p>
+<p>An example of how to use external surfaces with a
+<code>wl_display</code> owned by SDL can be seen in
+<code>tests/testnativewayland.c</code>, and the following is a minimal
+example of interoperation with Qt 6, with Qt owning the
+<code>wl_display</code>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;QApplication&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;QWindow&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;qpa/qplatformnativeinterface.h&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;SDL3/SDL.h&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>argv<span class="op">[])</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> ret <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> done <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    SDL_PropertiesID props<span class="op">;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    SDL_Event e<span class="op">;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    SDL_Window <span class="op">*</span>sdlWindow <span class="op">=</span> NULL<span class="op">;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    SDL_Renderer <span class="op">*</span>sdlRenderer <span class="op">=</span> NULL<span class="op">;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> wl_display <span class="op">*</span>display <span class="op">=</span> NULL<span class="op">;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> wl_surface <span class="op">*</span>surface <span class="op">=</span> NULL<span class="op">;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Initialize Qt */</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="ex">QApplication</span> qtApp<span class="op">(</span>argc<span class="op">,</span> argv<span class="op">);</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="ex">QWindow</span> qtWindow<span class="op">;</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* The windowing system must be Wayland. */</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span><span class="ex">QApplication::platformName</span><span class="op">()</span> <span class="op">!=</span> <span class="st">&quot;wayland&quot;</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">goto</span> exit<span class="op">;</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>        <span class="co">/* Get the wl_display object from Qt */</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        QNativeInterface<span class="op">::</span>QWaylandApplication <span class="op">*</span>qtWlApp <span class="op">=</span> qtApp<span class="op">.</span>nativeInterface<span class="op">&lt;</span>QNativeInterface<span class="op">::</span>QWaylandApplication<span class="op">&gt;();</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>        display <span class="op">=</span> qtWlApp<span class="op">-&gt;</span>display<span class="op">();</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(!</span>display<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>            <span class="cf">goto</span> exit<span class="op">;</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Set SDL to use the existing wl_display object from Qt and initialize. */</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    SDL_SetPointerProperty<span class="op">(</span>SDL_GetGlobalProperties<span class="op">(),</span> SDL_PROP_GLOBAL_VIDEO_WAYLAND_WL_DISPLAY_POINTER<span class="op">,</span> display<span class="op">);</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    SDL_Init<span class="op">(</span>SDL_INIT_VIDEO <span class="op">|</span> SDL_INIT_EVENTS<span class="op">);</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Create a basic, frameless QWindow */</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    qtWindow<span class="op">.</span>setFlags<span class="op">(</span><span class="ex">Qt::FramelessWindowHint</span><span class="op">);</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    qtWindow<span class="op">.</span>setGeometry<span class="op">(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">640</span><span class="op">,</span> <span class="dv">480</span><span class="op">);</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    qtWindow<span class="op">.</span>show<span class="op">();</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>        <span class="co">/* Get the native wl_surface backing resource for the window */</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>        QPlatformNativeInterface <span class="op">*</span>qtNative <span class="op">=</span> qtApp<span class="op">.</span>platformNativeInterface<span class="op">();</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>        surface <span class="op">=</span> <span class="op">(</span><span class="kw">struct</span> wl_surface <span class="op">*)</span>qtNative<span class="op">-&gt;</span>nativeResourceForWindow<span class="op">(</span><span class="st">&quot;surface&quot;</span><span class="op">,</span> <span class="op">&amp;</span>qtWindow<span class="op">);</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(!</span>surface<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>            <span class="cf">goto</span> exit<span class="op">;</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Create a window that wraps the wl_surface from the QWindow.</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="co">     * Qt objects should not be flagged as DPI-aware or protocol violations will result.</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>    props <span class="op">=</span> SDL_CreateProperties<span class="op">();</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>    SDL_SetPointerProperty<span class="op">(</span>props<span class="op">,</span> SDL_PROP_WINDOW_CREATE_WAYLAND_WL_SURFACE_POINTER<span class="op">,</span> surface<span class="op">);</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>    SDL_SetBooleanProperty<span class="op">(</span>props<span class="op">,</span> SDL_PROP_WINDOW_CREATE_OPENGL_BOOLEAN<span class="op">,</span> <span class="kw">true</span><span class="op">);</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>    SDL_SetNumberProperty<span class="op">(</span>props<span class="op">,</span> SDL_PROP_WINDOW_CREATE_WIDTH_NUMBER<span class="op">,</span> <span class="dv">640</span><span class="op">);</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>    SDL_SetNumberProperty<span class="op">(</span>props<span class="op">,</span> SDL_PROP_WINDOW_CREATE_HEIGHT_NUMBER<span class="op">,</span> <span class="dv">480</span><span class="op">);</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>    sdlWindow <span class="op">=</span> SDL_CreateWindowWithProperties<span class="op">(</span>props<span class="op">);</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>    SDL_DestroyProperties<span class="op">(</span>props<span class="op">);</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(!</span>sdlWindow<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>        <span class="cf">goto</span> exit<span class="op">;</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Create a renderer */</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>    sdlRenderer <span class="op">=</span> SDL_CreateRenderer<span class="op">(</span>sdlWindow<span class="op">,</span> NULL<span class="op">);</span></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(!</span>sdlRenderer<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>        <span class="cf">goto</span> exit<span class="op">;</span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Draw a blue screen for the window until ESC is pressed or the window is no longer visible. */</span></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(!</span>done<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> <span class="op">(</span>SDL_PollEvent<span class="op">(&amp;</span>e<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>e<span class="op">.</span>type <span class="op">==</span> SDL_EVENT_KEY_DOWN <span class="op">&amp;&amp;</span> e<span class="op">.</span>key<span class="op">.</span>key <span class="op">==</span> SDLK_ESCAPE<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>                done <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>        qtApp<span class="op">.</span>processEvents<span class="op">();</span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>        <span class="co">/* Update the backbuffer size if the window scale changed. */</span></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>        <span class="ex">qreal</span> scale <span class="op">=</span> qtWindow<span class="op">.</span>devicePixelRatio<span class="op">();</span></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>        SDL_SetWindowSize<span class="op">(</span>sdlWindow<span class="op">,</span> SDL_lround<span class="op">(</span><span class="fl">640.</span> <span class="op">*</span> scale<span class="op">),</span> SDL_lround<span class="op">(</span><span class="fl">480.</span> <span class="op">*</span> scale<span class="op">));</span></span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>qtWindow<span class="op">.</span>isVisible<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>            SDL_SetRenderDrawColor<span class="op">(</span>sdlRenderer<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">255</span><span class="op">,</span> SDL_ALPHA_OPAQUE<span class="op">);</span></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>            SDL_RenderClear<span class="op">(</span>sdlRenderer<span class="op">);</span></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>            SDL_RenderPresent<span class="op">(</span>sdlRenderer<span class="op">);</span></span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>            done <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>    ret <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>exit<span class="op">:</span></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Cleanup */</span></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>sdlRenderer<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>        SDL_DestroyRenderer<span class="op">(</span>sdlRenderer<span class="op">);</span></span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>sdlWindow<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>        SDL_DestroyWindow<span class="op">(</span>sdlWindow<span class="op">);</span></span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>    SDL_Quit<span class="op">();</span></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ret<span class="op">;</span></span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</body>
+</html>

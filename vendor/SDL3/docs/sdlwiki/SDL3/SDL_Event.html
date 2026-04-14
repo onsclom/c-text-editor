@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SDL_Event</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">:root {
+color-scheme: dark light; 
+}
+body {
+background-color: white;
+padding: 2vw;
+color: #333;
+max-width: 1200px;
+margin: 0 auto;
+font-size: 16px;
+line-height: 1.5;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+overflow-wrap: break-word;
+}
+a {
+color: #0969da;
+
+}
+a:visited {
+color: #064998;
+}
+h1 {
+border-bottom: 2px solid #efefef;
+}
+h2 {
+border-bottom: 1px solid #efefef;
+}
+p {
+max-width: 85ch;
+}
+li {
+max-width: 85ch;
+}
+div.sourceCode {
+background-color: #f6f8fa;
+max-width: 100%;
+padding: 16px;
+}
+code {
+background-color: #f6f8fa;
+padding: 0px;
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+}
+table {
+border: 1px solid #808080;
+border-collapse: collapse;
+}
+td {
+border: 1px solid #808080;
+padding: 5px;
+}
+tr:nth-child(even) {
+background-color: #f6f8fa;
+}
+.wikitopbanner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #efefef;
+padding: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+.wikibottombanner {
+background-color: #efefef;
+padding: 10px;
+margin-top: 10px;
+width: auto;
+}
+.alertBox {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+max-width: 60%;
+padding: 10;
+margin: auto;
+}
+.anchorImage {
+visibility: hidden;
+padding-left: 0.2em;
+color: #fff;
+}
+.anchorText:hover .anchorImage {
+visibility: visible;
+}
+hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #efefef;
+margin: 1em 0;
+padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+color: #e6edf3;
+background-color: #0d1117;
+}
+h1 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+h2 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+hr {
+border-color: rgba(48, 54, 61, 0.7);
+}
+div.sourceCode {
+background-color: #161b22;
+}
+code {
+background-color: #161b22;
+}
+a {
+color: #4493f8;
+}
+a:visited {
+color: #2f66ad;
+}
+table {
+border-color: rgba(48, 54, 61, 0.7);
+}
+td {
+border-color: rgba(48, 54, 61, 0.7);
+}
+tr:nth-child(even) {
+background-color: #161b22;
+}
+.wikitopbanner {
+background-color: #263040;
+}
+.wikibottombanner {
+background-color: #263040;
+}
+.anchorText:hover .anchorImage {
+filter: invert(100%);
+}
+}
+@media print {
+body {
+font-size: 12px;
+}
+table {
+font-size: inherit;
+}
+a:visited {
+color: #0969da;
+}
+.wikitopbanner,
+.anchorText,
+.wikibottombanner {
+display: none;
+}
+}
+</style>
+  <style type="text/css"> code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+{ position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+{ content: attr(title);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; pointer-events: all; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+@media (prefers-color-scheme: dark) {
+code span.al { color: #95da4c; font-weight: bold; } 
+code span.an { color: #3f8058; } 
+code span.at { color: #2980b9; } 
+code span.bn { color: #f67400; } 
+code span.bu { color: #7f8c8d; } 
+code span.ch { color: #3daee9; } 
+code span.co { color: #7a7c7d; } 
+code span.cv { color: #7f8c8d; } 
+code span.cn { color: #27aeae; font-weight: bold; } 
+code span.cf { color: #fdbc4b; font-weight: bold; } 
+code span.dt { color: #2980b9; } 
+code span.dv { color: #f67400; } 
+code span.do { color: #a43340; } 
+code span.er { color: #da4453; } 
+code span.ex { color: #0099ff; font-weight: bold; } 
+code span.fl { color: #f67400; } 
+code span.fu { color: #8e44ad; } 
+code span.im { color: #27ae60; } 
+code span.in { color: #c45b00; } 
+code span.kw { color: #cfcfc2; font-weight: bold; } 
+code span.op { color: #cfcfc2; } 
+code span.ot { color: #27ae60; } 
+code span.pp { color: #27ae60; } 
+code span.sc { color: #3daee9; } 
+code span.ss { color: #da4453; } 
+code span.st { color: #f44f4f; } 
+code span.va { color: #27aeae; } 
+code span.vs { color: #da4453; } 
+code span.wa { color: #da4453; } 
+}</style>
+</head>
+<body>
+<h1 id="sdl_event">SDL_Event</h1>
+<p>The structure for all events in SDL.</p>
+<h2 id="header-file">Header File</h2>
+<p>Defined in <a href="https://github.com/libsdl-org/SDL/blob/main/include/SDL3/SDL_events.h">&lt;SDL3/SDL_events.h&gt;</a></p>
+<h2 id="syntax">Syntax</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">union</span> SDL_Event</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    Uint32 type<span class="op">;</span>                            <span class="co">/**&lt; Event type, shared with all events, Uint32 to cover user events which are not in the SDL_EventType enumeration */</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    SDL_CommonEvent common<span class="op">;</span>                 <span class="co">/**&lt; Common event data */</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    SDL_DisplayEvent display<span class="op">;</span>               <span class="co">/**&lt; Display event data */</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    SDL_WindowEvent window<span class="op">;</span>                 <span class="co">/**&lt; Window event data */</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    SDL_KeyboardDeviceEvent kdevice<span class="op">;</span>        <span class="co">/**&lt; Keyboard device change event data */</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    SDL_KeyboardEvent key<span class="op">;</span>                  <span class="co">/**&lt; Keyboard event data */</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    SDL_TextEditingEvent edit<span class="op">;</span>              <span class="co">/**&lt; Text editing event data */</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    SDL_TextEditingCandidatesEvent edit_candidates<span class="op">;</span> <span class="co">/**&lt; Text editing candidates event data */</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    SDL_TextInputEvent text<span class="op">;</span>                <span class="co">/**&lt; Text input event data */</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    SDL_MouseDeviceEvent mdevice<span class="op">;</span>           <span class="co">/**&lt; Mouse device change event data */</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    SDL_MouseMotionEvent motion<span class="op">;</span>            <span class="co">/**&lt; Mouse motion event data */</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    SDL_MouseButtonEvent button<span class="op">;</span>            <span class="co">/**&lt; Mouse button event data */</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    SDL_MouseWheelEvent wheel<span class="op">;</span>              <span class="co">/**&lt; Mouse wheel event data */</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    SDL_JoyDeviceEvent jdevice<span class="op">;</span>             <span class="co">/**&lt; Joystick device change event data */</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    SDL_JoyAxisEvent jaxis<span class="op">;</span>                 <span class="co">/**&lt; Joystick axis event data */</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    SDL_JoyBallEvent jball<span class="op">;</span>                 <span class="co">/**&lt; Joystick ball event data */</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    SDL_JoyHatEvent jhat<span class="op">;</span>                   <span class="co">/**&lt; Joystick hat event data */</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    SDL_JoyButtonEvent jbutton<span class="op">;</span>             <span class="co">/**&lt; Joystick button event data */</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    SDL_JoyBatteryEvent jbattery<span class="op">;</span>           <span class="co">/**&lt; Joystick battery event data */</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    SDL_GamepadDeviceEvent gdevice<span class="op">;</span>         <span class="co">/**&lt; Gamepad device event data */</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    SDL_GamepadAxisEvent gaxis<span class="op">;</span>             <span class="co">/**&lt; Gamepad axis event data */</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    SDL_GamepadButtonEvent gbutton<span class="op">;</span>         <span class="co">/**&lt; Gamepad button event data */</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    SDL_GamepadTouchpadEvent gtouchpad<span class="op">;</span>     <span class="co">/**&lt; Gamepad touchpad event data */</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    SDL_GamepadSensorEvent gsensor<span class="op">;</span>         <span class="co">/**&lt; Gamepad sensor event data */</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    SDL_AudioDeviceEvent adevice<span class="op">;</span>           <span class="co">/**&lt; Audio device event data */</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    SDL_CameraDeviceEvent cdevice<span class="op">;</span>          <span class="co">/**&lt; Camera device event data */</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    SDL_SensorEvent sensor<span class="op">;</span>                 <span class="co">/**&lt; Sensor event data */</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    SDL_QuitEvent quit<span class="op">;</span>                     <span class="co">/**&lt; Quit request event data */</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    SDL_UserEvent user<span class="op">;</span>                     <span class="co">/**&lt; Custom event data */</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    SDL_TouchFingerEvent tfinger<span class="op">;</span>           <span class="co">/**&lt; Touch finger event data */</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    SDL_PinchFingerEvent pinch<span class="op">;</span>             <span class="co">/**&lt; Pinch event data */</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    SDL_PenProximityEvent pproximity<span class="op">;</span>       <span class="co">/**&lt; Pen proximity event data */</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    SDL_PenTouchEvent ptouch<span class="op">;</span>               <span class="co">/**&lt; Pen tip touching event data */</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    SDL_PenMotionEvent pmotion<span class="op">;</span>             <span class="co">/**&lt; Pen motion event data */</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    SDL_PenButtonEvent pbutton<span class="op">;</span>             <span class="co">/**&lt; Pen button event data */</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    SDL_PenAxisEvent paxis<span class="op">;</span>                 <span class="co">/**&lt; Pen axis event data */</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    SDL_RenderEvent render<span class="op">;</span>                 <span class="co">/**&lt; Render event data */</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    SDL_DropEvent drop<span class="op">;</span>                     <span class="co">/**&lt; Drag and drop event data */</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    SDL_ClipboardEvent clipboard<span class="op">;</span>           <span class="co">/**&lt; Clipboard event data */</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* This is necessary for ABI compatibility between Visual C++ and GCC.</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="co">       Visual C++ will respect the push pack pragma and use 52 bytes (size of</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co">       SDL_TextEditingEvent, the largest structure for 32-bit and 64-bit</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="co">       architectures) for this union, and GCC will use the alignment of the</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="co">       largest datatype within the union, which is 8 bytes on 64-bit</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="co">       architectures.</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="co">       So... we&#39;ll add padding to force the size to be the same for both.</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="co">       On architectures where pointers are 16 bytes, this needs rounding up to</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="co">       the next multiple of 16, 64, and on architectures where pointers are</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="co">       even larger the size of SDL_UserEvent will dominate as being 3 pointers.</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="co">    */</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>    Uint8 padding<span class="op">[</span><span class="dv">128</span><span class="op">];</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> SDL_Event<span class="op">;</span></span></code></pre></div>
+<h2 id="remarks">Remarks</h2>
+<p>The <a href="SDL_Event.html">SDL_Event</a> structure is the core of
+all event handling in SDL. <a href="SDL_Event.html">SDL_Event</a> is a
+union of all event structures used in SDL.</p>
+<h2 id="version">Version</h2>
+<p>This struct is available since SDL 3.2.0.</p>
+<h2 id="using-events">Using events</h2>
+<p>The <a href="SDL_Event.html">SDL_Event</a> structure has two
+uses:</p>
+<ul>
+<li>Reading events from the event queue</li>
+<li>Placing events on the event queue</li>
+</ul>
+<h2 id="reading-events-from-the-event-queue">Reading events from the
+event queue</h2>
+<p>Reading events from the event queue is done with either <a href="SDL_PollEvent.html">SDL_PollEvent</a> or <a href="SDL_PeepEvents.html">SDL_PeepEvents</a>. We&#39;ll use <a href="SDL_PollEvent.html">SDL_PollEvent</a> and step through an example.
+First off, we create an empty <a href="SDL_Event.html">SDL_Event</a>
+structure.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>SDL_Event test_event<span class="op">;</span></span></code></pre></div>
+<p><a href="SDL_PollEvent.html">SDL_PollEvent</a> removes the next event
+from the event queue. If there are no events on the queue it returns 0,
+otherwise it returns 1. We use a <code>while</code> loop to process each
+event in turn.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(</span>SDL_PollEvent<span class="op">(&amp;</span>test_event<span class="op">))</span> <span class="op">{</span></span></code></pre></div>
+<p>The <a href="SDL_PollEvent.html">SDL_PollEvent</a> function takes a
+pointer to an <a href="SDL_Event.html">SDL_Event</a> structure that is
+to be filled with event information. We know that if <a href="SDL_PollEvent.html">SDL_PollEvent</a> removes an event from the
+queue then the event information will be placed in our test_event
+structure, but we also know that the type of event will be placed in the
+<strong>type</strong> member of test_event. So to handle each event type
+separately we use a <code>switch</code> statement.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>  <span class="cf">switch</span> <span class="op">(</span>test_event<span class="op">.</span>type<span class="op">)</span> <span class="op">{</span></span></code></pre></div>
+<p>We need to know what kind of events we&#39;re looking for and the event
+types of those events. So let&#39;s assume we want to detect where the user
+is moving the mouse pointer within our application. We look through our
+event types and notice that SDL_EVENT_MOUSE_MOTION is, more than likely,
+the event we&#39;re looking for. Looking at the table below tells us that
+SDL_EVENT_MOUSE_MOTION events are handled within the <a href="SDL_MouseMotionEvent.html">SDL_MouseMotionEvent</a> structure
+which is the <strong>motion</strong> member of <a href="SDL_Event.html">SDL_Event</a>. We can check for the
+SDL_EVENT_MOUSE_MOTION event <strong>type</strong> within our
+<code>switch</code> statement like so:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> SDL_EVENT_MOUSE_MOTION<span class="op">:</span></span></code></pre></div>
+<p>All we need to do now is read the information out of the
+<strong>motion</strong> member of test_event.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>      SDL_Log<span class="op">(</span><span class="st">&quot;We got a motion event.&quot;</span><span class="op">);</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>      SDL_Log<span class="op">(</span><span class="st">&quot;Current mouse position is: (</span><span class="sc">%f</span><span class="st">, </span><span class="sc">%f</span><span class="st">)&quot;</span><span class="op">,</span> test_event<span class="op">.</span>motion<span class="op">.</span>x<span class="op">,</span> test_event<span class="op">.</span>motion<span class="op">.</span>y<span class="op">);</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">default</span><span class="op">:</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>      SDL_Log<span class="op">(</span><span class="st">&quot;Unhandled Event!&quot;</span><span class="op">);</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>SDL_Log<span class="op">(</span><span class="st">&quot;Event queue empty.&quot;</span><span class="op">);</span></span></code></pre></div>
+<h2 id="placing-events-on-the-event-queue">Placing events on the event
+queue</h2>
+<p>It is also possible to push events onto the event queue and so use it
+as a two-way communication path. Both <a href="SDL_PushEvent.html">SDL_PushEvent</a> and <a href="SDL_PeepEvents.html">SDL_PeepEvents</a> allow you to place events
+onto the event queue. This is usually used to place a SDL_EVENT_USER on
+the event queue, however you could use it to post fake input events if
+you wished. Creating your own events is a simple matter of choosing the
+event type you want, setting the <strong>type</strong> member and
+filling the appropriate member structure with information.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>SDL_Event user_event<span class="op">;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>SDL_zero<span class="op">(</span>user_event<span class="op">);</span>  <span class="co">/* SDL will copy this entire struct! Initialize to keep memory checkers happy. */</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>user_event<span class="op">.</span>type <span class="op">=</span> SDL_EVENT_USER<span class="op">;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>user_event<span class="op">.</span>user<span class="op">.</span>code <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>user_event<span class="op">.</span>user<span class="op">.</span>data1 <span class="op">=</span> NULL<span class="op">;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>user_event<span class="op">.</span>user<span class="op">.</span>data2 <span class="op">=</span> NULL<span class="op">;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>SDL_PushEvent<span class="op">(&amp;</span>user_event<span class="op">);</span></span></code></pre></div>
+<p>Note that SDL_EVENT_USER is just a starting point for event numbers
+that SDL won&#39;t claim for itself, and you should use <a href="SDL_RegisterEvents.html">SDL_RegisterEvents</a> to claim a unique
+number that other parts of your app won&#39;t also claim.</p>
+<h2 id="relationships-between-event-types-and-union-members">Relationships
+between event types and union members</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Event Type</th>
+<th>Event Structure</th>
+<th>SDL_Event Field</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SDL_EVENT_AUDIO_DEVICE_ADDED, SDL_EVENT_AUDIO_DEVICE_REMOVED,
+etc</td>
+<td><a href="SDL_AudioDeviceEvent.html">SDL_AudioDeviceEvent</a></td>
+<td><code>adevice</code></td>
+</tr>
+<tr class="even">
+<td>SDL_EVENT_CAMERA_DEVICE_ADDED, SDL_EVENT_CAMERA_DEVICE_APPROVED,
+etc</td>
+<td><a href="SDL_CameraDeviceEvent.html">SDL_CameraDeviceEvent</a></td>
+<td><code>cdevice</code></td>
+</tr>
+<tr class="odd">
+<td>SDL_EVENT_CLIPBOARD_UPDATE</td>
+<td><a href="SDL_ClipboardEvent.html">SDL_ClipboardEvent</a></td>
+<td><code>clipboard</code></td>
+</tr>
+<tr class="even">
+<td>SDL_EVENT_DISPLAY_ADDED, SDL_EVENT_DISPLAY_REMOVED, etc</td>
+<td><a href="SDL_DisplayEvent.html">SDL_DisplayEvent</a></td>
+<td><code>display</code></td>
+</tr>
+<tr class="odd">
+<td>SDL_EVENT_GAMEPAD_ADDED, SDL_EVENT_GAMEPAD_REMOVED, or
+SDL_EVENT_GAMEPAD_REMAPPED, etc</td>
+<td><a href="SDL_GamepadDeviceEvent.html">SDL_GamepadDeviceEvent</a></td>
+<td><code>gdevice</code></td>
+</tr>
+<tr class="even">
+<td>SDL_EVENT_GAMEPAD_AXIS_MOTION</td>
+<td><a href="SDL_GamepadAxisEvent.html">SDL_GamepadAxisEvent</a></td>
+<td><code>gaxis</code></td>
+</tr>
+<tr class="odd">
+<td>SDL_EVENT_GAMEPAD_BUTTON_DOWN, SDL_EVENT_GAMEPAD_BUTTON_UP</td>
+<td><a href="SDL_GamepadButtonEvent.html">SDL_GamepadButtonEvent</a></td>
+<td><code>gbutton</code></td>
+</tr>
+<tr class="even">
+<td>SDL_EVENT_GAMEPAD_TOUCHPAD_DOWN, SDL_EVENT_GAMEPAD_TOUCHPAD_MOTION,
+etc</td>
+<td><a href="SDL_GamepadTouchpadEvent.html">SDL_GamepadTouchpadEvent</a></td>
+<td><code>gtouchpad</code></td>
+</tr>
+<tr class="odd">
+<td>SDL_EVENT_GAMEPAD_SENSOR_UPDATE</td>
+<td><a href="SDL_GamepadSensorEvent.html">SDL_GamepadSensorEvent</a></td>
+<td><code>gsensor</code></td>
+</tr>
+<tr class="even">
+<td>SDL_EVENT_DROP_BEGIN, SDL_EVENT_DROP_FILE, SDL_EVENT_DROP_TEXT,
+etc</td>
+<td><a href="SDL_DropEvent.html">SDL_DropEvent</a></td>
+<td><code>drop</code></td>
+</tr>
+<tr class="odd">
+<td>SDL_EVENT_FINGER_MOTION, SDL_EVENT_FINGER_DOWN,
+SDL_EVENT_FINGER_UP</td>
+<td><a href="SDL_TouchFingerEvent.html">SDL_TouchFingerEvent</a></td>
+<td><code>tfinger</code></td>
+</tr>
+<tr class="even">
+<td>SDL_EVENT_PINCH_BEGIN, SDL_EVENT_PINCH_UPDATE,
+SDL_EVENT_PINCH_END</td>
+<td><a href="SDL_PinchFingerEvent.html">SDL_PinchFingerEvent</a></td>
+<td><code>pinch</code></td>
+</tr>
+<tr class="odd">
+<td>SDL_EVENT_KEYBOARD_ADDED, SDL_EVENT_KEYBOARD_REMOVED</td>
+<td><a href="SDL_KeyboardDeviceEvent.html">SDL_KeyboardDeviceEvent</a></td>
+<td><code>kdevice</code></td>
+</tr>
+<tr class="even">
+<td>SDL_EVENT_KEY_DOWN, SDL_EVENT_KEY_UP</td>
+<td><a href="SDL_KeyboardEvent.html">SDL_KeyboardEvent</a></td>
+<td><code>key</code></td>
+</tr>
+<tr class="odd">
+<td>SDL_EVENT_JOYSTICK_ADDED, SDL_EVENT_JOYSTICK_REMOVED,
+SDL_EVENT_JOYSTICK_UPDATE_COMPLETE</td>
+<td><a href="SDL_JoyDeviceEvent.html">SDL_JoyDeviceEvent</a></td>
+<td><code>jdevice</code></td>
+</tr>
+<tr class="even">
+<td>SDL_EVENT_JOYSTICK_AXIS_MOTION</td>
+<td><a href="SDL_JoyAxisEvent.html">SDL_JoyAxisEvent</a></td>
+<td><code>jaxis</code></td>
+</tr>
+<tr class="odd">
+<td>SDL_EVENT_JOYSTICK_BALL_MOTION</td>
+<td><a href="SDL_JoyBallEvent.html">SDL_JoyBallEvent</a></td>
+<td><code>jball</code></td>
+</tr>
+<tr class="even">
+<td>SDL_EVENT_JOYSTICK_HAT_MOTION</td>
+<td><a href="SDL_JoyHatEvent.html">SDL_JoyHatEvent</a></td>
+<td><code>jhat</code></td>
+</tr>
+<tr class="odd">
+<td>SDL_EVENT_JOYSTICK_BATTERY_UPDATED</td>
+<td><a href="SDL_JoyBatteryEvent.html">SDL_JoyBatteryEvent</a></td>
+<td><code>jbattery</code></td>
+</tr>
+<tr class="even">
+<td>SDL_EVENT_JOYSTICK_BUTTON_DOWN, SDL_EVENT_JOYSTICK_BUTTON_UP</td>
+<td><a href="SDL_JoyButtonEvent.html">SDL_JoyButtonEvent</a></td>
+<td><code>jbutton</code></td>
+</tr>
+<tr class="odd">
+<td>SDL_EVENT_MOUSE_ADDED, SDL_EVENT_MOUSE_REMOVED</td>
+<td><a href="SDL_MouseDeviceEvent.html">SDL_MouseDeviceEvent</a></td>
+<td><code>mdevice</code></td>
+</tr>
+<tr class="even">
+<td>SDL_EVENT_MOUSE_MOTION</td>
+<td><a href="SDL_MouseMotionEvent.html">SDL_MouseMotionEvent</a></td>
+<td><code>motion</code></td>
+</tr>
+<tr class="odd">
+<td>SDL_EVENT_MOUSE_BUTTON_DOWN, SDL_EVENT_MOUSE_BUTTON_UP</td>
+<td><a href="SDL_MouseButtonEvent.html">SDL_MouseButtonEvent</a></td>
+<td><code>button</code></td>
+</tr>
+<tr class="even">
+<td>SDL_EVENT_MOUSE_WHEEL</td>
+<td><a href="SDL_MouseWheelEvent.html">SDL_MouseWheelEvent</a></td>
+<td><code>wheel</code></td>
+</tr>
+<tr class="odd">
+<td>SDL_EVENT_PEN_PROXIMITY_IN, SDL_EVENT_PEN_PROXIMITY_OUT</td>
+<td><a href="SDL_PenProximityEvent.html">SDL_PenProximityEvent</a></td>
+<td><code>pproximity</code></td>
+</tr>
+<tr class="even">
+<td>SDL_EVENT_PEN_DOWN, SDL_EVENT_PEN_UP</td>
+<td><a href="SDL_PenTouchEvent.html">SDL_PenTouchEvent</a></td>
+<td><code>ptouch</code></td>
+</tr>
+<tr class="odd">
+<td>SDL_EVENT_PEN_MOTION</td>
+<td><a href="SDL_PenMotionEvent.html">SDL_PenMotionEvent</a></td>
+<td><code>pmotion</code></td>
+</tr>
+<tr class="even">
+<td>SDL_EVENT_PEN_BUTTON_DOWN, SDL_EVENT_PEN_BUTTON_UP</td>
+<td><a href="SDL_PenButtonEvent.html">SDL_PenButtonEvent</a></td>
+<td><code>pbutton</code></td>
+</tr>
+<tr class="odd">
+<td>SDL_EVENT_PEN_AXIS</td>
+<td><a href="SDL_PenAxisEvent.html">SDL_PenAxisEvent</a></td>
+<td><code>paxis</code></td>
+</tr>
+<tr class="even">
+<td>SDL_EVENT_QUIT</td>
+<td><a href="SDL_QuitEvent.html">SDL_QuitEvent</a></td>
+<td><code>quit</code></td>
+</tr>
+<tr class="odd">
+<td>SDL_EVENT_SENSOR_UPDATE</td>
+<td><a href="SDL_SensorEvent.html">SDL_SensorEvent</a></td>
+<td><code>sensor</code></td>
+</tr>
+<tr class="even">
+<td>SDL_EVENT_TEXT_EDITING</td>
+<td><a href="SDL_TextEditingEvent.html">SDL_TextEditingEvent</a></td>
+<td><code>edit</code></td>
+</tr>
+<tr class="odd">
+<td>SDL_EVENT_TEXT_EDITING_CANDIDATES</td>
+<td><a href="SDL_TextEditingCandidatesEvent.html">SDL_TextEditingCandidatesEvent</a></td>
+<td><code>edit_candidates</code></td>
+</tr>
+<tr class="even">
+<td>SDL_EVENT_TEXT_INPUT</td>
+<td><a href="SDL_TextInputEvent.html">SDL_TextInputEvent</a></td>
+<td><code>text</code></td>
+</tr>
+<tr class="odd">
+<td>SDL_EVENT_USER</td>
+<td><a href="SDL_UserEvent.html">SDL_UserEvent</a></td>
+<td><code>user</code></td>
+</tr>
+<tr class="even">
+<td>SDL_EVENT_WINDOW_RESIZED, SDL_EVENT_WINDOW_MOVED, etc</td>
+<td><a href="SDL_WindowEvent.html">SDL_WindowEvent</a></td>
+<td><code>window</code></td>
+</tr>
+<tr class="odd">
+<td>Other events</td>
+<td><a href="SDL_CommonEvent.html">SDL_CommonEvent</a></td>
+<td><code>common</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a href="CategoryAPI.html">CategoryAPI</a>, <a href="CategoryAPIStruct.html">CategoryAPIStruct</a>, <a href="CategoryEvents.html">CategoryEvents</a></p>
+</body>
+</html>

@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>BestKeyboardPractices</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">:root {
+color-scheme: dark light; 
+}
+body {
+background-color: white;
+padding: 2vw;
+color: #333;
+max-width: 1200px;
+margin: 0 auto;
+font-size: 16px;
+line-height: 1.5;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+overflow-wrap: break-word;
+}
+a {
+color: #0969da;
+
+}
+a:visited {
+color: #064998;
+}
+h1 {
+border-bottom: 2px solid #efefef;
+}
+h2 {
+border-bottom: 1px solid #efefef;
+}
+p {
+max-width: 85ch;
+}
+li {
+max-width: 85ch;
+}
+div.sourceCode {
+background-color: #f6f8fa;
+max-width: 100%;
+padding: 16px;
+}
+code {
+background-color: #f6f8fa;
+padding: 0px;
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+}
+table {
+border: 1px solid #808080;
+border-collapse: collapse;
+}
+td {
+border: 1px solid #808080;
+padding: 5px;
+}
+tr:nth-child(even) {
+background-color: #f6f8fa;
+}
+.wikitopbanner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #efefef;
+padding: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+.wikibottombanner {
+background-color: #efefef;
+padding: 10px;
+margin-top: 10px;
+width: auto;
+}
+.alertBox {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+max-width: 60%;
+padding: 10;
+margin: auto;
+}
+.anchorImage {
+visibility: hidden;
+padding-left: 0.2em;
+color: #fff;
+}
+.anchorText:hover .anchorImage {
+visibility: visible;
+}
+hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #efefef;
+margin: 1em 0;
+padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+color: #e6edf3;
+background-color: #0d1117;
+}
+h1 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+h2 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+hr {
+border-color: rgba(48, 54, 61, 0.7);
+}
+div.sourceCode {
+background-color: #161b22;
+}
+code {
+background-color: #161b22;
+}
+a {
+color: #4493f8;
+}
+a:visited {
+color: #2f66ad;
+}
+table {
+border-color: rgba(48, 54, 61, 0.7);
+}
+td {
+border-color: rgba(48, 54, 61, 0.7);
+}
+tr:nth-child(even) {
+background-color: #161b22;
+}
+.wikitopbanner {
+background-color: #263040;
+}
+.wikibottombanner {
+background-color: #263040;
+}
+.anchorText:hover .anchorImage {
+filter: invert(100%);
+}
+}
+@media print {
+body {
+font-size: 12px;
+}
+table {
+font-size: inherit;
+}
+a:visited {
+color: #0969da;
+}
+.wikitopbanner,
+.anchorText,
+.wikibottombanner {
+display: none;
+}
+}
+</style>
+  <style type="text/css"> code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+{ position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+{ content: attr(title);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; pointer-events: all; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+@media (prefers-color-scheme: dark) {
+code span.al { color: #95da4c; font-weight: bold; } 
+code span.an { color: #3f8058; } 
+code span.at { color: #2980b9; } 
+code span.bn { color: #f67400; } 
+code span.bu { color: #7f8c8d; } 
+code span.ch { color: #3daee9; } 
+code span.co { color: #7a7c7d; } 
+code span.cv { color: #7f8c8d; } 
+code span.cn { color: #27aeae; font-weight: bold; } 
+code span.cf { color: #fdbc4b; font-weight: bold; } 
+code span.dt { color: #2980b9; } 
+code span.dv { color: #f67400; } 
+code span.do { color: #a43340; } 
+code span.er { color: #da4453; } 
+code span.ex { color: #0099ff; font-weight: bold; } 
+code span.fl { color: #f67400; } 
+code span.fu { color: #8e44ad; } 
+code span.im { color: #27ae60; } 
+code span.in { color: #c45b00; } 
+code span.kw { color: #cfcfc2; font-weight: bold; } 
+code span.op { color: #cfcfc2; } 
+code span.ot { color: #27ae60; } 
+code span.pp { color: #27ae60; } 
+code span.sc { color: #3daee9; } 
+code span.ss { color: #da4453; } 
+code span.st { color: #f44f4f; } 
+code span.va { color: #27aeae; } 
+code span.vs { color: #da4453; } 
+code span.wa { color: #da4453; } 
+}</style>
+</head>
+<body>
+<h1 id="best-keyboard-practices-in-sdl3">Best keyboard practices in
+SDL3</h1>
+<h2 id="first-things-first">First things first</h2>
+<p>Keyboard input is a surprisingly complicated topic after you step
+outside of your usual country and language (and sometimes before you do,
+too).</p>
+<p>Almost any game, no matter what approach it is taking, should
+probably offer a means for users to configure key bindings; not only
+will this solve concerns about what kind of keyboard a user is typing
+on, it will also make your game flexible to whatever is <em>most
+comfortable</em> for a user. This is not just a question of keyboard
+layouts, but being kind to those that don&#39;t have full motion of their
+hands and would benefit from moving keys to accessible locations that
+don&#39;t make obvious sense to an outside observer. At least offer a config
+file, if not a user interface; people you&#39;ve never met will thank you
+for it!</p>
+<h2 id="the-four-approaches">The four approaches</h2>
+<p>There are, as far as we can tell, four common ways that apps want to
+use keyboard input. Sometimes they want different approaches at
+different moments, too.</p>
+<h2 id="the-101-button-joystick">The 101-Button Joystick</h2>
+<p>Many games just want to treat a keyboard not as a way to input text,
+but just as a joystick that has a <em>lot</em> of buttons. The
+well-known <a href="https://en.wikipedia.org/wiki/WASD_keys">&quot;WASD&quot; key
+pattern</a> for FPS games is a fine example of this: you want the
+<em>physical</em> location of a key, regardless of what symbol is
+printed on the key. After all, on a French keyboard, instead of &quot;WASD&quot;,
+you&#39;d press &quot;ZQSD&quot;, and on a Hiragana keyboard &quot;てちとし&quot;. Same
+locations on the keyboard, totally different symbols.</p>
+<p>For these, you want <a href="SDL_Scancode.html">SDL_Scancodes</a>:
+these are guaranteed to reference the physical location on the keyboard
+and not what is printed on it.</p>
+<p>Specifically, they assume a US English QWERTY keyboard layout, no
+matter what the keyboard in use actually has at that location, but
+that&#39;s okay because here we just want physical location of the key, not
+its meaning.</p>
+<h3 id="events-vs-states">Events vs States</h3>
+<p>When dealing with the buttons of joysticks, mice, and keyboards, it&#39;s
+common that people reach first for events. This document is mostly
+concerned with them as well as they apply to all of the approaches we&#39;ll
+cover. That said it&#39;s important to understand the differences here, as
+you may run into undesirable if you don&#39;t choose wisely.</p>
+<p>Conceptually, Events are a way for the OS or SDL to inform you
+something has happened. You don&#39;t necessarily <em>always</em> want to
+react to this information immediately. Consider when the player is
+moving forward, moving the character is, in most games, going to require
+per-frame work. So frame to frame, you&#39;ll need to know the user is
+pressing the button. Button events, regardless if they&#39;re
+Keyboard/Mouse/Gamepad/Joystick, don&#39;t get sent every frame, although
+they do get repeated, which we&#39;ll discuss down below. This can make it
+appear as though a character is continuously moving, but it will be
+jerky and there will be a big delay towards the beginning.</p>
+<p>Of course, there&#39;s still cases where you might want to use events,
+but they&#39;re typically singular actions. You can know when someone has
+pressed down on a button to try to do an action, and then you can choose
+to either immediately adjust state, or set a flag to evaluate the input
+later in the frame.</p>
+<p>On the other hand States, in the context of input, represent what we
+last saw when we finished processing events. These are great when we may
+receive contradictory input and we want to evaluate all relevant state
+before proceeding with your game logic. They&#39;re also useful for
+continuous input, like movement.</p>
+<p>We&#39;ll demonstrate both methods below.</p>
+<h4 id="a-note-on-key-repeat">A Note on Key Repeat</h4>
+<p>As mentioned above, key events are not sent every frame. There&#39;s no
+real way for SDL to do this for us if you&#39;re using something like <a href="SDL_PollEvent.html"><code>SDL_PollEvent</code></a>, as it has no
+idea when your frame starts and ends. Despite that, we do get repeated
+key event periodically. These repeats are sent by the OS, and typically
+there&#39;s two types of delays between these events. The first type is for
+the first repeat event. It&#39;s typically a little longer, something like
+~1s, and then the OS will start sending them at some interval, something
+like ~200ms. These numbers are fuzzy as this is generally user
+configurable and dependent on the OS.</p>
+<p>Also mentioned above is that using events for something like movement
+often results in jerky movement, and indeed, this is due to the delays
+discussed above. You can mimic the jerky cadence by putting a cursor
+into a simple text editor and holding it down. The intervals you see as
+the characters appear is what the key repeat looks like on your
+system.</p>
+<h3 id="using-them-in-practice">Using them in practice</h3>
+<h4 id="states">States</h4>
+<p>For states you check during the gameloop, you can retrieve the state
+of the keyboard via <a href="SDL_GetKeyboardState.html"><code>SDL_GetKeyboardState</code></a>.
+This will give you an array of boolean values representing if a button
+is up (<code>false</code>), or down (<code>true</code>), indexed by <a href="SDL_Scancode.html"><code>SDL_Scancodes</code></a>. There&#39;s no need
+to worry about the lifetime, SDL owns this array, but you may want to
+cache it in practice, just so you don&#39;t have to call into SDL all the
+time.</p>
+<p>Here&#39;s an example of how you might index into this array to implement
+the forward/backward axis of the &quot;WASD&quot; pattern mentioned above.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* returns 1 if moving forward with this keypress, -1 if moving backward, 0 if not moving. */</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> direction_user_should_move<span class="op">()</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">const</span> <span class="dt">bool</span> <span class="op">*</span>key_states <span class="op">=</span> SDL_GetKeyboardState<span class="op">();</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> direction <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* (We&#39;re writing our code such that it sees both keys are pressed and cancels each other out!) */</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>key_states<span class="op">[</span>SDL_SCANCODE_W<span class="op">])</span> <span class="op">{</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        direction <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span>  <span class="co">/* pressed what would be &quot;W&quot; on a US QWERTY keyboard. Move forward! */</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>key_states<span class="op">[</span>SDL_SCANCODE_S<span class="op">])</span> <span class="op">{</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        direction <span class="op">+=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span>  <span class="co">/* pressed what would be &quot;S&quot; on a US QWERTY keyboard. Move backward! */</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* (In practice it&#39;s likely you&#39;d be doing full directional input in here, but for simplicity, we&#39;re just showing forward and backward) */</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> direction<span class="op">;</span>  <span class="co">/* wasn&#39;t key in W or S location, don&#39;t move. */</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h4 id="events">Events</h4>
+<p>On the contrary, you might want to initiate an action from events,
+setting your own state from them that you process in your game loop.</p>
+<p>Simply grab the <code>scancode</code> field from <a href="SDL_EVENT_KEY_DOWN.html">SDL_EVENT_KEY_DOWN</a> and <a href="SDL_EVENT_KEY_UP.html">SDL_EVENT_KEY_UP</a> events.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">enum</span> Action <span class="op">{</span> ACTION_NONE<span class="op">,</span> ACTION_RELOAD<span class="op">,</span> ACTION_JUMP <span class="op">};</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">/* returns ACTION_RELOAD if reloading with this keypress, ACTION_JUMP if jumping, ACTION_NONE if no actions were attempted. */</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>Action action_user_should_take<span class="op">(</span><span class="dt">const</span> SDL_Event <span class="op">*</span>e<span class="op">)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    SDL_assert<span class="op">(</span>e<span class="op">-&gt;</span>type <span class="op">==</span> SDL_EVENT_KEY_DOWN<span class="op">);</span> <span class="co">/* just checking key presses here... */</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>e<span class="op">-&gt;</span>key<span class="op">.</span>scancode <span class="op">==</span> SDL_SCANCODE_R<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ACTION_RELOAD<span class="op">;</span>  <span class="co">/* pressed what would be &quot;R&quot; on a US QWERTY keyboard. Reload! */</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>e<span class="op">-&gt;</span>key<span class="op">.</span>scancode <span class="op">==</span> SDL_SCANCODE_SPACE<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ACTION_JUMP<span class="op">;</span>  <span class="co">/* pressed what would be &quot;Space&quot; on a US QWERTY keyboard. Jump! */</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ACTION_NONE<span class="op">;</span>  <span class="co">/* wasn&#39;t key in W or S location, don&#39;t move. */</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h2 id="the-specific-key">The Specific Key</h2>
+<p>Some games might want to know the <em>symbol</em> on a key. This
+tends to be a &quot;press &#39;I&#39; to open your inventory&quot; thing, and you don&#39;t
+really care <em>where</em> the &#39;I&#39; key is on the keyboard.</p>
+<p>(But, again: offer keybindings, because some keyboards don&#39;t
+<em>have</em> an &#39;I&#39; key!)</p>
+<p>This is also useful for looking for the ESC key to cancel an
+operation, or Enter to confirm, etc; it doesn&#39;t matter where the key is,
+you still want <em>that</em> key.</p>
+<p>These are <a href="SDL_Keycode.html">SDL_Keycodes</a>. They name
+specific keys and don&#39;t care <em>where</em> on the user&#39;s keyboard they
+actually are. Like scancodes, you also get these from <a href="SDL_EVENT_KEY_DOWN.html">SDL_EVENT_KEY_DOWN</a> and <a href="SDL_EVENT_KEY_UP.html">SDL_EVENT_KEY_UP</a> events.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* sit in a loop forever until the user presses Escape. */</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> quit_the_app <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(!</span>quit_the_app<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    SDL_Event e<span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>SDL_PollEvent<span class="op">(&amp;</span>e<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="co">/* user has pressed a key? */</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>e<span class="op">.</span>type <span class="op">==</span> SDL_EVENT_KEY_DOWN<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>            <span class="co">/* the pressed key was Escape? */</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>e<span class="op">.</span>key<span class="op">.</span>key <span class="op">==</span> SDLK_ESCAPE<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                quit_the_app <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h2 id="the-chat-box">The Chat Box</h2>
+<p>Unicode is hard! If you are composing text a string at a time (&quot;Enter
+your name, adventurer!&quot; screens or accepting sentences for a chat
+interface, etc) you should <em>not</em> be using key press events! This
+will <em>never</em> do the right thing across various keyboards and
+human languages around the world.</p>
+<p>One should instead call <a href="SDL_StartTextInput.html">SDL_StartTextInput</a>, and listen for <a href="SDL_EVENT_TEXT_INPUT.html">SDL_EVENT_TEXT_INPUT</a> events. When
+done accepting input, call <a href="SDL_StopTextInput.html">SDL_StopTextInput</a>. This approach will
+let the system provide input interfaces that are familiar to the user
+(including popping up a virtual keyboard on mobile devices, and other UI
+for composing in various languages). Then the event will provide Unicode
+strings in UTF-8 format, which might be complete lines of text or a
+single character, depending on the system. <strong>You will not be able
+to replicate these interfaces in your application for everyone in the
+world</strong>, do not try to build this yourself on top of individual
+keypress events.</p>
+<p>The downside of this is that a virtual keyboard, etc, might be
+disruptive to your game, so you need to design accordingly.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* Set the text area and start text input */</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> text_input_complete <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span> text<span class="op">[</span><span class="dv">1024</span><span class="op">]</span> <span class="op">=</span> <span class="op">{</span> <span class="dv">0</span> <span class="op">};</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>SDL_Rect area <span class="op">=</span> <span class="op">{</span> textfield<span class="op">.</span>x<span class="op">,</span> textfield<span class="op">.</span>y<span class="op">,</span> textfield<span class="op">.</span>w<span class="op">,</span> textfield<span class="op">.</span>h <span class="op">};</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> cursor <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>SDL_SetTextInputArea<span class="op">(</span>window<span class="op">,</span> <span class="op">&amp;</span>area<span class="op">,</span> cursor<span class="op">);</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>SDL_StartTextInput<span class="op">(</span>window<span class="op">);</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(!</span>text_input_complete<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    SDL_Event e<span class="op">;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>SDL_PollEvent<span class="op">(&amp;</span>e<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="co">/* user has pressed a key? */</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>e<span class="op">.</span>type <span class="op">==</span> SDL_EVENT_KEY_DOWN<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>            <span class="co">/* the pressed key was Escape or Return? */</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>e<span class="op">.</span>key<span class="op">.</span>key <span class="op">==</span> SDLK_ESCAPE <span class="op">||</span> e<span class="op">.</span>key<span class="op">.</span>key <span class="op">==</span> SDLK_RETURN<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>                SDL_StopTextInput<span class="op">(</span>window<span class="op">);</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>                text_input_complete <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>            <span class="co">/* Handle arrow keys, etc. */</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>e<span class="op">.</span>type <span class="op">==</span> SDL_EVENT_TEXT_INPUT<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>            SDL_strlcat<span class="op">(</span>text<span class="op">,</span> e<span class="op">.</span>text<span class="op">.</span>text<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>text<span class="op">));</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Render the text, adjusting cursor to the offset in pixels from the left edge of the textfield */</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Update the text input area, adjusting the cursor so IME UI shows up at the correct location. */</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    SDL_SetTextInputArea<span class="op">(</span>window<span class="op">,</span> <span class="op">&amp;</span>area<span class="op">,</span> cursor<span class="op">);</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>If you&#39;re writing a fullscreen game, you might want to render IME UI
+yourself, so you&#39;d set SDL_HINT_IME_IMPLEMENTED_UI appropriately and
+handle the SDL_EVENT_TEXT_EDITING and SDL_EVENT_TEXT_EDITING_CANDIDATES
+events. See <a href="https://github.com/libsdl-org/SDL/blob/main/test/testime.c">testime.c</a>
+for an example of this.</p>
+<h2 id="the-text-editor">The Text Editor</h2>
+<p>This is a special case, and if you think your game fits here, you
+should think very hard about how to change that before thinking about
+how to go this route, because often times you are just on a path to
+build <a href="#the-chat-box">The Chat Box</a>, incorrectly, from
+scratch.</p>
+<p>If you were writing an SDL frontend for <a href="https://www.vim.org/">Vim</a>, you would need to know what
+keypresses-plus-modifiers produce: hitting shift-Z twice produces a
+different result than pressing z twice, but also you want arrow keys to
+do the right thing on the numpad, unless NumLock is pressed, when they
+should produce numbers. On top of all this, it&#39;s difficult to correlate
+between keypress and proper text input events and untangle them to get
+correct results.</p>
+<p>In this case, you would need to handle both key events and input
+events as above, in addition you might want to know what the modified
+keycode for the event is:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> quit_the_app <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(!</span>quit_the_app<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    SDL_Event e<span class="op">;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>SDL_PollEvent<span class="op">(&amp;</span>e<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="co">/* user has pressed a key? */</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>e<span class="op">.</span>type <span class="op">==</span> SDL_EVENT_KEY_DOWN<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>            <span class="co">/* Was the pressed key &#39;$&#39;, possibly generated by Shift+4 on a US keyboard or the &#39;$&#39; key on the French keyboard? */</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>            SDL_Keycode keycode <span class="op">=</span> SDL_GetKeyFromScancode<span class="op">(</span>e<span class="op">.</span>key<span class="op">.</span>scancode<span class="op">,</span> e<span class="op">.</span>key<span class="op">.</span>mod<span class="op">,</span> <span class="kw">false</span><span class="op">);</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>keycode <span class="op">==</span> <span class="ch">&#39;$&#39;</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                <span class="co">/* Show me the money! */</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Obviously there are many keys that <em>don&#39;t</em> generate a
+character, or characters that are composed by pressing multiple keys (or
+navigating through IME interfaces that don&#39;t map to specific keypresses
+at all), so this is niche functionality and not how one should accept
+input in a general sense.</p>
+<h2 id="showing-key-names-to-users">Showing key names to users</h2>
+<p>So you&#39;ve made your game, and now you&#39;re taking the original advice
+about adding user-configurable keybindings, and you need to know how to
+show the user the key&#39;s name in your config UI, and maybe also in a
+&quot;press [current keybinding] to jump&quot; tutorial message.</p>
+<p>For this, use <a href="SDL_GetKeyName.html">SDL_GetKeyName</a> with
+the <a href="SDL_Keycode.html">SDL_Keycode</a> you get from an
+event:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> quit_the_app <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(!</span>quit_the_app<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    SDL_Event e<span class="op">;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>SDL_PollEvent<span class="op">(&amp;</span>e<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="co">/* user has pressed a key? */</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>e<span class="op">.</span>type <span class="op">==</span> SDL_EVENT_KEY_DOWN<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>            SDL_Log<span class="op">(</span><span class="st">&quot;Wow, you just pressed the </span><span class="sc">%s</span><span class="st"> key!&quot;</span><span class="op">,</span> SDL_GetKeyName<span class="op">(</span>e<span class="op">.</span>key<span class="op">.</span>key<span class="op">));</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Note that <a href="SDL_GetKeyName.html">SDL_GetKeyName</a> only
+returns uppercase characters, which is appropriate for showing a user a
+&quot;press the button with this symbol on it&quot; message.</p>
+</body>
+</html>

@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>CategoryHaptic</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">:root {
+color-scheme: dark light; 
+}
+body {
+background-color: white;
+padding: 2vw;
+color: #333;
+max-width: 1200px;
+margin: 0 auto;
+font-size: 16px;
+line-height: 1.5;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+overflow-wrap: break-word;
+}
+a {
+color: #0969da;
+
+}
+a:visited {
+color: #064998;
+}
+h1 {
+border-bottom: 2px solid #efefef;
+}
+h2 {
+border-bottom: 1px solid #efefef;
+}
+p {
+max-width: 85ch;
+}
+li {
+max-width: 85ch;
+}
+div.sourceCode {
+background-color: #f6f8fa;
+max-width: 100%;
+padding: 16px;
+}
+code {
+background-color: #f6f8fa;
+padding: 0px;
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+}
+table {
+border: 1px solid #808080;
+border-collapse: collapse;
+}
+td {
+border: 1px solid #808080;
+padding: 5px;
+}
+tr:nth-child(even) {
+background-color: #f6f8fa;
+}
+.wikitopbanner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #efefef;
+padding: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+.wikibottombanner {
+background-color: #efefef;
+padding: 10px;
+margin-top: 10px;
+width: auto;
+}
+.alertBox {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+max-width: 60%;
+padding: 10;
+margin: auto;
+}
+.anchorImage {
+visibility: hidden;
+padding-left: 0.2em;
+color: #fff;
+}
+.anchorText:hover .anchorImage {
+visibility: visible;
+}
+hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #efefef;
+margin: 1em 0;
+padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+color: #e6edf3;
+background-color: #0d1117;
+}
+h1 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+h2 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+hr {
+border-color: rgba(48, 54, 61, 0.7);
+}
+div.sourceCode {
+background-color: #161b22;
+}
+code {
+background-color: #161b22;
+}
+a {
+color: #4493f8;
+}
+a:visited {
+color: #2f66ad;
+}
+table {
+border-color: rgba(48, 54, 61, 0.7);
+}
+td {
+border-color: rgba(48, 54, 61, 0.7);
+}
+tr:nth-child(even) {
+background-color: #161b22;
+}
+.wikitopbanner {
+background-color: #263040;
+}
+.wikibottombanner {
+background-color: #263040;
+}
+.anchorText:hover .anchorImage {
+filter: invert(100%);
+}
+}
+@media print {
+body {
+font-size: 12px;
+}
+table {
+font-size: inherit;
+}
+a:visited {
+color: #0969da;
+}
+.wikitopbanner,
+.anchorText,
+.wikibottombanner {
+display: none;
+}
+}
+</style>
+  <style type="text/css"> code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+{ position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+{ content: attr(title);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; pointer-events: all; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+@media (prefers-color-scheme: dark) {
+code span.al { color: #95da4c; font-weight: bold; } 
+code span.an { color: #3f8058; } 
+code span.at { color: #2980b9; } 
+code span.bn { color: #f67400; } 
+code span.bu { color: #7f8c8d; } 
+code span.ch { color: #3daee9; } 
+code span.co { color: #7a7c7d; } 
+code span.cv { color: #7f8c8d; } 
+code span.cn { color: #27aeae; font-weight: bold; } 
+code span.cf { color: #fdbc4b; font-weight: bold; } 
+code span.dt { color: #2980b9; } 
+code span.dv { color: #f67400; } 
+code span.do { color: #a43340; } 
+code span.er { color: #da4453; } 
+code span.ex { color: #0099ff; font-weight: bold; } 
+code span.fl { color: #f67400; } 
+code span.fu { color: #8e44ad; } 
+code span.im { color: #27ae60; } 
+code span.in { color: #c45b00; } 
+code span.kw { color: #cfcfc2; font-weight: bold; } 
+code span.op { color: #cfcfc2; } 
+code span.ot { color: #27ae60; } 
+code span.pp { color: #27ae60; } 
+code span.sc { color: #3daee9; } 
+code span.ss { color: #da4453; } 
+code span.st { color: #f44f4f; } 
+code span.va { color: #27aeae; } 
+code span.vs { color: #da4453; } 
+code span.wa { color: #da4453; } 
+}</style>
+</head>
+<body>
+<h1 id="categoryhaptic">CategoryHaptic</h1>
+<p>The SDL haptic subsystem manages haptic (force feedback) devices.</p>
+<p>The basic usage is as follows:</p>
+<ul>
+<li>Initialize the subsystem (<a href="SDL_INIT_HAPTIC.html">SDL_INIT_HAPTIC</a>).</li>
+<li>Open a haptic device.</li>
+<li><a href="SDL_OpenHaptic.html">SDL_OpenHaptic</a>() to open from
+index.</li>
+<li><a href="SDL_OpenHapticFromJoystick.html">SDL_OpenHapticFromJoystick</a>()
+to open from an existing joystick.</li>
+<li>Create an effect (<a href="SDL_HapticEffect.html">SDL_HapticEffect</a>).</li>
+<li>Upload the effect with <a href="SDL_CreateHapticEffect.html">SDL_CreateHapticEffect</a>().</li>
+<li>Run the effect with <a href="SDL_RunHapticEffect.html">SDL_RunHapticEffect</a>().</li>
+<li>(optional) Free the effect with <a href="SDL_DestroyHapticEffect.html">SDL_DestroyHapticEffect</a>().</li>
+<li>Close the haptic device with <a href="SDL_CloseHaptic.html">SDL_CloseHaptic</a>().</li>
+</ul>
+<p>Simple rumble example:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>   SDL_Haptic <span class="op">*</span>haptic <span class="op">=</span> NULL<span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>   <span class="co">// Open the device</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>   SDL_HapticID <span class="op">*</span>haptics <span class="op">=</span> SDL_GetHaptics<span class="op">(</span>NULL<span class="op">);</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span> <span class="op">(</span>haptics<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>       haptic <span class="op">=</span> SDL_OpenHaptic<span class="op">(</span>haptics<span class="op">[</span><span class="dv">0</span><span class="op">]);</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>       SDL_free<span class="op">(</span>haptics<span class="op">);</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>   <span class="op">}</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span> <span class="op">(</span>haptic <span class="op">==</span> NULL<span class="op">)</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>   <span class="co">// Initialize simple rumble</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span> <span class="op">(!</span>SDL_InitHapticRumble<span class="op">(</span>haptic<span class="op">))</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>   <span class="co">// Play effect at 50% strength for 2 seconds</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span> <span class="op">(!</span>SDL_PlayHapticRumble<span class="op">(</span>haptic<span class="op">,</span> <span class="dv">0</span><span class="er">.5</span><span class="op">,</span> <span class="dv">2000</span><span class="op">))</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>   SDL_Delay<span class="op">(</span><span class="dv">2000</span><span class="op">);</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>   <span class="co">// Clean up</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>   SDL_CloseHaptic<span class="op">(</span>haptic<span class="op">);</span></span></code></pre></div>
+<p>Complete example:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> test_haptic<span class="op">(</span>SDL_Joystick <span class="op">*</span>joystick<span class="op">)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>   SDL_Haptic <span class="op">*</span>haptic<span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>   SDL_HapticEffect effect<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>   SDL_HapticEffectID effect_id<span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>   <span class="co">// Open the device</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>   haptic <span class="op">=</span> SDL_OpenHapticFromJoystick<span class="op">(</span>joystick<span class="op">);</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span> <span class="op">(</span>haptic <span class="op">==</span> NULL<span class="op">)</span> <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span> <span class="co">// Most likely joystick isn&#39;t haptic</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>   <span class="co">// See if it can do sine waves</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span> <span class="op">((</span>SDL_GetHapticFeatures<span class="op">(</span>haptic<span class="op">)</span> <span class="op">&amp;</span> SDL_HAPTIC_SINE<span class="op">)==</span><span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>      SDL_CloseHaptic<span class="op">(</span>haptic<span class="op">);</span> <span class="co">// No sine effect</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>   <span class="op">}</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>   <span class="co">// Create the effect</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>   SDL_memset<span class="op">(&amp;</span>effect<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>SDL_HapticEffect<span class="op">));</span> <span class="co">// 0 is safe default</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>   effect<span class="op">.</span>type <span class="op">=</span> SDL_HAPTIC_SINE<span class="op">;</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>   effect<span class="op">.</span>periodic<span class="op">.</span>direction<span class="op">.</span>type <span class="op">=</span> SDL_HAPTIC_POLAR<span class="op">;</span> <span class="co">// Polar coordinates</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>   effect<span class="op">.</span>periodic<span class="op">.</span>direction<span class="op">.</span>dir<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> <span class="dv">18000</span><span class="op">;</span> <span class="co">// Force comes from south</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>   effect<span class="op">.</span>periodic<span class="op">.</span>period <span class="op">=</span> <span class="dv">1000</span><span class="op">;</span> <span class="co">// 1000 ms</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>   effect<span class="op">.</span>periodic<span class="op">.</span>magnitude <span class="op">=</span> <span class="dv">20000</span><span class="op">;</span> <span class="co">// 20000/32767 strength</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>   effect<span class="op">.</span>periodic<span class="op">.</span>length <span class="op">=</span> <span class="dv">5000</span><span class="op">;</span> <span class="co">// 5 seconds long</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>   effect<span class="op">.</span>periodic<span class="op">.</span>attack_length <span class="op">=</span> <span class="dv">1000</span><span class="op">;</span> <span class="co">// Takes 1 second to get max strength</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>   effect<span class="op">.</span>periodic<span class="op">.</span>fade_length <span class="op">=</span> <span class="dv">1000</span><span class="op">;</span> <span class="co">// Takes 1 second to fade away</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>   <span class="co">// Upload the effect</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>   effect_id <span class="op">=</span> SDL_CreateHapticEffect<span class="op">(</span>haptic<span class="op">,</span> <span class="op">&amp;</span>effect<span class="op">);</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>   <span class="co">// Test the effect</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>   SDL_RunHapticEffect<span class="op">(</span>haptic<span class="op">,</span> effect_id<span class="op">,</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>   SDL_Delay<span class="op">(</span><span class="dv">5000</span><span class="op">);</span> <span class="co">// Wait for the effect to finish</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>   <span class="co">// We destroy the effect, although closing the device also does this</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>   SDL_DestroyHapticEffect<span class="op">(</span>haptic<span class="op">,</span> effect_id<span class="op">);</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>   <span class="co">// Close the device</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>   SDL_CloseHaptic<span class="op">(</span>haptic<span class="op">);</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span> <span class="co">// Success</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Note that the SDL haptic subsystem is not thread-safe.</p>
+<!-- END CATEGORY DOCUMENTATION -->
+
+<h2 id="functions">Functions</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryHaptic, CategoryAPIFunction -->
+
+<ul>
+<li><a href="SDL_CloseHaptic.html">SDL_CloseHaptic</a></li>
+<li><a href="SDL_CreateHapticEffect.html">SDL_CreateHapticEffect</a></li>
+<li><a href="SDL_DestroyHapticEffect.html">SDL_DestroyHapticEffect</a></li>
+<li><a href="SDL_GetHapticEffectStatus.html">SDL_GetHapticEffectStatus</a></li>
+<li><a href="SDL_GetHapticFeatures.html">SDL_GetHapticFeatures</a></li>
+<li><a href="SDL_GetHapticFromID.html">SDL_GetHapticFromID</a></li>
+<li><a href="SDL_GetHapticID.html">SDL_GetHapticID</a></li>
+<li><a href="SDL_GetHapticName.html">SDL_GetHapticName</a></li>
+<li><a href="SDL_GetHapticNameForID.html">SDL_GetHapticNameForID</a></li>
+<li><a href="SDL_GetHaptics.html">SDL_GetHaptics</a></li>
+<li><a href="SDL_GetMaxHapticEffects.html">SDL_GetMaxHapticEffects</a></li>
+<li><a href="SDL_GetMaxHapticEffectsPlaying.html">SDL_GetMaxHapticEffectsPlaying</a></li>
+<li><a href="SDL_GetNumHapticAxes.html">SDL_GetNumHapticAxes</a></li>
+<li><a href="SDL_HapticEffectSupported.html">SDL_HapticEffectSupported</a></li>
+<li><a href="SDL_HapticRumbleSupported.html">SDL_HapticRumbleSupported</a></li>
+<li><a href="SDL_InitHapticRumble.html">SDL_InitHapticRumble</a></li>
+<li><a href="SDL_IsJoystickHaptic.html">SDL_IsJoystickHaptic</a></li>
+<li><a href="SDL_IsMouseHaptic.html">SDL_IsMouseHaptic</a></li>
+<li><a href="SDL_OpenHaptic.html">SDL_OpenHaptic</a></li>
+<li><a href="SDL_OpenHapticFromJoystick.html">SDL_OpenHapticFromJoystick</a></li>
+<li><a href="SDL_OpenHapticFromMouse.html">SDL_OpenHapticFromMouse</a></li>
+<li><a href="SDL_PauseHaptic.html">SDL_PauseHaptic</a></li>
+<li><a href="SDL_PlayHapticRumble.html">SDL_PlayHapticRumble</a></li>
+<li><a href="SDL_ResumeHaptic.html">SDL_ResumeHaptic</a></li>
+<li><a href="SDL_RunHapticEffect.html">SDL_RunHapticEffect</a></li>
+<li><a href="SDL_SetHapticAutocenter.html">SDL_SetHapticAutocenter</a></li>
+<li><a href="SDL_SetHapticGain.html">SDL_SetHapticGain</a></li>
+<li><a href="SDL_StopHapticEffect.html">SDL_StopHapticEffect</a></li>
+<li><a href="SDL_StopHapticEffects.html">SDL_StopHapticEffects</a></li>
+<li><a href="SDL_StopHapticRumble.html">SDL_StopHapticRumble</a></li>
+<li><a href="SDL_UpdateHapticEffect.html">SDL_UpdateHapticEffect</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<h2 id="datatypes">Datatypes</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryHaptic, CategoryAPIDatatype -->
+
+<ul>
+<li><a href="SDL_Haptic.html">SDL_Haptic</a></li>
+<li><a href="SDL_HapticDirectionType.html">SDL_HapticDirectionType</a></li>
+<li><a href="SDL_HapticEffectID.html">SDL_HapticEffectID</a></li>
+<li><a href="SDL_HapticEffectType.html">SDL_HapticEffectType</a></li>
+<li><a href="SDL_HapticID.html">SDL_HapticID</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<h2 id="structs">Structs</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryHaptic, CategoryAPIStruct -->
+
+<ul>
+<li><a href="SDL_HapticCondition.html">SDL_HapticCondition</a></li>
+<li><a href="SDL_HapticConstant.html">SDL_HapticConstant</a></li>
+<li><a href="SDL_HapticCustom.html">SDL_HapticCustom</a></li>
+<li><a href="SDL_HapticDirection.html">SDL_HapticDirection</a></li>
+<li><a href="SDL_HapticEffect.html">SDL_HapticEffect</a></li>
+<li><a href="SDL_HapticLeftRight.html">SDL_HapticLeftRight</a></li>
+<li><a href="SDL_HapticPeriodic.html">SDL_HapticPeriodic</a></li>
+<li><a href="SDL_HapticRamp.html">SDL_HapticRamp</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<h2 id="enums">Enums</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryHaptic, CategoryAPIEnum -->
+
+<ul>
+<li>(none.)</li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<h2 id="macros">Macros</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryHaptic, CategoryAPIMacro -->
+
+<ul>
+<li><a href="SDL_HAPTIC_AUTOCENTER.html">SDL_HAPTIC_AUTOCENTER</a></li>
+<li><a href="SDL_HAPTIC_CARTESIAN.html">SDL_HAPTIC_CARTESIAN</a></li>
+<li><a href="SDL_HAPTIC_CONSTANT.html">SDL_HAPTIC_CONSTANT</a></li>
+<li><a href="SDL_HAPTIC_CUSTOM.html">SDL_HAPTIC_CUSTOM</a></li>
+<li><a href="SDL_HAPTIC_DAMPER.html">SDL_HAPTIC_DAMPER</a></li>
+<li><a href="SDL_HAPTIC_FRICTION.html">SDL_HAPTIC_FRICTION</a></li>
+<li><a href="SDL_HAPTIC_GAIN.html">SDL_HAPTIC_GAIN</a></li>
+<li><a href="SDL_HAPTIC_INERTIA.html">SDL_HAPTIC_INERTIA</a></li>
+<li><a href="SDL_HAPTIC_INFINITY.html">SDL_HAPTIC_INFINITY</a></li>
+<li><a href="SDL_HAPTIC_LEFTRIGHT.html">SDL_HAPTIC_LEFTRIGHT</a></li>
+<li><a href="SDL_HAPTIC_PAUSE.html">SDL_HAPTIC_PAUSE</a></li>
+<li><a href="SDL_HAPTIC_POLAR.html">SDL_HAPTIC_POLAR</a></li>
+<li><a href="SDL_HAPTIC_RAMP.html">SDL_HAPTIC_RAMP</a></li>
+<li><a href="SDL_HAPTIC_RESERVED1.html">SDL_HAPTIC_RESERVED1</a></li>
+<li><a href="SDL_HAPTIC_RESERVED2.html">SDL_HAPTIC_RESERVED2</a></li>
+<li><a href="SDL_HAPTIC_RESERVED3.html">SDL_HAPTIC_RESERVED3</a></li>
+<li><a href="SDL_HAPTIC_SAWTOOTHDOWN.html">SDL_HAPTIC_SAWTOOTHDOWN</a></li>
+<li><a href="SDL_HAPTIC_SAWTOOTHUP.html">SDL_HAPTIC_SAWTOOTHUP</a></li>
+<li><a href="SDL_HAPTIC_SINE.html">SDL_HAPTIC_SINE</a></li>
+<li><a href="SDL_HAPTIC_SPHERICAL.html">SDL_HAPTIC_SPHERICAL</a></li>
+<li><a href="SDL_HAPTIC_SPRING.html">SDL_HAPTIC_SPRING</a></li>
+<li><a href="SDL_HAPTIC_SQUARE.html">SDL_HAPTIC_SQUARE</a></li>
+<li><a href="SDL_HAPTIC_STATUS.html">SDL_HAPTIC_STATUS</a></li>
+<li><a href="SDL_HAPTIC_STEERING_AXIS.html">SDL_HAPTIC_STEERING_AXIS</a></li>
+<li><a href="SDL_HAPTIC_TRIANGLE.html">SDL_HAPTIC_TRIANGLE</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<hr />
+<p><a href="CategoryAPICategory.html">CategoryAPICategory</a></p>
+</body>
+</html>

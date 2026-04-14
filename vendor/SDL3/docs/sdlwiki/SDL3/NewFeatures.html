@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>NewFeatures</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">:root {
+color-scheme: dark light; 
+}
+body {
+background-color: white;
+padding: 2vw;
+color: #333;
+max-width: 1200px;
+margin: 0 auto;
+font-size: 16px;
+line-height: 1.5;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+overflow-wrap: break-word;
+}
+a {
+color: #0969da;
+
+}
+a:visited {
+color: #064998;
+}
+h1 {
+border-bottom: 2px solid #efefef;
+}
+h2 {
+border-bottom: 1px solid #efefef;
+}
+p {
+max-width: 85ch;
+}
+li {
+max-width: 85ch;
+}
+div.sourceCode {
+background-color: #f6f8fa;
+max-width: 100%;
+padding: 16px;
+}
+code {
+background-color: #f6f8fa;
+padding: 0px;
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+}
+table {
+border: 1px solid #808080;
+border-collapse: collapse;
+}
+td {
+border: 1px solid #808080;
+padding: 5px;
+}
+tr:nth-child(even) {
+background-color: #f6f8fa;
+}
+.wikitopbanner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #efefef;
+padding: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+.wikibottombanner {
+background-color: #efefef;
+padding: 10px;
+margin-top: 10px;
+width: auto;
+}
+.alertBox {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+max-width: 60%;
+padding: 10;
+margin: auto;
+}
+.anchorImage {
+visibility: hidden;
+padding-left: 0.2em;
+color: #fff;
+}
+.anchorText:hover .anchorImage {
+visibility: visible;
+}
+hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #efefef;
+margin: 1em 0;
+padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+color: #e6edf3;
+background-color: #0d1117;
+}
+h1 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+h2 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+hr {
+border-color: rgba(48, 54, 61, 0.7);
+}
+div.sourceCode {
+background-color: #161b22;
+}
+code {
+background-color: #161b22;
+}
+a {
+color: #4493f8;
+}
+a:visited {
+color: #2f66ad;
+}
+table {
+border-color: rgba(48, 54, 61, 0.7);
+}
+td {
+border-color: rgba(48, 54, 61, 0.7);
+}
+tr:nth-child(even) {
+background-color: #161b22;
+}
+.wikitopbanner {
+background-color: #263040;
+}
+.wikibottombanner {
+background-color: #263040;
+}
+.anchorText:hover .anchorImage {
+filter: invert(100%);
+}
+}
+@media print {
+body {
+font-size: 12px;
+}
+table {
+font-size: inherit;
+}
+a:visited {
+color: #0969da;
+}
+.wikitopbanner,
+.anchorText,
+.wikibottombanner {
+display: none;
+}
+}
+</style>
+  <style type="text/css"> code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+{ position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+{ content: attr(title);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; pointer-events: all; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+@media (prefers-color-scheme: dark) {
+code span.al { color: #95da4c; font-weight: bold; } 
+code span.an { color: #3f8058; } 
+code span.at { color: #2980b9; } 
+code span.bn { color: #f67400; } 
+code span.bu { color: #7f8c8d; } 
+code span.ch { color: #3daee9; } 
+code span.co { color: #7a7c7d; } 
+code span.cv { color: #7f8c8d; } 
+code span.cn { color: #27aeae; font-weight: bold; } 
+code span.cf { color: #fdbc4b; font-weight: bold; } 
+code span.dt { color: #2980b9; } 
+code span.dv { color: #f67400; } 
+code span.do { color: #a43340; } 
+code span.er { color: #da4453; } 
+code span.ex { color: #0099ff; font-weight: bold; } 
+code span.fl { color: #f67400; } 
+code span.fu { color: #8e44ad; } 
+code span.im { color: #27ae60; } 
+code span.in { color: #c45b00; } 
+code span.kw { color: #cfcfc2; font-weight: bold; } 
+code span.op { color: #cfcfc2; } 
+code span.ot { color: #27ae60; } 
+code span.pp { color: #27ae60; } 
+code span.sc { color: #3daee9; } 
+code span.ss { color: #da4453; } 
+code span.st { color: #f44f4f; } 
+code span.va { color: #27aeae; } 
+code span.vs { color: #da4453; } 
+code span.wa { color: #da4453; } 
+}</style>
+</head>
+<body>
+<h1 id="new-features-in-sdl3">New Features in SDL3</h1>
+<p>If you&#39;ve got an SDL2 app, you might be wondering if you should move
+to SDL3, or maybe just drop <a href="https://github.com/libsdl-org/sdl2-compat">sdl2-compat</a> into
+the mix.</p>
+<p>A lot of things you&#39;re already using in SDL2 are easier, more
+consistent, and just generally <em>better</em> in SDL3, so the upgrade
+can be worth it in any case, but here are some things that are <em>new
+features</em> in SDL3 that you might want access to:</p>
+<ul>
+<li><a href="APIByCategory.html">Extremely good documentation</a>: We&#39;ve
+spent a <em>ton</em> of effort writing and revising the API
+reference.</li>
+<li><a href="https://github.com/libsdl-org/SDL/tree/main/examples">Example
+programs</a> to get you started, <a href="https://examples.libsdl.org/">running in your web
+browser</a>!</li>
+<li>More consistent API naming conventions. Everything is named
+consistently across the API now, instead of different subsystems taking
+different approaches. Also, we&#39;ve tended toward more descriptive names
+for things in SDL3.</li>
+<li><a href="README-main-functions.html#main-callbacks-in-sdl3">Main
+Callbacks</a>: <em>optionally</em> run your program from callbacks
+instead of <code>main()</code>.</li>
+<li><a href="CategoryGPU.html">GPU API</a>: access to modern 3D
+rendering and GPU compute in a cross-platform way.</li>
+<li><a href="CategoryDialog.html">Dialog API</a>: access to system file
+dialogs (file and folder selection UI for opening/saving).</li>
+<li><a href="CategoryFilesystem.html">Filesystem API</a>: simple
+directory management and globbing, access to topic-specific user
+folders.</li>
+<li><a href="CategoryStorage.html">Storage API</a>: Abstract interface
+to platform-specific storage.</li>
+<li><a href="CategoryCamera.html">Camera API</a>: access to
+webcams.</li>
+<li><a href="CategoryPen.html">Pen API</a>: access to pens (like Wacom
+tablets and Apple Pencil, etc).</li>
+<li><a href="SDL_OpenAudioDevice.html">Logical audio devices</a>:
+different parts of an app can get their own unique audio device to
+use.</li>
+<li><a href="SDL_CreateAudioStream.html">Audio streams</a>: handle
+buffering, converting, resampling, mixing, channel mapping, pitch, and
+gain. Bind to an audio device and go!</li>
+<li><a href="SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK.html">Default audio
+devices</a>: SDL3 will automatically manage migrating to new physical
+hardware as devices are plugged in, ripped out, or changed.</li>
+<li><a href="CategoryAsyncIO.html">Asynchronous I/O</a>: Start file
+reads/writes, come back later to get the results. Can use Windows IoRing
+and Linux io_uring behind the scenes!</li>
+<li><a href="CategoryTime.html">Time API</a>: date and time
+functionality beyond ticks and performance counters.</li>
+<li><a href="CategoryProperties.html">Properties API</a>: fast, flexible
+dictionaries of name/value pairs.</li>
+<li><a href="CategoryProcess.html">Process API</a>: Spawn child
+processes and communicate with them in various ways.</li>
+<li><a href="SDL_Colorspace.html">Colorspace support</a>: Surfaces and
+the renderer, etc, can manage multiple colorspaces.</li>
+<li><a href="SDL_AddSurfaceAlternateImage.html">Alternate surface
+representations</a> for embedding HiDPI versions of images into a single
+SDL_Surface.</li>
+<li>The Clipboard API <a href="SDL_SetClipboardData.html">can support
+any data type</a> (SDL2 only handled text), and apps can provide data in
+multiple formats upon request in <a href="SDL_ClipboardDataCallback.html">a provided callback</a>.</li>
+<li>Multiple <a href="SDL_GetKeyboards.html">keyboards</a> and <a href="SDL_GetMice.html">mice</a> can be managed separately.</li>
+<li><a href="SDL_GetSystemTheme.html">System theme</a> (light, dark) can
+be queried.</li>
+<li><a href="BestKeyboardPractices.html">Better keyboard input</a>, for
+all your keypress needs.</li>
+<li><a href="SDL_StartTextInputWithProperties.html">Customizable virtual
+keyboards</a> on iOS and Android.</li>
+<li><a href="SDL_strcasecmp.html">Unicode-friendly case-insensitive
+string comparison</a>.</li>
+<li>HiDPI support is dramatically improved over SDL2.</li>
+<li><a href="CategoryTray.html">System Tray API</a>: Create custom
+system tray/notification area icons and menus.</li>
+<li><a href="SDL_SetAppMetadata.html">App metadata API</a> for letting
+SDL report things about your app correctly (like in the About dialog on
+macOS, etc).</li>
+<li><a href="SDL_CreateRWLock.html">Read/write thread locks</a>, to let
+multiple threads access rarely-changing data in parallel.</li>
+<li><a href="SDL_InitState.html">Init State</a> to help with multiple
+threads that might need to initialize something on-demand without
+racing.</li>
+<li>64-bit <a href="SDL_GetTicks.html">SDL_GetTicks</a>: No more
+worrying about timer wraparound every ~49 days!</li>
+<li><a href="SDL_GetTicksNS.html">SDL_GetTicksNS</a>: when milliseconds
+won&#39;t cut it, you can use nanoseconds!</li>
+<li><a href="SDL_DelayPrecise.html">SDL_DelayPrecise</a>:
+Nanosecond-precision waits, using a mixture of OS-level sleeps and
+busy-waits.</li>
+<li><a href="SDL_RunOnMainThread.html">SDL_RunOnMainThread</a>: dispatch
+arbitrary code to the main thread, for those pesky OS requirements.</li>
+<li><a href="SDL_SyncWindow.html">Async windowing</a></li>
+<li>(More new features are still coming to SDL3, so check back here
+later!)</li>
+</ul>
+<p>If you are looking to move to SDL3 so you can start using these new
+features, you should take a look at <a href="README-migration.html">README-migration</a> for all the
+details.</p>
+</body>
+</html>

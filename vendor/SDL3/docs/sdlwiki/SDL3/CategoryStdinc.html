@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>CategoryStdinc</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">:root {
+color-scheme: dark light; 
+}
+body {
+background-color: white;
+padding: 2vw;
+color: #333;
+max-width: 1200px;
+margin: 0 auto;
+font-size: 16px;
+line-height: 1.5;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+overflow-wrap: break-word;
+}
+a {
+color: #0969da;
+
+}
+a:visited {
+color: #064998;
+}
+h1 {
+border-bottom: 2px solid #efefef;
+}
+h2 {
+border-bottom: 1px solid #efefef;
+}
+p {
+max-width: 85ch;
+}
+li {
+max-width: 85ch;
+}
+div.sourceCode {
+background-color: #f6f8fa;
+max-width: 100%;
+padding: 16px;
+}
+code {
+background-color: #f6f8fa;
+padding: 0px;
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+}
+table {
+border: 1px solid #808080;
+border-collapse: collapse;
+}
+td {
+border: 1px solid #808080;
+padding: 5px;
+}
+tr:nth-child(even) {
+background-color: #f6f8fa;
+}
+.wikitopbanner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #efefef;
+padding: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+.wikibottombanner {
+background-color: #efefef;
+padding: 10px;
+margin-top: 10px;
+width: auto;
+}
+.alertBox {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+max-width: 60%;
+padding: 10;
+margin: auto;
+}
+.anchorImage {
+visibility: hidden;
+padding-left: 0.2em;
+color: #fff;
+}
+.anchorText:hover .anchorImage {
+visibility: visible;
+}
+hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #efefef;
+margin: 1em 0;
+padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+color: #e6edf3;
+background-color: #0d1117;
+}
+h1 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+h2 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+hr {
+border-color: rgba(48, 54, 61, 0.7);
+}
+div.sourceCode {
+background-color: #161b22;
+}
+code {
+background-color: #161b22;
+}
+a {
+color: #4493f8;
+}
+a:visited {
+color: #2f66ad;
+}
+table {
+border-color: rgba(48, 54, 61, 0.7);
+}
+td {
+border-color: rgba(48, 54, 61, 0.7);
+}
+tr:nth-child(even) {
+background-color: #161b22;
+}
+.wikitopbanner {
+background-color: #263040;
+}
+.wikibottombanner {
+background-color: #263040;
+}
+.anchorText:hover .anchorImage {
+filter: invert(100%);
+}
+}
+@media print {
+body {
+font-size: 12px;
+}
+table {
+font-size: inherit;
+}
+a:visited {
+color: #0969da;
+}
+.wikitopbanner,
+.anchorText,
+.wikibottombanner {
+display: none;
+}
+}
+</style>
+  <style type="text/css"> code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+{ position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+{ content: attr(title);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; pointer-events: all; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+@media (prefers-color-scheme: dark) {
+code span.al { color: #95da4c; font-weight: bold; } 
+code span.an { color: #3f8058; } 
+code span.at { color: #2980b9; } 
+code span.bn { color: #f67400; } 
+code span.bu { color: #7f8c8d; } 
+code span.ch { color: #3daee9; } 
+code span.co { color: #7a7c7d; } 
+code span.cv { color: #7f8c8d; } 
+code span.cn { color: #27aeae; font-weight: bold; } 
+code span.cf { color: #fdbc4b; font-weight: bold; } 
+code span.dt { color: #2980b9; } 
+code span.dv { color: #f67400; } 
+code span.do { color: #a43340; } 
+code span.er { color: #da4453; } 
+code span.ex { color: #0099ff; font-weight: bold; } 
+code span.fl { color: #f67400; } 
+code span.fu { color: #8e44ad; } 
+code span.im { color: #27ae60; } 
+code span.in { color: #c45b00; } 
+code span.kw { color: #cfcfc2; font-weight: bold; } 
+code span.op { color: #cfcfc2; } 
+code span.ot { color: #27ae60; } 
+code span.pp { color: #27ae60; } 
+code span.sc { color: #3daee9; } 
+code span.ss { color: #da4453; } 
+code span.st { color: #f44f4f; } 
+code span.va { color: #27aeae; } 
+code span.vs { color: #da4453; } 
+code span.wa { color: #da4453; } 
+}</style>
+</head>
+<body>
+<h1 id="categorystdinc">CategoryStdinc</h1>
+<p>SDL provides its own implementation of some of the most important C
+runtime functions.</p>
+<p>Using these functions allows an app to have access to common C
+functionality without depending on a specific C runtime (or a C runtime
+at all). More importantly, the SDL implementations work identically
+across platforms, so apps can avoid surprises like snprintf() behaving
+differently between Windows and Linux builds, or itoa() only existing on
+some platforms.</p>
+<p>For many of the most common functions, like <a href="SDL_memcpy.html">SDL_memcpy</a>, SDL might just call through to
+the usual C runtime behind the scenes, if it makes sense to do so (if
+it&#39;s faster and always available/reliable on a given platform), reducing
+library size and offering the most optimized option.</p>
+<p>SDL also offers other C-runtime-adjacent functionality in this header
+that either isn&#39;t, strictly speaking, part of any C runtime standards,
+like <a href="SDL_crc32.html">SDL_crc32</a>() and <a href="SDL_reinterpret_cast.html">SDL_reinterpret_cast</a>, etc. It also
+offers a few better options, like <a href="SDL_strlcpy.html">SDL_strlcpy</a>(), which functions as a safer
+form of strcpy().</p>
+<!-- END CATEGORY DOCUMENTATION -->
+
+<h2 id="functions">Functions</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryStdinc, CategoryAPIFunction -->
+
+<ul>
+<li><a href="SDL_abs.html">SDL_abs</a></li>
+<li><a href="SDL_acos.html">SDL_acos</a></li>
+<li><a href="SDL_acosf.html">SDL_acosf</a></li>
+<li><a href="SDL_aligned_alloc.html">SDL_aligned_alloc</a></li>
+<li><a href="SDL_aligned_free.html">SDL_aligned_free</a></li>
+<li><a href="SDL_asin.html">SDL_asin</a></li>
+<li><a href="SDL_asinf.html">SDL_asinf</a></li>
+<li><a href="SDL_asprintf.html">SDL_asprintf</a></li>
+<li><a href="SDL_atan.html">SDL_atan</a></li>
+<li><a href="SDL_atan2.html">SDL_atan2</a></li>
+<li><a href="SDL_atan2f.html">SDL_atan2f</a></li>
+<li><a href="SDL_atanf.html">SDL_atanf</a></li>
+<li><a href="SDL_atof.html">SDL_atof</a></li>
+<li><a href="SDL_atoi.html">SDL_atoi</a></li>
+<li><a href="SDL_bsearch.html">SDL_bsearch</a></li>
+<li><a href="SDL_bsearch_r.html">SDL_bsearch_r</a></li>
+<li><a href="SDL_calloc.html">SDL_calloc</a></li>
+<li><a href="SDL_ceil.html">SDL_ceil</a></li>
+<li><a href="SDL_ceilf.html">SDL_ceilf</a></li>
+<li><a href="SDL_copysign.html">SDL_copysign</a></li>
+<li><a href="SDL_copysignf.html">SDL_copysignf</a></li>
+<li><a href="SDL_cos.html">SDL_cos</a></li>
+<li><a href="SDL_cosf.html">SDL_cosf</a></li>
+<li><a href="SDL_crc16.html">SDL_crc16</a></li>
+<li><a href="SDL_crc32.html">SDL_crc32</a></li>
+<li><a href="SDL_CreateEnvironment.html">SDL_CreateEnvironment</a></li>
+<li><a href="SDL_DestroyEnvironment.html">SDL_DestroyEnvironment</a></li>
+<li><a href="SDL_exp.html">SDL_exp</a></li>
+<li><a href="SDL_expf.html">SDL_expf</a></li>
+<li><a href="SDL_fabs.html">SDL_fabs</a></li>
+<li><a href="SDL_fabsf.html">SDL_fabsf</a></li>
+<li><a href="SDL_floor.html">SDL_floor</a></li>
+<li><a href="SDL_floorf.html">SDL_floorf</a></li>
+<li><a href="SDL_fmod.html">SDL_fmod</a></li>
+<li><a href="SDL_fmodf.html">SDL_fmodf</a></li>
+<li><a href="SDL_free.html">SDL_free</a></li>
+<li><a href="SDL_getenv.html">SDL_getenv</a></li>
+<li><a href="SDL_getenv_unsafe.html">SDL_getenv_unsafe</a></li>
+<li><a href="SDL_GetEnvironment.html">SDL_GetEnvironment</a></li>
+<li><a href="SDL_GetEnvironmentVariable.html">SDL_GetEnvironmentVariable</a></li>
+<li><a href="SDL_GetEnvironmentVariables.html">SDL_GetEnvironmentVariables</a></li>
+<li><a href="SDL_GetMemoryFunctions.html">SDL_GetMemoryFunctions</a></li>
+<li><a href="SDL_GetNumAllocations.html">SDL_GetNumAllocations</a></li>
+<li><a href="SDL_GetOriginalMemoryFunctions.html">SDL_GetOriginalMemoryFunctions</a></li>
+<li><a href="SDL_iconv.html">SDL_iconv</a></li>
+<li><a href="SDL_iconv_close.html">SDL_iconv_close</a></li>
+<li><a href="SDL_iconv_open.html">SDL_iconv_open</a></li>
+<li><a href="SDL_iconv_string.html">SDL_iconv_string</a></li>
+<li><a href="SDL_isalnum.html">SDL_isalnum</a></li>
+<li><a href="SDL_isalpha.html">SDL_isalpha</a></li>
+<li><a href="SDL_isblank.html">SDL_isblank</a></li>
+<li><a href="SDL_iscntrl.html">SDL_iscntrl</a></li>
+<li><a href="SDL_isdigit.html">SDL_isdigit</a></li>
+<li><a href="SDL_isgraph.html">SDL_isgraph</a></li>
+<li><a href="SDL_isinf.html">SDL_isinf</a></li>
+<li><a href="SDL_isinff.html">SDL_isinff</a></li>
+<li><a href="SDL_islower.html">SDL_islower</a></li>
+<li><a href="SDL_isnan.html">SDL_isnan</a></li>
+<li><a href="SDL_isnanf.html">SDL_isnanf</a></li>
+<li><a href="SDL_isprint.html">SDL_isprint</a></li>
+<li><a href="SDL_ispunct.html">SDL_ispunct</a></li>
+<li><a href="SDL_isspace.html">SDL_isspace</a></li>
+<li><a href="SDL_isupper.html">SDL_isupper</a></li>
+<li><a href="SDL_isxdigit.html">SDL_isxdigit</a></li>
+<li><a href="SDL_itoa.html">SDL_itoa</a></li>
+<li><a href="SDL_lltoa.html">SDL_lltoa</a></li>
+<li><a href="SDL_log.html">SDL_log</a></li>
+<li><a href="SDL_log10.html">SDL_log10</a></li>
+<li><a href="SDL_log10f.html">SDL_log10f</a></li>
+<li><a href="SDL_logf.html">SDL_logf</a></li>
+<li><a href="SDL_lround.html">SDL_lround</a></li>
+<li><a href="SDL_lroundf.html">SDL_lroundf</a></li>
+<li><a href="SDL_ltoa.html">SDL_ltoa</a></li>
+<li><a href="SDL_malloc.html">SDL_malloc</a></li>
+<li><a href="SDL_memcmp.html">SDL_memcmp</a></li>
+<li><a href="SDL_memcpy.html">SDL_memcpy</a></li>
+<li><a href="SDL_memmove.html">SDL_memmove</a></li>
+<li><a href="SDL_memset.html">SDL_memset</a></li>
+<li><a href="SDL_memset4.html">SDL_memset4</a></li>
+<li><a href="SDL_modf.html">SDL_modf</a></li>
+<li><a href="SDL_modff.html">SDL_modff</a></li>
+<li><a href="SDL_murmur3_32.html">SDL_murmur3_32</a></li>
+<li><a href="SDL_pow.html">SDL_pow</a></li>
+<li><a href="SDL_powf.html">SDL_powf</a></li>
+<li><a href="SDL_qsort.html">SDL_qsort</a></li>
+<li><a href="SDL_qsort_r.html">SDL_qsort_r</a></li>
+<li><a href="SDL_rand.html">SDL_rand</a></li>
+<li><a href="SDL_rand_bits.html">SDL_rand_bits</a></li>
+<li><a href="SDL_rand_bits_r.html">SDL_rand_bits_r</a></li>
+<li><a href="SDL_rand_r.html">SDL_rand_r</a></li>
+<li><a href="SDL_randf.html">SDL_randf</a></li>
+<li><a href="SDL_randf_r.html">SDL_randf_r</a></li>
+<li><a href="SDL_realloc.html">SDL_realloc</a></li>
+<li><a href="SDL_round.html">SDL_round</a></li>
+<li><a href="SDL_roundf.html">SDL_roundf</a></li>
+<li><a href="SDL_scalbn.html">SDL_scalbn</a></li>
+<li><a href="SDL_scalbnf.html">SDL_scalbnf</a></li>
+<li><a href="SDL_setenv_unsafe.html">SDL_setenv_unsafe</a></li>
+<li><a href="SDL_SetEnvironmentVariable.html">SDL_SetEnvironmentVariable</a></li>
+<li><a href="SDL_SetMemoryFunctions.html">SDL_SetMemoryFunctions</a></li>
+<li><a href="SDL_sin.html">SDL_sin</a></li>
+<li><a href="SDL_sinf.html">SDL_sinf</a></li>
+<li><a href="SDL_size_add_check_overflow.html">SDL_size_add_check_overflow</a></li>
+<li><a href="SDL_size_mul_check_overflow.html">SDL_size_mul_check_overflow</a></li>
+<li><a href="SDL_snprintf.html">SDL_snprintf</a></li>
+<li><a href="SDL_sqrt.html">SDL_sqrt</a></li>
+<li><a href="SDL_sqrtf.html">SDL_sqrtf</a></li>
+<li><a href="SDL_srand.html">SDL_srand</a></li>
+<li><a href="SDL_sscanf.html">SDL_sscanf</a></li>
+<li><a href="SDL_StepBackUTF8.html">SDL_StepBackUTF8</a></li>
+<li><a href="SDL_StepUTF8.html">SDL_StepUTF8</a></li>
+<li><a href="SDL_strcasecmp.html">SDL_strcasecmp</a></li>
+<li><a href="SDL_strcasestr.html">SDL_strcasestr</a></li>
+<li><a href="SDL_strchr.html">SDL_strchr</a></li>
+<li><a href="SDL_strcmp.html">SDL_strcmp</a></li>
+<li><a href="SDL_strdup.html">SDL_strdup</a></li>
+<li><a href="SDL_strlcat.html">SDL_strlcat</a></li>
+<li><a href="SDL_strlcpy.html">SDL_strlcpy</a></li>
+<li><a href="SDL_strlen.html">SDL_strlen</a></li>
+<li><a href="SDL_strlwr.html">SDL_strlwr</a></li>
+<li><a href="SDL_strncasecmp.html">SDL_strncasecmp</a></li>
+<li><a href="SDL_strncmp.html">SDL_strncmp</a></li>
+<li><a href="SDL_strndup.html">SDL_strndup</a></li>
+<li><a href="SDL_strnlen.html">SDL_strnlen</a></li>
+<li><a href="SDL_strnstr.html">SDL_strnstr</a></li>
+<li><a href="SDL_strpbrk.html">SDL_strpbrk</a></li>
+<li><a href="SDL_strrchr.html">SDL_strrchr</a></li>
+<li><a href="SDL_strrev.html">SDL_strrev</a></li>
+<li><a href="SDL_strstr.html">SDL_strstr</a></li>
+<li><a href="SDL_strtod.html">SDL_strtod</a></li>
+<li><a href="SDL_strtok_r.html">SDL_strtok_r</a></li>
+<li><a href="SDL_strtol.html">SDL_strtol</a></li>
+<li><a href="SDL_strtoll.html">SDL_strtoll</a></li>
+<li><a href="SDL_strtoul.html">SDL_strtoul</a></li>
+<li><a href="SDL_strtoull.html">SDL_strtoull</a></li>
+<li><a href="SDL_strupr.html">SDL_strupr</a></li>
+<li><a href="SDL_swprintf.html">SDL_swprintf</a></li>
+<li><a href="SDL_tan.html">SDL_tan</a></li>
+<li><a href="SDL_tanf.html">SDL_tanf</a></li>
+<li><a href="SDL_tolower.html">SDL_tolower</a></li>
+<li><a href="SDL_toupper.html">SDL_toupper</a></li>
+<li><a href="SDL_trunc.html">SDL_trunc</a></li>
+<li><a href="SDL_truncf.html">SDL_truncf</a></li>
+<li><a href="SDL_UCS4ToUTF8.html">SDL_UCS4ToUTF8</a></li>
+<li><a href="SDL_uitoa.html">SDL_uitoa</a></li>
+<li><a href="SDL_ulltoa.html">SDL_ulltoa</a></li>
+<li><a href="SDL_ultoa.html">SDL_ultoa</a></li>
+<li><a href="SDL_unsetenv_unsafe.html">SDL_unsetenv_unsafe</a></li>
+<li><a href="SDL_UnsetEnvironmentVariable.html">SDL_UnsetEnvironmentVariable</a></li>
+<li><a href="SDL_utf8strlcpy.html">SDL_utf8strlcpy</a></li>
+<li><a href="SDL_utf8strlen.html">SDL_utf8strlen</a></li>
+<li><a href="SDL_utf8strnlen.html">SDL_utf8strnlen</a></li>
+<li><a href="SDL_vasprintf.html">SDL_vasprintf</a></li>
+<li><a href="SDL_vsnprintf.html">SDL_vsnprintf</a></li>
+<li><a href="SDL_vsscanf.html">SDL_vsscanf</a></li>
+<li><a href="SDL_vswprintf.html">SDL_vswprintf</a></li>
+<li><a href="SDL_wcscasecmp.html">SDL_wcscasecmp</a></li>
+<li><a href="SDL_wcscmp.html">SDL_wcscmp</a></li>
+<li><a href="SDL_wcsdup.html">SDL_wcsdup</a></li>
+<li><a href="SDL_wcslcat.html">SDL_wcslcat</a></li>
+<li><a href="SDL_wcslcpy.html">SDL_wcslcpy</a></li>
+<li><a href="SDL_wcslen.html">SDL_wcslen</a></li>
+<li><a href="SDL_wcsncasecmp.html">SDL_wcsncasecmp</a></li>
+<li><a href="SDL_wcsncmp.html">SDL_wcsncmp</a></li>
+<li><a href="SDL_wcsnlen.html">SDL_wcsnlen</a></li>
+<li><a href="SDL_wcsnstr.html">SDL_wcsnstr</a></li>
+<li><a href="SDL_wcsstr.html">SDL_wcsstr</a></li>
+<li><a href="SDL_wcstol.html">SDL_wcstol</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<h2 id="datatypes">Datatypes</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryStdinc, CategoryAPIDatatype -->
+
+<ul>
+<li><a href="SDL_calloc_func.html">SDL_calloc_func</a></li>
+<li><a href="SDL_CompareCallback.html">SDL_CompareCallback</a></li>
+<li><a href="SDL_CompareCallback_r.html">SDL_CompareCallback_r</a></li>
+<li><a href="SDL_Environment.html">SDL_Environment</a></li>
+<li><a href="SDL_free_func.html">SDL_free_func</a></li>
+<li><a href="SDL_FunctionPointer.html">SDL_FunctionPointer</a></li>
+<li><a href="SDL_iconv_t.html">SDL_iconv_t</a></li>
+<li><a href="SDL_malloc_func.html">SDL_malloc_func</a></li>
+<li><a href="SDL_realloc_func.html">SDL_realloc_func</a></li>
+<li><a href="SDL_Time.html">SDL_Time</a></li>
+<li><a href="Sint16.html">Sint16</a></li>
+<li><a href="Sint32.html">Sint32</a></li>
+<li><a href="Sint64.html">Sint64</a></li>
+<li><a href="Sint8.html">Sint8</a></li>
+<li><a href="Uint16.html">Uint16</a></li>
+<li><a href="Uint32.html">Uint32</a></li>
+<li><a href="Uint64.html">Uint64</a></li>
+<li><a href="Uint8.html">Uint8</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<h2 id="structs">Structs</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryStdinc, CategoryAPIStruct -->
+
+<ul>
+<li>(none.)</li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<h2 id="enums">Enums</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryStdinc, CategoryAPIEnum -->
+
+<ul>
+<li>(none.)</li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<h2 id="macros">Macros</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryStdinc, CategoryAPIMacro -->
+
+<ul>
+<li><a href="SDL_arraysize.html">SDL_arraysize</a></li>
+<li><a href="SDL_clamp.html">SDL_clamp</a></li>
+<li><a href="SDL_COMPILE_TIME_ASSERT.html">SDL_COMPILE_TIME_ASSERT</a></li>
+<li><a href="SDL_const_cast.html">SDL_const_cast</a></li>
+<li><a href="SDL_copyp.html">SDL_copyp</a></li>
+<li><a href="SDL_FLT_EPSILON.html">SDL_FLT_EPSILON</a></li>
+<li><a href="SDL_FOURCC.html">SDL_FOURCC</a></li>
+<li><a href="SDL_iconv_utf8_locale.html">SDL_iconv_utf8_locale</a></li>
+<li><a href="SDL_iconv_utf8_ucs2.html">SDL_iconv_utf8_ucs2</a></li>
+<li><a href="SDL_iconv_utf8_ucs4.html">SDL_iconv_utf8_ucs4</a></li>
+<li><a href="SDL_iconv_wchar_utf8.html">SDL_iconv_wchar_utf8</a></li>
+<li><a href="SDL_IN_BYTECAP.html">SDL_IN_BYTECAP</a></li>
+<li><a href="SDL_INIT_INTERFACE.html">SDL_INIT_INTERFACE</a></li>
+<li><a href="SDL_INOUT_Z_CAP.html">SDL_INOUT_Z_CAP</a></li>
+<li><a href="SDL_INVALID_UNICODE_CODEPOINT.html">SDL_INVALID_UNICODE_CODEPOINT</a></li>
+<li><a href="SDL_max.html">SDL_max</a></li>
+<li><a href="SDL_min.html">SDL_min</a></li>
+<li><a href="SDL_NOLONGLONG.html">SDL_NOLONGLONG</a></li>
+<li><a href="SDL_OUT_BYTECAP.html">SDL_OUT_BYTECAP</a></li>
+<li><a href="SDL_OUT_CAP.html">SDL_OUT_CAP</a></li>
+<li><a href="SDL_OUT_Z_BYTECAP.html">SDL_OUT_Z_BYTECAP</a></li>
+<li><a href="SDL_OUT_Z_CAP.html">SDL_OUT_Z_CAP</a></li>
+<li><a href="SDL_PI_D.html">SDL_PI_D</a></li>
+<li><a href="SDL_PI_F.html">SDL_PI_F</a></li>
+<li><a href="SDL_PRILL_PREFIX.html">SDL_PRILL_PREFIX</a></li>
+<li><a href="SDL_PRILLd.html">SDL_PRILLd</a></li>
+<li><a href="SDL_PRILLu.html">SDL_PRILLu</a></li>
+<li><a href="SDL_PRILLx.html">SDL_PRILLx</a></li>
+<li><a href="SDL_PRILLX.html">SDL_PRILLX</a></li>
+<li><a href="SDL_PRINTF_FORMAT_STRING.html">SDL_PRINTF_FORMAT_STRING</a></li>
+<li><a href="SDL_PRINTF_VARARG_FUNC.html">SDL_PRINTF_VARARG_FUNC</a></li>
+<li><a href="SDL_PRINTF_VARARG_FUNCV.html">SDL_PRINTF_VARARG_FUNCV</a></li>
+<li><a href="SDL_PRIs32.html">SDL_PRIs32</a></li>
+<li><a href="SDL_PRIs64.html">SDL_PRIs64</a></li>
+<li><a href="SDL_PRIu32.html">SDL_PRIu32</a></li>
+<li><a href="SDL_PRIu64.html">SDL_PRIu64</a></li>
+<li><a href="SDL_PRIX32.html">SDL_PRIX32</a></li>
+<li><a href="SDL_PRIx32.html">SDL_PRIx32</a></li>
+<li><a href="SDL_PRIx64.html">SDL_PRIx64</a></li>
+<li><a href="SDL_PRIX64.html">SDL_PRIX64</a></li>
+<li><a href="SDL_reinterpret_cast.html">SDL_reinterpret_cast</a></li>
+<li><a href="SDL_SCANF_FORMAT_STRING.html">SDL_SCANF_FORMAT_STRING</a></li>
+<li><a href="SDL_SCANF_VARARG_FUNC.html">SDL_SCANF_VARARG_FUNC</a></li>
+<li><a href="SDL_SCANF_VARARG_FUNCV.html">SDL_SCANF_VARARG_FUNCV</a></li>
+<li><a href="SDL_SINT64_C.html">SDL_SINT64_C</a></li>
+<li><a href="SDL_SIZE_MAX.html">SDL_SIZE_MAX</a></li>
+<li><a href="SDL_stack_alloc.html">SDL_stack_alloc</a></li>
+<li><a href="SDL_stack_free.html">SDL_stack_free</a></li>
+<li><a href="SDL_static_cast.html">SDL_static_cast</a></li>
+<li><a href="SDL_STRINGIFY_ARG.html">SDL_STRINGIFY_ARG</a></li>
+<li><a href="SDL_UINT64_C.html">SDL_UINT64_C</a></li>
+<li><a href="SDL_WPRINTF_VARARG_FUNC.html">SDL_WPRINTF_VARARG_FUNC</a></li>
+<li><a href="SDL_WPRINTF_VARARG_FUNCV.html">SDL_WPRINTF_VARARG_FUNCV</a></li>
+<li><a href="SDL_zero.html">SDL_zero</a></li>
+<li><a href="SDL_zeroa.html">SDL_zeroa</a></li>
+<li><a href="SDL_zerop.html">SDL_zerop</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<hr />
+<p><a href="CategoryAPICategory.html">CategoryAPICategory</a></p>
+</body>
+</html>

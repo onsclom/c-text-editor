@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>README-cmake</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">:root {
+color-scheme: dark light; 
+}
+body {
+background-color: white;
+padding: 2vw;
+color: #333;
+max-width: 1200px;
+margin: 0 auto;
+font-size: 16px;
+line-height: 1.5;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+overflow-wrap: break-word;
+}
+a {
+color: #0969da;
+
+}
+a:visited {
+color: #064998;
+}
+h1 {
+border-bottom: 2px solid #efefef;
+}
+h2 {
+border-bottom: 1px solid #efefef;
+}
+p {
+max-width: 85ch;
+}
+li {
+max-width: 85ch;
+}
+div.sourceCode {
+background-color: #f6f8fa;
+max-width: 100%;
+padding: 16px;
+}
+code {
+background-color: #f6f8fa;
+padding: 0px;
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+}
+table {
+border: 1px solid #808080;
+border-collapse: collapse;
+}
+td {
+border: 1px solid #808080;
+padding: 5px;
+}
+tr:nth-child(even) {
+background-color: #f6f8fa;
+}
+.wikitopbanner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #efefef;
+padding: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+.wikibottombanner {
+background-color: #efefef;
+padding: 10px;
+margin-top: 10px;
+width: auto;
+}
+.alertBox {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+max-width: 60%;
+padding: 10;
+margin: auto;
+}
+.anchorImage {
+visibility: hidden;
+padding-left: 0.2em;
+color: #fff;
+}
+.anchorText:hover .anchorImage {
+visibility: visible;
+}
+hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #efefef;
+margin: 1em 0;
+padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+color: #e6edf3;
+background-color: #0d1117;
+}
+h1 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+h2 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+hr {
+border-color: rgba(48, 54, 61, 0.7);
+}
+div.sourceCode {
+background-color: #161b22;
+}
+code {
+background-color: #161b22;
+}
+a {
+color: #4493f8;
+}
+a:visited {
+color: #2f66ad;
+}
+table {
+border-color: rgba(48, 54, 61, 0.7);
+}
+td {
+border-color: rgba(48, 54, 61, 0.7);
+}
+tr:nth-child(even) {
+background-color: #161b22;
+}
+.wikitopbanner {
+background-color: #263040;
+}
+.wikibottombanner {
+background-color: #263040;
+}
+.anchorText:hover .anchorImage {
+filter: invert(100%);
+}
+}
+@media print {
+body {
+font-size: 12px;
+}
+table {
+font-size: inherit;
+}
+a:visited {
+color: #0969da;
+}
+.wikitopbanner,
+.anchorText,
+.wikibottombanner {
+display: none;
+}
+}
+</style>
+  <style type="text/css"> code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+{ position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+{ content: attr(title);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; pointer-events: all; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+@media (prefers-color-scheme: dark) {
+code span.al { color: #95da4c; font-weight: bold; } 
+code span.an { color: #3f8058; } 
+code span.at { color: #2980b9; } 
+code span.bn { color: #f67400; } 
+code span.bu { color: #7f8c8d; } 
+code span.ch { color: #3daee9; } 
+code span.co { color: #7a7c7d; } 
+code span.cv { color: #7f8c8d; } 
+code span.cn { color: #27aeae; font-weight: bold; } 
+code span.cf { color: #fdbc4b; font-weight: bold; } 
+code span.dt { color: #2980b9; } 
+code span.dv { color: #f67400; } 
+code span.do { color: #a43340; } 
+code span.er { color: #da4453; } 
+code span.ex { color: #0099ff; font-weight: bold; } 
+code span.fl { color: #f67400; } 
+code span.fu { color: #8e44ad; } 
+code span.im { color: #27ae60; } 
+code span.in { color: #c45b00; } 
+code span.kw { color: #cfcfc2; font-weight: bold; } 
+code span.op { color: #cfcfc2; } 
+code span.ot { color: #27ae60; } 
+code span.pp { color: #27ae60; } 
+code span.sc { color: #3daee9; } 
+code span.ss { color: #da4453; } 
+code span.st { color: #f44f4f; } 
+code span.va { color: #27aeae; } 
+code span.vs { color: #da4453; } 
+code span.wa { color: #da4453; } 
+}</style>
+</head>
+<body>
+<h1 id="cmake">CMake</h1>
+<p><a href="https://www.cmake.org/"><span>www.cmake.org</span></a></p>
+<p>The CMake build system is supported with the following
+environments:</p>
+<ul>
+<li>Android</li>
+<li>Emscripten</li>
+<li>FreeBSD</li>
+<li>Haiku</li>
+<li>Linux</li>
+<li>macOS, iOS, tvOS, and visionOS with support for XCode</li>
+<li>Microsoft Visual Studio</li>
+<li>MinGW and Msys</li>
+<li>NetBSD</li>
+<li>Nintendo 3DS</li>
+<li>PlayStation 2</li>
+<li>PlayStation Portable</li>
+<li>PlayStation Vita</li>
+<li>RISC OS</li>
+</ul>
+<h2 id="building-sdl-on-windows">Building SDL on Windows</h2>
+<p>Assuming you&#39;re in the SDL source directory, building and installing
+to C:/SDL can be done with:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">-S</span> . <span class="at">-B</span> build</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">--build</span> build <span class="at">--config</span> RelWithDebInfo</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">--install</span> build <span class="at">--config</span> RelWithDebInfo <span class="at">--prefix</span> C:/SDL</span></code></pre></div>
+<h2 id="building-sdl-on-unix">Building SDL on UNIX</h2>
+<p>SDL will build with very few dependencies, but for full functionality
+you should install the packages detailed in <a href="README-linux.html">README-linux.md</a>.</p>
+<p>Assuming you&#39;re in the SDL source directory, building and installing
+to /usr/local can be done with:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">-S</span> . <span class="at">-B</span> build</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">--build</span> build</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> cmake <span class="at">--install</span> build <span class="at">--prefix</span> /usr/local</span></code></pre></div>
+<h2 id="building-sdl-on-macos">Building SDL on macOS</h2>
+<p>Assuming you&#39;re in the SDL source directory, building and installing
+to ~/SDL can be done with:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">-S</span> . <span class="at">-B</span> build <span class="at">-DSDL_FRAMEWORK</span><span class="op">=</span>ON <span class="at">-DCMAKE_OSX_ARCHITECTURES</span><span class="op">=</span><span class="st">&quot;arm64;x86_64&quot;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">--build</span> build</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">--install</span> build <span class="at">--prefix</span> ~/SDL</span></code></pre></div>
+<h2 id="building-sdl-tests">Building SDL tests</h2>
+<p>You can build the SDL test programs by adding
+<code>-DSDL_TESTS=ON</code> to the first cmake command above:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">-S</span> . <span class="at">-B</span> build <span class="at">-DSDL_TESTS</span><span class="op">=</span>ON</span></code></pre></div>
+<p>and then building normally. The test programs will be built and can
+be run from <code>build/test/</code>.</p>
+<h2 id="building-sdl-examples">Building SDL examples</h2>
+<p>You can build the SDL example programs by adding
+<code>-DSDL_EXAMPLES=ON</code> to the first cmake command above:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">-S</span> . <span class="at">-B</span> build <span class="at">-DSDL_EXAMPLES</span><span class="op">=</span>ON</span></code></pre></div>
+<p>and then building normally. The example programs will be built and
+can be run from <code>build/examples/</code>.</p>
+<h2 id="including-sdl-in-your-project">Including SDL in your
+project</h2>
+<p>SDL can be included in your project in 2 major ways:</p>
+<ul>
+<li>using a system SDL library, provided by your (UNIX) distribution or
+a package manager</li>
+<li>using a vendored SDL library: this is SDL copied or symlinked in a
+subfolder.</li>
+</ul>
+<p>The following CMake script supports both, depending on the value of
+<code>MYGAME_VENDORED</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">cmake_minimum_required</span>(<span class="ot">VERSION</span> <span class="dt">3.5</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">project</span>(mygame)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an option to switch between a system sdl library and a vendored SDL library</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="kw">option</span>(MYGAME_VENDORED <span class="st">&quot;Use vendored libraries&quot;</span> <span class="ot">OFF</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(MYGAME_VENDORED)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># This assumes you have added SDL as a submodule in vendored/SDL</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">add_subdirectory</span>(vendored/SDL <span class="ot">EXCLUDE_FROM_ALL</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>()</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1. Look for a SDL3 package,</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2. look for the SDL3-shared component, and</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3. fail if the shared component cannot be found.</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">find_package</span>(SDL3 <span class="ot">REQUIRED</span> <span class="ot">CONFIG</span> <span class="ot">REQUIRED</span> <span class="ot">COMPONENTS</span> SDL3-shared)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="cf">endif</span>()</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create your game executable target as usual</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="kw">add_executable</span>(<span class="bn">mygame</span> <span class="ot">WIN32</span> mygame.c)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Link to the actual SDL3 library.</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="kw">target_link_libraries</span>(<span class="bn">mygame</span> <span class="ot">PRIVATE</span> <span class="bn">SDL3::SDL3</span>)</span></code></pre></div>
+<h3 id="a-system-sdl-library">A system SDL library</h3>
+<p>For CMake to find SDL, it must be installed in <a href="https://cmake.org/cmake/help/latest/command/find_package.html#config-mode-search-procedure">a
+default location CMake is looking for</a>.</p>
+<p>The following components are available, to be used as an argument of
+<code>find_package</code>.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Component name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SDL3-shared</td>
+<td>The SDL3 shared library, available through the
+<code>SDL3::SDL3-shared</code> target</td>
+</tr>
+<tr class="even">
+<td>SDL3-static</td>
+<td>The SDL3 static library, available through the
+<code>SDL3::SDL3-static</code> target</td>
+</tr>
+<tr class="odd">
+<td>SDL3_test</td>
+<td>The SDL3_test static library, available through the
+<code>SDL3::SDL3_test</code> target</td>
+</tr>
+<tr class="even">
+<td>SDL3</td>
+<td>The SDL3 library, available through the <code>SDL3::SDL3</code>
+target. This is an alias of <code>SDL3::SDL3-shared</code> or
+<code>SDL3::SDL3-static</code>. This component is always available.</td>
+</tr>
+<tr class="odd">
+<td>Headers</td>
+<td>The SDL3 headers, available through the <code>SDL3::Headers</code>
+target. This component is always available.</td>
+</tr>
+</tbody>
+</table>
+<p>SDL&#39;s CMake support guarantees a <code>SDL3::SDL3</code> target.
+Neither <code>SDL3::SDL3-shared</code> nor
+<code>SDL3::SDL3-static</code> are guaranteed to exist.</p>
+<h3 id="using-a-vendored-sdl">Using a vendored SDL</h3>
+<p>This only requires a copy of SDL in a subdirectory +
+<code>add_subdirectory</code>. Alternatively, use <a href="https://cmake.org/cmake/help/latest/module/FetchContent.html">FetchContent</a>.
+Depending on the configuration, the same targets as a system SDL package
+are available.</p>
+<h2 id="cmake-configuration-options">CMake configuration options</h2>
+<h3 id="build-optimized-library">Build optimized library</h3>
+<p>By default, CMake provides 4 build types: <code>Debug</code>,
+<code>Release</code>, <code>RelWithDebInfo</code> and
+<code>MinSizeRel</code>. The main difference(s) between these are the
+optimization options and the generation of debug info. To configure SDL
+as an optimized <code>Release</code> library, configure SDL with:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> ~/SDL <span class="at">-DCMAKE_BUILD_TYPE</span><span class="op">=</span>Release</span></code></pre></div>
+<p>To build it, run:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">--build</span> . <span class="at">--config</span> Release</span></code></pre></div>
+<h3 id="shared-or-static">Shared or static</h3>
+<p>By default, only a dynamic (=shared) SDL library is built and
+installed. The options <code>-DSDL_SHARED=</code> and
+<code>-DSDL_STATIC=</code> accept boolean values to change this.</p>
+<p>Exceptions exist:</p>
+<ul>
+<li>some platforms don&#39;t support dynamic libraries, so only
+<code>-DSDL_STATIC=ON</code> makes sense.</li>
+<li>a static Apple framework is not supported</li>
+</ul>
+<h3 id="man-pages">Man pages</h3>
+<p>Configuring with <code>-DSDL_INSTALL_DOCS=TRUE</code> installs man
+pages.</p>
+<p>We recommend package managers of unix distributions to install SDL3&#39;s
+man pages. This adds an extra build-time dependency on Perl.</p>
+<h3 id="pass-custom-compile-options-to-the-compiler">Pass custom compile
+options to the compiler</h3>
+<ul>
+<li>Use <a href="https://cmake.org/cmake/help/latest/variable/CMAKE_LANG_FLAGS.html"><code>CMAKE_&lt;LANG&gt;_FLAGS</code></a>
+to pass extra flags to the compiler.</li>
+<li>Use <a href="https://cmake.org/cmake/help/latest/variable/CMAKE_EXE_LINKER_FLAGS.html"><code>CMAKE_EXE_LINKER_FLAGS</code></a>
+to pass extra option to the linker for executables.</li>
+<li>Use <a href="https://cmake.org/cmake/help/latest/variable/CMAKE_SHARED_LINKER_FLAGS.html"><code>CMAKE_SHARED_LINKER_FLAGS</code></a>
+to pass extra options to the linker for shared libraries.</li>
+</ul>
+<h4 id="compile-options-examples">Compile Options Examples</h4>
+<ul>
+<li><p>build a SDL library optimized for (more) modern x64
+microprocessor architectures.</p>
+<p>With gcc or clang:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> ~/sdl <span class="at">-DCMAKE_C_FLAGS</span><span class="op">=</span><span class="st">&quot;-march=x86-64-v3&quot;</span> <span class="at">-DCMAKE_CXX_FLAGS</span><span class="op">=</span><span class="st">&quot;-march=x86-64-v3&quot;</span></span></code></pre></div>
+<p>With Visual C:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> .. <span class="at">-DCMAKE_C_FLAGS</span><span class="op">=</span><span class="st">&quot;/ARCH:AVX2&quot;</span> <span class="at">-DCMAKE_CXX_FLAGS</span><span class="op">=</span><span class="st">&quot;/ARCH:AVX2&quot;</span></span></code></pre></div></li>
+</ul>
+<h3 id="apple">Apple</h3>
+<p>CMake documentation for cross building for Apple: <a href="https://cmake.org/cmake/help/latest/manual/cmake-toolchains.7.html#cross-compiling-for-ios-tvos-visionos-or-watchos">link</a></p>
+<h4 id="iostvosvisionos">iOS/tvOS/visionOS</h4>
+<p>CMake 3.14+ natively includes support for iOS, tvOS and watchOS.
+visionOS requires CMake 3.28+. SDL binaries may be built using Xcode or
+Make, possibly among other build-systems.</p>
+<p>When using a compatible version of CMake, it should be possible
+to:</p>
+<ul>
+<li>build SDL dylibs, both static and dynamic dylibs</li>
+<li>build SDL frameworks, only shared</li>
+<li>build SDL test apps</li>
+</ul>
+<h4 id="frameworks">Frameworks</h4>
+<p>Configure with <code>-DSDL_FRAMEWORK=ON</code> to build a SDL
+framework instead of a dylib shared library. Only shared frameworks are
+supported, no static ones.</p>
+<h4 id="platforms">Platforms</h4>
+<p>Use <code>-DCMAKE_SYSTEM_NAME=&lt;value&gt;</code> to configure the
+platform. CMake can target only one platform at a time.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Apple platform</th>
+<th><code>CMAKE_SYSTEM_NAME</code> value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>macOS (MacOS X)</td>
+<td><code>Darwin</code></td>
+</tr>
+<tr class="even">
+<td>iOS</td>
+<td><code>iOS</code></td>
+</tr>
+<tr class="odd">
+<td>tvOS</td>
+<td><code>tvOS</code></td>
+</tr>
+<tr class="even">
+<td>visionOS</td>
+<td><code>visionOS</code></td>
+</tr>
+<tr class="odd">
+<td>watchOS</td>
+<td><code>watchOS</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="universal-binaries">Universal binaries</h4>
+<p>A universal binaries, can be built by configuring CMake with
+<code>-DCMAKE_OSX_ARCHITECTURES=&lt;semicolon-separated list of CPU architectures&gt;</code>.</p>
+<p>For example <code>-DCMAKE_OSX_ARCHITECTURES=&quot;arm64;x86_64&quot;</code>
+will build binaries that run on both Intel cpus and Apple silicon.</p>
+<p>SDL supports following Apple architectures:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Platform</th>
+<th><code>CMAKE_OSX_ARCHITECTURES</code> value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>64-bit ARM (Apple Silicon)</td>
+<td><code>arm64</code></td>
+</tr>
+<tr class="even">
+<td>x86_64</td>
+<td><code>x86_64</code></td>
+</tr>
+<tr class="odd">
+<td>32-bit ARM</td>
+<td><code>armv7s</code></td>
+</tr>
+</tbody>
+</table>
+<p>CMake documentation: <a href="https://cmake.org/cmake/help/latest/variable/CMAKE_OSX_ARCHITECTURES.html">link</a></p>
+<h4 id="simulators-andor-non-default-macos-platform-sdk">Simulators
+and/or non-default macOS platform SDK</h4>
+<p>Use <code>-DCMAKE_OSX_SYSROOT=&lt;value&gt;</code> to configure a
+different platform SDK. The value can be either the name of the SDK, or
+a full path to the sdk (e.g.
+<code>/full/path/to/iPhoneOS.sdk</code>).</p>
+<table>
+<thead>
+<tr class="header">
+<th>SDK</th>
+<th><code>CMAKE_OSX_SYSROOT</code> value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>iphone</td>
+<td><code>iphoneos</code></td>
+</tr>
+<tr class="even">
+<td>iphonesimulator</td>
+<td><code>iphonesimulator</code></td>
+</tr>
+<tr class="odd">
+<td>appleTV</td>
+<td><code>appletvos</code></td>
+</tr>
+<tr class="even">
+<td>appleTV simulator</td>
+<td><code>appletvsimulator</code></td>
+</tr>
+<tr class="odd">
+<td>visionOS</td>
+<td><code>xr</code></td>
+</tr>
+<tr class="even">
+<td>visionOS simulator</td>
+<td><code>xrsimulator</code></td>
+</tr>
+<tr class="odd">
+<td>watchOS</td>
+<td><code>watchos</code></td>
+</tr>
+<tr class="even">
+<td>watchOS simulator</td>
+<td><code>watchsimulator</code></td>
+</tr>
+</tbody>
+</table>
+<p>Append with a version number to target a specific SDK revision: e.g.
+<code>iphoneos12.4</code>, <code>appletvos12.4</code>.</p>
+<p>CMake documentation: <a href="https://cmake.org/cmake/help/latest/variable/CMAKE_OSX_SYSROOT.html">link</a></p>
+<h4 id="apple-examples">Apple Examples</h4>
+<ul>
+<li><p>for macOS, building a dylib and/or static library for x86_64 and
+arm64:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> ~/sdl <span class="at">-DCMAKE_SYSTEM_NAME</span><span class="op">=</span>Darwin <span class="at">-DCMAKE_OSX_ARCHITECTURES</span><span class="op">=</span><span class="st">&quot;x86_64;arm64&quot;</span> <span class="at">-DCMAKE_OSX_DEPLOYMENT_TARGET</span><span class="op">=</span>10.11</span></code></pre></div></li>
+<li><p>for macOS, building an universal framework for x86_64 and
+arm64:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> ~/sdl <span class="at">-DSDL_FRAMEWORK</span><span class="op">=</span>ON <span class="at">-DCMAKE_SYSTEM_NAME</span><span class="op">=</span>Darwin <span class="at">-DCMAKE_OSX_ARCHITECTURES</span><span class="op">=</span><span class="st">&quot;x86_64;arm64&quot;</span> <span class="at">-DCMAKE_OSX_DEPLOYMENT_TARGET</span><span class="op">=</span>10.11</span></code></pre></div></li>
+<li><p>for iOS-Simulator, using the latest, installed SDK:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> ~/sdl <span class="at">-DCMAKE_SYSTEM_NAME</span><span class="op">=</span>iOS <span class="at">-DCMAKE_OSX_SYSROOT</span><span class="op">=</span>iphonesimulator <span class="at">-DCMAKE_OSX_ARCHITECTURES</span><span class="op">=</span>x86_64 <span class="at">-DCMAKE_OSX_DEPLOYMENT_TARGET</span><span class="op">=</span>9.0</span></code></pre></div></li>
+<li><p>for iOS-Device, using the latest, installed SDK, 64-bit only</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> ~/sdl <span class="at">-DCMAKE_SYSTEM_NAME</span><span class="op">=</span>iOS <span class="at">-DCMAKE_OSX_SYSROOT</span><span class="op">=</span>iphoneos <span class="at">-DCMAKE_OSX_ARCHITECTURES</span><span class="op">=</span>arm64 <span class="at">-DCMAKE_OSX_DEPLOYMENT_TARGET</span><span class="op">=</span>9.0</span></code></pre></div></li>
+<li><p>for iOS-Device, using the latest, installed SDK, mixed 32/64
+bit</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake ~/sdl -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_OSX_SYSROOT=iphoneos -DCMAKE_OSX_ARCHITECTURES=&quot;arm64;armv7s&quot; -DCMAKE_OSX_DEPLOYMENT_TARGET=9.0</span></span></code></pre></div></li>
+<li><p>for iOS-Device, using a specific SDK revision (iOS 12.4, in this
+example):</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake ~/sdl -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_OSX_SYSROOT=iphoneos12.4 -DCMAKE_OSX_ARCHITECTURES=arm64</span></span></code></pre></div></li>
+<li><p>for iOS-Simulator, using the latest, installed SDK, and building
+SDL test apps (as .app bundles):</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake ~/sdl -DSDL_TESTS=1 -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_OSX_SYSROOT=iphonesimulator -DCMAKE_OSX_ARCHITECTURES=x86_64 -DCMAKE_OSX_DEPLOYMENT_TARGET=9.0</span></span></code></pre></div></li>
+<li><p>for tvOS-Simulator, using the latest, installed SDK:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake ~/sdl -DCMAKE_SYSTEM_NAME=tvOS -DCMAKE_OSX_SYSROOT=appletvsimulator -DCMAKE_OSX_ARCHITECTURES=x86_64 -DCMAKE_OSX_DEPLOYMENT_TARGET=9.0</span></span></code></pre></div></li>
+<li><p>for tvOS-Device, using the latest, installed SDK:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake ~/sdl -DCMAKE_SYSTEM_NAME=tvOS -DCMAKE_OSX_SYSROOT=appletvos -DCMAKE_OSX_ARCHITECTURES=arm64` -DCMAKE_OSX_DEPLOYMENT_TARGET=9.0</span></span></code></pre></div></li>
+<li><p>for QNX/aarch64, using the latest, installed SDK:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake ~/sdl -DCMAKE_TOOLCHAIN_FILE=~/sdl/build-scripts/cmake-toolchain-qnx-aarch64le.cmake -DSDL_X11=0</span></span></code></pre></div></li>
+</ul>
+<h2 id="sdl-specific-cmake-options">SDL-specific CMake options</h2>
+<p>SDL can be customized through (platform-specific) CMake options. The
+following table shows generic options that are available for most
+platforms. At the end of SDL CMake configuration, a table shows all
+CMake options along with its detected value.</p>
+<table>
+<thead>
+<tr class="header">
+<th>CMake option</th>
+<th>Valid values</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>-DSDL_SHARED=</code></td>
+<td><code>ON</code>/<code>OFF</code></td>
+<td>Build SDL shared library (not all platforms support this)
+(<code>libSDL3.so</code>/<code>libSDL3.dylib</code>/<code>SDL3.dll</code>)</td>
+</tr>
+<tr class="even">
+<td><code>-DSDL_STATIC=</code></td>
+<td><code>ON</code>/<code>OFF</code></td>
+<td>Build SDL static library
+(<code>libSDL3.a</code>/<code>SDL3-static.lib</code>)</td>
+</tr>
+<tr class="odd">
+<td><code>-DSDL_TEST_LIBRARY=</code></td>
+<td><code>ON</code>/<code>OFF</code></td>
+<td>Build SDL test library
+(<code>libSDL3_test.a</code>/<code>SDL3_test.lib</code>)</td>
+</tr>
+<tr class="even">
+<td><code>-DSDL_TESTS=</code></td>
+<td><code>ON</code>/<code>OFF</code></td>
+<td>Build SDL test programs (<strong>requires
+<code>-DSDL_TEST_LIBRARY=ON</code></strong>)</td>
+</tr>
+<tr class="odd">
+<td><code>-DSDL_DISABLE_INSTALL=</code></td>
+<td><code>ON</code>/<code>OFF</code></td>
+<td>Don&#39;t create a SDL install target</td>
+</tr>
+<tr class="even">
+<td><code>-DSDL_DISABLE_INSTALL_DOCS=</code></td>
+<td><code>ON</code>/<code>OFF</code></td>
+<td>Don&#39;t install the SDL documentation</td>
+</tr>
+<tr class="odd">
+<td><code>-DSDL_INSTALL_TESTS=</code></td>
+<td><code>ON</code>/<code>OFF</code></td>
+<td>Install the SDL test programs</td>
+</tr>
+</tbody>
+</table>
+<h3 id="incompatibilities">Incompatibilities</h3>
+<h4 id="sdl_libcoff-and-sanitizers"><code>SDL_LIBC=OFF</code> and
+sanitizers</h4>
+<p>Building with <code>-DSDL_LIBC=OFF</code> will make it impossible to
+use the sanitizer, such as the address sanitizer. Configure your project
+with <code>-DSDL_LIBC=ON</code> to make use of sanitizers.</p>
+<h2 id="cmake-faq">CMake FAQ</h2>
+<h3 id="cmake-fails-to-build-without-x11-or-wayland-support">CMake fails
+to build without X11 or Wayland support</h3>
+<p>Install the required system packages prior to running CMake. See <a href="README-linux.html#build-dependencies">README-linux.md</a> for the
+list of dependencies on Linux. Other unix operating systems should
+provide similar packages.</p>
+<p>If you <strong>really</strong> don&#39;t need to show windows, add
+<code>-DSDL_UNIX_CONSOLE_BUILD=ON</code> to the CMake configure
+command.</p>
+<h3 id="how-do-i-copy-a-sdl3-dynamic-library-to-another-location">How do
+I copy a SDL3 dynamic library to another location?</h3>
+<p>Use <a href="https://cmake.org/cmake/help/latest/manual/cmake-generator-expressions.7.html#target-dependent-expressions">CMake
+generator expressions</a>. Generator expressions support multiple
+configurations, and are evaluated during build system generation
+time.</p>
+<p>On Windows, the following example copies <code>SDL3.dll</code> to the
+directory where <code>mygame.exe</code> is built.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="dv">WIN32</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">add_custom_command</span>(</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>        <span class="ot">TARGET</span> <span class="bn">mygame</span> <span class="bn">POST_BUILD</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>        <span class="bn">COMMAND</span> <span class="st">&quot;</span><span class="dv">${CMAKE_COMMAND}</span><span class="st">&quot;</span> <span class="bn">-E</span> <span class="bn">copy</span> <span class="ot">$&lt;</span><span class="kw">TARGET_FILE</span><span class="ot">:</span><span class="bn">SDL3::SDL3-shared</span><span class="ot">&gt;</span> <span class="ot">$&lt;</span><span class="kw">TARGET_FILE_DIR</span><span class="ot">:mygame&gt;</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>        <span class="bn">VERBATIM</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="cf">endif</span>()</span></code></pre></div>
+<p>On Unix systems, <code>$&lt;TARGET_FILE:...&gt;</code> will refer to
+the dynamic library (or framework), and you might need to use
+<code>$&lt;TARGET_SONAME_FILE:tgt&gt;</code> instead.</p>
+<p>Most often, you can avoid copying libraries by configuring your
+project with absolute <a href="https://cmake.org/cmake/help/latest/variable/CMAKE_LIBRARY_OUTPUT_DIRECTORY.html"><code>CMAKE_LIBRARY_OUTPUT_DIRECTORY</code></a>
+and <a href="https://cmake.org/cmake/help/latest/variable/CMAKE_RUNTIME_OUTPUT_DIRECTORY.html"><code>CMAKE_RUNTIME_OUTPUT_DIRECTORY</code></a>
+paths. When using a multi-config generator (such as Visual Studio or
+Ninja Multi-Config), eventually add <code>/$&lt;CONFIG&gt;</code> to
+both paths.</p>
+<h3 id="linking-against-a-static-sdl-library-fails-due-to-relocation-errors">Linking
+against a static SDL library fails due to relocation errors</h3>
+<p>On unix platforms, all code that ends up in shared libraries needs to
+be built as relocatable (=position independent) code. However, by
+default CMake builds static libraries as non-relocatable. Configuring
+SDL with <code>-DCMAKE_POSITION_INDEPENDENT_CODE=ON</code> will result
+in a static <code>libSDL3.a</code> library which you can link against to
+create a shared library.</p>
+</body>
+</html>

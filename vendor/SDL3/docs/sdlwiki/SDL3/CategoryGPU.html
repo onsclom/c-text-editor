@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>CategoryGPU</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">:root {
+color-scheme: dark light; 
+}
+body {
+background-color: white;
+padding: 2vw;
+color: #333;
+max-width: 1200px;
+margin: 0 auto;
+font-size: 16px;
+line-height: 1.5;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+overflow-wrap: break-word;
+}
+a {
+color: #0969da;
+
+}
+a:visited {
+color: #064998;
+}
+h1 {
+border-bottom: 2px solid #efefef;
+}
+h2 {
+border-bottom: 1px solid #efefef;
+}
+p {
+max-width: 85ch;
+}
+li {
+max-width: 85ch;
+}
+div.sourceCode {
+background-color: #f6f8fa;
+max-width: 100%;
+padding: 16px;
+}
+code {
+background-color: #f6f8fa;
+padding: 0px;
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+}
+table {
+border: 1px solid #808080;
+border-collapse: collapse;
+}
+td {
+border: 1px solid #808080;
+padding: 5px;
+}
+tr:nth-child(even) {
+background-color: #f6f8fa;
+}
+.wikitopbanner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #efefef;
+padding: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+.wikibottombanner {
+background-color: #efefef;
+padding: 10px;
+margin-top: 10px;
+width: auto;
+}
+.alertBox {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+max-width: 60%;
+padding: 10;
+margin: auto;
+}
+.anchorImage {
+visibility: hidden;
+padding-left: 0.2em;
+color: #fff;
+}
+.anchorText:hover .anchorImage {
+visibility: visible;
+}
+hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #efefef;
+margin: 1em 0;
+padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+color: #e6edf3;
+background-color: #0d1117;
+}
+h1 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+h2 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+hr {
+border-color: rgba(48, 54, 61, 0.7);
+}
+div.sourceCode {
+background-color: #161b22;
+}
+code {
+background-color: #161b22;
+}
+a {
+color: #4493f8;
+}
+a:visited {
+color: #2f66ad;
+}
+table {
+border-color: rgba(48, 54, 61, 0.7);
+}
+td {
+border-color: rgba(48, 54, 61, 0.7);
+}
+tr:nth-child(even) {
+background-color: #161b22;
+}
+.wikitopbanner {
+background-color: #263040;
+}
+.wikibottombanner {
+background-color: #263040;
+}
+.anchorText:hover .anchorImage {
+filter: invert(100%);
+}
+}
+@media print {
+body {
+font-size: 12px;
+}
+table {
+font-size: inherit;
+}
+a:visited {
+color: #0969da;
+}
+.wikitopbanner,
+.anchorText,
+.wikibottombanner {
+display: none;
+}
+}
+</style>
+  <style type="text/css"> code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+{ position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+{ content: attr(title);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; pointer-events: all; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+@media (prefers-color-scheme: dark) {
+code span.al { color: #95da4c; font-weight: bold; } 
+code span.an { color: #3f8058; } 
+code span.at { color: #2980b9; } 
+code span.bn { color: #f67400; } 
+code span.bu { color: #7f8c8d; } 
+code span.ch { color: #3daee9; } 
+code span.co { color: #7a7c7d; } 
+code span.cv { color: #7f8c8d; } 
+code span.cn { color: #27aeae; font-weight: bold; } 
+code span.cf { color: #fdbc4b; font-weight: bold; } 
+code span.dt { color: #2980b9; } 
+code span.dv { color: #f67400; } 
+code span.do { color: #a43340; } 
+code span.er { color: #da4453; } 
+code span.ex { color: #0099ff; font-weight: bold; } 
+code span.fl { color: #f67400; } 
+code span.fu { color: #8e44ad; } 
+code span.im { color: #27ae60; } 
+code span.in { color: #c45b00; } 
+code span.kw { color: #cfcfc2; font-weight: bold; } 
+code span.op { color: #cfcfc2; } 
+code span.ot { color: #27ae60; } 
+code span.pp { color: #27ae60; } 
+code span.sc { color: #3daee9; } 
+code span.ss { color: #da4453; } 
+code span.st { color: #f44f4f; } 
+code span.va { color: #27aeae; } 
+code span.vs { color: #da4453; } 
+code span.wa { color: #da4453; } 
+}</style>
+</head>
+<body>
+<h1 id="categorygpu">CategoryGPU</h1>
+<p>The GPU API offers a cross-platform way for apps to talk to modern
+graphics hardware. It offers both 3D graphics and compute support, in
+the style of Metal, Vulkan, and Direct3D 12.</p>
+<p>A basic workflow might be something like this:</p>
+<p>The app creates a GPU device with <a href="SDL_CreateGPUDevice.html">SDL_CreateGPUDevice</a>(), and assigns
+it to a window with <a href="SDL_ClaimWindowForGPUDevice.html">SDL_ClaimWindowForGPUDevice</a>()--although
+strictly speaking you can render offscreen entirely, perhaps for image
+processing, and not use a window at all.</p>
+<p>Next, the app prepares static data (things that are created once and
+used over and over). For example:</p>
+<ul>
+<li>Shaders (programs that run on the GPU): use <a href="SDL_CreateGPUShader.html">SDL_CreateGPUShader</a>().</li>
+<li>Vertex buffers (arrays of geometry data) and other rendering data:
+use <a href="SDL_CreateGPUBuffer.html">SDL_CreateGPUBuffer</a>() and <a href="SDL_UploadToGPUBuffer.html">SDL_UploadToGPUBuffer</a>().</li>
+<li>Textures (images): use <a href="SDL_CreateGPUTexture.html">SDL_CreateGPUTexture</a>() and <a href="SDL_UploadToGPUTexture.html">SDL_UploadToGPUTexture</a>().</li>
+<li>Samplers (how textures should be read from): use <a href="SDL_CreateGPUSampler.html">SDL_CreateGPUSampler</a>().</li>
+<li>Render pipelines (precalculated rendering state): use <a href="SDL_CreateGPUGraphicsPipeline.html">SDL_CreateGPUGraphicsPipeline</a>()</li>
+</ul>
+<p>To render, the app creates one or more command buffers, with <a href="SDL_AcquireGPUCommandBuffer.html">SDL_AcquireGPUCommandBuffer</a>().
+Command buffers collect rendering instructions that will be submitted to
+the GPU in batch. Complex scenes can use multiple command buffers, maybe
+configured across multiple threads in parallel, as long as they are
+submitted in the correct order, but many apps will just need one command
+buffer per frame.</p>
+<p>Rendering can happen to a texture (what other APIs call a &quot;render
+target&quot;) or it can happen to the swapchain texture (which is just a
+special texture that represents a window&#39;s contents). The app can use <a href="SDL_WaitAndAcquireGPUSwapchainTexture.html">SDL_WaitAndAcquireGPUSwapchainTexture</a>()
+to render to the window.</p>
+<p>Rendering actually happens in a Render Pass, which is encoded into a
+command buffer. One can encode multiple render passes (or alternate
+between render and compute passes) in a single command buffer, but many
+apps might simply need a single render pass in a single command buffer.
+Render Passes can render to up to four color textures and one depth
+texture simultaneously. If the set of textures being rendered to needs
+to change, the Render Pass must be ended and a new one must be
+begun.</p>
+<p>The app calls <a href="SDL_BeginGPURenderPass.html">SDL_BeginGPURenderPass</a>(). Then it
+sets states it needs for each draw:</p>
+<ul>
+<li><a href="SDL_BindGPUGraphicsPipeline.html">SDL_BindGPUGraphicsPipeline</a>()</li>
+<li><a href="SDL_SetGPUViewport.html">SDL_SetGPUViewport</a>()</li>
+<li><a href="SDL_BindGPUVertexBuffers.html">SDL_BindGPUVertexBuffers</a>()</li>
+<li><a href="SDL_BindGPUVertexSamplers.html">SDL_BindGPUVertexSamplers</a>()</li>
+<li>etc</li>
+</ul>
+<p>Then, make the actual draw commands with these states:</p>
+<ul>
+<li><a href="SDL_DrawGPUPrimitives.html">SDL_DrawGPUPrimitives</a>()</li>
+<li><a href="SDL_DrawGPUPrimitivesIndirect.html">SDL_DrawGPUPrimitivesIndirect</a>()</li>
+<li><a href="SDL_DrawGPUIndexedPrimitivesIndirect.html">SDL_DrawGPUIndexedPrimitivesIndirect</a>()</li>
+<li>etc</li>
+</ul>
+<p>After all the drawing commands for a pass are complete, the app
+should call <a href="SDL_EndGPURenderPass.html">SDL_EndGPURenderPass</a>(). Once a
+render pass ends all render-related state is reset.</p>
+<p>The app can begin new Render Passes and make new draws in the same
+command buffer until the entire scene is rendered.</p>
+<p>Once all of the render commands for the scene are complete, the app
+calls <a href="SDL_SubmitGPUCommandBuffer.html">SDL_SubmitGPUCommandBuffer</a>()
+to send it to the GPU for processing.</p>
+<p>If the app needs to read back data from texture or buffers, the API
+has an efficient way of doing this, provided that the app is willing to
+tolerate some latency. When the app uses <a href="SDL_DownloadFromGPUTexture.html">SDL_DownloadFromGPUTexture</a>()
+or <a href="SDL_DownloadFromGPUBuffer.html">SDL_DownloadFromGPUBuffer</a>(),
+submitting the command buffer with <a href="SDL_SubmitGPUCommandBufferAndAcquireFence.html">SDL_SubmitGPUCommandBufferAndAcquireFence</a>()
+will return a fence handle that the app can poll or wait on in a thread.
+Once the fence indicates that the command buffer is done processing, it
+is safe to read the downloaded data. Make sure to call <a href="SDL_ReleaseGPUFence.html">SDL_ReleaseGPUFence</a>() when done with
+the fence.</p>
+<p>The API also has &quot;compute&quot; support. The app calls <a href="SDL_BeginGPUComputePass.html">SDL_BeginGPUComputePass</a>() with
+compute-writeable textures and/or buffers, which can be written to in a
+compute shader. Then it sets states it needs for the compute
+dispatches:</p>
+<ul>
+<li><a href="SDL_BindGPUComputePipeline.html">SDL_BindGPUComputePipeline</a>()</li>
+<li><a href="SDL_BindGPUComputeStorageBuffers.html">SDL_BindGPUComputeStorageBuffers</a>()</li>
+<li><a href="SDL_BindGPUComputeStorageTextures.html">SDL_BindGPUComputeStorageTextures</a>()</li>
+</ul>
+<p>Then, dispatch compute work:</p>
+<ul>
+<li><a href="SDL_DispatchGPUCompute.html">SDL_DispatchGPUCompute</a>()</li>
+</ul>
+<p>For advanced users, this opens up powerful GPU-driven workflows.</p>
+<p>Graphics and compute pipelines require the use of shaders, which as
+mentioned above are small programs executed on the GPU. Each backend
+(Vulkan, Metal, D3D12) requires a different shader format. When the app
+creates the GPU device, the app lets the device know which shader
+formats the app can provide. It will then select the appropriate backend
+depending on the available shader formats and the backends available on
+the platform. When creating shaders, the app must provide the correct
+shader format for the selected backend. If you would like to learn more
+about why the API works this way, there is a detailed <a href="https://moonside.games/posts/layers-all-the-way-down/">blog
+post</a> explaining this situation.</p>
+<p>It is optimal for apps to pre-compile the shader formats they might
+use, but for ease of use SDL provides a separate project, <a href="https://github.com/libsdl-org/SDL_shadercross">SDL_shadercross</a>
+, for performing runtime shader cross-compilation. It also has a CLI
+interface for offline precompilation as well.</p>
+<p>This is an extremely quick overview that leaves out several important
+details. Already, though, one can see that GPU programming can be quite
+complex! If you just need simple 2D graphics, the <a href="CategoryRender.html">Render API</a> is much easier to use but
+still hardware-accelerated. That said, even for 2D applications the
+performance benefits and expressiveness of the GPU API are
+significant.</p>
+<p>The GPU API targets a feature set with a wide range of hardware
+support and ease of portability. It is designed so that the app won&#39;t
+have to branch itself by querying feature support. If you need
+cutting-edge features with limited hardware support, this API is
+probably not for you.</p>
+<p>Examples demonstrating proper usage of this API can be found <a href="https://github.com/TheSpydog/SDL_gpu_examples">here</a> .</p>
+<h2 id="performance-considerations">Performance considerations</h2>
+<p>Here are some basic tips for maximizing your rendering
+performance.</p>
+<ul>
+<li>Beginning a new render pass is relatively expensive. Use as few
+render passes as you can.</li>
+<li>Minimize the amount of state changes. For example, binding a
+pipeline is relatively cheap, but doing it hundreds of times when you
+don&#39;t need to will slow the performance significantly.</li>
+<li>Perform your data uploads as early as possible in the frame.</li>
+<li>Don&#39;t churn resources. Creating and releasing resources is
+expensive. It&#39;s better to create what you need up front and cache
+it.</li>
+<li>Don&#39;t use uniform buffers for large amounts of data (more than a
+matrix or so). Use a storage buffer instead.</li>
+<li>Use cycling correctly. There is a detailed explanation of cycling
+further below.</li>
+<li>Use culling techniques to minimize pixel writes. The less writing
+the GPU has to do the better. Culling can be a very advanced topic but
+even simple culling techniques can boost performance significantly.</li>
+</ul>
+<p>In general try to remember the golden rule of performance: doing
+things is more expensive than not doing things. Don&#39;t Touch The
+Driver!</p>
+<h2 id="faq">FAQ</h2>
+<p><strong>Question: When are you adding more advanced features, like
+ray tracing or mesh shaders?</strong></p>
+<p>Answer: We don&#39;t have immediate plans to add more bleeding-edge
+features, but we certainly might in the future, when these features
+prove worthwhile, and reasonable to implement across several platforms
+and underlying APIs. So while these things are not in the &quot;never&quot;
+category, they are definitely not &quot;near future&quot; items either.</p>
+<p><strong>Question: Why is my shader not working?</strong></p>
+<p>Answer: A common oversight when using shaders is not properly laying
+out the shader resources/registers correctly. The GPU API is very strict
+with how it wants resources to be laid out and it&#39;s difficult for the
+API to automatically validate shaders to see if they have a compatible
+layout. See the documentation for <a href="SDL_CreateGPUShader.html">SDL_CreateGPUShader</a>() and <a href="SDL_CreateGPUComputePipeline.html">SDL_CreateGPUComputePipeline</a>()
+for information on the expected layout.</p>
+<p>Another common issue is not setting the correct number of samplers,
+textures, and buffers in <a href="SDL_GPUShaderCreateInfo.html">SDL_GPUShaderCreateInfo</a>. If
+possible use shader reflection to extract the required information from
+the shader automatically instead of manually filling in the struct&#39;s
+values.</p>
+<p><strong>Question: My application isn&#39;t performing very well. Is this
+the GPU API&#39;s fault?</strong></p>
+<p>Answer: No. Long answer: The GPU API is a relatively thin layer over
+the underlying graphics API. While it&#39;s possible that we have done
+something inefficiently, it&#39;s very unlikely especially if you are
+relatively inexperienced with GPU rendering. Please see the performance
+tips above and make sure you are following them. Additionally, tools
+like <a href="https://renderdoc.org/">RenderDoc</a> can be very helpful
+for diagnosing incorrect behavior and performance issues.</p>
+<h2 id="system-requirements">System Requirements</h2>
+<h3 id="vulkan">Vulkan</h3>
+<p>SDL driver name: &quot;vulkan&quot; (for use in <a href="SDL_CreateGPUDevice.html">SDL_CreateGPUDevice</a>() and <a href="SDL_PROP_GPU_DEVICE_CREATE_NAME_STRING.html">SDL_PROP_GPU_DEVICE_CREATE_NAME_STRING</a>)</p>
+<p>Supported on Windows, Linux, Nintendo Switch, and certain Android
+devices. Requires Vulkan 1.0 with the following extensions and device
+features:</p>
+<ul>
+<li><code>VK_KHR_swapchain</code></li>
+<li><code>VK_KHR_maintenance1</code></li>
+<li><code>independentBlend</code></li>
+<li><code>imageCubeArray</code></li>
+<li><code>depthClamp</code></li>
+<li><code>shaderClipDistance</code></li>
+<li><code>drawIndirectFirstInstance</code></li>
+<li><code>sampleRateShading</code></li>
+</ul>
+<p>You can remove some of these requirements to increase compatibility
+with Android devices by using these properties when creating the GPU
+device with <a href="SDL_CreateGPUDeviceWithProperties.html">SDL_CreateGPUDeviceWithProperties</a>():</p>
+<ul>
+<li><a href="SDL_PROP_GPU_DEVICE_CREATE_FEATURE_CLIP_DISTANCE_BOOLEAN.html">SDL_PROP_GPU_DEVICE_CREATE_FEATURE_CLIP_DISTANCE_BOOLEAN</a></li>
+<li><a href="SDL_PROP_GPU_DEVICE_CREATE_FEATURE_DEPTH_CLAMPING_BOOLEAN.html">SDL_PROP_GPU_DEVICE_CREATE_FEATURE_DEPTH_CLAMPING_BOOLEAN</a></li>
+<li><a href="SDL_PROP_GPU_DEVICE_CREATE_FEATURE_INDIRECT_DRAW_FIRST_INSTANCE_BOOLEAN.html">SDL_PROP_GPU_DEVICE_CREATE_FEATURE_INDIRECT_DRAW_FIRST_INSTANCE_BOOLEAN</a></li>
+<li><a href="SDL_PROP_GPU_DEVICE_CREATE_FEATURE_ANISOTROPY_BOOLEAN.html">SDL_PROP_GPU_DEVICE_CREATE_FEATURE_ANISOTROPY_BOOLEAN</a></li>
+</ul>
+<h3 id="d3d12">D3D12</h3>
+<p>SDL driver name: &quot;direct3d12&quot;</p>
+<p>Supported on Windows 10 or newer, Xbox One (GDK), and Xbox Series X|S
+(GDK). Requires a GPU that supports DirectX 12 Feature Level 11_0 and
+Resource Binding Tier 2 or above.</p>
+<p>You can remove the Tier 2 resource binding requirement to support
+Intel Haswell and Broadwell GPUs by using this property when creating
+the GPU device with <a href="SDL_CreateGPUDeviceWithProperties.html">SDL_CreateGPUDeviceWithProperties</a>():</p>
+<ul>
+<li><a href="SDL_PROP_GPU_DEVICE_CREATE_D3D12_ALLOW_FEWER_RESOURCE_SLOTS_BOOLEAN.html">SDL_PROP_GPU_DEVICE_CREATE_D3D12_ALLOW_FEWER_RESOURCE_SLOTS_BOOLEAN</a></li>
+</ul>
+<h3 id="metal">Metal</h3>
+<p>SDL driver name: &quot;metal&quot;</p>
+<p>Supported on macOS 10.14+ and iOS/tvOS 13.0+. Hardware requirements
+vary by operating system:</p>
+<ul>
+<li>macOS requires an Apple Silicon or <a href="https://developer.apple.com/documentation/metal/mtlfeatureset/mtlfeatureset_macos_gpufamily2_v1?language=objc">Intel
+Mac2 family</a> GPU</li>
+<li>iOS/tvOS requires an A9 GPU or newer</li>
+<li>iOS Simulator and tvOS Simulator are unsupported</li>
+</ul>
+<h2 id="coordinate-system">Coordinate System</h2>
+<p>The GPU API uses a left-handed coordinate system, following the
+convention of D3D12 and Metal. Specifically:</p>
+<ul>
+<li><strong>Normalized Device Coordinates:</strong> The lower-left
+corner has an x,y coordinate of <code>(-1.0, -1.0)</code>. The
+upper-right corner is <code>(1.0, 1.0)</code>. Z values range from
+<code>[0.0, 1.0]</code> where 0 is the near plane.</li>
+<li><strong>Viewport Coordinates:</strong> The top-left corner has an
+x,y coordinate of <code>(0, 0)</code> and extends to the bottom-right
+corner at <code>(viewportWidth, viewportHeight)</code>. +Y is down.</li>
+<li><strong>Texture Coordinates:</strong> The top-left corner has an x,y
+coordinate of <code>(0, 0)</code> and extends to the bottom-right corner
+at <code>(1.0, 1.0)</code>. +Y is down.</li>
+</ul>
+<p>If the backend driver differs from this convention (e.g. Vulkan,
+which has an NDC that assumes +Y is down), SDL will automatically
+convert the coordinate system behind the scenes, so you don&#39;t need to
+perform any coordinate flipping logic in your shaders.</p>
+<h2 id="uniform-data">Uniform Data</h2>
+<p>Uniforms are for passing data to shaders. The uniform data will be
+constant across all executions of the shader.</p>
+<p>There are 4 available uniform slots per shader stage (where the
+stages are vertex, fragment, and compute). Uniform data pushed to a slot
+on a stage keeps its value throughout the command buffer until you call
+the relevant Push function on that slot again.</p>
+<p>For example, you could write your vertex shaders to read a camera
+matrix from uniform binding slot 0, push the camera matrix at the start
+of the command buffer, and that data will be used for every subsequent
+draw call.</p>
+<p>It is valid to push uniform data during a render or compute pass.</p>
+<p>Uniforms are best for pushing small amounts of data. If you are
+pushing more than a matrix or two per call you should consider using a
+storage buffer instead.</p>
+<h2 id="a-note-on-cycling">A Note On Cycling</h2>
+<p>When using a command buffer, operations do not occur immediately -
+they occur some time after the command buffer is submitted.</p>
+<p>When a resource is used in a pending or active command buffer, it is
+considered to be &quot;bound&quot;. When a resource is no longer used in any
+pending or active command buffers, it is considered to be &quot;unbound&quot;.</p>
+<p>If data resources are bound, it is unspecified when that data will be
+unbound unless you acquire a fence when submitting the command buffer
+and wait on it. However, this doesn&#39;t mean you need to track resource
+usage manually.</p>
+<p>All of the functions and structs that involve writing to a resource
+have a &quot;cycle&quot; bool. <a href="SDL_GPUTransferBuffer.html">SDL_GPUTransferBuffer</a>, <a href="SDL_GPUBuffer.html">SDL_GPUBuffer</a>, and <a href="SDL_GPUTexture.html">SDL_GPUTexture</a> all effectively function
+as ring buffers on internal resources. When cycle is true, if the
+resource is bound, the cycle rotates to the next unbound internal
+resource, or if none are available, a new one is created. This means you
+don&#39;t have to worry about complex state tracking and synchronization as
+long as cycling is correctly employed.</p>
+<p>For example: you can call <a href="SDL_MapGPUTransferBuffer.html">SDL_MapGPUTransferBuffer</a>(),
+write texture data, <a href="SDL_UnmapGPUTransferBuffer.html">SDL_UnmapGPUTransferBuffer</a>(),
+and then <a href="SDL_UploadToGPUTexture.html">SDL_UploadToGPUTexture</a>(). The
+next time you write texture data to the transfer buffer, if you set the
+cycle param to true, you don&#39;t have to worry about overwriting any data
+that is not yet uploaded.</p>
+<p>Another example: If you are using a texture in a render pass every
+frame, this can cause a data dependency between frames. If you set cycle
+to true in the <a href="SDL_GPUColorTargetInfo.html">SDL_GPUColorTargetInfo</a> struct,
+you can prevent this data dependency.</p>
+<p>Cycling will never undefine already bound data. When cycling, all
+data in the resource is considered to be undefined for subsequent
+commands until that data is written again. You must take care not to
+read undefined data.</p>
+<p>Note that when cycling a texture, the entire texture will be cycled,
+even if only part of the texture is used in the call, so you must
+consider the entire texture to contain undefined data after cycling.</p>
+<p>You must also take care not to overwrite a section of data that has
+been referenced in a command without cycling first. It is OK to
+overwrite unreferenced data in a bound resource without cycling, but
+overwriting a section of data that has already been referenced will
+produce unexpected results.</p>
+<h2 id="debugging">Debugging</h2>
+<p>At some point of your GPU journey, you will probably encounter issues
+that are not traceable with regular debugger - for example, your code
+compiles but you get an empty screen, or your shader fails in
+runtime.</p>
+<p>For debugging such cases, there are tools that allow visually
+inspecting the whole GPU frame, every drawcall, every bound resource,
+memory buffers, etc. They are the following, per platform:</p>
+<ul>
+<li>For Windows/Linux, use <a href="https://renderdoc.org/">RenderDoc</a></li>
+<li>For MacOS (Metal), use Xcode built-in debugger (Open XCode, go to
+Debug &gt; Debug Executable..., select your application, set &quot;GPU Frame
+Capture&quot; to &quot;Metal&quot; in scheme &quot;Options&quot; window, run your app, and click
+the small Metal icon on the bottom to capture a frame)</li>
+</ul>
+<p>Aside from that, you may want to enable additional debug layers to
+receive more detailed error messages, based on your GPU backend:</p>
+<ul>
+<li>For D3D12, the debug layer is an optional feature that can be
+installed via &quot;Windows Settings -&gt; System -&gt; Optional features&quot;
+and adding the &quot;Graphics Tools&quot; optional feature.</li>
+<li>For Vulkan, you will need to install Vulkan SDK on Windows, and on
+Linux, you usually have some sort of
+<code>vulkan-validation-layers</code> system package that should be
+installed.</li>
+<li>For Metal, it should be enough just to run the application from
+XCode to receive detailed errors or warnings in the output.</li>
+</ul>
+<p>Don&#39;t hesitate to use tools as RenderDoc when encountering runtime
+issues or unexpected output on screen, quick GPU frame inspection can
+usually help you fix the majority of such problems.</p>
+<!-- END CATEGORY DOCUMENTATION -->
+
+<h2 id="functions">Functions</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryGPU, CategoryAPIFunction -->
+
+<ul>
+<li><a href="SDL_AcquireGPUCommandBuffer.html">SDL_AcquireGPUCommandBuffer</a></li>
+<li><a href="SDL_AcquireGPUSwapchainTexture.html">SDL_AcquireGPUSwapchainTexture</a></li>
+<li><a href="SDL_BeginGPUComputePass.html">SDL_BeginGPUComputePass</a></li>
+<li><a href="SDL_BeginGPUCopyPass.html">SDL_BeginGPUCopyPass</a></li>
+<li><a href="SDL_BeginGPURenderPass.html">SDL_BeginGPURenderPass</a></li>
+<li><a href="SDL_BindGPUComputePipeline.html">SDL_BindGPUComputePipeline</a></li>
+<li><a href="SDL_BindGPUComputeSamplers.html">SDL_BindGPUComputeSamplers</a></li>
+<li><a href="SDL_BindGPUComputeStorageBuffers.html">SDL_BindGPUComputeStorageBuffers</a></li>
+<li><a href="SDL_BindGPUComputeStorageTextures.html">SDL_BindGPUComputeStorageTextures</a></li>
+<li><a href="SDL_BindGPUFragmentSamplers.html">SDL_BindGPUFragmentSamplers</a></li>
+<li><a href="SDL_BindGPUFragmentStorageBuffers.html">SDL_BindGPUFragmentStorageBuffers</a></li>
+<li><a href="SDL_BindGPUFragmentStorageTextures.html">SDL_BindGPUFragmentStorageTextures</a></li>
+<li><a href="SDL_BindGPUGraphicsPipeline.html">SDL_BindGPUGraphicsPipeline</a></li>
+<li><a href="SDL_BindGPUIndexBuffer.html">SDL_BindGPUIndexBuffer</a></li>
+<li><a href="SDL_BindGPUVertexBuffers.html">SDL_BindGPUVertexBuffers</a></li>
+<li><a href="SDL_BindGPUVertexSamplers.html">SDL_BindGPUVertexSamplers</a></li>
+<li><a href="SDL_BindGPUVertexStorageBuffers.html">SDL_BindGPUVertexStorageBuffers</a></li>
+<li><a href="SDL_BindGPUVertexStorageTextures.html">SDL_BindGPUVertexStorageTextures</a></li>
+<li><a href="SDL_BlitGPUTexture.html">SDL_BlitGPUTexture</a></li>
+<li><a href="SDL_CalculateGPUTextureFormatSize.html">SDL_CalculateGPUTextureFormatSize</a></li>
+<li><a href="SDL_CancelGPUCommandBuffer.html">SDL_CancelGPUCommandBuffer</a></li>
+<li><a href="SDL_ClaimWindowForGPUDevice.html">SDL_ClaimWindowForGPUDevice</a></li>
+<li><a href="SDL_CopyGPUBufferToBuffer.html">SDL_CopyGPUBufferToBuffer</a></li>
+<li><a href="SDL_CopyGPUTextureToTexture.html">SDL_CopyGPUTextureToTexture</a></li>
+<li><a href="SDL_CreateGPUBuffer.html">SDL_CreateGPUBuffer</a></li>
+<li><a href="SDL_CreateGPUComputePipeline.html">SDL_CreateGPUComputePipeline</a></li>
+<li><a href="SDL_CreateGPUDevice.html">SDL_CreateGPUDevice</a></li>
+<li><a href="SDL_CreateGPUDeviceWithProperties.html">SDL_CreateGPUDeviceWithProperties</a></li>
+<li><a href="SDL_CreateGPUGraphicsPipeline.html">SDL_CreateGPUGraphicsPipeline</a></li>
+<li><a href="SDL_CreateGPUSampler.html">SDL_CreateGPUSampler</a></li>
+<li><a href="SDL_CreateGPUShader.html">SDL_CreateGPUShader</a></li>
+<li><a href="SDL_CreateGPUTexture.html">SDL_CreateGPUTexture</a></li>
+<li><a href="SDL_CreateGPUTransferBuffer.html">SDL_CreateGPUTransferBuffer</a></li>
+<li><a href="SDL_DestroyGPUDevice.html">SDL_DestroyGPUDevice</a></li>
+<li><a href="SDL_DispatchGPUCompute.html">SDL_DispatchGPUCompute</a></li>
+<li><a href="SDL_DispatchGPUComputeIndirect.html">SDL_DispatchGPUComputeIndirect</a></li>
+<li><a href="SDL_DownloadFromGPUBuffer.html">SDL_DownloadFromGPUBuffer</a></li>
+<li><a href="SDL_DownloadFromGPUTexture.html">SDL_DownloadFromGPUTexture</a></li>
+<li><a href="SDL_DrawGPUIndexedPrimitives.html">SDL_DrawGPUIndexedPrimitives</a></li>
+<li><a href="SDL_DrawGPUIndexedPrimitivesIndirect.html">SDL_DrawGPUIndexedPrimitivesIndirect</a></li>
+<li><a href="SDL_DrawGPUPrimitives.html">SDL_DrawGPUPrimitives</a></li>
+<li><a href="SDL_DrawGPUPrimitivesIndirect.html">SDL_DrawGPUPrimitivesIndirect</a></li>
+<li><a href="SDL_EndGPUComputePass.html">SDL_EndGPUComputePass</a></li>
+<li><a href="SDL_EndGPUCopyPass.html">SDL_EndGPUCopyPass</a></li>
+<li><a href="SDL_EndGPURenderPass.html">SDL_EndGPURenderPass</a></li>
+<li><a href="SDL_GDKResumeGPU.html">SDL_GDKResumeGPU</a></li>
+<li><a href="SDL_GDKSuspendGPU.html">SDL_GDKSuspendGPU</a></li>
+<li><a href="SDL_GenerateMipmapsForGPUTexture.html">SDL_GenerateMipmapsForGPUTexture</a></li>
+<li><a href="SDL_GetGPUDeviceDriver.html">SDL_GetGPUDeviceDriver</a></li>
+<li><a href="SDL_GetGPUDeviceProperties.html">SDL_GetGPUDeviceProperties</a></li>
+<li><a href="SDL_GetGPUDriver.html">SDL_GetGPUDriver</a></li>
+<li><a href="SDL_GetGPUShaderFormats.html">SDL_GetGPUShaderFormats</a></li>
+<li><a href="SDL_GetGPUSwapchainTextureFormat.html">SDL_GetGPUSwapchainTextureFormat</a></li>
+<li><a href="SDL_GetGPUTextureFormatFromPixelFormat.html">SDL_GetGPUTextureFormatFromPixelFormat</a></li>
+<li><a href="SDL_GetNumGPUDrivers.html">SDL_GetNumGPUDrivers</a></li>
+<li><a href="SDL_GetPixelFormatFromGPUTextureFormat.html">SDL_GetPixelFormatFromGPUTextureFormat</a></li>
+<li><a href="SDL_GPUSupportsProperties.html">SDL_GPUSupportsProperties</a></li>
+<li><a href="SDL_GPUSupportsShaderFormats.html">SDL_GPUSupportsShaderFormats</a></li>
+<li><a href="SDL_GPUTextureFormatTexelBlockSize.html">SDL_GPUTextureFormatTexelBlockSize</a></li>
+<li><a href="SDL_GPUTextureSupportsFormat.html">SDL_GPUTextureSupportsFormat</a></li>
+<li><a href="SDL_GPUTextureSupportsSampleCount.html">SDL_GPUTextureSupportsSampleCount</a></li>
+<li><a href="SDL_InsertGPUDebugLabel.html">SDL_InsertGPUDebugLabel</a></li>
+<li><a href="SDL_MapGPUTransferBuffer.html">SDL_MapGPUTransferBuffer</a></li>
+<li><a href="SDL_PopGPUDebugGroup.html">SDL_PopGPUDebugGroup</a></li>
+<li><a href="SDL_PushGPUComputeUniformData.html">SDL_PushGPUComputeUniformData</a></li>
+<li><a href="SDL_PushGPUDebugGroup.html">SDL_PushGPUDebugGroup</a></li>
+<li><a href="SDL_PushGPUFragmentUniformData.html">SDL_PushGPUFragmentUniformData</a></li>
+<li><a href="SDL_PushGPUVertexUniformData.html">SDL_PushGPUVertexUniformData</a></li>
+<li><a href="SDL_QueryGPUFence.html">SDL_QueryGPUFence</a></li>
+<li><a href="SDL_ReleaseGPUBuffer.html">SDL_ReleaseGPUBuffer</a></li>
+<li><a href="SDL_ReleaseGPUComputePipeline.html">SDL_ReleaseGPUComputePipeline</a></li>
+<li><a href="SDL_ReleaseGPUFence.html">SDL_ReleaseGPUFence</a></li>
+<li><a href="SDL_ReleaseGPUGraphicsPipeline.html">SDL_ReleaseGPUGraphicsPipeline</a></li>
+<li><a href="SDL_ReleaseGPUSampler.html">SDL_ReleaseGPUSampler</a></li>
+<li><a href="SDL_ReleaseGPUShader.html">SDL_ReleaseGPUShader</a></li>
+<li><a href="SDL_ReleaseGPUTexture.html">SDL_ReleaseGPUTexture</a></li>
+<li><a href="SDL_ReleaseGPUTransferBuffer.html">SDL_ReleaseGPUTransferBuffer</a></li>
+<li><a href="SDL_ReleaseWindowFromGPUDevice.html">SDL_ReleaseWindowFromGPUDevice</a></li>
+<li><a href="SDL_SetGPUAllowedFramesInFlight.html">SDL_SetGPUAllowedFramesInFlight</a></li>
+<li><a href="SDL_SetGPUBlendConstants.html">SDL_SetGPUBlendConstants</a></li>
+<li><a href="SDL_SetGPUBufferName.html">SDL_SetGPUBufferName</a></li>
+<li><a href="SDL_SetGPUScissor.html">SDL_SetGPUScissor</a></li>
+<li><a href="SDL_SetGPUStencilReference.html">SDL_SetGPUStencilReference</a></li>
+<li><a href="SDL_SetGPUSwapchainParameters.html">SDL_SetGPUSwapchainParameters</a></li>
+<li><a href="SDL_SetGPUTextureName.html">SDL_SetGPUTextureName</a></li>
+<li><a href="SDL_SetGPUViewport.html">SDL_SetGPUViewport</a></li>
+<li><a href="SDL_SubmitGPUCommandBuffer.html">SDL_SubmitGPUCommandBuffer</a></li>
+<li><a href="SDL_SubmitGPUCommandBufferAndAcquireFence.html">SDL_SubmitGPUCommandBufferAndAcquireFence</a></li>
+<li><a href="SDL_UnmapGPUTransferBuffer.html">SDL_UnmapGPUTransferBuffer</a></li>
+<li><a href="SDL_UploadToGPUBuffer.html">SDL_UploadToGPUBuffer</a></li>
+<li><a href="SDL_UploadToGPUTexture.html">SDL_UploadToGPUTexture</a></li>
+<li><a href="SDL_WaitAndAcquireGPUSwapchainTexture.html">SDL_WaitAndAcquireGPUSwapchainTexture</a></li>
+<li><a href="SDL_WaitForGPUFences.html">SDL_WaitForGPUFences</a></li>
+<li><a href="SDL_WaitForGPUIdle.html">SDL_WaitForGPUIdle</a></li>
+<li><a href="SDL_WaitForGPUSwapchain.html">SDL_WaitForGPUSwapchain</a></li>
+<li><a href="SDL_WindowSupportsGPUPresentMode.html">SDL_WindowSupportsGPUPresentMode</a></li>
+<li><a href="SDL_WindowSupportsGPUSwapchainComposition.html">SDL_WindowSupportsGPUSwapchainComposition</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<h2 id="datatypes">Datatypes</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryGPU, CategoryAPIDatatype -->
+
+<ul>
+<li><a href="SDL_GPUBuffer.html">SDL_GPUBuffer</a></li>
+<li><a href="SDL_GPUBufferUsageFlags.html">SDL_GPUBufferUsageFlags</a></li>
+<li><a href="SDL_GPUColorComponentFlags.html">SDL_GPUColorComponentFlags</a></li>
+<li><a href="SDL_GPUCommandBuffer.html">SDL_GPUCommandBuffer</a></li>
+<li><a href="SDL_GPUComputePass.html">SDL_GPUComputePass</a></li>
+<li><a href="SDL_GPUComputePipeline.html">SDL_GPUComputePipeline</a></li>
+<li><a href="SDL_GPUCopyPass.html">SDL_GPUCopyPass</a></li>
+<li><a href="SDL_GPUDevice.html">SDL_GPUDevice</a></li>
+<li><a href="SDL_GPUFence.html">SDL_GPUFence</a></li>
+<li><a href="SDL_GPUGraphicsPipeline.html">SDL_GPUGraphicsPipeline</a></li>
+<li><a href="SDL_GPURenderPass.html">SDL_GPURenderPass</a></li>
+<li><a href="SDL_GPUSampler.html">SDL_GPUSampler</a></li>
+<li><a href="SDL_GPUShader.html">SDL_GPUShader</a></li>
+<li><a href="SDL_GPUShaderFormat.html">SDL_GPUShaderFormat</a></li>
+<li><a href="SDL_GPUTexture.html">SDL_GPUTexture</a></li>
+<li><a href="SDL_GPUTextureUsageFlags.html">SDL_GPUTextureUsageFlags</a></li>
+<li><a href="SDL_GPUTransferBuffer.html">SDL_GPUTransferBuffer</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<h2 id="structs">Structs</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryGPU, CategoryAPIStruct -->
+
+<ul>
+<li><a href="SDL_GPUBlitInfo.html">SDL_GPUBlitInfo</a></li>
+<li><a href="SDL_GPUBlitRegion.html">SDL_GPUBlitRegion</a></li>
+<li><a href="SDL_GPUBufferBinding.html">SDL_GPUBufferBinding</a></li>
+<li><a href="SDL_GPUBufferCreateInfo.html">SDL_GPUBufferCreateInfo</a></li>
+<li><a href="SDL_GPUBufferLocation.html">SDL_GPUBufferLocation</a></li>
+<li><a href="SDL_GPUBufferRegion.html">SDL_GPUBufferRegion</a></li>
+<li><a href="SDL_GPUColorTargetBlendState.html">SDL_GPUColorTargetBlendState</a></li>
+<li><a href="SDL_GPUColorTargetDescription.html">SDL_GPUColorTargetDescription</a></li>
+<li><a href="SDL_GPUColorTargetInfo.html">SDL_GPUColorTargetInfo</a></li>
+<li><a href="SDL_GPUComputePipelineCreateInfo.html">SDL_GPUComputePipelineCreateInfo</a></li>
+<li><a href="SDL_GPUDepthStencilState.html">SDL_GPUDepthStencilState</a></li>
+<li><a href="SDL_GPUDepthStencilTargetInfo.html">SDL_GPUDepthStencilTargetInfo</a></li>
+<li><a href="SDL_GPUGraphicsPipelineCreateInfo.html">SDL_GPUGraphicsPipelineCreateInfo</a></li>
+<li><a href="SDL_GPUGraphicsPipelineTargetInfo.html">SDL_GPUGraphicsPipelineTargetInfo</a></li>
+<li><a href="SDL_GPUIndexedIndirectDrawCommand.html">SDL_GPUIndexedIndirectDrawCommand</a></li>
+<li><a href="SDL_GPUIndirectDispatchCommand.html">SDL_GPUIndirectDispatchCommand</a></li>
+<li><a href="SDL_GPUIndirectDrawCommand.html">SDL_GPUIndirectDrawCommand</a></li>
+<li><a href="SDL_GPUMultisampleState.html">SDL_GPUMultisampleState</a></li>
+<li><a href="SDL_GPURasterizerState.html">SDL_GPURasterizerState</a></li>
+<li><a href="SDL_GPUSamplerCreateInfo.html">SDL_GPUSamplerCreateInfo</a></li>
+<li><a href="SDL_GPUShaderCreateInfo.html">SDL_GPUShaderCreateInfo</a></li>
+<li><a href="SDL_GPUStencilOpState.html">SDL_GPUStencilOpState</a></li>
+<li><a href="SDL_GPUStorageBufferReadWriteBinding.html">SDL_GPUStorageBufferReadWriteBinding</a></li>
+<li><a href="SDL_GPUStorageTextureReadWriteBinding.html">SDL_GPUStorageTextureReadWriteBinding</a></li>
+<li><a href="SDL_GPUTextureCreateInfo.html">SDL_GPUTextureCreateInfo</a></li>
+<li><a href="SDL_GPUTextureLocation.html">SDL_GPUTextureLocation</a></li>
+<li><a href="SDL_GPUTextureRegion.html">SDL_GPUTextureRegion</a></li>
+<li><a href="SDL_GPUTextureSamplerBinding.html">SDL_GPUTextureSamplerBinding</a></li>
+<li><a href="SDL_GPUTextureTransferInfo.html">SDL_GPUTextureTransferInfo</a></li>
+<li><a href="SDL_GPUTransferBufferCreateInfo.html">SDL_GPUTransferBufferCreateInfo</a></li>
+<li><a href="SDL_GPUTransferBufferLocation.html">SDL_GPUTransferBufferLocation</a></li>
+<li><a href="SDL_GPUVertexAttribute.html">SDL_GPUVertexAttribute</a></li>
+<li><a href="SDL_GPUVertexBufferDescription.html">SDL_GPUVertexBufferDescription</a></li>
+<li><a href="SDL_GPUVertexInputState.html">SDL_GPUVertexInputState</a></li>
+<li><a href="SDL_GPUViewport.html">SDL_GPUViewport</a></li>
+<li><a href="SDL_GPUVulkanOptions.html">SDL_GPUVulkanOptions</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<h2 id="enums">Enums</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryGPU, CategoryAPIEnum -->
+
+<ul>
+<li><a href="SDL_GPUBlendFactor.html">SDL_GPUBlendFactor</a></li>
+<li><a href="SDL_GPUBlendOp.html">SDL_GPUBlendOp</a></li>
+<li><a href="SDL_GPUCompareOp.html">SDL_GPUCompareOp</a></li>
+<li><a href="SDL_GPUCubeMapFace.html">SDL_GPUCubeMapFace</a></li>
+<li><a href="SDL_GPUCullMode.html">SDL_GPUCullMode</a></li>
+<li><a href="SDL_GPUFillMode.html">SDL_GPUFillMode</a></li>
+<li><a href="SDL_GPUFilter.html">SDL_GPUFilter</a></li>
+<li><a href="SDL_GPUFrontFace.html">SDL_GPUFrontFace</a></li>
+<li><a href="SDL_GPUIndexElementSize.html">SDL_GPUIndexElementSize</a></li>
+<li><a href="SDL_GPULoadOp.html">SDL_GPULoadOp</a></li>
+<li><a href="SDL_GPUPresentMode.html">SDL_GPUPresentMode</a></li>
+<li><a href="SDL_GPUPrimitiveType.html">SDL_GPUPrimitiveType</a></li>
+<li><a href="SDL_GPUSampleCount.html">SDL_GPUSampleCount</a></li>
+<li><a href="SDL_GPUSamplerAddressMode.html">SDL_GPUSamplerAddressMode</a></li>
+<li><a href="SDL_GPUSamplerMipmapMode.html">SDL_GPUSamplerMipmapMode</a></li>
+<li><a href="SDL_GPUShaderStage.html">SDL_GPUShaderStage</a></li>
+<li><a href="SDL_GPUStencilOp.html">SDL_GPUStencilOp</a></li>
+<li><a href="SDL_GPUStoreOp.html">SDL_GPUStoreOp</a></li>
+<li><a href="SDL_GPUSwapchainComposition.html">SDL_GPUSwapchainComposition</a></li>
+<li><a href="SDL_GPUTextureFormat.html">SDL_GPUTextureFormat</a></li>
+<li><a href="SDL_GPUTextureType.html">SDL_GPUTextureType</a></li>
+<li><a href="SDL_GPUTransferBufferUsage.html">SDL_GPUTransferBufferUsage</a></li>
+<li><a href="SDL_GPUVertexElementFormat.html">SDL_GPUVertexElementFormat</a></li>
+<li><a href="SDL_GPUVertexInputRate.html">SDL_GPUVertexInputRate</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<h2 id="macros">Macros</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryGPU, CategoryAPIMacro -->
+
+<ul>
+<li>(none.)</li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<hr />
+<p><a href="CategoryAPICategory.html">CategoryAPICategory</a></p>
+</body>
+</html>

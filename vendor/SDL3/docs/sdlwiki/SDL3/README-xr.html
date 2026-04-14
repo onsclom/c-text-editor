@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>README-xr</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">:root {
+color-scheme: dark light; 
+}
+body {
+background-color: white;
+padding: 2vw;
+color: #333;
+max-width: 1200px;
+margin: 0 auto;
+font-size: 16px;
+line-height: 1.5;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+overflow-wrap: break-word;
+}
+a {
+color: #0969da;
+
+}
+a:visited {
+color: #064998;
+}
+h1 {
+border-bottom: 2px solid #efefef;
+}
+h2 {
+border-bottom: 1px solid #efefef;
+}
+p {
+max-width: 85ch;
+}
+li {
+max-width: 85ch;
+}
+div.sourceCode {
+background-color: #f6f8fa;
+max-width: 100%;
+padding: 16px;
+}
+code {
+background-color: #f6f8fa;
+padding: 0px;
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+}
+table {
+border: 1px solid #808080;
+border-collapse: collapse;
+}
+td {
+border: 1px solid #808080;
+padding: 5px;
+}
+tr:nth-child(even) {
+background-color: #f6f8fa;
+}
+.wikitopbanner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #efefef;
+padding: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+.wikibottombanner {
+background-color: #efefef;
+padding: 10px;
+margin-top: 10px;
+width: auto;
+}
+.alertBox {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+max-width: 60%;
+padding: 10;
+margin: auto;
+}
+.anchorImage {
+visibility: hidden;
+padding-left: 0.2em;
+color: #fff;
+}
+.anchorText:hover .anchorImage {
+visibility: visible;
+}
+hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #efefef;
+margin: 1em 0;
+padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+color: #e6edf3;
+background-color: #0d1117;
+}
+h1 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+h2 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+hr {
+border-color: rgba(48, 54, 61, 0.7);
+}
+div.sourceCode {
+background-color: #161b22;
+}
+code {
+background-color: #161b22;
+}
+a {
+color: #4493f8;
+}
+a:visited {
+color: #2f66ad;
+}
+table {
+border-color: rgba(48, 54, 61, 0.7);
+}
+td {
+border-color: rgba(48, 54, 61, 0.7);
+}
+tr:nth-child(even) {
+background-color: #161b22;
+}
+.wikitopbanner {
+background-color: #263040;
+}
+.wikibottombanner {
+background-color: #263040;
+}
+.anchorText:hover .anchorImage {
+filter: invert(100%);
+}
+}
+@media print {
+body {
+font-size: 12px;
+}
+table {
+font-size: inherit;
+}
+a:visited {
+color: #0969da;
+}
+.wikitopbanner,
+.anchorText,
+.wikibottombanner {
+display: none;
+}
+}
+</style>
+  <style type="text/css"> code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+{ position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+{ content: attr(title);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; pointer-events: all; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+@media (prefers-color-scheme: dark) {
+code span.al { color: #95da4c; font-weight: bold; } 
+code span.an { color: #3f8058; } 
+code span.at { color: #2980b9; } 
+code span.bn { color: #f67400; } 
+code span.bu { color: #7f8c8d; } 
+code span.ch { color: #3daee9; } 
+code span.co { color: #7a7c7d; } 
+code span.cv { color: #7f8c8d; } 
+code span.cn { color: #27aeae; font-weight: bold; } 
+code span.cf { color: #fdbc4b; font-weight: bold; } 
+code span.dt { color: #2980b9; } 
+code span.dv { color: #f67400; } 
+code span.do { color: #a43340; } 
+code span.er { color: #da4453; } 
+code span.ex { color: #0099ff; font-weight: bold; } 
+code span.fl { color: #f67400; } 
+code span.fu { color: #8e44ad; } 
+code span.im { color: #27ae60; } 
+code span.in { color: #c45b00; } 
+code span.kw { color: #cfcfc2; font-weight: bold; } 
+code span.op { color: #cfcfc2; } 
+code span.ot { color: #27ae60; } 
+code span.pp { color: #27ae60; } 
+code span.sc { color: #3daee9; } 
+code span.ss { color: #da4453; } 
+code span.st { color: #f44f4f; } 
+code span.va { color: #27aeae; } 
+code span.vs { color: #da4453; } 
+code span.wa { color: #da4453; } 
+}</style>
+</head>
+<body>
+<h1 id="openxr--vr-development-with-sdl">OpenXR / VR Development with
+SDL</h1>
+<p>This document covers how to build OpenXR (VR/AR) applications using
+SDL&#39;s GPU API with OpenXR integration.</p>
+<h2 id="overview">Overview</h2>
+<p>SDL3 provides OpenXR integration through the GPU API, allowing you to
+render to VR/AR headsets using a unified interface across multiple
+graphics backends (Vulkan, D3D12, Metal).</p>
+<p><strong>Key features:</strong></p>
+<ul>
+<li>Automatic OpenXR instance and session management</li>
+<li>Swapchain creation and image acquisition</li>
+<li>Support for multi-pass stereo rendering</li>
+<li>Works with desktop VR runtimes (SteamVR, Oculus, Windows Mixed
+Reality) and standalone headsets (Meta Quest, Pico)</li>
+</ul>
+<h2 id="desktop-development">Desktop Development</h2>
+<h3 id="requirements">Requirements</h3>
+<ol type="1">
+<li><p><strong>OpenXR Loader</strong> (<code>openxr_loader.dll</code> /
+<code>libopenxr_loader.so</code>)</p>
+<ul>
+<li>On Windows: Usually installed with VR runtime software (Oculus,
+SteamVR)</li>
+<li>On Linux: Install via package manager (e.g.,
+<code>libopenxr-loader1</code> on Ubuntu)</li>
+<li>Can also use <code>SDL_HINT_OPENXR_LIBRARY</code> to specify a
+custom loader path</li>
+</ul></li>
+<li><p><strong>OpenXR Runtime</strong></p>
+<ul>
+<li>At least one OpenXR runtime must be installed and active</li>
+<li>Examples: SteamVR, Oculus Desktop, Monado (Linux)</li>
+</ul></li>
+<li><p><strong>VR Headset</strong></p>
+<ul>
+<li>Connected and recognized by the runtime</li>
+</ul></li>
+</ol>
+<h3 id="basic-usage">Basic Usage</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;openxr/openxr.h&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;SDL3/SDL.h&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;SDL3/SDL_openxr.h&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">// These will be populated by SDL</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>XrInstance xr_instance <span class="op">=</span> XR_NULL_HANDLE<span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>XrSystemId xr_system_id <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">// Create GPU device with XR enabled</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>SDL_PropertiesID props <span class="op">=</span> SDL_CreateProperties<span class="op">();</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>SDL_SetBooleanProperty<span class="op">(</span>props<span class="op">,</span> SDL_PROP_GPU_DEVICE_CREATE_XR_ENABLE_BOOLEAN<span class="op">,</span> <span class="kw">true</span><span class="op">);</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>SDL_SetPointerProperty<span class="op">(</span>props<span class="op">,</span> SDL_PROP_GPU_DEVICE_CREATE_XR_INSTANCE_POINTER<span class="op">,</span> <span class="op">&amp;</span>xr_instance<span class="op">);</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>SDL_SetPointerProperty<span class="op">(</span>props<span class="op">,</span> SDL_PROP_GPU_DEVICE_CREATE_XR_SYSTEM_ID_POINTER<span class="op">,</span> <span class="op">&amp;</span>xr_system_id<span class="op">);</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">// Optional: Override app name/version (defaults to SDL_SetAppMetadata values if not set)</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>SDL_SetStringProperty<span class="op">(</span>props<span class="op">,</span> SDL_PROP_GPU_DEVICE_CREATE_XR_APPLICATION_NAME_STRING<span class="op">,</span> <span class="st">&quot;My VR App&quot;</span><span class="op">);</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>SDL_SetNumberProperty<span class="op">(</span>props<span class="op">,</span> SDL_PROP_GPU_DEVICE_CREATE_XR_APPLICATION_VERSION_NUMBER<span class="op">,</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>SDL_GPUDevice <span class="op">*</span>device <span class="op">=</span> SDL_CreateGPUDeviceWithProperties<span class="op">(</span>props<span class="op">);</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>SDL_DestroyProperties<span class="op">(</span>props<span class="op">);</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">// xr_instance and xr_system_id are now populated by SDL</span></span></code></pre></div>
+<p>See <code>test/testgpu_spinning_cube_xr.c</code> for a complete
+example.</p>
+<hr />
+<h2 id="android-development">Android Development</h2>
+<p>Building OpenXR applications for Android standalone headsets (Meta
+Quest, Pico, etc.) requires additional manifest configuration beyond
+standard Android apps.</p>
+<h3 id="android-manifest-requirements">Android Manifest
+Requirements</h3>
+<p>The manifest requirements fall into three categories:</p>
+<ol type="1">
+<li><strong>OpenXR Standard (Khronos)</strong> - Required for all OpenXR
+apps</li>
+<li><strong>Platform-Specific</strong> - Required for specific headset
+platforms</li>
+<li><strong>Optional Features</strong> - Enable additional
+capabilities</li>
+</ol>
+<hr />
+<h3 id="openxr-standard-requirements-all-platforms">OpenXR Standard
+Requirements (All Platforms)</h3>
+<p>These are required by the Khronos OpenXR specification for
+Android:</p>
+<h4 id="permissions">Permissions</h4>
+<div class="sourceCode" id="cb2"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- OpenXR runtime broker communication --&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">uses-permission</span><span class="ot"> android:name=</span><span class="st">&quot;org.khronos.openxr.permission.OPENXR&quot;</span> /&gt;</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">uses-permission</span><span class="ot"> android:name=</span><span class="st">&quot;org.khronos.openxr.permission.OPENXR_SYSTEM&quot;</span> /&gt;</span></code></pre></div>
+<h4 id="queries-android-11">Queries (Android 11+)</h4>
+<p>Required for the app to discover OpenXR runtimes:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">queries</span>&gt;</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">provider</span><span class="ot"> android:authorities=</span><span class="st">&quot;org.khronos.openxr.runtime_broker;org.khronos.openxr.system_runtime_broker&quot;</span> /&gt;</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">intent</span>&gt;</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">action</span><span class="ot"> android:name=</span><span class="st">&quot;org.khronos.openxr.OpenXRRuntimeService&quot;</span> /&gt;</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">intent</span>&gt;</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">intent</span>&gt;</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">action</span><span class="ot"> android:name=</span><span class="st">&quot;org.khronos.openxr.OpenXRApiLayerService&quot;</span> /&gt;</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">intent</span>&gt;</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">queries</span>&gt;</span></code></pre></div>
+<h4 id="hardware-features">Hardware Features</h4>
+<div class="sourceCode" id="cb4"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- VR head tracking (standard OpenXR requirement) --&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">uses-feature</span><span class="ot"> android:name=</span><span class="st">&quot;android.hardware.vr.headtracking&quot;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ot">              android:required=</span><span class="st">&quot;true&quot;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ot">              android:version=</span><span class="st">&quot;1&quot;</span> /&gt;</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Touchscreen not required for VR --&gt;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">uses-feature</span><span class="ot"> android:name=</span><span class="st">&quot;android.hardware.touchscreen&quot;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ot">              android:required=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Graphics requirements --&gt;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">uses-feature</span><span class="ot"> android:glEsVersion=</span><span class="st">&quot;0x00030002&quot;</span><span class="ot"> android:required=</span><span class="st">&quot;true&quot;</span> /&gt;</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">uses-feature</span><span class="ot"> android:name=</span><span class="st">&quot;android.hardware.vulkan.level&quot;</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="ot">              android:required=</span><span class="st">&quot;true&quot;</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="ot">              android:version=</span><span class="st">&quot;1&quot;</span> /&gt;</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">uses-feature</span><span class="ot"> android:name=</span><span class="st">&quot;android.hardware.vulkan.version&quot;</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="ot">              android:required=</span><span class="st">&quot;true&quot;</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="ot">              android:version=</span><span class="st">&quot;0x00401000&quot;</span> /&gt;</span></code></pre></div>
+<h4 id="intent-category">Intent Category</h4>
+<div class="sourceCode" id="cb5"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">activity</span> <span class="er">...</span>&gt;</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">intent-filter</span>&gt;</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">action</span><span class="ot"> android:name=</span><span class="st">&quot;android.intent.action.MAIN&quot;</span> /&gt;</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">category</span><span class="ot"> android:name=</span><span class="st">&quot;android.intent.category.LAUNCHER&quot;</span> /&gt;</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="co">&lt;!-- Khronos OpenXR immersive app category --&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">category</span><span class="ot"> android:name=</span><span class="st">&quot;org.khronos.openxr.intent.category.IMMERSIVE_HMD&quot;</span> /&gt;</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">intent-filter</span>&gt;</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">activity</span>&gt;</span></code></pre></div>
+<hr />
+<h3 id="meta-quest-requirements">Meta Quest Requirements</h3>
+<p>These are <strong>required</strong> for apps to run properly on Meta
+Quest devices. Without these, your app may launch in &quot;pancake&quot; 2D mode
+instead of VR.</p>
+<h4 id="vr-intent-category-critical">VR Intent Category (Critical!)</h4>
+<div class="sourceCode" id="cb6"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">activity</span> <span class="er">...</span>&gt;</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">intent-filter</span>&gt;</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        ...</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="co">&lt;!-- CRITICAL: Without this, app launches in 2D mode on Quest! --&gt;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">category</span><span class="ot"> android:name=</span><span class="st">&quot;com.oculus.intent.category.VR&quot;</span> /&gt;</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">intent-filter</span>&gt;</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">activity</span>&gt;</span></code></pre></div>
+<h4 id="supported-devices">Supported Devices</h4>
+<div class="sourceCode" id="cb7"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">application</span> <span class="er">...</span>&gt;</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&lt;!-- Required: Specifies which Quest devices are supported --&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">meta-data</span><span class="ot"> android:name=</span><span class="st">&quot;com.oculus.supportedDevices&quot;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ot">               android:value=</span><span class="st">&quot;quest|quest2|questpro|quest3|quest3s&quot;</span> /&gt;</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">application</span>&gt;</span></code></pre></div>
+<h4 id="focus-handling-recommended">Focus Handling (Recommended)</h4>
+<div class="sourceCode" id="cb8"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">application</span> <span class="er">...</span>&gt;</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&lt;!-- Properly handles when user opens the Quest system menu --&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">meta-data</span><span class="ot"> android:name=</span><span class="st">&quot;com.oculus.vr.focusaware&quot;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="ot">               android:value=</span><span class="st">&quot;true&quot;</span> /&gt;</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">application</span>&gt;</span></code></pre></div>
+<h4 id="hand-tracking-optional">Hand Tracking (Optional)</h4>
+<div class="sourceCode" id="cb9"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Feature declaration --&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">uses-feature</span><span class="ot"> android:name=</span><span class="st">&quot;oculus.software.handtracking&quot;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ot">              android:required=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">application</span> <span class="er">...</span>&gt;</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">&lt;!-- V2.0 allows app to launch without controllers --&gt;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">meta-data</span><span class="ot"> android:name=</span><span class="st">&quot;com.oculus.handtracking.version&quot;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="ot">               android:value=</span><span class="st">&quot;V2.0&quot;</span> /&gt;</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">meta-data</span><span class="ot"> android:name=</span><span class="st">&quot;com.oculus.handtracking.frequency&quot;</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="ot">               android:value=</span><span class="st">&quot;HIGH&quot;</span> /&gt;</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">application</span>&gt;</span></code></pre></div>
+<h4 id="vr-splash-screen-optional">VR Splash Screen (Optional)</h4>
+<div class="sourceCode" id="cb10"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">application</span> <span class="er">...</span>&gt;</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">meta-data</span><span class="ot"> android:name=</span><span class="st">&quot;com.oculus.ossplash&quot;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ot">               android:value=</span><span class="st">&quot;true&quot;</span> /&gt;</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">meta-data</span><span class="ot"> android:name=</span><span class="st">&quot;com.oculus.ossplash.colorspace&quot;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ot">               android:value=</span><span class="st">&quot;QUEST_SRGB_NONGAMMA&quot;</span> /&gt;</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">meta-data</span><span class="ot"> android:name=</span><span class="st">&quot;com.oculus.ossplash.background&quot;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="ot">               android:resource=</span><span class="st">&quot;@drawable/vr_splash&quot;</span> /&gt;</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">application</span>&gt;</span></code></pre></div>
+<hr />
+<h3 id="pico-requirements">Pico Requirements</h3>
+<p>For Pico Neo, Pico 4, and other Pico headsets:</p>
+<h4 id="vr-intent-category">VR Intent Category</h4>
+<div class="sourceCode" id="cb11"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">activity</span> <span class="er">...</span>&gt;</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">intent-filter</span>&gt;</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>        ...</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>        <span class="co">&lt;!-- Pico VR category --&gt;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">category</span><span class="ot"> android:name=</span><span class="st">&quot;com.picovr.intent.category.VR&quot;</span> /&gt;</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">intent-filter</span>&gt;</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">activity</span>&gt;</span></code></pre></div>
+<h4 id="supported-devices-optional">Supported Devices (Optional)</h4>
+<div class="sourceCode" id="cb12"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">application</span> <span class="er">...</span>&gt;</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&lt;!-- Pico device support --&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">meta-data</span><span class="ot"> android:name=</span><span class="st">&quot;pvr.app.type&quot;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="ot">               android:value=</span><span class="st">&quot;vr&quot;</span> /&gt;</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">application</span>&gt;</span></code></pre></div>
+<hr />
+<h3 id="htc-vive-focus--vive-xr-elite">HTC Vive Focus / VIVE XR
+Elite</h3>
+<div class="sourceCode" id="cb13"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">activity</span> <span class="er">...</span>&gt;</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">intent-filter</span>&gt;</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        ...</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        <span class="co">&lt;!-- HTC Vive category --&gt;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">category</span><span class="ot"> android:name=</span><span class="st">&quot;com.htc.intent.category.VRAPP&quot;</span> /&gt;</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">intent-filter</span>&gt;</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">activity</span>&gt;</span></code></pre></div>
+<hr />
+<h2 id="quick-reference-table">Quick Reference Table</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Declaration</th>
+<th>Purpose</th>
+<th>Scope</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>org.khronos.openxr.permission.OPENXR</code></td>
+<td>Runtime communication</td>
+<td>All OpenXR</td>
+</tr>
+<tr class="even">
+<td><code>android.hardware.vr.headtracking</code></td>
+<td>Marks app as VR</td>
+<td>All OpenXR</td>
+</tr>
+<tr class="odd">
+<td><code>org.khronos.openxr.intent.category.IMMERSIVE_HMD</code></td>
+<td>Khronos standard VR category</td>
+<td>All OpenXR</td>
+</tr>
+<tr class="even">
+<td><code>com.oculus.intent.category.VR</code></td>
+<td>Launch in VR mode</td>
+<td>Meta Quest</td>
+</tr>
+<tr class="odd">
+<td><code>com.oculus.supportedDevices</code></td>
+<td>Device compatibility</td>
+<td>Meta Quest</td>
+</tr>
+<tr class="even">
+<td><code>com.oculus.vr.focusaware</code></td>
+<td>System menu handling</td>
+<td>Meta Quest</td>
+</tr>
+<tr class="odd">
+<td><code>com.picovr.intent.category.VR</code></td>
+<td>Launch in VR mode</td>
+<td>Pico</td>
+</tr>
+<tr class="even">
+<td><code>com.htc.intent.category.VRAPP</code></td>
+<td>Launch in VR mode</td>
+<td>HTC Vive</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="example-manifest">Example Manifest</h2>
+<p>SDL provides an example XR manifest template at:
+<code>test/android/cmake/AndroidManifest.xr.xml.cmake</code></p>
+<p>This template includes:</p>
+<ul>
+<li>All Khronos OpenXR requirements</li>
+<li>Meta Quest support (configurable via
+<code>SDL_ANDROID_XR_META_SUPPORT</code> CMake option)</li>
+<li>Proper intent filters for VR launching</li>
+</ul>
+<hr />
+<h2 id="common-issues">Common Issues</h2>
+<h3 id="app-launches-in-2d-pancake-mode">App launches in 2D &quot;pancake&quot;
+mode</h3>
+<p><strong>Cause:</strong> Missing platform-specific VR intent
+category.</p>
+<p><strong>Solution:</strong> Add the appropriate category for your
+target platform:</p>
+<ul>
+<li>Meta Quest: <code>com.oculus.intent.category.VR</code></li>
+<li>Pico: <code>com.picovr.intent.category.VR</code></li>
+<li>HTC: <code>com.htc.intent.category.VRAPP</code></li>
+</ul>
+<h3 id="no-openxr-runtime-found-error">&quot;No OpenXR runtime found&quot;
+error</h3>
+<p><strong>Cause:</strong> The OpenXR loader can&#39;t find a runtime.</p>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li><strong>Desktop:</strong> Ensure VR software (SteamVR, Oculus) is
+installed and running</li>
+<li><strong>Android:</strong> Ensure your manifest has the correct
+<code>&lt;queries&gt;</code> block for runtime discovery</li>
+<li><strong>Linux:</strong> Install <code>libopenxr-loader1</code> and
+configure the active runtime</li>
+</ul>
+<h3 id="openxr-loader-not-found">OpenXR loader not found</h3>
+<p><strong>Cause:</strong> <code>openxr_loader.dll</code> /
+<code>libopenxr_loader.so</code> is not in the library path.</p>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>Install the Khronos OpenXR SDK</li>
+<li>On Windows, VR runtimes typically install this, but may not add it
+to PATH</li>
+<li>Use <code>SDL_HINT_OPENXR_LIBRARY</code> to specify the loader path
+explicitly</li>
+</ul>
+<h3 id="vulkan-validation-errors-on-shutdown">Vulkan validation errors
+on shutdown</h3>
+<p><strong>Cause:</strong> GPU resources destroyed while still in
+use.</p>
+<p><strong>Solution:</strong> Call
+<code>SDL_WaitForGPUIdle(device)</code> before releasing any GPU
+resources or destroying the device.</p>
+<hr />
+<h2 id="additional-resources">Additional Resources</h2>
+<ul>
+<li><a href="https://www.khronos.org/openxr/">Khronos OpenXR
+Specification</a></li>
+<li><a href="https://developer.oculus.com/documentation/">Meta Quest
+Developer Documentation</a></li>
+<li><a href="https://developer.pico-interactive.com/">Pico Developer
+Documentation</a></li>
+<li><a href="../FrontPage.html">SDL GPU API Documentation</a></li>
+<li>Example code: <code>test/testgpu_spinning_cube_xr.c</code></li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>README-emscripten</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">:root {
+color-scheme: dark light; 
+}
+body {
+background-color: white;
+padding: 2vw;
+color: #333;
+max-width: 1200px;
+margin: 0 auto;
+font-size: 16px;
+line-height: 1.5;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+overflow-wrap: break-word;
+}
+a {
+color: #0969da;
+
+}
+a:visited {
+color: #064998;
+}
+h1 {
+border-bottom: 2px solid #efefef;
+}
+h2 {
+border-bottom: 1px solid #efefef;
+}
+p {
+max-width: 85ch;
+}
+li {
+max-width: 85ch;
+}
+div.sourceCode {
+background-color: #f6f8fa;
+max-width: 100%;
+padding: 16px;
+}
+code {
+background-color: #f6f8fa;
+padding: 0px;
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+}
+table {
+border: 1px solid #808080;
+border-collapse: collapse;
+}
+td {
+border: 1px solid #808080;
+padding: 5px;
+}
+tr:nth-child(even) {
+background-color: #f6f8fa;
+}
+.wikitopbanner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #efefef;
+padding: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+.wikibottombanner {
+background-color: #efefef;
+padding: 10px;
+margin-top: 10px;
+width: auto;
+}
+.alertBox {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+max-width: 60%;
+padding: 10;
+margin: auto;
+}
+.anchorImage {
+visibility: hidden;
+padding-left: 0.2em;
+color: #fff;
+}
+.anchorText:hover .anchorImage {
+visibility: visible;
+}
+hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #efefef;
+margin: 1em 0;
+padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+color: #e6edf3;
+background-color: #0d1117;
+}
+h1 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+h2 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+hr {
+border-color: rgba(48, 54, 61, 0.7);
+}
+div.sourceCode {
+background-color: #161b22;
+}
+code {
+background-color: #161b22;
+}
+a {
+color: #4493f8;
+}
+a:visited {
+color: #2f66ad;
+}
+table {
+border-color: rgba(48, 54, 61, 0.7);
+}
+td {
+border-color: rgba(48, 54, 61, 0.7);
+}
+tr:nth-child(even) {
+background-color: #161b22;
+}
+.wikitopbanner {
+background-color: #263040;
+}
+.wikibottombanner {
+background-color: #263040;
+}
+.anchorText:hover .anchorImage {
+filter: invert(100%);
+}
+}
+@media print {
+body {
+font-size: 12px;
+}
+table {
+font-size: inherit;
+}
+a:visited {
+color: #0969da;
+}
+.wikitopbanner,
+.anchorText,
+.wikibottombanner {
+display: none;
+}
+}
+</style>
+  <style type="text/css"> code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+{ position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+{ content: attr(title);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; pointer-events: all; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+@media (prefers-color-scheme: dark) {
+code span.al { color: #95da4c; font-weight: bold; } 
+code span.an { color: #3f8058; } 
+code span.at { color: #2980b9; } 
+code span.bn { color: #f67400; } 
+code span.bu { color: #7f8c8d; } 
+code span.ch { color: #3daee9; } 
+code span.co { color: #7a7c7d; } 
+code span.cv { color: #7f8c8d; } 
+code span.cn { color: #27aeae; font-weight: bold; } 
+code span.cf { color: #fdbc4b; font-weight: bold; } 
+code span.dt { color: #2980b9; } 
+code span.dv { color: #f67400; } 
+code span.do { color: #a43340; } 
+code span.er { color: #da4453; } 
+code span.ex { color: #0099ff; font-weight: bold; } 
+code span.fl { color: #f67400; } 
+code span.fu { color: #8e44ad; } 
+code span.im { color: #27ae60; } 
+code span.in { color: #c45b00; } 
+code span.kw { color: #cfcfc2; font-weight: bold; } 
+code span.op { color: #cfcfc2; } 
+code span.ot { color: #27ae60; } 
+code span.pp { color: #27ae60; } 
+code span.sc { color: #3daee9; } 
+code span.ss { color: #da4453; } 
+code span.st { color: #f44f4f; } 
+code span.va { color: #27aeae; } 
+code span.vs { color: #da4453; } 
+code span.wa { color: #da4453; } 
+}</style>
+</head>
+<body>
+<h1 id="emscripten">Emscripten</h1>
+<h2 id="the-state-of-things">The state of things</h2>
+<p>(As of October 2024, but things move quickly and we don&#39;t update this
+document often.)</p>
+<p>In modern times, all the browsers you probably care about (Chrome,
+Firefox, Edge, and Safari, on Windows, macOS, Linux, iOS and Android),
+support some reasonable base configurations:</p>
+<ul>
+<li>WebAssembly (don&#39;t bother with asm.js any more)</li>
+<li>WebGL (which will look like OpenGL ES 2 or 3 to your app).</li>
+<li>Threads (see caveats, though!)</li>
+<li>Game controllers</li>
+<li>Autoupdating (so you can assume they have a recent version of the
+browser)</li>
+</ul>
+<p>All this to say we&#39;re at the point where you don&#39;t have to make a lot
+of concessions to get even a fairly complex SDL-based game up and
+running.</p>
+<h2 id="rtfm">RTFM</h2>
+<p>This document is a quick rundown of some high-level details. The
+documentation at <a href="https://emscripten.org/">emscripten.org</a> is
+vast and extremely detailed for a wide variety of topics, and you should
+at least skim through it at some point.</p>
+<h2 id="porting-your-app-to-emscripten">Porting your app to
+Emscripten</h2>
+<p>Many many things just need some simple adjustments and they&#39;ll
+compile like any other C/C++ code, as long as SDL was handling the
+platform-specific work for your program.</p>
+<p>First: assembly language code has to go. Replace it with C. You can
+even use <a href="https://emscripten.org/docs/porting/simd.html">x86
+SIMD intrinsic functions in Emscripten</a>!</p>
+<p>Second: Middleware has to go. If you have a third-party library you
+link against, you either need an Emscripten port of it, or the source
+code to it to compile yourself, or you need to remove it.</p>
+<p>Third: If your program starts in a function called main(), you need
+to get out of it and into a function that gets called repeatedly, and
+returns quickly, called a mainloop.</p>
+<p>Somewhere in your program, you probably have something that looks
+like a more complicated version of this:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    initialize_the_game<span class="op">();</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>game_is_still_running<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        check_for_new_input<span class="op">();</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        think_about_stuff<span class="op">();</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        draw_the_next_frame<span class="op">();</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    deinitialize_the_game<span class="op">();</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>This will not work on Emscripten, because the main thread needs to be
+free to do stuff and can&#39;t sit in this loop forever. So Emscripten lets
+you set up a <a href="https://emscripten.org/docs/porting/emscripten-runtime-environment.html#browser-main-loop">mainloop</a>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">void</span> mainloop<span class="op">(</span><span class="dt">void</span><span class="op">)</span>   <span class="co">/* this will run often, possibly at the monitor&#39;s refresh rate */</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(!</span>game_is_still_running<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        deinitialize_the_game<span class="op">();</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="pp">#ifdef __EMSCRIPTEN__</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        emscripten_cancel_main_loop<span class="op">();</span>  <span class="co">/* this should &quot;kill&quot; the app. */</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="pp">#else</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        exit<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="pp">#endif</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    check_for_new_input<span class="op">();</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    think_about_stuff<span class="op">();</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    draw_the_next_frame<span class="op">();</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    initialize_the_game<span class="op">();</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="pp">#ifdef __EMSCRIPTEN__</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    emscripten_set_main_loop<span class="op">(</span>mainloop<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="pp">#else</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span><span class="dv">1</span><span class="op">)</span> <span class="op">{</span> mainloop<span class="op">();</span> <span class="op">}</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="pp">#endif</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Basically, <code>emscripten_set_main_loop(mainloop, 0, 1);</code>
+says &quot;run <code>mainloop</code> over and over until I end the program.&quot;
+The function will run, and return, freeing the main thread for other
+tasks, and then run again when it&#39;s time. The <code>1</code> parameter
+does some magic to make your main() function end immediately; this is
+useful because you don&#39;t want any shutdown code that might be sitting
+below this code to actually run if main() were to continue on, since
+we&#39;re just getting started.</p>
+<p>Another option is to use SDL&#39;s main callbacks, which handle this for
+you without platform-specific code in your app. Please refer to <a href="README-main-functions.html#main-callbacks-in-sdl3">the wiki</a> or
+<code>docs/README-main-functions.md</code> in the SDL source code.</p>
+<p>There&#39;s a lot of little details that are beyond the scope of this
+document, but that&#39;s the biggest initial set of hurdles to porting your
+app to the web.</p>
+<h2 id="do-you-need-threads">Do you need threads?</h2>
+<p>If you plan to use threads, they work on all major browsers now.
+HOWEVER, they bring with them a lot of careful considerations. Rendering
+<em>must</em> be done on the main thread. This is a general guideline
+for many platforms, but a hard requirement on the web.</p>
+<p>Many other things also must happen on the main thread; often times
+SDL and Emscripten make efforts to &quot;proxy&quot; work to the main thread that
+must be there, but you have to be careful (and read more detailed
+documentation than this for the finer points).</p>
+<p>Even when using threads, your main thread needs to set an Emscripten
+mainloop (or use SDL&#39;s main callbacks) that runs quickly and returns, or
+things will fail to work correctly.</p>
+<p>You should definitely read <a href="https://emscripten.org/docs/porting/pthreads.html">Emscripten&#39;s
+pthreads docs</a> for all the finer points. Mostly SDL&#39;s thread API will
+work as expected, but is built on pthreads, so it shares the same little
+incompatibilities that are documented there, such as where you can use a
+mutex, and when a thread will start running, etc.</p>
+<p>IMPORTANT: You have to decide to either build something that uses
+threads or something that doesn&#39;t; you can&#39;t have one build that works
+everywhere. This is an Emscripten (or maybe WebAssembly? Or just web
+browsers in general?) limitation. If you aren&#39;t using threads, it&#39;s
+easier to not enable them at all, at build time.</p>
+<p>If you use threads, you <em>have to</em> run from a web server that
+has <a href="https://web.dev/why-coop-coep/">COOP/COEP headers set
+correctly</a> or your program will fail to start at all.</p>
+<p>If building with threads, <code>__EMSCRIPTEN_PTHREADS__</code> will
+be defined for checking with the C preprocessor, so you can build
+something different depending on what sort of build you&#39;re
+compiling.</p>
+<h2 id="audio">Audio</h2>
+<p>Audio works as expected at the API level, but not exactly like other
+platforms.</p>
+<p>You&#39;ll only see a single default audio device. Audio recording also
+works; if the browser pops up a prompt to ask for permission to access
+the microphone, the SDL_OpenAudioDevice call will succeed and start
+producing silence at a regular interval. Once the user approves the
+request, real audio data will flow. If the user denies it, the app is
+not informed and will just continue to receive silence.</p>
+<p>Modern web browsers will not permit web pages to produce sound before
+the user has interacted with them (clicked or tapped on them, usually);
+this is for several reasons, not the least of which being that no one
+likes when a random browser tab suddenly starts making noise and the
+user has to scramble to figure out which and silence it.</p>
+<p>SDL will allow you to open the audio device for playback in this
+circumstance, and your audio streams will consume data, but SDL will
+throw the audio data away until the user interacts with the page. This
+helps apps that depend on the audio callback to make progress, and also
+keeps audio playback in sync once the app is finally allowed to make
+noise.</p>
+<p>There are two reasonable ways to deal with the silence at the app
+level: if you are writing some sort of media player thing, where the
+user expects there to be a volume control when you mouseover the canvas,
+just default that control to a muted state; if the user clicks on the
+control to unmute it, on this first click, adjust your app&#39;s volume
+appropriately, and SDL will also start actually feeding the data to the
+browser. This allows the media to play at start, and the user can
+reasonably opt-in to listening.</p>
+<p>Many games do not have this sort of UI. For these, your best bet
+might be to write a little Javascript that puts up a &quot;Click here to
+play!&quot; UI, and upon the user clicking, remove that UI and then call the
+Emscripten app&#39;s main() function. As far as the application knows, audio
+was able to play as soon as the program started, and since this magic
+happens in a little Javascript, you don&#39;t have to change your C/C++ code
+at all to make it happen.</p>
+<p>Please see the discussion at <a href="https://github.com/libsdl-org/SDL/issues/6385">https://github.com/libsdl-org/SDL/issues/6385</a>
+for some Javascript code to steal for this approach.</p>
+<p>But if a game can just do without audio until the user clicks on the
+page, it will still operate correctly, as if the page was merely muted
+before then.</p>
+<h2 id="rendering">Rendering</h2>
+<p>If you use SDL&#39;s 2D render API, it will use GLES2 internally, which
+Emscripten will turn into WebGL calls. You can also use OpenGL ES 2
+directly by creating a GL context and drawing into it.</p>
+<p>If the browser (and hardware) support WebGL 2, you can create an
+OpenGL ES 3 context.</p>
+<p>Calling SDL_RenderPresent (or SDL_GL_SwapWindow) will not actually
+present anything on the screen until your return from your mainloop
+function.</p>
+<p>Note that SDL attempts to default to vsync <em>off</em> on all
+platforms. You almost certainly do <em>not</em> want this in Emscripten,
+however, as it will affect the efficiency of the mainloop. If using
+OpenGL directly, you should call SDL_GL_SetSwapInterval(1) sometime near
+startup; if using the 2D render API, either create the renderer with
+with the property SDL_PROP_RENDERER_CREATE_PRESENT_VSYNC_NUMBER set to
+1, or call SDL_SetRenderVSync(renderer, 1). If you don&#39;t explicitly set
+vsync, you&#39;ll get a higher (but perhaps unstable) framerate, and use
+more power, but it will still work. Choosing a vsync of 1 will use
+requestAnimationFrame if possible.</p>
+<p>If you&#39;re using the SDL main callbacks, the mainloop defaults to
+using requestAnimationFrame (effectively vsync), because it calls
+emscripten_set_main_loop() with a zero fps. This is almost certainly
+what you want to do! Do this even if you aren&#39;t using the main
+callbacks! SDL will attempt to accommodate the app if it messes with
+vsync settings, or doesn&#39;t use requestAnimationFrame, but modern
+thinking is that this is the most efficient, consistent, and correct way
+to run a game in a web browser.</p>
+<h2 id="building-sdlemscripten">Building SDL/emscripten</h2>
+<p>Use the latest stable Emscripten release!</p>
+<p>It&#39;s possible to build SDL with older Emscripten releases, such as
+3.x, but several things will be silently broken, as bugs got fixed and
+web standards solidified over time. At the time of this writing,
+Emscripten 4.0.x is the current stable release. You&#39;re encouraged to
+install the latest stable release
+(<code>emsdk install latest ; emsdk activate latest</code> if using
+Emscripten&#39;s setup script), and make sure you&#39;re reasonably up to date
+as time goes on.</p>
+<p>Build:</p>
+<p>This works on Linux/Unix and macOS. Please send comments about
+Windows.</p>
+<p>Make sure you&#39;ve <a href="https://emscripten.org/docs/getting_started/downloads.html">installed
+emsdk</a> first, and run <code>source emsdk_env.sh</code> at the command
+line so it finds the tools.</p>
+<p>(These cmake options might be overkill, but this has worked for
+me.)</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> build</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> build</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">emcmake</span> cmake ..</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># you can also try `emcmake cmake -G Ninja ..` and then use `ninja` instead of this command.</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">emmake</span> make <span class="at">-j4</span></span></code></pre></div>
+<p>If you want to build with thread support, something like this
+works:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> build</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> build</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">emcmake</span> cmake <span class="at">-DSDL_PTHREADS</span><span class="op">=</span>ON ..</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># you can also do `emcmake cmake -G Ninja ..` and then use `ninja` instead of this command.</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">emmake</span> make <span class="at">-j4</span></span></code></pre></div>
+<p>To build the tests, add <code>-DSDL_TESTS=ON</code> to the
+<code>emcmake cmake</code> command line. To build the examples, add
+<code>-DSDL_EXAMPLES=ON</code> to the <code>emcmake cmake</code> command
+line.</p>
+<h2 id="building-your-app">Building your app</h2>
+<p>You need to compile with <code>emcc</code> instead of
+<code>gcc</code> or <code>clang</code> or whatever, but mostly it uses
+the same command line arguments as Clang.</p>
+<p>Link against the libSDL3.a file you generated by building SDL.</p>
+<p>Usually you would produce a binary like this:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gcc</span> <span class="at">-o</span> mygame mygame.c  <span class="co"># or whatever</span></span></code></pre></div>
+<p>But for Emscripten, you want to output something else:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">emcc</span> <span class="at">-o</span> index.html mygame.c</span></code></pre></div>
+<p>This will produce several files...support Javascript and WebAssembly
+(.wasm) files. The <code>-o index.html</code> will produce a simple HTML
+page that loads and runs your app. You will (probably) eventually want
+to replace or customize that file and do <code>-o index.js</code>
+instead to just build the code pieces.</p>
+<p>If you&#39;re working on a program of any serious size, you&#39;ll likely
+need to link with
+<code>-s ALLOW_MEMORY_GROWTH=1 -s MAXIMUM_MEMORY=1gb</code> to get
+access to more memory. If using pthreads, you&#39;ll need the
+<code>-s MAXIMUM_MEMORY=1gb</code> or the app will fail to start on iOS
+browsers, but this might be a bug that goes away in the future.</p>
+<h2 id="data-files">Data files</h2>
+<p>Your game probably has data files. Here&#39;s how to access them.</p>
+<p>Filesystem access works like a Unix filesystem; you have a single
+directory tree, possibly interpolated from several mounted locations, no
+drive letters, &#39;/&#39; for a path separator. You can access them with
+standard file APIs like open() or fopen() or SDL_IOStream. You can read
+or write from the filesystem.</p>
+<p>By default, you probably have a &quot;MEMFS&quot; filesystem (all files are
+stored in memory, but access to them is immediate and doesn&#39;t need to
+block). There are other options, like &quot;IDBFS&quot; (files are stored in a
+local database, so they don&#39;t need to be in RAM all the time and they
+can persist between runs of the program, but access is not synchronous).
+You can mix and match these file systems, mounting a MEMFS filesystem at
+one place and idbfs elsewhere, etc, but that&#39;s beyond the scope of this
+document. Please refer to Emscripten&#39;s <a href="https://emscripten.org/docs/porting/files/file_systems_overview.html">page
+on the topic</a> for more info.</p>
+<p>The <em>easiest</em> (but not the best) way to get at your data files
+is to embed them in the app itself. Emscripten&#39;s linker has support for
+automating this.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">emcc</span> <span class="at">-o</span> index.html loopwave.c <span class="at">--embed-file</span> ../test/sample.wav@/sounds/sample.wav</span></code></pre></div>
+<p>This will pack ../test/sample.wav in your app, and make it available
+at &quot;/sounds/sample.wav&quot; at runtime. Emscripten makes sure this data is
+available before your main() function runs, and since it&#39;s in MEMFS, you
+can just read it like you do on other platforms.
+<code>--embed-file</code> can also accept a directory to pack an entire
+tree, and you can specify the argument multiple times to pack unrelated
+things into the final installation.</p>
+<p>Note that this is absolutely the best approach if you have a few
+small files to include and shouldn&#39;t worry about the issue further.
+However, if you have hundreds of megabytes and/or thousands of files,
+this is not so great, since the user will download it all every time
+they load your page, and it all has to live in memory at runtime.</p>
+<p><a href="https://emscripten.org/docs/porting/files/packaging_files.html">Emscripten&#39;s
+documentation on the matter</a> gives other options and details, and is
+worth a read.</p>
+<p>Please also read the next section on persistent storage, for a little
+help from SDL.</p>
+<h2 id="automount-persistent-storage">Automount persistent storage</h2>
+<p>The file tree in Emscripten is provided by MEMFS by default, which
+stores all files in RAM. This is often what you want, because it&#39;s fast
+and can be accessed with the usual synchronous i/o functions like fopen
+or SDL_IOFromFile. You can also write files to MEMFS, but when the
+browser tab goes away, so do the files. But we want things like high
+scores, save games, etc, to still exist if we reload the game later.</p>
+<p>For this, Emscripten offers IDBFS, which backs files with the
+browser&#39;s <a href="https://en.wikipedia.org/wiki/IndexedDB">IndexedDB</a>
+functionality.</p>
+<p>To use this, the app has to mount the IDBFS filesystem somewhere in
+the virtual file tree, and then wait for it to sync up. This needs to be
+done in Javascript code. The sync will not complete until at least one
+(but possibly several) iterations of the mainloop have passed, which
+means you can not access any saved files during main() or SDL_AppInit()
+by default.</p>
+<p>SDL can solve this problem for you: it can be built to automatically
+mount the persistent files from IDBFS to a specific place in the file
+tree and wait until the sync has completed before calling main() or
+SDL_AppInit(), so to your C code, it looks like the files were always
+available.</p>
+<p>To use this functionality, set the CMake variable
+<code>SDL_EMSCRIPTEN_PERSISTENT_PATH</code> to a path in the filetree
+where persistent storage should be mounted:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> build</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> build</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">emcmake</span> cmake <span class="at">-DSDL_EMSCRIPTEN_PERSISTENT_PATH</span><span class="op">=</span>/storage ..</span></code></pre></div>
+<p>You should also link your app with <code>-lidbfs.js</code>. If your
+project links to SDL using CMake&#39;s find_package(SDL3), or uses
+<code>pkg-config sdl3 --libs</code>, this will be handled for you when
+used with an SDL built with
+<code>-DSDL_EMSCRIPTEN_PERSISTENT_PATH</code>.</p>
+<p>Now <code>/storage</code> will be prepared when your program runs,
+and SDL_GetPrefPath() will return a directory under that path. The
+storage is mounted with the <code>autoPersist: true</code> option, so
+when you write to that tree, whether with SDL APIs or other functions
+like fopen(), Emscripten will know it needs to sync that data back to
+the persistent database, and will do so automatically within the next
+few iterations of the mainloop.</p>
+<p>It&#39;s best to assume the sync will take a few frames to complete, and
+the data is not safe until it does.</p>
+<p>To summarize how to automate this:</p>
+<ul>
+<li>Build with
+<code>emcmake cmake -DSDL_EMSCRIPTEN_PERSISTENT_PATH=/storage</code></li>
+<li>Link your app with <code>-lidbfs.js</code> if not handled
+automatically.</li>
+<li>Write under <code>/storage</code>, or use SDL_GetPrefPath()</li>
+</ul>
+<h2 id="customizing-indexhtml">Customizing index.html</h2>
+<p>You don&#39;t have to use the HTML that Emscripten produces; the above
+examples use <code>emcc -o index.html</code>, but you can
+<code>-o index.js</code> instead to just output code without an HTML
+page, and then provide your own. This is desirable for shipping
+products, even though the Emscripten-provided HTML is fine for
+prototyping. Certain things <em>must</em> be in the HTML file or your
+program will not function correctly (or function at all). The specifics
+are beyond the scope of this document, but it&#39;s likely best to start
+with the Emscripten HTML and customize it, instead of starting from
+scratch.</p>
+<p>The <code>&lt;canvas&gt;</code> element in the HTML <em>must not</em>
+have a border or padding, or things will break in unexpected ways. This
+can be surprising when customizing the page&#39;s look. Plan
+accordingly.</p>
+<h2 id="debugging">Debugging</h2>
+<p>Debugging web apps is a mixed bag. You should compile and link with
+<code>-gsource-map</code>, which embeds a ton of source-level debugging
+information into the build, and make sure <em>the app source code is
+available on the web server</em>, which is often a scary proposition for
+various reasons.</p>
+<p>When you debug from the browser&#39;s tools and hit a breakpoint, you can
+step through the actual C/C++ source code, though, which can be
+nice.</p>
+<p>If you try debugging in Firefox and it doesn&#39;t work well for no
+apparent reason, try Chrome, and vice-versa. These tools are still
+relatively new, and improving all the time.</p>
+<p>SDL_Log() (or printf) will write to the Javascript console, so
+printf-style debugging can be easier than setting up a build for proper
+debugging. Use whatever tools work best for you.</p>
+<h2 id="questions">Questions?</h2>
+<p>Please give us feedback on this document at <a href="https://github.com/libsdl-org/SDL/issues">the SDL bug tracker</a>.
+If something is wrong or unclear, we want to know!</p>
+</body>
+</html>

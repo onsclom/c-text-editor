@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>FAQDevelopment</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">:root {
+color-scheme: dark light; 
+}
+body {
+background-color: white;
+padding: 2vw;
+color: #333;
+max-width: 1200px;
+margin: 0 auto;
+font-size: 16px;
+line-height: 1.5;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+overflow-wrap: break-word;
+}
+a {
+color: #0969da;
+
+}
+a:visited {
+color: #064998;
+}
+h1 {
+border-bottom: 2px solid #efefef;
+}
+h2 {
+border-bottom: 1px solid #efefef;
+}
+p {
+max-width: 85ch;
+}
+li {
+max-width: 85ch;
+}
+div.sourceCode {
+background-color: #f6f8fa;
+max-width: 100%;
+padding: 16px;
+}
+code {
+background-color: #f6f8fa;
+padding: 0px;
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+}
+table {
+border: 1px solid #808080;
+border-collapse: collapse;
+}
+td {
+border: 1px solid #808080;
+padding: 5px;
+}
+tr:nth-child(even) {
+background-color: #f6f8fa;
+}
+.wikitopbanner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #efefef;
+padding: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+.wikibottombanner {
+background-color: #efefef;
+padding: 10px;
+margin-top: 10px;
+width: auto;
+}
+.alertBox {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+max-width: 60%;
+padding: 10;
+margin: auto;
+}
+.anchorImage {
+visibility: hidden;
+padding-left: 0.2em;
+color: #fff;
+}
+.anchorText:hover .anchorImage {
+visibility: visible;
+}
+hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #efefef;
+margin: 1em 0;
+padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+color: #e6edf3;
+background-color: #0d1117;
+}
+h1 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+h2 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+hr {
+border-color: rgba(48, 54, 61, 0.7);
+}
+div.sourceCode {
+background-color: #161b22;
+}
+code {
+background-color: #161b22;
+}
+a {
+color: #4493f8;
+}
+a:visited {
+color: #2f66ad;
+}
+table {
+border-color: rgba(48, 54, 61, 0.7);
+}
+td {
+border-color: rgba(48, 54, 61, 0.7);
+}
+tr:nth-child(even) {
+background-color: #161b22;
+}
+.wikitopbanner {
+background-color: #263040;
+}
+.wikibottombanner {
+background-color: #263040;
+}
+.anchorText:hover .anchorImage {
+filter: invert(100%);
+}
+}
+@media print {
+body {
+font-size: 12px;
+}
+table {
+font-size: inherit;
+}
+a:visited {
+color: #0969da;
+}
+.wikitopbanner,
+.anchorText,
+.wikibottombanner {
+display: none;
+}
+}
+</style>
+  <style type="text/css"> code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+{ position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+{ content: attr(title);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; pointer-events: all; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+@media (prefers-color-scheme: dark) {
+code span.al { color: #95da4c; font-weight: bold; } 
+code span.an { color: #3f8058; } 
+code span.at { color: #2980b9; } 
+code span.bn { color: #f67400; } 
+code span.bu { color: #7f8c8d; } 
+code span.ch { color: #3daee9; } 
+code span.co { color: #7a7c7d; } 
+code span.cv { color: #7f8c8d; } 
+code span.cn { color: #27aeae; font-weight: bold; } 
+code span.cf { color: #fdbc4b; font-weight: bold; } 
+code span.dt { color: #2980b9; } 
+code span.dv { color: #f67400; } 
+code span.do { color: #a43340; } 
+code span.er { color: #da4453; } 
+code span.ex { color: #0099ff; font-weight: bold; } 
+code span.fl { color: #f67400; } 
+code span.fu { color: #8e44ad; } 
+code span.im { color: #27ae60; } 
+code span.in { color: #c45b00; } 
+code span.kw { color: #cfcfc2; font-weight: bold; } 
+code span.op { color: #cfcfc2; } 
+code span.ot { color: #27ae60; } 
+code span.pp { color: #27ae60; } 
+code span.sc { color: #3daee9; } 
+code span.ss { color: #da4453; } 
+code span.st { color: #f44f4f; } 
+code span.va { color: #27aeae; } 
+code span.vs { color: #da4453; } 
+code span.wa { color: #da4453; } 
+}</style>
+</head>
+<body>
+<h1 id="frequently-asked-questions">Frequently Asked Questions</h1>
+<p>Check these out if your questions aren&#39;t directly about using the
+library as a developer.</p>
+<table>
+<tbody>
+<tr class="odd">
+<td><a href="FAQGeneral.html">General</a></td>
+<td>General questions about SDL</td>
+</tr>
+<tr class="even">
+<td><a href="FAQUsingSDL.html">Using SDL</a></td>
+<td>Questions for people using SDL applications</td>
+</tr>
+<tr class="odd">
+<td><a href="FAQLicensing.html">Licensing</a></td>
+<td>Questions about licensing SDL with products</td>
+</tr>
+</tbody>
+</table>
+<h2 id="table-of-contents">Table of contents</h2>
+<ul>
+<li><a href="#cant_find_answer">How do I do X? Is Y broken? (I couldn&#39;t
+find it on this page!)</a></li>
+<li><a href="#include">Do I <code>#include &lt;SDL.h&gt;</code> or
+<code>#include &lt;SDL3/SDL.h&gt;</code>?</a></li>
+<li><a href="#asset_loading_and_ui">How do I load images, sounds, show
+UI, etc?</a></li>
+<li><a href="#video_on_threads">Can I call SDL video functions from
+multiple threads?</a></li>
+<li><a href="#events_on_threads">Can I call SDL event functions from
+multiple threads?</a></li>
+<li><a href="#inaccurate_sleep">Why is my sleep/SDL-Delay function
+inaccurate? (Why am I getting 61/62/59 fps and not 60?):</a></li>
+<li><a href="#main">I&#39;m getting an error about SDL_main, WinMain, main,
+etc:</a></li>
+<li><a href="#frozen_window">Why is my window not rendering while the
+Window is being resized or dragged/moved?</a></li>
+<li><a href="#graphics">Graphics</a>
+<ul>
+<li><a href="#renderer_shaders">Can I use shaders with the SDL 2D render
+API?</a></li>
+<li><a href="#what_gpu_api">What Graphics API Should I use?</a></li>
+<li><a href="#gpu_on_gl">Can SDL_GPU run on OpenGL?</a></li>
+<li><a href="#gpu_on_android">Can SDL_GPU run on Android? </a></li>
+<li><a href="#shader_choices">What should I do for shaders for SDL_GPU
+or SDL_Renderer with the GPU backend?</a></li>
+<li><a href="#shadercross_runtime">I&#39;m trying to use SDL_shadercross as
+an online (runtime) compiler.</a></li>
+<li><a href="#renderdoc">I&#39;m on Linux and trying to run my SDL_GPU
+application under RenderDoc and don&#39;t get a Device, what&#39;s going
+on?</a></li>
+</ul></li>
+</ul>
+<h2 id="how-do-i-do-x-is-y-broken-i-couldnt-find-it-on-this-page-">How
+do I do X? Is Y broken? (I couldn&#39;t find it on this page!)
+<a name="cant_find_answer" id="cant_find_answer"></a></h2>
+<p>If something isn&#39;t covered here, it doesn&#39;t mean we don&#39;t know about
+it! It&#39;s difficult to collate everything between bugs, intended but
+perhaps unexpected behavior, and even many Frequently Asked
+Questions.</p>
+<p>When looking to do something, generally the first place to look is
+the <a href="APIByCategory.html">Category the API you&#39;re looking for is
+likely in</a>. If it has to do with a specific function, check the
+documentation for that, specifically the remarks section, there&#39;s
+fantastic information in those sections. If you still can&#39;t figure it
+out, SDL has several communities you can connect with to get help!</p>
+<p>Regarding something seeming to be broken, you can first <a href="https://github.com/libsdl-org/SDL/issues">search on the bug
+tracker</a>. If you don&#39;t find anything but would like to check with
+other folks before reporting, you can drop by <a href="FAQCommunities.html">one of the SDL related Communities</a></p>
+<h2 id="do-i-include-sdlh-or-include-sdl3sdlh-">Do I
+<code>#include &lt;SDL.h&gt;</code> or
+<code>#include &lt;SDL3/SDL.h&gt;</code>?
+<a name="include" id="include"></a></h2>
+<p>The most portable way to include SDL headers is to use angular quotes
+around the full header name:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;SDL3/SDL.h&gt;</span></span></code></pre></div>
+<p>This is new in SDL3! Previously, in SDL2, we recommended
+<code>#include &quot;SDL.h&quot;</code>, but this proved to be unfriendly to macOS
+frameworks and having the API version in the include line is useful for
+making dependency requirements clear.</p>
+<h2 id="how-do-i-load-images-sounds-show-ui-etc-">How do I load images,
+sounds, show UI, etc?
+<a name="asset_loading_and_ui" id="asset_loading_and_ui"></a></h2>
+<p>SDL provides the lower level of functionality that a cross-platform
+game engine needs, leaving higher level tasks to other libraries. The <a href="Libraries.html">libraries page</a> has a non-exhaustive list of
+libraries that are known to work well with SDL.</p>
+<h2 id="can-i-call-sdl-video-functions-from-multiple-threads-">Can I
+call SDL video functions from multiple threads?
+<a name="video_on_threads" id="video_on_threads"></a></h2>
+<p>No, most graphics back ends are not thread-safe, so you should only
+call SDL video functions from the main thread of your application. <a href="SDL_RunOnMainThread.html">SDL_RunOnMainThread()</a> can be used to
+dispatch code that needs to run on the main thread.</p>
+<h2 id="can-i-call-sdl-event-functions-from-multiple-threads-">Can I
+call SDL event functions from multiple threads?
+<a name="events_on_threads" id="events_on_threads"></a></h2>
+<p>The main event handling should be done on the main thread, though you
+can use <a href="SDL_PushEvent.html">SDL_PushEvent()</a> and <a href="SDL_PeepEvents.html">SDL_PeepEvents()</a> to interact with the
+event queue on other threads. Most SDL functions have their
+thread-safety noted in their documentation.</p>
+<h2 id="why-is-my-sleepsdl-delay-function-inaccurate-why-am-i-getting-616259-fps-and-not-60-">Why
+is my sleep/SDL-Delay function inaccurate? (Why am I getting 61/62/59
+fps and not 60?):
+<a name="inaccurate_sleep" id="inaccurate_sleep"></a></h2>
+<p>Take a look at these blogs for an in-depth understanding of the
+problems of timing:</p>
+<ul>
+<li><a href="https://blog.bearcats.nl/accurate-sleep-function/">https://blog.bearcats.nl/accurate-sleep-function/</a>
+(Recentlyish Updated)</li>
+<li><a href="https://blog.bearcats.nl/perfect-sleep-function/">https://blog.bearcats.nl/perfect-sleep-function/</a>
+(Part 2, even better Sleeps!)</li>
+</ul>
+<p>In SDL3 you should be using <a href="SDL_DelayPrecise.html"><code>SDL_DelayPrecise</code></a> (which
+uses an algorithm similar to above) or <a href="SDL_DelayNS.html"><code>SDL_DelayNS</code></a> (More precise than
+SDL_Delay, but doesn&#39;t busy-wait)</p>
+<p>On a similar note, when doing timing, prefer using <a href="SDL_GetPerformanceCounter.html"><code>SDL_GetPerformanceCounter</code></a>
+and <a href="SDL_GetPerformanceFrequency.html"><code>SDL_GetPerformanceFrequency</code></a>
+, or <a href="SDL_GetTicksNS.html"><code>SDL_GetTicksNS</code></a> ,
+over using <a href="SDL_GetTicks.html"><code>SDL_GetTicks</code></a>,
+which has only has millisecond precision. <a href="SDL_GetTicksNS.html"><code>SDL_GetTicksNS</code></a> uses <a href="SDL_GetPerformanceCounter.html"><code>SDL_GetPerformanceCounter</code></a>
+under the hood, but converted to nanoseconds for convenience.</p>
+<h2 id="im-getting-an-error-about-sdl_main-winmain-main-etc-">I&#39;m
+getting an error about SDL_main, WinMain, main, etc:
+<a name="main" id="main"></a></h2>
+<blockquote>
+<p>NOTE: This answer is written for brevity, but this is a complex
+topic! For a full understanding of what&#39;s happening, please look over
+our <a href="README-main-functions.html">main functions README</a>.</p>
+</blockquote>
+<p>It&#39;s <em>most</em> likely you have
+<code>#include &lt;SDL3/SDL_main.h&gt;</code> included in the file with
+your <code>main</code> function, but your <code>main</code> function
+doesn&#39;t have the expected signature:
+<code>int main(int argc, char *argv[])</code></p>
+<p>If you see an error about &quot;a previous definition of
+<code>SDL_main</code>&quot;, there&#39;s pretty much two possibilities:</p>
+<ul>
+<li>You&#39;ve implemented <code>main</code> twice in one file yourself.
+Pretty unlikely, but it can happen!</li>
+<li>More likely you have <code>#define SDL_MAIN_USE_CALLBACKS</code>
+somewhere, or have <code>SDL_MAIN_USE_CALLBACKS</code> defined through
+your build system as a switch to the compiler, but you&#39;re implementing
+<code>main</code> instead of or in addition to the callbacks.</li>
+</ul>
+<p>The last common issue here is you&#39;ve placed
+<code>#include &lt;SDL3/SDL_main.h&gt;</code> in two Translation Units
+(c/cpp files).</p>
+<h2 id="why-is-my-window-not-rendering-while-the-window-is-being-resized-or-draggedmoved-">Why
+is my window not rendering while the Window is being resized or
+dragged/moved? <a name="frozen_window" id="frozen_window"></a></h2>
+<p>Please read <a href="AppFreezeDuringDrag.html">AppFreezeDuringDrag</a> for a technical
+explanation and solutions.</p>
+<h2 id="graphics-">Graphics <a name="graphics" id="graphics"></a></h2>
+<h3 id="can-i-use-shaders-with-the-sdl-2d-render-api-">Can I use shaders
+with the SDL 2D render API?
+<a name="renderer_shaders" id="renderer_shaders"></a></h3>
+<p>Once SDL 3.4.0 is available, you can get fragment shaders, take a
+look at <a href="SDL_CreateGPURenderer.html"><code>SDL_CreateGPURenderer</code></a>
+and <a href="SDL_CreateGPURenderState.html"><code>SDL_CreateGPURenderState</code></a>.
+Until then you can try out this function using the main branch on <a href="https://github.com/libsdl-org/SDL">GitHub</a></p>
+<p>That said, there are many different ways to use shaders, and if you
+need more than the subset of shader functionality we expose there, we
+recommend using a full 3D API like <a href="CategoryGPU.html">SDL
+GPU</a>. You can look at how SDL uses the GPU API for 2D rendering if
+you&#39;d like to expand on that: <a href="https://github.com/libsdl-org/SDL/blob/main/src/render/gpu/SDL_render_gpu.c">SDL_render_gpu.c</a></p>
+<h3 id="what-graphics-api-should-i-use-">What Graphics API Should I use?
+<a name="what_gpu_api" id="what_gpu_api"></a></h3>
+<p>This is a <em>very</em> difficult question to give a good answer to.
+We&#39;ll try to give some soft recommendations here, along with information
+on the other native APIs so that you can decide for yourself what feels
+right for you.</p>
+<p>We&#39;re quite proud of the new GPU API that was added in SDL3, and are
+confident it can handle the majority of use cases you&#39;ll run into. FNA
+has already shipped games on console using SDL3 and the GPU API for
+rendering. That said, since the API is relatively new, if you&#39;re
+intending to <em>learn</em> graphics, you may want to start with
+tutorials using OpenGL or another graphics API. In addition, while it
+has fairly wide platform support, including the big 3 console platforms,
+it currently does not support the web and has limited support on
+Android, which doesn&#39;t have the necessary driver support across many
+devices. On desktop, the GPU API supports Vulkan 1.0 capable hardware,
+which includes graphics cards made in the last 10-15 years. If you want
+features that are newer and have less wide-spread support, like mesh
+shaders and bindless textures, then you&#39;ll want to use Vulkan
+directly.</p>
+<p>In addition to the GPU API, here are some other alternatives that may
+work for you, depending on your needs.</p>
+<ul>
+<li>OpenGL and it&#39;s versions and variants
+<ul>
+<li>GL has it&#39;s problems, but if you&#39;re willing to put in the work, it&#39;s
+greatest strength is <em>wide</em> platform support. Between desktop
+OpenGL and it&#39;s extensions, OpenGL ES, and WebGL, you can hit
+essentially every desktop going back 15 years or more, phones and
+various embedded devices, the web browser, and even the Nintendo Switch.
+It wouldn&#39;t be easy, you&#39;d need to do a lot of version checking and
+changing depending on exactly which version and variant of GL you&#39;re
+targetting, but it is possible.</li>
+<li>GL also has some of the best learning resources, in particular <a href="https://learnopengl.com/">learnopengl.com</a>, a graphics tutorial
+and treatise so good that it&#39;s wildly common to suggest it for folks
+learning graphics on entirely different APIs.</li>
+<li>The main downside is that by getting this wide platform support
+you&#39;re trading away both modern API design, and also modern APIs in
+general. Even targeting very new computers, it&#39;s likely you&#39;d want to
+use the latest features in 4.6, which is unavailable on MacOS.</li>
+</ul></li>
+<li>Vulkan
+<ul>
+<li>Vulkan is unfortunately most known for the &quot;1000 line triangle&quot;, but
+if you&#39;re coming from something like OpenGL, it&#39;s explicitness might
+come as a breath of fresh air. It has decent platform support with
+Windows, MacOS and iOS(through MoltenVk), Linux, Android, and the
+Nintendo Switch. Although it should be noted that Vulkan shares the
+problems GPU has on Android, as it&#39;s the API that powers GPU on android.
+Newer versions reduce some of the boilerplate, and there are helpful
+libraries like <a href="https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator">vma</a>
+and <a href="https://github.com/charles-lunarg/vk-bootstrap">vk-bootstrap</a>
+to help with some of the more tedious aspects of the API.</li>
+<li>Vulkan tends to trail DirectX and Metal in new features, but it&#39;s
+still ahead of GPU, so if those features are important to you, it&#39;s well
+worth considering.</li>
+</ul></li>
+<li>DirectX12
+<ul>
+<li>If you&#39;re targetting only Windows 10 or 11, and the Xbox platform,
+DirectX might be worth considering. There&#39;s less boilerplate than
+Vulkan, but it&#39;s still quite explicit. It also tends to trade with Metal
+on bleeding edge features, but they&#39;re obviously mututally exclusive
+unless you&#39;re writing your own RHI (Render Hardware Interface) like
+GPU.</li>
+</ul></li>
+<li>Metal
+<ul>
+<li>The native API of Apples platforms, Graphics developers tend to be
+very happy with this API. It&#39;s got the least boilerplate of the 3 modern
+native APIs, tends to have excellent feature support and
+implementations, but is still very explicit so you&#39;re not leaving
+performance on the table.</li>
+<li>The obvious main downside is it&#39;s only available on Apple platforms,
+and it can be somewhat difficult to use from languages besides
+Objective-C and Swift.</li>
+</ul></li>
+</ul>
+<h3 id="can-sdl_gpu-run-on-opengl-">Can SDL_GPU run on OpenGL?
+<a name="gpu_on_gl" id="gpu_on_gl"></a></h3>
+<p>No, the backends are DX12, Metal, Vulkan. Although it should be noted
+that it&#39;s also supported on the NDA only console forks of SDL. (More
+information on how to get access on the <a href="README-platforms.html">respective platform pages</a>.)</p>
+<h3 id="can-sdl_gpu-run-on-android-">Can SDL_GPU run on Android?
+<a name="gpu_on_android" id="gpu_on_android"></a></h3>
+<p>Yes, but to get wide support, you&#39;ll need to give up on some
+features. Each Vulkan feature from the <a href="SDL_CreateGPUDeviceWithProperties.html#remarks">properties you
+disable</a> when creating your <a href="SDL_GPUDevice.html">SDL_GPUDevice</a> will get you wider Android
+support. In general if you&#39;re interested in Android you should just turn
+all of the Vulkan features here off. Hopefully in a year or two, things
+will improve as Google has announced somewhat agressive goals for
+upcoming Android versions.</p>
+<h3 id="what-should-i-do-for-shaders-for-sdl_gpu-or-sdl_renderer-with-the-gpu-backend-">What
+should I do for shaders for SDL_GPU or SDL_Renderer with the GPU
+backend? <a name="shader_choices" id="shader_choices"></a></h3>
+<p>We recommend using SDL_shadercross, a shader compiler that tries to
+make it easy to go from HLSL to all the shader formats SDL_GPU needs for
+each backend. That said, we recommend not building it yourself, as the
+build process is complex and has large dependencies. You can find builds
+on the <a href="https://github.com/libsdl-org/SDL_shadercross/actions?query=branch%3Amain">actions
+page</a>, just be signed into GitHub, and select the latest build from
+main.</p>
+<h3 id="im-on-linux-and-trying-to-run-my-sdl_gpu-application-under-renderdoc-and-dont-get-a-device-whats-going-on-">I&#39;m
+on Linux and trying to run my SDL_GPU application under RenderDoc and
+don&#39;t get a Device, what&#39;s going on?
+<a name="renderdoc" id="renderdoc"></a></h3>
+<p>It&#39;s likely that you&#39;re running Wayland. RenderDoc doesn&#39;t support
+Wayland, please force XWayland and give that a try!</p>
+<p>You can set this before calling <code>SDL_Init</code> to get that
+behavior if your system is set up as expected:
+<code>SDL_SetHint(SDL_HINT_VIDEO_DRIVER, &quot;x11&quot;);</code></p>
+</body>
+</html>

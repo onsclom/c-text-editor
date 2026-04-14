@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>CategoryAPIEnumerators</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">:root {
+color-scheme: dark light; 
+}
+body {
+background-color: white;
+padding: 2vw;
+color: #333;
+max-width: 1200px;
+margin: 0 auto;
+font-size: 16px;
+line-height: 1.5;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+overflow-wrap: break-word;
+}
+a {
+color: #0969da;
+
+}
+a:visited {
+color: #064998;
+}
+h1 {
+border-bottom: 2px solid #efefef;
+}
+h2 {
+border-bottom: 1px solid #efefef;
+}
+p {
+max-width: 85ch;
+}
+li {
+max-width: 85ch;
+}
+div.sourceCode {
+background-color: #f6f8fa;
+max-width: 100%;
+padding: 16px;
+}
+code {
+background-color: #f6f8fa;
+padding: 0px;
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+}
+table {
+border: 1px solid #808080;
+border-collapse: collapse;
+}
+td {
+border: 1px solid #808080;
+padding: 5px;
+}
+tr:nth-child(even) {
+background-color: #f6f8fa;
+}
+.wikitopbanner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #efefef;
+padding: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+.wikibottombanner {
+background-color: #efefef;
+padding: 10px;
+margin-top: 10px;
+width: auto;
+}
+.alertBox {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+max-width: 60%;
+padding: 10;
+margin: auto;
+}
+.anchorImage {
+visibility: hidden;
+padding-left: 0.2em;
+color: #fff;
+}
+.anchorText:hover .anchorImage {
+visibility: visible;
+}
+hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #efefef;
+margin: 1em 0;
+padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+color: #e6edf3;
+background-color: #0d1117;
+}
+h1 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+h2 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+hr {
+border-color: rgba(48, 54, 61, 0.7);
+}
+div.sourceCode {
+background-color: #161b22;
+}
+code {
+background-color: #161b22;
+}
+a {
+color: #4493f8;
+}
+a:visited {
+color: #2f66ad;
+}
+table {
+border-color: rgba(48, 54, 61, 0.7);
+}
+td {
+border-color: rgba(48, 54, 61, 0.7);
+}
+tr:nth-child(even) {
+background-color: #161b22;
+}
+.wikitopbanner {
+background-color: #263040;
+}
+.wikibottombanner {
+background-color: #263040;
+}
+.anchorText:hover .anchorImage {
+filter: invert(100%);
+}
+}
+@media print {
+body {
+font-size: 12px;
+}
+table {
+font-size: inherit;
+}
+a:visited {
+color: #0969da;
+}
+.wikitopbanner,
+.anchorText,
+.wikibottombanner {
+display: none;
+}
+}
+</style>
+  <style type="text/css"> code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+{ position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+{ content: attr(title);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; pointer-events: all; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+@media (prefers-color-scheme: dark) {
+code span.al { color: #95da4c; font-weight: bold; } 
+code span.an { color: #3f8058; } 
+code span.at { color: #2980b9; } 
+code span.bn { color: #f67400; } 
+code span.bu { color: #7f8c8d; } 
+code span.ch { color: #3daee9; } 
+code span.co { color: #7a7c7d; } 
+code span.cv { color: #7f8c8d; } 
+code span.cn { color: #27aeae; font-weight: bold; } 
+code span.cf { color: #fdbc4b; font-weight: bold; } 
+code span.dt { color: #2980b9; } 
+code span.dv { color: #f67400; } 
+code span.do { color: #a43340; } 
+code span.er { color: #da4453; } 
+code span.ex { color: #0099ff; font-weight: bold; } 
+code span.fl { color: #f67400; } 
+code span.fu { color: #8e44ad; } 
+code span.im { color: #27ae60; } 
+code span.in { color: #c45b00; } 
+code span.kw { color: #cfcfc2; font-weight: bold; } 
+code span.op { color: #cfcfc2; } 
+code span.ot { color: #27ae60; } 
+code span.pp { color: #27ae60; } 
+code span.sc { color: #3daee9; } 
+code span.ss { color: #da4453; } 
+code span.st { color: #f44f4f; } 
+code span.va { color: #27aeae; } 
+code span.vs { color: #da4453; } 
+code span.wa { color: #da4453; } 
+}</style>
+</head>
+<body>
+<h1 id="categoryapienumerators">CategoryAPIEnumerators</h1>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST -->
+
+<ul>
+<li><a href="SDL_ADDEVENT.html">SDL_ADDEVENT</a></li>
+<li><a href="SDL_APP_CONTINUE.html">SDL_APP_CONTINUE</a></li>
+<li><a href="SDL_APP_FAILURE.html">SDL_APP_FAILURE</a></li>
+<li><a href="SDL_APP_SUCCESS.html">SDL_APP_SUCCESS</a></li>
+<li><a href="SDL_ARRAYORDER_ABGR.html">SDL_ARRAYORDER_ABGR</a></li>
+<li><a href="SDL_ARRAYORDER_ARGB.html">SDL_ARRAYORDER_ARGB</a></li>
+<li><a href="SDL_ARRAYORDER_BGR.html">SDL_ARRAYORDER_BGR</a></li>
+<li><a href="SDL_ARRAYORDER_BGRA.html">SDL_ARRAYORDER_BGRA</a></li>
+<li><a href="SDL_ARRAYORDER_NONE.html">SDL_ARRAYORDER_NONE</a></li>
+<li><a href="SDL_ARRAYORDER_RGB.html">SDL_ARRAYORDER_RGB</a></li>
+<li><a href="SDL_ARRAYORDER_RGBA.html">SDL_ARRAYORDER_RGBA</a></li>
+<li><a href="SDL_ASSERTION_ABORT.html">SDL_ASSERTION_ABORT</a></li>
+<li><a href="SDL_ASSERTION_ALWAYS_IGNORE.html">SDL_ASSERTION_ALWAYS_IGNORE</a></li>
+<li><a href="SDL_ASSERTION_BREAK.html">SDL_ASSERTION_BREAK</a></li>
+<li><a href="SDL_ASSERTION_IGNORE.html">SDL_ASSERTION_IGNORE</a></li>
+<li><a href="SDL_ASSERTION_RETRY.html">SDL_ASSERTION_RETRY</a></li>
+<li><a href="SDL_ASYNCIO_CANCELED.html">SDL_ASYNCIO_CANCELED</a></li>
+<li><a href="SDL_ASYNCIO_COMPLETE.html">SDL_ASYNCIO_COMPLETE</a></li>
+<li><a href="SDL_ASYNCIO_FAILURE.html">SDL_ASYNCIO_FAILURE</a></li>
+<li><a href="SDL_ASYNCIO_TASK_CLOSE.html">SDL_ASYNCIO_TASK_CLOSE</a></li>
+<li><a href="SDL_ASYNCIO_TASK_READ.html">SDL_ASYNCIO_TASK_READ</a></li>
+<li><a href="SDL_ASYNCIO_TASK_WRITE.html">SDL_ASYNCIO_TASK_WRITE</a></li>
+<li><a href="SDL_AUDIO_F32.html">SDL_AUDIO_F32</a></li>
+<li><a href="SDL_AUDIO_F32BE.html">SDL_AUDIO_F32BE</a></li>
+<li><a href="SDL_AUDIO_F32LE.html">SDL_AUDIO_F32LE</a></li>
+<li><a href="SDL_AUDIO_S16.html">SDL_AUDIO_S16</a></li>
+<li><a href="SDL_AUDIO_S16BE.html">SDL_AUDIO_S16BE</a></li>
+<li><a href="SDL_AUDIO_S16LE.html">SDL_AUDIO_S16LE</a></li>
+<li><a href="SDL_AUDIO_S32.html">SDL_AUDIO_S32</a></li>
+<li><a href="SDL_AUDIO_S32BE.html">SDL_AUDIO_S32BE</a></li>
+<li><a href="SDL_AUDIO_S32LE.html">SDL_AUDIO_S32LE</a></li>
+<li><a href="SDL_AUDIO_S8.html">SDL_AUDIO_S8</a></li>
+<li><a href="SDL_AUDIO_U8.html">SDL_AUDIO_U8</a></li>
+<li><a href="SDL_AUDIO_UNKNOWN.html">SDL_AUDIO_UNKNOWN</a></li>
+<li><a href="SDL_BITMAPORDER_1234.html">SDL_BITMAPORDER_1234</a></li>
+<li><a href="SDL_BITMAPORDER_4321.html">SDL_BITMAPORDER_4321</a></li>
+<li><a href="SDL_BITMAPORDER_NONE.html">SDL_BITMAPORDER_NONE</a></li>
+<li><a href="SDL_BLENDFACTOR_DST_ALPHA.html">SDL_BLENDFACTOR_DST_ALPHA</a></li>
+<li><a href="SDL_BLENDFACTOR_DST_COLOR.html">SDL_BLENDFACTOR_DST_COLOR</a></li>
+<li><a href="SDL_BLENDFACTOR_ONE.html">SDL_BLENDFACTOR_ONE</a></li>
+<li><a href="SDL_BLENDFACTOR_ONE_MINUS_DST_ALPHA.html">SDL_BLENDFACTOR_ONE_MINUS_DST_ALPHA</a></li>
+<li><a href="SDL_BLENDFACTOR_ONE_MINUS_DST_COLOR.html">SDL_BLENDFACTOR_ONE_MINUS_DST_COLOR</a></li>
+<li><a href="SDL_BLENDFACTOR_ONE_MINUS_SRC_ALPHA.html">SDL_BLENDFACTOR_ONE_MINUS_SRC_ALPHA</a></li>
+<li><a href="SDL_BLENDFACTOR_ONE_MINUS_SRC_COLOR.html">SDL_BLENDFACTOR_ONE_MINUS_SRC_COLOR</a></li>
+<li><a href="SDL_BLENDFACTOR_SRC_ALPHA.html">SDL_BLENDFACTOR_SRC_ALPHA</a></li>
+<li><a href="SDL_BLENDFACTOR_SRC_COLOR.html">SDL_BLENDFACTOR_SRC_COLOR</a></li>
+<li><a href="SDL_BLENDFACTOR_ZERO.html">SDL_BLENDFACTOR_ZERO</a></li>
+<li><a href="SDL_BLENDOPERATION_ADD.html">SDL_BLENDOPERATION_ADD</a></li>
+<li><a href="SDL_BLENDOPERATION_MAXIMUM.html">SDL_BLENDOPERATION_MAXIMUM</a></li>
+<li><a href="SDL_BLENDOPERATION_MINIMUM.html">SDL_BLENDOPERATION_MINIMUM</a></li>
+<li><a href="SDL_BLENDOPERATION_REV_SUBTRACT.html">SDL_BLENDOPERATION_REV_SUBTRACT</a></li>
+<li><a href="SDL_BLENDOPERATION_SUBTRACT.html">SDL_BLENDOPERATION_SUBTRACT</a></li>
+<li><a href="SDL_CAMERA_PERMISSION_STATE_APPROVED.html">SDL_CAMERA_PERMISSION_STATE_APPROVED</a></li>
+<li><a href="SDL_CAMERA_PERMISSION_STATE_DENIED.html">SDL_CAMERA_PERMISSION_STATE_DENIED</a></li>
+<li><a href="SDL_CAMERA_PERMISSION_STATE_PENDING.html">SDL_CAMERA_PERMISSION_STATE_PENDING</a></li>
+<li><a href="SDL_CAMERA_POSITION_BACK_FACING.html">SDL_CAMERA_POSITION_BACK_FACING</a></li>
+<li><a href="SDL_CAMERA_POSITION_FRONT_FACING.html">SDL_CAMERA_POSITION_FRONT_FACING</a></li>
+<li><a href="SDL_CAMERA_POSITION_UNKNOWN.html">SDL_CAMERA_POSITION_UNKNOWN</a></li>
+<li><a href="SDL_CAPITALIZE_LETTERS.html">SDL_CAPITALIZE_LETTERS</a></li>
+<li><a href="SDL_CAPITALIZE_NONE.html">SDL_CAPITALIZE_NONE</a></li>
+<li><a href="SDL_CAPITALIZE_SENTENCES.html">SDL_CAPITALIZE_SENTENCES</a></li>
+<li><a href="SDL_CAPITALIZE_WORDS.html">SDL_CAPITALIZE_WORDS</a></li>
+<li><a href="SDL_CHROMA_LOCATION_CENTER.html">SDL_CHROMA_LOCATION_CENTER</a></li>
+<li><a href="SDL_CHROMA_LOCATION_LEFT.html">SDL_CHROMA_LOCATION_LEFT</a></li>
+<li><a href="SDL_CHROMA_LOCATION_NONE.html">SDL_CHROMA_LOCATION_NONE</a></li>
+<li><a href="SDL_CHROMA_LOCATION_TOPLEFT.html">SDL_CHROMA_LOCATION_TOPLEFT</a></li>
+<li><a href="SDL_COLOR_PRIMARIES_BT2020.html">SDL_COLOR_PRIMARIES_BT2020</a></li>
+<li><a href="SDL_COLOR_PRIMARIES_BT470BG.html">SDL_COLOR_PRIMARIES_BT470BG</a></li>
+<li><a href="SDL_COLOR_PRIMARIES_BT470M.html">SDL_COLOR_PRIMARIES_BT470M</a></li>
+<li><a href="SDL_COLOR_PRIMARIES_BT601.html">SDL_COLOR_PRIMARIES_BT601</a></li>
+<li><a href="SDL_COLOR_PRIMARIES_BT709.html">SDL_COLOR_PRIMARIES_BT709</a></li>
+<li><a href="SDL_COLOR_PRIMARIES_CUSTOM.html">SDL_COLOR_PRIMARIES_CUSTOM</a></li>
+<li><a href="SDL_COLOR_PRIMARIES_EBU3213.html">SDL_COLOR_PRIMARIES_EBU3213</a></li>
+<li><a href="SDL_COLOR_PRIMARIES_GENERIC_FILM.html">SDL_COLOR_PRIMARIES_GENERIC_FILM</a></li>
+<li><a href="SDL_COLOR_PRIMARIES_SMPTE240.html">SDL_COLOR_PRIMARIES_SMPTE240</a></li>
+<li><a href="SDL_COLOR_PRIMARIES_SMPTE431.html">SDL_COLOR_PRIMARIES_SMPTE431</a></li>
+<li><a href="SDL_COLOR_PRIMARIES_SMPTE432.html">SDL_COLOR_PRIMARIES_SMPTE432</a></li>
+<li><a href="SDL_COLOR_PRIMARIES_UNKNOWN.html">SDL_COLOR_PRIMARIES_UNKNOWN</a></li>
+<li><a href="SDL_COLOR_PRIMARIES_UNSPECIFIED.html">SDL_COLOR_PRIMARIES_UNSPECIFIED</a></li>
+<li><a href="SDL_COLOR_PRIMARIES_XYZ.html">SDL_COLOR_PRIMARIES_XYZ</a></li>
+<li><a href="SDL_COLOR_RANGE_FULL.html">SDL_COLOR_RANGE_FULL</a></li>
+<li><a href="SDL_COLOR_RANGE_LIMITED.html">SDL_COLOR_RANGE_LIMITED</a></li>
+<li><a href="SDL_COLOR_RANGE_UNKNOWN.html">SDL_COLOR_RANGE_UNKNOWN</a></li>
+<li><a href="SDL_COLOR_TYPE_RGB.html">SDL_COLOR_TYPE_RGB</a></li>
+<li><a href="SDL_COLOR_TYPE_UNKNOWN.html">SDL_COLOR_TYPE_UNKNOWN</a></li>
+<li><a href="SDL_COLOR_TYPE_YCBCR.html">SDL_COLOR_TYPE_YCBCR</a></li>
+<li><a href="SDL_COLORSPACE_BT2020_FULL.html">SDL_COLORSPACE_BT2020_FULL</a></li>
+<li><a href="SDL_COLORSPACE_BT2020_LIMITED.html">SDL_COLORSPACE_BT2020_LIMITED</a></li>
+<li><a href="SDL_COLORSPACE_BT601_FULL.html">SDL_COLORSPACE_BT601_FULL</a></li>
+<li><a href="SDL_COLORSPACE_BT601_LIMITED.html">SDL_COLORSPACE_BT601_LIMITED</a></li>
+<li><a href="SDL_COLORSPACE_BT709_FULL.html">SDL_COLORSPACE_BT709_FULL</a></li>
+<li><a href="SDL_COLORSPACE_BT709_LIMITED.html">SDL_COLORSPACE_BT709_LIMITED</a></li>
+<li><a href="SDL_COLORSPACE_HDR10.html">SDL_COLORSPACE_HDR10</a></li>
+<li><a href="SDL_COLORSPACE_JPEG.html">SDL_COLORSPACE_JPEG</a></li>
+<li><a href="SDL_COLORSPACE_RGB_DEFAULT.html">SDL_COLORSPACE_RGB_DEFAULT</a></li>
+<li><a href="SDL_COLORSPACE_SRGB.html">SDL_COLORSPACE_SRGB</a></li>
+<li><a href="SDL_COLORSPACE_SRGB_LINEAR.html">SDL_COLORSPACE_SRGB_LINEAR</a></li>
+<li><a href="SDL_COLORSPACE_UNKNOWN.html">SDL_COLORSPACE_UNKNOWN</a></li>
+<li><a href="SDL_COLORSPACE_YUV_DEFAULT.html">SDL_COLORSPACE_YUV_DEFAULT</a></li>
+<li><a href="SDL_DATE_FORMAT_DDMMYYYY.html">SDL_DATE_FORMAT_DDMMYYYY</a></li>
+<li><a href="SDL_DATE_FORMAT_MMDDYYYY.html">SDL_DATE_FORMAT_MMDDYYYY</a></li>
+<li><a href="SDL_DATE_FORMAT_YYYYMMDD.html">SDL_DATE_FORMAT_YYYYMMDD</a></li>
+<li><a href="SDL_ENUM_CONTINUE.html">SDL_ENUM_CONTINUE</a></li>
+<li><a href="SDL_ENUM_FAILURE.html">SDL_ENUM_FAILURE</a></li>
+<li><a href="SDL_ENUM_SUCCESS.html">SDL_ENUM_SUCCESS</a></li>
+<li><a href="SDL_EVENT_AUDIO_DEVICE_ADDED.html">SDL_EVENT_AUDIO_DEVICE_ADDED</a></li>
+<li><a href="SDL_EVENT_AUDIO_DEVICE_FORMAT_CHANGED.html">SDL_EVENT_AUDIO_DEVICE_FORMAT_CHANGED</a></li>
+<li><a href="SDL_EVENT_AUDIO_DEVICE_REMOVED.html">SDL_EVENT_AUDIO_DEVICE_REMOVED</a></li>
+<li><a href="SDL_EVENT_CAMERA_DEVICE_ADDED.html">SDL_EVENT_CAMERA_DEVICE_ADDED</a></li>
+<li><a href="SDL_EVENT_CAMERA_DEVICE_APPROVED.html">SDL_EVENT_CAMERA_DEVICE_APPROVED</a></li>
+<li><a href="SDL_EVENT_CAMERA_DEVICE_DENIED.html">SDL_EVENT_CAMERA_DEVICE_DENIED</a></li>
+<li><a href="SDL_EVENT_CAMERA_DEVICE_REMOVED.html">SDL_EVENT_CAMERA_DEVICE_REMOVED</a></li>
+<li><a href="SDL_EVENT_CLIPBOARD_UPDATE.html">SDL_EVENT_CLIPBOARD_UPDATE</a></li>
+<li><a href="SDL_EVENT_DISPLAY_ADDED.html">SDL_EVENT_DISPLAY_ADDED</a></li>
+<li><a href="SDL_EVENT_DISPLAY_CONTENT_SCALE_CHANGED.html">SDL_EVENT_DISPLAY_CONTENT_SCALE_CHANGED</a></li>
+<li><a href="SDL_EVENT_DISPLAY_CURRENT_MODE_CHANGED.html">SDL_EVENT_DISPLAY_CURRENT_MODE_CHANGED</a></li>
+<li><a href="SDL_EVENT_DISPLAY_DESKTOP_MODE_CHANGED.html">SDL_EVENT_DISPLAY_DESKTOP_MODE_CHANGED</a></li>
+<li><a href="SDL_EVENT_DISPLAY_FIRST.html">SDL_EVENT_DISPLAY_FIRST</a></li>
+<li><a href="SDL_EVENT_DISPLAY_LAST.html">SDL_EVENT_DISPLAY_LAST</a></li>
+<li><a href="SDL_EVENT_DISPLAY_MOVED.html">SDL_EVENT_DISPLAY_MOVED</a></li>
+<li><a href="SDL_EVENT_DISPLAY_ORIENTATION.html">SDL_EVENT_DISPLAY_ORIENTATION</a></li>
+<li><a href="SDL_EVENT_DISPLAY_REMOVED.html">SDL_EVENT_DISPLAY_REMOVED</a></li>
+<li><a href="SDL_EVENT_DISPLAY_USABLE_BOUNDS_CHANGED.html">SDL_EVENT_DISPLAY_USABLE_BOUNDS_CHANGED</a></li>
+<li><a href="SDL_EVENT_DROP_BEGIN.html">SDL_EVENT_DROP_BEGIN</a></li>
+<li><a href="SDL_EVENT_DROP_COMPLETE.html">SDL_EVENT_DROP_COMPLETE</a></li>
+<li><a href="SDL_EVENT_DROP_FILE.html">SDL_EVENT_DROP_FILE</a></li>
+<li><a href="SDL_EVENT_DROP_POSITION.html">SDL_EVENT_DROP_POSITION</a></li>
+<li><a href="SDL_EVENT_DROP_TEXT.html">SDL_EVENT_DROP_TEXT</a></li>
+<li><a href="SDL_EVENT_ENUM_PADDING.html">SDL_EVENT_ENUM_PADDING</a></li>
+<li><a href="SDL_EVENT_FINGER_CANCELED.html">SDL_EVENT_FINGER_CANCELED</a></li>
+<li><a href="SDL_EVENT_FINGER_DOWN.html">SDL_EVENT_FINGER_DOWN</a></li>
+<li><a href="SDL_EVENT_FINGER_MOTION.html">SDL_EVENT_FINGER_MOTION</a></li>
+<li><a href="SDL_EVENT_FINGER_UP.html">SDL_EVENT_FINGER_UP</a></li>
+<li><a href="SDL_EVENT_FIRST.html">SDL_EVENT_FIRST</a></li>
+<li><a href="SDL_EVENT_GAMEPAD_ADDED.html">SDL_EVENT_GAMEPAD_ADDED</a></li>
+<li><a href="SDL_EVENT_GAMEPAD_AXIS_MOTION.html">SDL_EVENT_GAMEPAD_AXIS_MOTION</a></li>
+<li><a href="SDL_EVENT_GAMEPAD_BUTTON_DOWN.html">SDL_EVENT_GAMEPAD_BUTTON_DOWN</a></li>
+<li><a href="SDL_EVENT_GAMEPAD_BUTTON_UP.html">SDL_EVENT_GAMEPAD_BUTTON_UP</a></li>
+<li><a href="SDL_EVENT_GAMEPAD_REMAPPED.html">SDL_EVENT_GAMEPAD_REMAPPED</a></li>
+<li><a href="SDL_EVENT_GAMEPAD_REMOVED.html">SDL_EVENT_GAMEPAD_REMOVED</a></li>
+<li><a href="SDL_EVENT_GAMEPAD_SENSOR_UPDATE.html">SDL_EVENT_GAMEPAD_SENSOR_UPDATE</a></li>
+<li><a href="SDL_EVENT_GAMEPAD_STEAM_HANDLE_UPDATED.html">SDL_EVENT_GAMEPAD_STEAM_HANDLE_UPDATED</a></li>
+<li><a href="SDL_EVENT_GAMEPAD_TOUCHPAD_DOWN.html">SDL_EVENT_GAMEPAD_TOUCHPAD_DOWN</a></li>
+<li><a href="SDL_EVENT_GAMEPAD_TOUCHPAD_MOTION.html">SDL_EVENT_GAMEPAD_TOUCHPAD_MOTION</a></li>
+<li><a href="SDL_EVENT_GAMEPAD_TOUCHPAD_UP.html">SDL_EVENT_GAMEPAD_TOUCHPAD_UP</a></li>
+<li><a href="SDL_EVENT_GAMEPAD_UPDATE_COMPLETE.html">SDL_EVENT_GAMEPAD_UPDATE_COMPLETE</a></li>
+<li><a href="SDL_EVENT_JOYSTICK_ADDED.html">SDL_EVENT_JOYSTICK_ADDED</a></li>
+<li><a href="SDL_EVENT_JOYSTICK_AXIS_MOTION.html">SDL_EVENT_JOYSTICK_AXIS_MOTION</a></li>
+<li><a href="SDL_EVENT_JOYSTICK_BALL_MOTION.html">SDL_EVENT_JOYSTICK_BALL_MOTION</a></li>
+<li><a href="SDL_EVENT_JOYSTICK_BATTERY_UPDATED.html">SDL_EVENT_JOYSTICK_BATTERY_UPDATED</a></li>
+<li><a href="SDL_EVENT_JOYSTICK_BUTTON_DOWN.html">SDL_EVENT_JOYSTICK_BUTTON_DOWN</a></li>
+<li><a href="SDL_EVENT_JOYSTICK_BUTTON_UP.html">SDL_EVENT_JOYSTICK_BUTTON_UP</a></li>
+<li><a href="SDL_EVENT_JOYSTICK_HAT_MOTION.html">SDL_EVENT_JOYSTICK_HAT_MOTION</a></li>
+<li><a href="SDL_EVENT_JOYSTICK_REMOVED.html">SDL_EVENT_JOYSTICK_REMOVED</a></li>
+<li><a href="SDL_EVENT_JOYSTICK_UPDATE_COMPLETE.html">SDL_EVENT_JOYSTICK_UPDATE_COMPLETE</a></li>
+<li><a href="SDL_EVENT_KEY_DOWN.html">SDL_EVENT_KEY_DOWN</a></li>
+<li><a href="SDL_EVENT_KEY_UP.html">SDL_EVENT_KEY_UP</a></li>
+<li><a href="SDL_EVENT_KEYBOARD_ADDED.html">SDL_EVENT_KEYBOARD_ADDED</a></li>
+<li><a href="SDL_EVENT_KEYBOARD_REMOVED.html">SDL_EVENT_KEYBOARD_REMOVED</a></li>
+<li><a href="SDL_EVENT_LAST.html">SDL_EVENT_LAST</a></li>
+<li><a href="SDL_EVENT_LOCALE_CHANGED.html">SDL_EVENT_LOCALE_CHANGED</a></li>
+<li><a href="SDL_EVENT_MOUSE_ADDED.html">SDL_EVENT_MOUSE_ADDED</a></li>
+<li><a href="SDL_EVENT_MOUSE_BUTTON_DOWN.html">SDL_EVENT_MOUSE_BUTTON_DOWN</a></li>
+<li><a href="SDL_EVENT_MOUSE_BUTTON_UP.html">SDL_EVENT_MOUSE_BUTTON_UP</a></li>
+<li><a href="SDL_EVENT_MOUSE_MOTION.html">SDL_EVENT_MOUSE_MOTION</a></li>
+<li><a href="SDL_EVENT_MOUSE_REMOVED.html">SDL_EVENT_MOUSE_REMOVED</a></li>
+<li><a href="SDL_EVENT_MOUSE_WHEEL.html">SDL_EVENT_MOUSE_WHEEL</a></li>
+<li><a href="SDL_EVENT_PEN_AXIS.html">SDL_EVENT_PEN_AXIS</a></li>
+<li><a href="SDL_EVENT_PEN_BUTTON_DOWN.html">SDL_EVENT_PEN_BUTTON_DOWN</a></li>
+<li><a href="SDL_EVENT_PEN_BUTTON_UP.html">SDL_EVENT_PEN_BUTTON_UP</a></li>
+<li><a href="SDL_EVENT_PEN_DOWN.html">SDL_EVENT_PEN_DOWN</a></li>
+<li><a href="SDL_EVENT_PEN_MOTION.html">SDL_EVENT_PEN_MOTION</a></li>
+<li><a href="SDL_EVENT_PEN_PROXIMITY_IN.html">SDL_EVENT_PEN_PROXIMITY_IN</a></li>
+<li><a href="SDL_EVENT_PEN_PROXIMITY_OUT.html">SDL_EVENT_PEN_PROXIMITY_OUT</a></li>
+<li><a href="SDL_EVENT_PEN_UP.html">SDL_EVENT_PEN_UP</a></li>
+<li><a href="SDL_EVENT_PINCH_BEGIN.html">SDL_EVENT_PINCH_BEGIN</a></li>
+<li><a href="SDL_EVENT_PINCH_END.html">SDL_EVENT_PINCH_END</a></li>
+<li><a href="SDL_EVENT_PINCH_UPDATE.html">SDL_EVENT_PINCH_UPDATE</a></li>
+<li><a href="SDL_EVENT_POLL_SENTINEL.html">SDL_EVENT_POLL_SENTINEL</a></li>
+<li><a href="SDL_EVENT_PRIVATE0.html">SDL_EVENT_PRIVATE0</a></li>
+<li><a href="SDL_EVENT_PRIVATE1.html">SDL_EVENT_PRIVATE1</a></li>
+<li><a href="SDL_EVENT_PRIVATE2.html">SDL_EVENT_PRIVATE2</a></li>
+<li><a href="SDL_EVENT_PRIVATE3.html">SDL_EVENT_PRIVATE3</a></li>
+<li><a href="SDL_EVENT_QUIT.html">SDL_EVENT_QUIT</a></li>
+<li><a href="SDL_EVENT_RENDER_DEVICE_LOST.html">SDL_EVENT_RENDER_DEVICE_LOST</a></li>
+<li><a href="SDL_EVENT_RENDER_DEVICE_RESET.html">SDL_EVENT_RENDER_DEVICE_RESET</a></li>
+<li><a href="SDL_EVENT_RENDER_TARGETS_RESET.html">SDL_EVENT_RENDER_TARGETS_RESET</a></li>
+<li><a href="SDL_EVENT_SCREEN_KEYBOARD_HIDDEN.html">SDL_EVENT_SCREEN_KEYBOARD_HIDDEN</a></li>
+<li><a href="SDL_EVENT_SCREEN_KEYBOARD_SHOWN.html">SDL_EVENT_SCREEN_KEYBOARD_SHOWN</a></li>
+<li><a href="SDL_EVENT_SENSOR_UPDATE.html">SDL_EVENT_SENSOR_UPDATE</a></li>
+<li><a href="SDL_EVENT_SYSTEM_THEME_CHANGED.html">SDL_EVENT_SYSTEM_THEME_CHANGED</a></li>
+<li><a href="SDL_EVENT_TEXT_EDITING.html">SDL_EVENT_TEXT_EDITING</a></li>
+<li><a href="SDL_EVENT_TEXT_EDITING_CANDIDATES.html">SDL_EVENT_TEXT_EDITING_CANDIDATES</a></li>
+<li><a href="SDL_EVENT_TEXT_INPUT.html">SDL_EVENT_TEXT_INPUT</a></li>
+<li><a href="SDL_EVENT_USER.html">SDL_EVENT_USER</a></li>
+<li><a href="SDL_EVENT_WINDOW_CLOSE_REQUESTED.html">SDL_EVENT_WINDOW_CLOSE_REQUESTED</a></li>
+<li><a href="SDL_EVENT_WINDOW_DISPLAY_CHANGED.html">SDL_EVENT_WINDOW_DISPLAY_CHANGED</a></li>
+<li><a href="SDL_EVENT_WINDOW_DISPLAY_SCALE_CHANGED.html">SDL_EVENT_WINDOW_DISPLAY_SCALE_CHANGED</a></li>
+<li><a href="SDL_EVENT_WINDOW_ENTER_FULLSCREEN.html">SDL_EVENT_WINDOW_ENTER_FULLSCREEN</a></li>
+<li><a href="SDL_EVENT_WINDOW_EXPOSED.html">SDL_EVENT_WINDOW_EXPOSED</a></li>
+<li><a href="SDL_EVENT_WINDOW_FIRST.html">SDL_EVENT_WINDOW_FIRST</a></li>
+<li><a href="SDL_EVENT_WINDOW_FOCUS_GAINED.html">SDL_EVENT_WINDOW_FOCUS_GAINED</a></li>
+<li><a href="SDL_EVENT_WINDOW_FOCUS_LOST.html">SDL_EVENT_WINDOW_FOCUS_LOST</a></li>
+<li><a href="SDL_EVENT_WINDOW_HDR_STATE_CHANGED.html">SDL_EVENT_WINDOW_HDR_STATE_CHANGED</a></li>
+<li><a href="SDL_EVENT_WINDOW_HIDDEN.html">SDL_EVENT_WINDOW_HIDDEN</a></li>
+<li><a href="SDL_EVENT_WINDOW_HIT_TEST.html">SDL_EVENT_WINDOW_HIT_TEST</a></li>
+<li><a href="SDL_EVENT_WINDOW_ICCPROF_CHANGED.html">SDL_EVENT_WINDOW_ICCPROF_CHANGED</a></li>
+<li><a href="SDL_EVENT_WINDOW_LAST.html">SDL_EVENT_WINDOW_LAST</a></li>
+<li><a href="SDL_EVENT_WINDOW_LEAVE_FULLSCREEN.html">SDL_EVENT_WINDOW_LEAVE_FULLSCREEN</a></li>
+<li><a href="SDL_EVENT_WINDOW_MAXIMIZED.html">SDL_EVENT_WINDOW_MAXIMIZED</a></li>
+<li><a href="SDL_EVENT_WINDOW_METAL_VIEW_RESIZED.html">SDL_EVENT_WINDOW_METAL_VIEW_RESIZED</a></li>
+<li><a href="SDL_EVENT_WINDOW_MINIMIZED.html">SDL_EVENT_WINDOW_MINIMIZED</a></li>
+<li><a href="SDL_EVENT_WINDOW_MOUSE_ENTER.html">SDL_EVENT_WINDOW_MOUSE_ENTER</a></li>
+<li><a href="SDL_EVENT_WINDOW_MOUSE_LEAVE.html">SDL_EVENT_WINDOW_MOUSE_LEAVE</a></li>
+<li><a href="SDL_EVENT_WINDOW_MOVED.html">SDL_EVENT_WINDOW_MOVED</a></li>
+<li><a href="SDL_EVENT_WINDOW_OCCLUDED.html">SDL_EVENT_WINDOW_OCCLUDED</a></li>
+<li><a href="SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED.html">SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED</a></li>
+<li><a href="SDL_EVENT_WINDOW_RESIZED.html">SDL_EVENT_WINDOW_RESIZED</a></li>
+<li><a href="SDL_EVENT_WINDOW_RESTORED.html">SDL_EVENT_WINDOW_RESTORED</a></li>
+<li><a href="SDL_EVENT_WINDOW_SAFE_AREA_CHANGED.html">SDL_EVENT_WINDOW_SAFE_AREA_CHANGED</a></li>
+<li><a href="SDL_EVENT_WINDOW_SHOWN.html">SDL_EVENT_WINDOW_SHOWN</a></li>
+<li><a href="SDL_FILEDIALOG_OPENFILE.html">SDL_FILEDIALOG_OPENFILE</a></li>
+<li><a href="SDL_FILEDIALOG_OPENFOLDER.html">SDL_FILEDIALOG_OPENFOLDER</a></li>
+<li><a href="SDL_FILEDIALOG_SAVEFILE.html">SDL_FILEDIALOG_SAVEFILE</a></li>
+<li><a href="SDL_FLASH_BRIEFLY.html">SDL_FLASH_BRIEFLY</a></li>
+<li><a href="SDL_FLASH_CANCEL.html">SDL_FLASH_CANCEL</a></li>
+<li><a href="SDL_FLASH_UNTIL_FOCUSED.html">SDL_FLASH_UNTIL_FOCUSED</a></li>
+<li><a href="SDL_FLIP_HORIZONTAL.html">SDL_FLIP_HORIZONTAL</a></li>
+<li><a href="SDL_FLIP_HORIZONTAL_AND_VERTICAL.html">SDL_FLIP_HORIZONTAL_AND_VERTICAL</a></li>
+<li><a href="SDL_FLIP_NONE.html">SDL_FLIP_NONE</a></li>
+<li><a href="SDL_FLIP_VERTICAL.html">SDL_FLIP_VERTICAL</a></li>
+<li><a href="SDL_FOLDER_COUNT.html">SDL_FOLDER_COUNT</a></li>
+<li><a href="SDL_FOLDER_DESKTOP.html">SDL_FOLDER_DESKTOP</a></li>
+<li><a href="SDL_FOLDER_DOCUMENTS.html">SDL_FOLDER_DOCUMENTS</a></li>
+<li><a href="SDL_FOLDER_DOWNLOADS.html">SDL_FOLDER_DOWNLOADS</a></li>
+<li><a href="SDL_FOLDER_HOME.html">SDL_FOLDER_HOME</a></li>
+<li><a href="SDL_FOLDER_MUSIC.html">SDL_FOLDER_MUSIC</a></li>
+<li><a href="SDL_FOLDER_PICTURES.html">SDL_FOLDER_PICTURES</a></li>
+<li><a href="SDL_FOLDER_PUBLICSHARE.html">SDL_FOLDER_PUBLICSHARE</a></li>
+<li><a href="SDL_FOLDER_SAVEDGAMES.html">SDL_FOLDER_SAVEDGAMES</a></li>
+<li><a href="SDL_FOLDER_SCREENSHOTS.html">SDL_FOLDER_SCREENSHOTS</a></li>
+<li><a href="SDL_FOLDER_TEMPLATES.html">SDL_FOLDER_TEMPLATES</a></li>
+<li><a href="SDL_FOLDER_VIDEOS.html">SDL_FOLDER_VIDEOS</a></li>
+<li><a href="SDL_GAMEPAD_AXIS_COUNT.html">SDL_GAMEPAD_AXIS_COUNT</a></li>
+<li><a href="SDL_GAMEPAD_AXIS_INVALID.html">SDL_GAMEPAD_AXIS_INVALID</a></li>
+<li><a href="SDL_GAMEPAD_AXIS_LEFT_TRIGGER.html">SDL_GAMEPAD_AXIS_LEFT_TRIGGER</a></li>
+<li><a href="SDL_GAMEPAD_AXIS_LEFTX.html">SDL_GAMEPAD_AXIS_LEFTX</a></li>
+<li><a href="SDL_GAMEPAD_AXIS_LEFTY.html">SDL_GAMEPAD_AXIS_LEFTY</a></li>
+<li><a href="SDL_GAMEPAD_AXIS_RIGHT_TRIGGER.html">SDL_GAMEPAD_AXIS_RIGHT_TRIGGER</a></li>
+<li><a href="SDL_GAMEPAD_AXIS_RIGHTX.html">SDL_GAMEPAD_AXIS_RIGHTX</a></li>
+<li><a href="SDL_GAMEPAD_AXIS_RIGHTY.html">SDL_GAMEPAD_AXIS_RIGHTY</a></li>
+<li><a href="SDL_GAMEPAD_BINDTYPE_AXIS.html">SDL_GAMEPAD_BINDTYPE_AXIS</a></li>
+<li><a href="SDL_GAMEPAD_BINDTYPE_BUTTON.html">SDL_GAMEPAD_BINDTYPE_BUTTON</a></li>
+<li><a href="SDL_GAMEPAD_BINDTYPE_HAT.html">SDL_GAMEPAD_BINDTYPE_HAT</a></li>
+<li><a href="SDL_GAMEPAD_BINDTYPE_NONE.html">SDL_GAMEPAD_BINDTYPE_NONE</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_BACK.html">SDL_GAMEPAD_BUTTON_BACK</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_COUNT.html">SDL_GAMEPAD_BUTTON_COUNT</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_DPAD_DOWN.html">SDL_GAMEPAD_BUTTON_DPAD_DOWN</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_DPAD_LEFT.html">SDL_GAMEPAD_BUTTON_DPAD_LEFT</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_DPAD_RIGHT.html">SDL_GAMEPAD_BUTTON_DPAD_RIGHT</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_DPAD_UP.html">SDL_GAMEPAD_BUTTON_DPAD_UP</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_EAST.html">SDL_GAMEPAD_BUTTON_EAST</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_GUIDE.html">SDL_GAMEPAD_BUTTON_GUIDE</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_INVALID.html">SDL_GAMEPAD_BUTTON_INVALID</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_LABEL_A.html">SDL_GAMEPAD_BUTTON_LABEL_A</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_LABEL_B.html">SDL_GAMEPAD_BUTTON_LABEL_B</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_LABEL_CIRCLE.html">SDL_GAMEPAD_BUTTON_LABEL_CIRCLE</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_LABEL_CROSS.html">SDL_GAMEPAD_BUTTON_LABEL_CROSS</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_LABEL_SQUARE.html">SDL_GAMEPAD_BUTTON_LABEL_SQUARE</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_LABEL_TRIANGLE.html">SDL_GAMEPAD_BUTTON_LABEL_TRIANGLE</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_LABEL_UNKNOWN.html">SDL_GAMEPAD_BUTTON_LABEL_UNKNOWN</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_LABEL_X.html">SDL_GAMEPAD_BUTTON_LABEL_X</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_LABEL_Y.html">SDL_GAMEPAD_BUTTON_LABEL_Y</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_LEFT_PADDLE1.html">SDL_GAMEPAD_BUTTON_LEFT_PADDLE1</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_LEFT_PADDLE2.html">SDL_GAMEPAD_BUTTON_LEFT_PADDLE2</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_LEFT_SHOULDER.html">SDL_GAMEPAD_BUTTON_LEFT_SHOULDER</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_LEFT_STICK.html">SDL_GAMEPAD_BUTTON_LEFT_STICK</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_MISC1.html">SDL_GAMEPAD_BUTTON_MISC1</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_MISC2.html">SDL_GAMEPAD_BUTTON_MISC2</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_MISC3.html">SDL_GAMEPAD_BUTTON_MISC3</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_MISC4.html">SDL_GAMEPAD_BUTTON_MISC4</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_MISC5.html">SDL_GAMEPAD_BUTTON_MISC5</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_MISC6.html">SDL_GAMEPAD_BUTTON_MISC6</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_NORTH.html">SDL_GAMEPAD_BUTTON_NORTH</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_RIGHT_PADDLE1.html">SDL_GAMEPAD_BUTTON_RIGHT_PADDLE1</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_RIGHT_PADDLE2.html">SDL_GAMEPAD_BUTTON_RIGHT_PADDLE2</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_RIGHT_SHOULDER.html">SDL_GAMEPAD_BUTTON_RIGHT_SHOULDER</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_RIGHT_STICK.html">SDL_GAMEPAD_BUTTON_RIGHT_STICK</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_SOUTH.html">SDL_GAMEPAD_BUTTON_SOUTH</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_START.html">SDL_GAMEPAD_BUTTON_START</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_TOUCHPAD.html">SDL_GAMEPAD_BUTTON_TOUCHPAD</a></li>
+<li><a href="SDL_GAMEPAD_BUTTON_WEST.html">SDL_GAMEPAD_BUTTON_WEST</a></li>
+<li><a href="SDL_GAMEPAD_TYPE_COUNT.html">SDL_GAMEPAD_TYPE_COUNT</a></li>
+<li><a href="SDL_GAMEPAD_TYPE_GAMECUBE.html">SDL_GAMEPAD_TYPE_GAMECUBE</a></li>
+<li><a href="SDL_GAMEPAD_TYPE_NINTENDO_SWITCH_JOYCON_LEFT.html">SDL_GAMEPAD_TYPE_NINTENDO_SWITCH_JOYCON_LEFT</a></li>
+<li><a href="SDL_GAMEPAD_TYPE_NINTENDO_SWITCH_JOYCON_PAIR.html">SDL_GAMEPAD_TYPE_NINTENDO_SWITCH_JOYCON_PAIR</a></li>
+<li><a href="SDL_GAMEPAD_TYPE_NINTENDO_SWITCH_JOYCON_RIGHT.html">SDL_GAMEPAD_TYPE_NINTENDO_SWITCH_JOYCON_RIGHT</a></li>
+<li><a href="SDL_GAMEPAD_TYPE_NINTENDO_SWITCH_PRO.html">SDL_GAMEPAD_TYPE_NINTENDO_SWITCH_PRO</a></li>
+<li><a href="SDL_GAMEPAD_TYPE_PS3.html">SDL_GAMEPAD_TYPE_PS3</a></li>
+<li><a href="SDL_GAMEPAD_TYPE_PS4.html">SDL_GAMEPAD_TYPE_PS4</a></li>
+<li><a href="SDL_GAMEPAD_TYPE_PS5.html">SDL_GAMEPAD_TYPE_PS5</a></li>
+<li><a href="SDL_GAMEPAD_TYPE_STANDARD.html">SDL_GAMEPAD_TYPE_STANDARD</a></li>
+<li><a href="SDL_GAMEPAD_TYPE_UNKNOWN.html">SDL_GAMEPAD_TYPE_UNKNOWN</a></li>
+<li><a href="SDL_GAMEPAD_TYPE_XBOX360.html">SDL_GAMEPAD_TYPE_XBOX360</a></li>
+<li><a href="SDL_GAMEPAD_TYPE_XBOXONE.html">SDL_GAMEPAD_TYPE_XBOXONE</a></li>
+<li><a href="SDL_GETEVENT.html">SDL_GETEVENT</a></li>
+<li><a href="SDL_GL_ACCELERATED_VISUAL.html">SDL_GL_ACCELERATED_VISUAL</a></li>
+<li><a href="SDL_GL_ACCUM_ALPHA_SIZE.html">SDL_GL_ACCUM_ALPHA_SIZE</a></li>
+<li><a href="SDL_GL_ACCUM_BLUE_SIZE.html">SDL_GL_ACCUM_BLUE_SIZE</a></li>
+<li><a href="SDL_GL_ACCUM_GREEN_SIZE.html">SDL_GL_ACCUM_GREEN_SIZE</a></li>
+<li><a href="SDL_GL_ACCUM_RED_SIZE.html">SDL_GL_ACCUM_RED_SIZE</a></li>
+<li><a href="SDL_GL_ALPHA_SIZE.html">SDL_GL_ALPHA_SIZE</a></li>
+<li><a href="SDL_GL_BLUE_SIZE.html">SDL_GL_BLUE_SIZE</a></li>
+<li><a href="SDL_GL_BUFFER_SIZE.html">SDL_GL_BUFFER_SIZE</a></li>
+<li><a href="SDL_GL_CONTEXT_FLAGS.html">SDL_GL_CONTEXT_FLAGS</a></li>
+<li><a href="SDL_GL_CONTEXT_MAJOR_VERSION.html">SDL_GL_CONTEXT_MAJOR_VERSION</a></li>
+<li><a href="SDL_GL_CONTEXT_MINOR_VERSION.html">SDL_GL_CONTEXT_MINOR_VERSION</a></li>
+<li><a href="SDL_GL_CONTEXT_NO_ERROR.html">SDL_GL_CONTEXT_NO_ERROR</a></li>
+<li><a href="SDL_GL_CONTEXT_PROFILE_MASK.html">SDL_GL_CONTEXT_PROFILE_MASK</a></li>
+<li><a href="SDL_GL_CONTEXT_RELEASE_BEHAVIOR.html">SDL_GL_CONTEXT_RELEASE_BEHAVIOR</a></li>
+<li><a href="SDL_GL_CONTEXT_RESET_NOTIFICATION.html">SDL_GL_CONTEXT_RESET_NOTIFICATION</a></li>
+<li><a href="SDL_GL_DEPTH_SIZE.html">SDL_GL_DEPTH_SIZE</a></li>
+<li><a href="SDL_GL_DOUBLEBUFFER.html">SDL_GL_DOUBLEBUFFER</a></li>
+<li><a href="SDL_GL_EGL_PLATFORM.html">SDL_GL_EGL_PLATFORM</a></li>
+<li><a href="SDL_GL_FLOATBUFFERS.html">SDL_GL_FLOATBUFFERS</a></li>
+<li><a href="SDL_GL_FRAMEBUFFER_SRGB_CAPABLE.html">SDL_GL_FRAMEBUFFER_SRGB_CAPABLE</a></li>
+<li><a href="SDL_GL_GREEN_SIZE.html">SDL_GL_GREEN_SIZE</a></li>
+<li><a href="SDL_GL_MULTISAMPLEBUFFERS.html">SDL_GL_MULTISAMPLEBUFFERS</a></li>
+<li><a href="SDL_GL_MULTISAMPLESAMPLES.html">SDL_GL_MULTISAMPLESAMPLES</a></li>
+<li><a href="SDL_GL_RED_SIZE.html">SDL_GL_RED_SIZE</a></li>
+<li><a href="SDL_GL_RETAINED_BACKING.html">SDL_GL_RETAINED_BACKING</a></li>
+<li><a href="SDL_GL_SHARE_WITH_CURRENT_CONTEXT.html">SDL_GL_SHARE_WITH_CURRENT_CONTEXT</a></li>
+<li><a href="SDL_GL_STENCIL_SIZE.html">SDL_GL_STENCIL_SIZE</a></li>
+<li><a href="SDL_GL_STEREO.html">SDL_GL_STEREO</a></li>
+<li><a href="SDL_GPU_BLENDFACTOR_CONSTANT_COLOR.html">SDL_GPU_BLENDFACTOR_CONSTANT_COLOR</a></li>
+<li><a href="SDL_GPU_BLENDFACTOR_DST_ALPHA.html">SDL_GPU_BLENDFACTOR_DST_ALPHA</a></li>
+<li><a href="SDL_GPU_BLENDFACTOR_DST_COLOR.html">SDL_GPU_BLENDFACTOR_DST_COLOR</a></li>
+<li><a href="SDL_GPU_BLENDFACTOR_INVALID.html">SDL_GPU_BLENDFACTOR_INVALID</a></li>
+<li><a href="SDL_GPU_BLENDFACTOR_ONE.html">SDL_GPU_BLENDFACTOR_ONE</a></li>
+<li><a href="SDL_GPU_BLENDFACTOR_ONE_MINUS_CONSTANT_COLOR.html">SDL_GPU_BLENDFACTOR_ONE_MINUS_CONSTANT_COLOR</a></li>
+<li><a href="SDL_GPU_BLENDFACTOR_ONE_MINUS_DST_ALPHA.html">SDL_GPU_BLENDFACTOR_ONE_MINUS_DST_ALPHA</a></li>
+<li><a href="SDL_GPU_BLENDFACTOR_ONE_MINUS_DST_COLOR.html">SDL_GPU_BLENDFACTOR_ONE_MINUS_DST_COLOR</a></li>
+<li><a href="SDL_GPU_BLENDFACTOR_ONE_MINUS_SRC_ALPHA.html">SDL_GPU_BLENDFACTOR_ONE_MINUS_SRC_ALPHA</a></li>
+<li><a href="SDL_GPU_BLENDFACTOR_ONE_MINUS_SRC_COLOR.html">SDL_GPU_BLENDFACTOR_ONE_MINUS_SRC_COLOR</a></li>
+<li><a href="SDL_GPU_BLENDFACTOR_SRC_ALPHA.html">SDL_GPU_BLENDFACTOR_SRC_ALPHA</a></li>
+<li><a href="SDL_GPU_BLENDFACTOR_SRC_ALPHA_SATURATE.html">SDL_GPU_BLENDFACTOR_SRC_ALPHA_SATURATE</a></li>
+<li><a href="SDL_GPU_BLENDFACTOR_SRC_COLOR.html">SDL_GPU_BLENDFACTOR_SRC_COLOR</a></li>
+<li><a href="SDL_GPU_BLENDFACTOR_ZERO.html">SDL_GPU_BLENDFACTOR_ZERO</a></li>
+<li><a href="SDL_GPU_BLENDOP_ADD.html">SDL_GPU_BLENDOP_ADD</a></li>
+<li><a href="SDL_GPU_BLENDOP_INVALID.html">SDL_GPU_BLENDOP_INVALID</a></li>
+<li><a href="SDL_GPU_BLENDOP_MAX.html">SDL_GPU_BLENDOP_MAX</a></li>
+<li><a href="SDL_GPU_BLENDOP_MIN.html">SDL_GPU_BLENDOP_MIN</a></li>
+<li><a href="SDL_GPU_BLENDOP_REVERSE_SUBTRACT.html">SDL_GPU_BLENDOP_REVERSE_SUBTRACT</a></li>
+<li><a href="SDL_GPU_BLENDOP_SUBTRACT.html">SDL_GPU_BLENDOP_SUBTRACT</a></li>
+<li><a href="SDL_GPU_COMPAREOP_ALWAYS.html">SDL_GPU_COMPAREOP_ALWAYS</a></li>
+<li><a href="SDL_GPU_COMPAREOP_EQUAL.html">SDL_GPU_COMPAREOP_EQUAL</a></li>
+<li><a href="SDL_GPU_COMPAREOP_GREATER.html">SDL_GPU_COMPAREOP_GREATER</a></li>
+<li><a href="SDL_GPU_COMPAREOP_GREATER_OR_EQUAL.html">SDL_GPU_COMPAREOP_GREATER_OR_EQUAL</a></li>
+<li><a href="SDL_GPU_COMPAREOP_INVALID.html">SDL_GPU_COMPAREOP_INVALID</a></li>
+<li><a href="SDL_GPU_COMPAREOP_LESS.html">SDL_GPU_COMPAREOP_LESS</a></li>
+<li><a href="SDL_GPU_COMPAREOP_LESS_OR_EQUAL.html">SDL_GPU_COMPAREOP_LESS_OR_EQUAL</a></li>
+<li><a href="SDL_GPU_COMPAREOP_NEVER.html">SDL_GPU_COMPAREOP_NEVER</a></li>
+<li><a href="SDL_GPU_COMPAREOP_NOT_EQUAL.html">SDL_GPU_COMPAREOP_NOT_EQUAL</a></li>
+<li><a href="SDL_GPU_CUBEMAPFACE_NEGATIVEX.html">SDL_GPU_CUBEMAPFACE_NEGATIVEX</a></li>
+<li><a href="SDL_GPU_CUBEMAPFACE_NEGATIVEY.html">SDL_GPU_CUBEMAPFACE_NEGATIVEY</a></li>
+<li><a href="SDL_GPU_CUBEMAPFACE_NEGATIVEZ.html">SDL_GPU_CUBEMAPFACE_NEGATIVEZ</a></li>
+<li><a href="SDL_GPU_CUBEMAPFACE_POSITIVEX.html">SDL_GPU_CUBEMAPFACE_POSITIVEX</a></li>
+<li><a href="SDL_GPU_CUBEMAPFACE_POSITIVEY.html">SDL_GPU_CUBEMAPFACE_POSITIVEY</a></li>
+<li><a href="SDL_GPU_CUBEMAPFACE_POSITIVEZ.html">SDL_GPU_CUBEMAPFACE_POSITIVEZ</a></li>
+<li><a href="SDL_GPU_CULLMODE_BACK.html">SDL_GPU_CULLMODE_BACK</a></li>
+<li><a href="SDL_GPU_CULLMODE_FRONT.html">SDL_GPU_CULLMODE_FRONT</a></li>
+<li><a href="SDL_GPU_CULLMODE_NONE.html">SDL_GPU_CULLMODE_NONE</a></li>
+<li><a href="SDL_GPU_FILLMODE_FILL.html">SDL_GPU_FILLMODE_FILL</a></li>
+<li><a href="SDL_GPU_FILLMODE_LINE.html">SDL_GPU_FILLMODE_LINE</a></li>
+<li><a href="SDL_GPU_FILTER_LINEAR.html">SDL_GPU_FILTER_LINEAR</a></li>
+<li><a href="SDL_GPU_FILTER_NEAREST.html">SDL_GPU_FILTER_NEAREST</a></li>
+<li><a href="SDL_GPU_FRONTFACE_CLOCKWISE.html">SDL_GPU_FRONTFACE_CLOCKWISE</a></li>
+<li><a href="SDL_GPU_FRONTFACE_COUNTER_CLOCKWISE.html">SDL_GPU_FRONTFACE_COUNTER_CLOCKWISE</a></li>
+<li><a href="SDL_GPU_INDEXELEMENTSIZE_16BIT.html">SDL_GPU_INDEXELEMENTSIZE_16BIT</a></li>
+<li><a href="SDL_GPU_INDEXELEMENTSIZE_32BIT.html">SDL_GPU_INDEXELEMENTSIZE_32BIT</a></li>
+<li><a href="SDL_GPU_LOADOP_CLEAR.html">SDL_GPU_LOADOP_CLEAR</a></li>
+<li><a href="SDL_GPU_LOADOP_DONT_CARE.html">SDL_GPU_LOADOP_DONT_CARE</a></li>
+<li><a href="SDL_GPU_LOADOP_LOAD.html">SDL_GPU_LOADOP_LOAD</a></li>
+<li><a href="SDL_GPU_PRESENTMODE_IMMEDIATE.html">SDL_GPU_PRESENTMODE_IMMEDIATE</a></li>
+<li><a href="SDL_GPU_PRESENTMODE_MAILBOX.html">SDL_GPU_PRESENTMODE_MAILBOX</a></li>
+<li><a href="SDL_GPU_PRESENTMODE_VSYNC.html">SDL_GPU_PRESENTMODE_VSYNC</a></li>
+<li><a href="SDL_GPU_PRIMITIVETYPE_LINELIST.html">SDL_GPU_PRIMITIVETYPE_LINELIST</a></li>
+<li><a href="SDL_GPU_PRIMITIVETYPE_LINESTRIP.html">SDL_GPU_PRIMITIVETYPE_LINESTRIP</a></li>
+<li><a href="SDL_GPU_PRIMITIVETYPE_POINTLIST.html">SDL_GPU_PRIMITIVETYPE_POINTLIST</a></li>
+<li><a href="SDL_GPU_PRIMITIVETYPE_TRIANGLELIST.html">SDL_GPU_PRIMITIVETYPE_TRIANGLELIST</a></li>
+<li><a href="SDL_GPU_PRIMITIVETYPE_TRIANGLESTRIP.html">SDL_GPU_PRIMITIVETYPE_TRIANGLESTRIP</a></li>
+<li><a href="SDL_GPU_SAMPLECOUNT_1.html">SDL_GPU_SAMPLECOUNT_1</a></li>
+<li><a href="SDL_GPU_SAMPLECOUNT_2.html">SDL_GPU_SAMPLECOUNT_2</a></li>
+<li><a href="SDL_GPU_SAMPLECOUNT_4.html">SDL_GPU_SAMPLECOUNT_4</a></li>
+<li><a href="SDL_GPU_SAMPLECOUNT_8.html">SDL_GPU_SAMPLECOUNT_8</a></li>
+<li><a href="SDL_GPU_SAMPLERADDRESSMODE_CLAMP_TO_EDGE.html">SDL_GPU_SAMPLERADDRESSMODE_CLAMP_TO_EDGE</a></li>
+<li><a href="SDL_GPU_SAMPLERADDRESSMODE_MIRRORED_REPEAT.html">SDL_GPU_SAMPLERADDRESSMODE_MIRRORED_REPEAT</a></li>
+<li><a href="SDL_GPU_SAMPLERADDRESSMODE_REPEAT.html">SDL_GPU_SAMPLERADDRESSMODE_REPEAT</a></li>
+<li><a href="SDL_GPU_SAMPLERMIPMAPMODE_LINEAR.html">SDL_GPU_SAMPLERMIPMAPMODE_LINEAR</a></li>
+<li><a href="SDL_GPU_SAMPLERMIPMAPMODE_NEAREST.html">SDL_GPU_SAMPLERMIPMAPMODE_NEAREST</a></li>
+<li><a href="SDL_GPU_SHADERSTAGE_FRAGMENT.html">SDL_GPU_SHADERSTAGE_FRAGMENT</a></li>
+<li><a href="SDL_GPU_SHADERSTAGE_VERTEX.html">SDL_GPU_SHADERSTAGE_VERTEX</a></li>
+<li><a href="SDL_GPU_STENCILOP_DECREMENT_AND_CLAMP.html">SDL_GPU_STENCILOP_DECREMENT_AND_CLAMP</a></li>
+<li><a href="SDL_GPU_STENCILOP_DECREMENT_AND_WRAP.html">SDL_GPU_STENCILOP_DECREMENT_AND_WRAP</a></li>
+<li><a href="SDL_GPU_STENCILOP_INCREMENT_AND_CLAMP.html">SDL_GPU_STENCILOP_INCREMENT_AND_CLAMP</a></li>
+<li><a href="SDL_GPU_STENCILOP_INCREMENT_AND_WRAP.html">SDL_GPU_STENCILOP_INCREMENT_AND_WRAP</a></li>
+<li><a href="SDL_GPU_STENCILOP_INVALID.html">SDL_GPU_STENCILOP_INVALID</a></li>
+<li><a href="SDL_GPU_STENCILOP_INVERT.html">SDL_GPU_STENCILOP_INVERT</a></li>
+<li><a href="SDL_GPU_STENCILOP_KEEP.html">SDL_GPU_STENCILOP_KEEP</a></li>
+<li><a href="SDL_GPU_STENCILOP_REPLACE.html">SDL_GPU_STENCILOP_REPLACE</a></li>
+<li><a href="SDL_GPU_STENCILOP_ZERO.html">SDL_GPU_STENCILOP_ZERO</a></li>
+<li><a href="SDL_GPU_STOREOP_DONT_CARE.html">SDL_GPU_STOREOP_DONT_CARE</a></li>
+<li><a href="SDL_GPU_STOREOP_RESOLVE.html">SDL_GPU_STOREOP_RESOLVE</a></li>
+<li><a href="SDL_GPU_STOREOP_RESOLVE_AND_STORE.html">SDL_GPU_STOREOP_RESOLVE_AND_STORE</a></li>
+<li><a href="SDL_GPU_STOREOP_STORE.html">SDL_GPU_STOREOP_STORE</a></li>
+<li><a href="SDL_GPU_SWAPCHAINCOMPOSITION_HDR10_ST2084.html">SDL_GPU_SWAPCHAINCOMPOSITION_HDR10_ST2084</a></li>
+<li><a href="SDL_GPU_SWAPCHAINCOMPOSITION_HDR_EXTENDED_LINEAR.html">SDL_GPU_SWAPCHAINCOMPOSITION_HDR_EXTENDED_LINEAR</a></li>
+<li><a href="SDL_GPU_SWAPCHAINCOMPOSITION_SDR.html">SDL_GPU_SWAPCHAINCOMPOSITION_SDR</a></li>
+<li><a href="SDL_GPU_SWAPCHAINCOMPOSITION_SDR_LINEAR.html">SDL_GPU_SWAPCHAINCOMPOSITION_SDR_LINEAR</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_A8_UNORM.html">SDL_GPU_TEXTUREFORMAT_A8_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_10x10_FLOAT.html">SDL_GPU_TEXTUREFORMAT_ASTC_10x10_FLOAT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_10x10_UNORM.html">SDL_GPU_TEXTUREFORMAT_ASTC_10x10_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_10x10_UNORM_SRGB.html">SDL_GPU_TEXTUREFORMAT_ASTC_10x10_UNORM_SRGB</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_10x5_FLOAT.html">SDL_GPU_TEXTUREFORMAT_ASTC_10x5_FLOAT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_10x5_UNORM.html">SDL_GPU_TEXTUREFORMAT_ASTC_10x5_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_10x5_UNORM_SRGB.html">SDL_GPU_TEXTUREFORMAT_ASTC_10x5_UNORM_SRGB</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_10x6_FLOAT.html">SDL_GPU_TEXTUREFORMAT_ASTC_10x6_FLOAT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_10x6_UNORM.html">SDL_GPU_TEXTUREFORMAT_ASTC_10x6_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_10x6_UNORM_SRGB.html">SDL_GPU_TEXTUREFORMAT_ASTC_10x6_UNORM_SRGB</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_10x8_FLOAT.html">SDL_GPU_TEXTUREFORMAT_ASTC_10x8_FLOAT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_10x8_UNORM.html">SDL_GPU_TEXTUREFORMAT_ASTC_10x8_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_10x8_UNORM_SRGB.html">SDL_GPU_TEXTUREFORMAT_ASTC_10x8_UNORM_SRGB</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_12x10_FLOAT.html">SDL_GPU_TEXTUREFORMAT_ASTC_12x10_FLOAT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_12x10_UNORM.html">SDL_GPU_TEXTUREFORMAT_ASTC_12x10_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_12x10_UNORM_SRGB.html">SDL_GPU_TEXTUREFORMAT_ASTC_12x10_UNORM_SRGB</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_12x12_FLOAT.html">SDL_GPU_TEXTUREFORMAT_ASTC_12x12_FLOAT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_12x12_UNORM.html">SDL_GPU_TEXTUREFORMAT_ASTC_12x12_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_12x12_UNORM_SRGB.html">SDL_GPU_TEXTUREFORMAT_ASTC_12x12_UNORM_SRGB</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_4x4_FLOAT.html">SDL_GPU_TEXTUREFORMAT_ASTC_4x4_FLOAT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_4x4_UNORM.html">SDL_GPU_TEXTUREFORMAT_ASTC_4x4_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_4x4_UNORM_SRGB.html">SDL_GPU_TEXTUREFORMAT_ASTC_4x4_UNORM_SRGB</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_5x4_FLOAT.html">SDL_GPU_TEXTUREFORMAT_ASTC_5x4_FLOAT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_5x4_UNORM.html">SDL_GPU_TEXTUREFORMAT_ASTC_5x4_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_5x4_UNORM_SRGB.html">SDL_GPU_TEXTUREFORMAT_ASTC_5x4_UNORM_SRGB</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_5x5_FLOAT.html">SDL_GPU_TEXTUREFORMAT_ASTC_5x5_FLOAT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_5x5_UNORM.html">SDL_GPU_TEXTUREFORMAT_ASTC_5x5_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_5x5_UNORM_SRGB.html">SDL_GPU_TEXTUREFORMAT_ASTC_5x5_UNORM_SRGB</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_6x5_FLOAT.html">SDL_GPU_TEXTUREFORMAT_ASTC_6x5_FLOAT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_6x5_UNORM.html">SDL_GPU_TEXTUREFORMAT_ASTC_6x5_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_6x5_UNORM_SRGB.html">SDL_GPU_TEXTUREFORMAT_ASTC_6x5_UNORM_SRGB</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_6x6_FLOAT.html">SDL_GPU_TEXTUREFORMAT_ASTC_6x6_FLOAT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_6x6_UNORM.html">SDL_GPU_TEXTUREFORMAT_ASTC_6x6_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_6x6_UNORM_SRGB.html">SDL_GPU_TEXTUREFORMAT_ASTC_6x6_UNORM_SRGB</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_8x5_FLOAT.html">SDL_GPU_TEXTUREFORMAT_ASTC_8x5_FLOAT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_8x5_UNORM.html">SDL_GPU_TEXTUREFORMAT_ASTC_8x5_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_8x5_UNORM_SRGB.html">SDL_GPU_TEXTUREFORMAT_ASTC_8x5_UNORM_SRGB</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_8x6_FLOAT.html">SDL_GPU_TEXTUREFORMAT_ASTC_8x6_FLOAT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_8x6_UNORM.html">SDL_GPU_TEXTUREFORMAT_ASTC_8x6_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_8x6_UNORM_SRGB.html">SDL_GPU_TEXTUREFORMAT_ASTC_8x6_UNORM_SRGB</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_8x8_FLOAT.html">SDL_GPU_TEXTUREFORMAT_ASTC_8x8_FLOAT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_8x8_UNORM.html">SDL_GPU_TEXTUREFORMAT_ASTC_8x8_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_ASTC_8x8_UNORM_SRGB.html">SDL_GPU_TEXTUREFORMAT_ASTC_8x8_UNORM_SRGB</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_B4G4R4A4_UNORM.html">SDL_GPU_TEXTUREFORMAT_B4G4R4A4_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_B5G5R5A1_UNORM.html">SDL_GPU_TEXTUREFORMAT_B5G5R5A1_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_B5G6R5_UNORM.html">SDL_GPU_TEXTUREFORMAT_B5G6R5_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_B8G8R8A8_UNORM.html">SDL_GPU_TEXTUREFORMAT_B8G8R8A8_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_B8G8R8A8_UNORM_SRGB.html">SDL_GPU_TEXTUREFORMAT_B8G8R8A8_UNORM_SRGB</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_BC1_RGBA_UNORM.html">SDL_GPU_TEXTUREFORMAT_BC1_RGBA_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_BC1_RGBA_UNORM_SRGB.html">SDL_GPU_TEXTUREFORMAT_BC1_RGBA_UNORM_SRGB</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_BC2_RGBA_UNORM.html">SDL_GPU_TEXTUREFORMAT_BC2_RGBA_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_BC2_RGBA_UNORM_SRGB.html">SDL_GPU_TEXTUREFORMAT_BC2_RGBA_UNORM_SRGB</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_BC3_RGBA_UNORM.html">SDL_GPU_TEXTUREFORMAT_BC3_RGBA_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_BC3_RGBA_UNORM_SRGB.html">SDL_GPU_TEXTUREFORMAT_BC3_RGBA_UNORM_SRGB</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_BC4_R_UNORM.html">SDL_GPU_TEXTUREFORMAT_BC4_R_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_BC5_RG_UNORM.html">SDL_GPU_TEXTUREFORMAT_BC5_RG_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_BC6H_RGB_FLOAT.html">SDL_GPU_TEXTUREFORMAT_BC6H_RGB_FLOAT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_BC6H_RGB_UFLOAT.html">SDL_GPU_TEXTUREFORMAT_BC6H_RGB_UFLOAT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_BC7_RGBA_UNORM.html">SDL_GPU_TEXTUREFORMAT_BC7_RGBA_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_BC7_RGBA_UNORM_SRGB.html">SDL_GPU_TEXTUREFORMAT_BC7_RGBA_UNORM_SRGB</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_D16_UNORM.html">SDL_GPU_TEXTUREFORMAT_D16_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_D24_UNORM.html">SDL_GPU_TEXTUREFORMAT_D24_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_D24_UNORM_S8_UINT.html">SDL_GPU_TEXTUREFORMAT_D24_UNORM_S8_UINT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_D32_FLOAT.html">SDL_GPU_TEXTUREFORMAT_D32_FLOAT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_D32_FLOAT_S8_UINT.html">SDL_GPU_TEXTUREFORMAT_D32_FLOAT_S8_UINT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_INVALID.html">SDL_GPU_TEXTUREFORMAT_INVALID</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R10G10B10A2_UNORM.html">SDL_GPU_TEXTUREFORMAT_R10G10B10A2_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R11G11B10_UFLOAT.html">SDL_GPU_TEXTUREFORMAT_R11G11B10_UFLOAT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R16_FLOAT.html">SDL_GPU_TEXTUREFORMAT_R16_FLOAT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R16_INT.html">SDL_GPU_TEXTUREFORMAT_R16_INT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R16_SNORM.html">SDL_GPU_TEXTUREFORMAT_R16_SNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R16_UINT.html">SDL_GPU_TEXTUREFORMAT_R16_UINT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R16_UNORM.html">SDL_GPU_TEXTUREFORMAT_R16_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R16G16_FLOAT.html">SDL_GPU_TEXTUREFORMAT_R16G16_FLOAT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R16G16_INT.html">SDL_GPU_TEXTUREFORMAT_R16G16_INT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R16G16_SNORM.html">SDL_GPU_TEXTUREFORMAT_R16G16_SNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R16G16_UINT.html">SDL_GPU_TEXTUREFORMAT_R16G16_UINT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R16G16_UNORM.html">SDL_GPU_TEXTUREFORMAT_R16G16_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R16G16B16A16_FLOAT.html">SDL_GPU_TEXTUREFORMAT_R16G16B16A16_FLOAT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R16G16B16A16_INT.html">SDL_GPU_TEXTUREFORMAT_R16G16B16A16_INT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R16G16B16A16_SNORM.html">SDL_GPU_TEXTUREFORMAT_R16G16B16A16_SNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R16G16B16A16_UINT.html">SDL_GPU_TEXTUREFORMAT_R16G16B16A16_UINT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R16G16B16A16_UNORM.html">SDL_GPU_TEXTUREFORMAT_R16G16B16A16_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R32_FLOAT.html">SDL_GPU_TEXTUREFORMAT_R32_FLOAT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R32_INT.html">SDL_GPU_TEXTUREFORMAT_R32_INT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R32_UINT.html">SDL_GPU_TEXTUREFORMAT_R32_UINT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R32G32_FLOAT.html">SDL_GPU_TEXTUREFORMAT_R32G32_FLOAT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R32G32_INT.html">SDL_GPU_TEXTUREFORMAT_R32G32_INT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R32G32_UINT.html">SDL_GPU_TEXTUREFORMAT_R32G32_UINT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R32G32B32A32_FLOAT.html">SDL_GPU_TEXTUREFORMAT_R32G32B32A32_FLOAT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R32G32B32A32_INT.html">SDL_GPU_TEXTUREFORMAT_R32G32B32A32_INT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R32G32B32A32_UINT.html">SDL_GPU_TEXTUREFORMAT_R32G32B32A32_UINT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R8_INT.html">SDL_GPU_TEXTUREFORMAT_R8_INT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R8_SNORM.html">SDL_GPU_TEXTUREFORMAT_R8_SNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R8_UINT.html">SDL_GPU_TEXTUREFORMAT_R8_UINT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R8_UNORM.html">SDL_GPU_TEXTUREFORMAT_R8_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R8G8_INT.html">SDL_GPU_TEXTUREFORMAT_R8G8_INT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R8G8_SNORM.html">SDL_GPU_TEXTUREFORMAT_R8G8_SNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R8G8_UINT.html">SDL_GPU_TEXTUREFORMAT_R8G8_UINT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R8G8_UNORM.html">SDL_GPU_TEXTUREFORMAT_R8G8_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R8G8B8A8_INT.html">SDL_GPU_TEXTUREFORMAT_R8G8B8A8_INT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R8G8B8A8_SNORM.html">SDL_GPU_TEXTUREFORMAT_R8G8B8A8_SNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R8G8B8A8_UINT.html">SDL_GPU_TEXTUREFORMAT_R8G8B8A8_UINT</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R8G8B8A8_UNORM.html">SDL_GPU_TEXTUREFORMAT_R8G8B8A8_UNORM</a></li>
+<li><a href="SDL_GPU_TEXTUREFORMAT_R8G8B8A8_UNORM_SRGB.html">SDL_GPU_TEXTUREFORMAT_R8G8B8A8_UNORM_SRGB</a></li>
+<li><a href="SDL_GPU_TEXTURETYPE_2D.html">SDL_GPU_TEXTURETYPE_2D</a></li>
+<li><a href="SDL_GPU_TEXTURETYPE_2D_ARRAY.html">SDL_GPU_TEXTURETYPE_2D_ARRAY</a></li>
+<li><a href="SDL_GPU_TEXTURETYPE_3D.html">SDL_GPU_TEXTURETYPE_3D</a></li>
+<li><a href="SDL_GPU_TEXTURETYPE_CUBE.html">SDL_GPU_TEXTURETYPE_CUBE</a></li>
+<li><a href="SDL_GPU_TEXTURETYPE_CUBE_ARRAY.html">SDL_GPU_TEXTURETYPE_CUBE_ARRAY</a></li>
+<li><a href="SDL_GPU_TRANSFERBUFFERUSAGE_DOWNLOAD.html">SDL_GPU_TRANSFERBUFFERUSAGE_DOWNLOAD</a></li>
+<li><a href="SDL_GPU_TRANSFERBUFFERUSAGE_UPLOAD.html">SDL_GPU_TRANSFERBUFFERUSAGE_UPLOAD</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_BYTE2.html">SDL_GPU_VERTEXELEMENTFORMAT_BYTE2</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_BYTE2_NORM.html">SDL_GPU_VERTEXELEMENTFORMAT_BYTE2_NORM</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_BYTE4.html">SDL_GPU_VERTEXELEMENTFORMAT_BYTE4</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_BYTE4_NORM.html">SDL_GPU_VERTEXELEMENTFORMAT_BYTE4_NORM</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_FLOAT.html">SDL_GPU_VERTEXELEMENTFORMAT_FLOAT</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_FLOAT2.html">SDL_GPU_VERTEXELEMENTFORMAT_FLOAT2</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_FLOAT3.html">SDL_GPU_VERTEXELEMENTFORMAT_FLOAT3</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_FLOAT4.html">SDL_GPU_VERTEXELEMENTFORMAT_FLOAT4</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_HALF2.html">SDL_GPU_VERTEXELEMENTFORMAT_HALF2</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_HALF4.html">SDL_GPU_VERTEXELEMENTFORMAT_HALF4</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_INT.html">SDL_GPU_VERTEXELEMENTFORMAT_INT</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_INT2.html">SDL_GPU_VERTEXELEMENTFORMAT_INT2</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_INT3.html">SDL_GPU_VERTEXELEMENTFORMAT_INT3</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_INT4.html">SDL_GPU_VERTEXELEMENTFORMAT_INT4</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_INVALID.html">SDL_GPU_VERTEXELEMENTFORMAT_INVALID</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_SHORT2.html">SDL_GPU_VERTEXELEMENTFORMAT_SHORT2</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_SHORT2_NORM.html">SDL_GPU_VERTEXELEMENTFORMAT_SHORT2_NORM</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_SHORT4.html">SDL_GPU_VERTEXELEMENTFORMAT_SHORT4</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_SHORT4_NORM.html">SDL_GPU_VERTEXELEMENTFORMAT_SHORT4_NORM</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_UBYTE2.html">SDL_GPU_VERTEXELEMENTFORMAT_UBYTE2</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_UBYTE2_NORM.html">SDL_GPU_VERTEXELEMENTFORMAT_UBYTE2_NORM</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_UBYTE4.html">SDL_GPU_VERTEXELEMENTFORMAT_UBYTE4</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_UBYTE4_NORM.html">SDL_GPU_VERTEXELEMENTFORMAT_UBYTE4_NORM</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_UINT.html">SDL_GPU_VERTEXELEMENTFORMAT_UINT</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_UINT2.html">SDL_GPU_VERTEXELEMENTFORMAT_UINT2</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_UINT3.html">SDL_GPU_VERTEXELEMENTFORMAT_UINT3</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_UINT4.html">SDL_GPU_VERTEXELEMENTFORMAT_UINT4</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_USHORT2.html">SDL_GPU_VERTEXELEMENTFORMAT_USHORT2</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_USHORT2_NORM.html">SDL_GPU_VERTEXELEMENTFORMAT_USHORT2_NORM</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_USHORT4.html">SDL_GPU_VERTEXELEMENTFORMAT_USHORT4</a></li>
+<li><a href="SDL_GPU_VERTEXELEMENTFORMAT_USHORT4_NORM.html">SDL_GPU_VERTEXELEMENTFORMAT_USHORT4_NORM</a></li>
+<li><a href="SDL_GPU_VERTEXINPUTRATE_INSTANCE.html">SDL_GPU_VERTEXINPUTRATE_INSTANCE</a></li>
+<li><a href="SDL_GPU_VERTEXINPUTRATE_VERTEX.html">SDL_GPU_VERTEXINPUTRATE_VERTEX</a></li>
+<li><a href="SDL_HID_API_BUS_BLUETOOTH.html">SDL_HID_API_BUS_BLUETOOTH</a></li>
+<li><a href="SDL_HID_API_BUS_I2C.html">SDL_HID_API_BUS_I2C</a></li>
+<li><a href="SDL_HID_API_BUS_SPI.html">SDL_HID_API_BUS_SPI</a></li>
+<li><a href="SDL_HID_API_BUS_UNKNOWN.html">SDL_HID_API_BUS_UNKNOWN</a></li>
+<li><a href="SDL_HID_API_BUS_USB.html">SDL_HID_API_BUS_USB</a></li>
+<li><a href="SDL_HINT_DEFAULT.html">SDL_HINT_DEFAULT</a></li>
+<li><a href="SDL_HINT_NORMAL.html">SDL_HINT_NORMAL</a></li>
+<li><a href="SDL_HINT_OVERRIDE.html">SDL_HINT_OVERRIDE</a></li>
+<li><a href="SDL_HITTEST_DRAGGABLE.html">SDL_HITTEST_DRAGGABLE</a></li>
+<li><a href="SDL_HITTEST_NORMAL.html">SDL_HITTEST_NORMAL</a></li>
+<li><a href="SDL_HITTEST_RESIZE_BOTTOM.html">SDL_HITTEST_RESIZE_BOTTOM</a></li>
+<li><a href="SDL_HITTEST_RESIZE_BOTTOMLEFT.html">SDL_HITTEST_RESIZE_BOTTOMLEFT</a></li>
+<li><a href="SDL_HITTEST_RESIZE_BOTTOMRIGHT.html">SDL_HITTEST_RESIZE_BOTTOMRIGHT</a></li>
+<li><a href="SDL_HITTEST_RESIZE_LEFT.html">SDL_HITTEST_RESIZE_LEFT</a></li>
+<li><a href="SDL_HITTEST_RESIZE_RIGHT.html">SDL_HITTEST_RESIZE_RIGHT</a></li>
+<li><a href="SDL_HITTEST_RESIZE_TOP.html">SDL_HITTEST_RESIZE_TOP</a></li>
+<li><a href="SDL_HITTEST_RESIZE_TOPLEFT.html">SDL_HITTEST_RESIZE_TOPLEFT</a></li>
+<li><a href="SDL_HITTEST_RESIZE_TOPRIGHT.html">SDL_HITTEST_RESIZE_TOPRIGHT</a></li>
+<li><a href="SDL_INIT_STATUS_INITIALIZED.html">SDL_INIT_STATUS_INITIALIZED</a></li>
+<li><a href="SDL_INIT_STATUS_INITIALIZING.html">SDL_INIT_STATUS_INITIALIZING</a></li>
+<li><a href="SDL_INIT_STATUS_UNINITIALIZED.html">SDL_INIT_STATUS_UNINITIALIZED</a></li>
+<li><a href="SDL_INIT_STATUS_UNINITIALIZING.html">SDL_INIT_STATUS_UNINITIALIZING</a></li>
+<li><a href="SDL_IO_SEEK_CUR.html">SDL_IO_SEEK_CUR</a></li>
+<li><a href="SDL_IO_SEEK_END.html">SDL_IO_SEEK_END</a></li>
+<li><a href="SDL_IO_SEEK_SET.html">SDL_IO_SEEK_SET</a></li>
+<li><a href="SDL_IO_STATUS_EOF.html">SDL_IO_STATUS_EOF</a></li>
+<li><a href="SDL_IO_STATUS_ERROR.html">SDL_IO_STATUS_ERROR</a></li>
+<li><a href="SDL_IO_STATUS_NOT_READY.html">SDL_IO_STATUS_NOT_READY</a></li>
+<li><a href="SDL_IO_STATUS_READONLY.html">SDL_IO_STATUS_READONLY</a></li>
+<li><a href="SDL_IO_STATUS_READY.html">SDL_IO_STATUS_READY</a></li>
+<li><a href="SDL_IO_STATUS_WRITEONLY.html">SDL_IO_STATUS_WRITEONLY</a></li>
+<li><a href="SDL_JOYSTICK_CONNECTION_INVALID.html">SDL_JOYSTICK_CONNECTION_INVALID</a></li>
+<li><a href="SDL_JOYSTICK_CONNECTION_UNKNOWN.html">SDL_JOYSTICK_CONNECTION_UNKNOWN</a></li>
+<li><a href="SDL_JOYSTICK_CONNECTION_WIRED.html">SDL_JOYSTICK_CONNECTION_WIRED</a></li>
+<li><a href="SDL_JOYSTICK_CONNECTION_WIRELESS.html">SDL_JOYSTICK_CONNECTION_WIRELESS</a></li>
+<li><a href="SDL_JOYSTICK_TYPE_ARCADE_PAD.html">SDL_JOYSTICK_TYPE_ARCADE_PAD</a></li>
+<li><a href="SDL_JOYSTICK_TYPE_ARCADE_STICK.html">SDL_JOYSTICK_TYPE_ARCADE_STICK</a></li>
+<li><a href="SDL_JOYSTICK_TYPE_COUNT.html">SDL_JOYSTICK_TYPE_COUNT</a></li>
+<li><a href="SDL_JOYSTICK_TYPE_DANCE_PAD.html">SDL_JOYSTICK_TYPE_DANCE_PAD</a></li>
+<li><a href="SDL_JOYSTICK_TYPE_DRUM_KIT.html">SDL_JOYSTICK_TYPE_DRUM_KIT</a></li>
+<li><a href="SDL_JOYSTICK_TYPE_FLIGHT_STICK.html">SDL_JOYSTICK_TYPE_FLIGHT_STICK</a></li>
+<li><a href="SDL_JOYSTICK_TYPE_GAMEPAD.html">SDL_JOYSTICK_TYPE_GAMEPAD</a></li>
+<li><a href="SDL_JOYSTICK_TYPE_GUITAR.html">SDL_JOYSTICK_TYPE_GUITAR</a></li>
+<li><a href="SDL_JOYSTICK_TYPE_THROTTLE.html">SDL_JOYSTICK_TYPE_THROTTLE</a></li>
+<li><a href="SDL_JOYSTICK_TYPE_UNKNOWN.html">SDL_JOYSTICK_TYPE_UNKNOWN</a></li>
+<li><a href="SDL_JOYSTICK_TYPE_WHEEL.html">SDL_JOYSTICK_TYPE_WHEEL</a></li>
+<li><a href="SDL_LOG_CATEGORY_APPLICATION.html">SDL_LOG_CATEGORY_APPLICATION</a></li>
+<li><a href="SDL_LOG_CATEGORY_ASSERT.html">SDL_LOG_CATEGORY_ASSERT</a></li>
+<li><a href="SDL_LOG_CATEGORY_AUDIO.html">SDL_LOG_CATEGORY_AUDIO</a></li>
+<li><a href="SDL_LOG_CATEGORY_CUSTOM.html">SDL_LOG_CATEGORY_CUSTOM</a></li>
+<li><a href="SDL_LOG_CATEGORY_ERROR.html">SDL_LOG_CATEGORY_ERROR</a></li>
+<li><a href="SDL_LOG_CATEGORY_GPU.html">SDL_LOG_CATEGORY_GPU</a></li>
+<li><a href="SDL_LOG_CATEGORY_INPUT.html">SDL_LOG_CATEGORY_INPUT</a></li>
+<li><a href="SDL_LOG_CATEGORY_RENDER.html">SDL_LOG_CATEGORY_RENDER</a></li>
+<li><a href="SDL_LOG_CATEGORY_RESERVED10.html">SDL_LOG_CATEGORY_RESERVED10</a></li>
+<li><a href="SDL_LOG_CATEGORY_RESERVED2.html">SDL_LOG_CATEGORY_RESERVED2</a></li>
+<li><a href="SDL_LOG_CATEGORY_RESERVED3.html">SDL_LOG_CATEGORY_RESERVED3</a></li>
+<li><a href="SDL_LOG_CATEGORY_RESERVED4.html">SDL_LOG_CATEGORY_RESERVED4</a></li>
+<li><a href="SDL_LOG_CATEGORY_RESERVED5.html">SDL_LOG_CATEGORY_RESERVED5</a></li>
+<li><a href="SDL_LOG_CATEGORY_RESERVED6.html">SDL_LOG_CATEGORY_RESERVED6</a></li>
+<li><a href="SDL_LOG_CATEGORY_RESERVED7.html">SDL_LOG_CATEGORY_RESERVED7</a></li>
+<li><a href="SDL_LOG_CATEGORY_RESERVED8.html">SDL_LOG_CATEGORY_RESERVED8</a></li>
+<li><a href="SDL_LOG_CATEGORY_RESERVED9.html">SDL_LOG_CATEGORY_RESERVED9</a></li>
+<li><a href="SDL_LOG_CATEGORY_SYSTEM.html">SDL_LOG_CATEGORY_SYSTEM</a></li>
+<li><a href="SDL_LOG_CATEGORY_TEST.html">SDL_LOG_CATEGORY_TEST</a></li>
+<li><a href="SDL_LOG_CATEGORY_VIDEO.html">SDL_LOG_CATEGORY_VIDEO</a></li>
+<li><a href="SDL_LOG_PRIORITY_COUNT.html">SDL_LOG_PRIORITY_COUNT</a></li>
+<li><a href="SDL_LOG_PRIORITY_CRITICAL.html">SDL_LOG_PRIORITY_CRITICAL</a></li>
+<li><a href="SDL_LOG_PRIORITY_DEBUG.html">SDL_LOG_PRIORITY_DEBUG</a></li>
+<li><a href="SDL_LOG_PRIORITY_ERROR.html">SDL_LOG_PRIORITY_ERROR</a></li>
+<li><a href="SDL_LOG_PRIORITY_INFO.html">SDL_LOG_PRIORITY_INFO</a></li>
+<li><a href="SDL_LOG_PRIORITY_INVALID.html">SDL_LOG_PRIORITY_INVALID</a></li>
+<li><a href="SDL_LOG_PRIORITY_TRACE.html">SDL_LOG_PRIORITY_TRACE</a></li>
+<li><a href="SDL_LOG_PRIORITY_VERBOSE.html">SDL_LOG_PRIORITY_VERBOSE</a></li>
+<li><a href="SDL_LOG_PRIORITY_WARN.html">SDL_LOG_PRIORITY_WARN</a></li>
+<li><a href="SDL_LOGICAL_PRESENTATION_DISABLED.html">SDL_LOGICAL_PRESENTATION_DISABLED</a></li>
+<li><a href="SDL_LOGICAL_PRESENTATION_INTEGER_SCALE.html">SDL_LOGICAL_PRESENTATION_INTEGER_SCALE</a></li>
+<li><a href="SDL_LOGICAL_PRESENTATION_LETTERBOX.html">SDL_LOGICAL_PRESENTATION_LETTERBOX</a></li>
+<li><a href="SDL_LOGICAL_PRESENTATION_OVERSCAN.html">SDL_LOGICAL_PRESENTATION_OVERSCAN</a></li>
+<li><a href="SDL_LOGICAL_PRESENTATION_STRETCH.html">SDL_LOGICAL_PRESENTATION_STRETCH</a></li>
+<li><a href="SDL_MATRIX_COEFFICIENTS_BT2020_CL.html">SDL_MATRIX_COEFFICIENTS_BT2020_CL</a></li>
+<li><a href="SDL_MATRIX_COEFFICIENTS_BT2020_NCL.html">SDL_MATRIX_COEFFICIENTS_BT2020_NCL</a></li>
+<li><a href="SDL_MATRIX_COEFFICIENTS_BT470BG.html">SDL_MATRIX_COEFFICIENTS_BT470BG</a></li>
+<li><a href="SDL_MATRIX_COEFFICIENTS_BT601.html">SDL_MATRIX_COEFFICIENTS_BT601</a></li>
+<li><a href="SDL_MATRIX_COEFFICIENTS_BT709.html">SDL_MATRIX_COEFFICIENTS_BT709</a></li>
+<li><a href="SDL_MATRIX_COEFFICIENTS_CHROMA_DERIVED_CL.html">SDL_MATRIX_COEFFICIENTS_CHROMA_DERIVED_CL</a></li>
+<li><a href="SDL_MATRIX_COEFFICIENTS_CHROMA_DERIVED_NCL.html">SDL_MATRIX_COEFFICIENTS_CHROMA_DERIVED_NCL</a></li>
+<li><a href="SDL_MATRIX_COEFFICIENTS_CUSTOM.html">SDL_MATRIX_COEFFICIENTS_CUSTOM</a></li>
+<li><a href="SDL_MATRIX_COEFFICIENTS_FCC.html">SDL_MATRIX_COEFFICIENTS_FCC</a></li>
+<li><a href="SDL_MATRIX_COEFFICIENTS_ICTCP.html">SDL_MATRIX_COEFFICIENTS_ICTCP</a></li>
+<li><a href="SDL_MATRIX_COEFFICIENTS_IDENTITY.html">SDL_MATRIX_COEFFICIENTS_IDENTITY</a></li>
+<li><a href="SDL_MATRIX_COEFFICIENTS_SMPTE2085.html">SDL_MATRIX_COEFFICIENTS_SMPTE2085</a></li>
+<li><a href="SDL_MATRIX_COEFFICIENTS_SMPTE240.html">SDL_MATRIX_COEFFICIENTS_SMPTE240</a></li>
+<li><a href="SDL_MATRIX_COEFFICIENTS_UNSPECIFIED.html">SDL_MATRIX_COEFFICIENTS_UNSPECIFIED</a></li>
+<li><a href="SDL_MATRIX_COEFFICIENTS_YCGCO.html">SDL_MATRIX_COEFFICIENTS_YCGCO</a></li>
+<li><a href="SDL_MESSAGEBOX_COLOR_BACKGROUND.html">SDL_MESSAGEBOX_COLOR_BACKGROUND</a></li>
+<li><a href="SDL_MESSAGEBOX_COLOR_BUTTON_BACKGROUND.html">SDL_MESSAGEBOX_COLOR_BUTTON_BACKGROUND</a></li>
+<li><a href="SDL_MESSAGEBOX_COLOR_BUTTON_BORDER.html">SDL_MESSAGEBOX_COLOR_BUTTON_BORDER</a></li>
+<li><a href="SDL_MESSAGEBOX_COLOR_BUTTON_SELECTED.html">SDL_MESSAGEBOX_COLOR_BUTTON_SELECTED</a></li>
+<li><a href="SDL_MESSAGEBOX_COLOR_COUNT.html">SDL_MESSAGEBOX_COLOR_COUNT</a></li>
+<li><a href="SDL_MESSAGEBOX_COLOR_TEXT.html">SDL_MESSAGEBOX_COLOR_TEXT</a></li>
+<li><a href="SDL_MOUSEWHEEL_FLIPPED.html">SDL_MOUSEWHEEL_FLIPPED</a></li>
+<li><a href="SDL_MOUSEWHEEL_NORMAL.html">SDL_MOUSEWHEEL_NORMAL</a></li>
+<li><a href="SDL_ORIENTATION_LANDSCAPE.html">SDL_ORIENTATION_LANDSCAPE</a></li>
+<li><a href="SDL_ORIENTATION_LANDSCAPE_FLIPPED.html">SDL_ORIENTATION_LANDSCAPE_FLIPPED</a></li>
+<li><a href="SDL_ORIENTATION_PORTRAIT.html">SDL_ORIENTATION_PORTRAIT</a></li>
+<li><a href="SDL_ORIENTATION_PORTRAIT_FLIPPED.html">SDL_ORIENTATION_PORTRAIT_FLIPPED</a></li>
+<li><a href="SDL_ORIENTATION_UNKNOWN.html">SDL_ORIENTATION_UNKNOWN</a></li>
+<li><a href="SDL_PACKEDLAYOUT_1010102.html">SDL_PACKEDLAYOUT_1010102</a></li>
+<li><a href="SDL_PACKEDLAYOUT_1555.html">SDL_PACKEDLAYOUT_1555</a></li>
+<li><a href="SDL_PACKEDLAYOUT_2101010.html">SDL_PACKEDLAYOUT_2101010</a></li>
+<li><a href="SDL_PACKEDLAYOUT_332.html">SDL_PACKEDLAYOUT_332</a></li>
+<li><a href="SDL_PACKEDLAYOUT_4444.html">SDL_PACKEDLAYOUT_4444</a></li>
+<li><a href="SDL_PACKEDLAYOUT_5551.html">SDL_PACKEDLAYOUT_5551</a></li>
+<li><a href="SDL_PACKEDLAYOUT_565.html">SDL_PACKEDLAYOUT_565</a></li>
+<li><a href="SDL_PACKEDLAYOUT_8888.html">SDL_PACKEDLAYOUT_8888</a></li>
+<li><a href="SDL_PACKEDLAYOUT_NONE.html">SDL_PACKEDLAYOUT_NONE</a></li>
+<li><a href="SDL_PACKEDORDER_ABGR.html">SDL_PACKEDORDER_ABGR</a></li>
+<li><a href="SDL_PACKEDORDER_ARGB.html">SDL_PACKEDORDER_ARGB</a></li>
+<li><a href="SDL_PACKEDORDER_BGRA.html">SDL_PACKEDORDER_BGRA</a></li>
+<li><a href="SDL_PACKEDORDER_BGRX.html">SDL_PACKEDORDER_BGRX</a></li>
+<li><a href="SDL_PACKEDORDER_NONE.html">SDL_PACKEDORDER_NONE</a></li>
+<li><a href="SDL_PACKEDORDER_RGBA.html">SDL_PACKEDORDER_RGBA</a></li>
+<li><a href="SDL_PACKEDORDER_RGBX.html">SDL_PACKEDORDER_RGBX</a></li>
+<li><a href="SDL_PACKEDORDER_XBGR.html">SDL_PACKEDORDER_XBGR</a></li>
+<li><a href="SDL_PACKEDORDER_XRGB.html">SDL_PACKEDORDER_XRGB</a></li>
+<li><a href="SDL_PATHTYPE_DIRECTORY.html">SDL_PATHTYPE_DIRECTORY</a></li>
+<li><a href="SDL_PATHTYPE_FILE.html">SDL_PATHTYPE_FILE</a></li>
+<li><a href="SDL_PATHTYPE_NONE.html">SDL_PATHTYPE_NONE</a></li>
+<li><a href="SDL_PATHTYPE_OTHER.html">SDL_PATHTYPE_OTHER</a></li>
+<li><a href="SDL_PEEKEVENT.html">SDL_PEEKEVENT</a></li>
+<li><a href="SDL_PEN_AXIS_COUNT.html">SDL_PEN_AXIS_COUNT</a></li>
+<li><a href="SDL_PEN_AXIS_DISTANCE.html">SDL_PEN_AXIS_DISTANCE</a></li>
+<li><a href="SDL_PEN_AXIS_PRESSURE.html">SDL_PEN_AXIS_PRESSURE</a></li>
+<li><a href="SDL_PEN_AXIS_ROTATION.html">SDL_PEN_AXIS_ROTATION</a></li>
+<li><a href="SDL_PEN_AXIS_SLIDER.html">SDL_PEN_AXIS_SLIDER</a></li>
+<li><a href="SDL_PEN_AXIS_TANGENTIAL_PRESSURE.html">SDL_PEN_AXIS_TANGENTIAL_PRESSURE</a></li>
+<li><a href="SDL_PEN_AXIS_XTILT.html">SDL_PEN_AXIS_XTILT</a></li>
+<li><a href="SDL_PEN_AXIS_YTILT.html">SDL_PEN_AXIS_YTILT</a></li>
+<li><a href="SDL_PEN_DEVICE_TYPE_DIRECT.html">SDL_PEN_DEVICE_TYPE_DIRECT</a></li>
+<li><a href="SDL_PEN_DEVICE_TYPE_INDIRECT.html">SDL_PEN_DEVICE_TYPE_INDIRECT</a></li>
+<li><a href="SDL_PEN_DEVICE_TYPE_INVALID.html">SDL_PEN_DEVICE_TYPE_INVALID</a></li>
+<li><a href="SDL_PEN_DEVICE_TYPE_UNKNOWN.html">SDL_PEN_DEVICE_TYPE_UNKNOWN</a></li>
+<li><a href="SDL_PIXELFORMAT_ABGR128_FLOAT.html">SDL_PIXELFORMAT_ABGR128_FLOAT</a></li>
+<li><a href="SDL_PIXELFORMAT_ABGR1555.html">SDL_PIXELFORMAT_ABGR1555</a></li>
+<li><a href="SDL_PIXELFORMAT_ABGR2101010.html">SDL_PIXELFORMAT_ABGR2101010</a></li>
+<li><a href="SDL_PIXELFORMAT_ABGR32.html">SDL_PIXELFORMAT_ABGR32</a></li>
+<li><a href="SDL_PIXELFORMAT_ABGR4444.html">SDL_PIXELFORMAT_ABGR4444</a></li>
+<li><a href="SDL_PIXELFORMAT_ABGR64.html">SDL_PIXELFORMAT_ABGR64</a></li>
+<li><a href="SDL_PIXELFORMAT_ABGR64_FLOAT.html">SDL_PIXELFORMAT_ABGR64_FLOAT</a></li>
+<li><a href="SDL_PIXELFORMAT_ABGR8888.html">SDL_PIXELFORMAT_ABGR8888</a></li>
+<li><a href="SDL_PIXELFORMAT_ARGB128_FLOAT.html">SDL_PIXELFORMAT_ARGB128_FLOAT</a></li>
+<li><a href="SDL_PIXELFORMAT_ARGB1555.html">SDL_PIXELFORMAT_ARGB1555</a></li>
+<li><a href="SDL_PIXELFORMAT_ARGB2101010.html">SDL_PIXELFORMAT_ARGB2101010</a></li>
+<li><a href="SDL_PIXELFORMAT_ARGB32.html">SDL_PIXELFORMAT_ARGB32</a></li>
+<li><a href="SDL_PIXELFORMAT_ARGB4444.html">SDL_PIXELFORMAT_ARGB4444</a></li>
+<li><a href="SDL_PIXELFORMAT_ARGB64.html">SDL_PIXELFORMAT_ARGB64</a></li>
+<li><a href="SDL_PIXELFORMAT_ARGB64_FLOAT.html">SDL_PIXELFORMAT_ARGB64_FLOAT</a></li>
+<li><a href="SDL_PIXELFORMAT_ARGB8888.html">SDL_PIXELFORMAT_ARGB8888</a></li>
+<li><a href="SDL_PIXELFORMAT_BGR24.html">SDL_PIXELFORMAT_BGR24</a></li>
+<li><a href="SDL_PIXELFORMAT_BGR48.html">SDL_PIXELFORMAT_BGR48</a></li>
+<li><a href="SDL_PIXELFORMAT_BGR48_FLOAT.html">SDL_PIXELFORMAT_BGR48_FLOAT</a></li>
+<li><a href="SDL_PIXELFORMAT_BGR565.html">SDL_PIXELFORMAT_BGR565</a></li>
+<li><a href="SDL_PIXELFORMAT_BGR96_FLOAT.html">SDL_PIXELFORMAT_BGR96_FLOAT</a></li>
+<li><a href="SDL_PIXELFORMAT_BGRA128_FLOAT.html">SDL_PIXELFORMAT_BGRA128_FLOAT</a></li>
+<li><a href="SDL_PIXELFORMAT_BGRA32.html">SDL_PIXELFORMAT_BGRA32</a></li>
+<li><a href="SDL_PIXELFORMAT_BGRA4444.html">SDL_PIXELFORMAT_BGRA4444</a></li>
+<li><a href="SDL_PIXELFORMAT_BGRA5551.html">SDL_PIXELFORMAT_BGRA5551</a></li>
+<li><a href="SDL_PIXELFORMAT_BGRA64.html">SDL_PIXELFORMAT_BGRA64</a></li>
+<li><a href="SDL_PIXELFORMAT_BGRA64_FLOAT.html">SDL_PIXELFORMAT_BGRA64_FLOAT</a></li>
+<li><a href="SDL_PIXELFORMAT_BGRA8888.html">SDL_PIXELFORMAT_BGRA8888</a></li>
+<li><a href="SDL_PIXELFORMAT_BGRX32.html">SDL_PIXELFORMAT_BGRX32</a></li>
+<li><a href="SDL_PIXELFORMAT_BGRX8888.html">SDL_PIXELFORMAT_BGRX8888</a></li>
+<li><a href="SDL_PIXELFORMAT_EXTERNAL_OES.html">SDL_PIXELFORMAT_EXTERNAL_OES</a></li>
+<li><a href="SDL_PIXELFORMAT_INDEX1LSB.html">SDL_PIXELFORMAT_INDEX1LSB</a></li>
+<li><a href="SDL_PIXELFORMAT_INDEX1MSB.html">SDL_PIXELFORMAT_INDEX1MSB</a></li>
+<li><a href="SDL_PIXELFORMAT_INDEX2LSB.html">SDL_PIXELFORMAT_INDEX2LSB</a></li>
+<li><a href="SDL_PIXELFORMAT_INDEX2MSB.html">SDL_PIXELFORMAT_INDEX2MSB</a></li>
+<li><a href="SDL_PIXELFORMAT_INDEX4LSB.html">SDL_PIXELFORMAT_INDEX4LSB</a></li>
+<li><a href="SDL_PIXELFORMAT_INDEX4MSB.html">SDL_PIXELFORMAT_INDEX4MSB</a></li>
+<li><a href="SDL_PIXELFORMAT_INDEX8.html">SDL_PIXELFORMAT_INDEX8</a></li>
+<li><a href="SDL_PIXELFORMAT_IYUV.html">SDL_PIXELFORMAT_IYUV</a></li>
+<li><a href="SDL_PIXELFORMAT_MJPG.html">SDL_PIXELFORMAT_MJPG</a></li>
+<li><a href="SDL_PIXELFORMAT_NV12.html">SDL_PIXELFORMAT_NV12</a></li>
+<li><a href="SDL_PIXELFORMAT_NV21.html">SDL_PIXELFORMAT_NV21</a></li>
+<li><a href="SDL_PIXELFORMAT_P010.html">SDL_PIXELFORMAT_P010</a></li>
+<li><a href="SDL_PIXELFORMAT_RGB24.html">SDL_PIXELFORMAT_RGB24</a></li>
+<li><a href="SDL_PIXELFORMAT_RGB332.html">SDL_PIXELFORMAT_RGB332</a></li>
+<li><a href="SDL_PIXELFORMAT_RGB48.html">SDL_PIXELFORMAT_RGB48</a></li>
+<li><a href="SDL_PIXELFORMAT_RGB48_FLOAT.html">SDL_PIXELFORMAT_RGB48_FLOAT</a></li>
+<li><a href="SDL_PIXELFORMAT_RGB565.html">SDL_PIXELFORMAT_RGB565</a></li>
+<li><a href="SDL_PIXELFORMAT_RGB96_FLOAT.html">SDL_PIXELFORMAT_RGB96_FLOAT</a></li>
+<li><a href="SDL_PIXELFORMAT_RGBA128_FLOAT.html">SDL_PIXELFORMAT_RGBA128_FLOAT</a></li>
+<li><a href="SDL_PIXELFORMAT_RGBA32.html">SDL_PIXELFORMAT_RGBA32</a></li>
+<li><a href="SDL_PIXELFORMAT_RGBA4444.html">SDL_PIXELFORMAT_RGBA4444</a></li>
+<li><a href="SDL_PIXELFORMAT_RGBA5551.html">SDL_PIXELFORMAT_RGBA5551</a></li>
+<li><a href="SDL_PIXELFORMAT_RGBA64.html">SDL_PIXELFORMAT_RGBA64</a></li>
+<li><a href="SDL_PIXELFORMAT_RGBA64_FLOAT.html">SDL_PIXELFORMAT_RGBA64_FLOAT</a></li>
+<li><a href="SDL_PIXELFORMAT_RGBA8888.html">SDL_PIXELFORMAT_RGBA8888</a></li>
+<li><a href="SDL_PIXELFORMAT_RGBX32.html">SDL_PIXELFORMAT_RGBX32</a></li>
+<li><a href="SDL_PIXELFORMAT_RGBX8888.html">SDL_PIXELFORMAT_RGBX8888</a></li>
+<li><a href="SDL_PIXELFORMAT_UNKNOWN.html">SDL_PIXELFORMAT_UNKNOWN</a></li>
+<li><a href="SDL_PIXELFORMAT_UYVY.html">SDL_PIXELFORMAT_UYVY</a></li>
+<li><a href="SDL_PIXELFORMAT_XBGR1555.html">SDL_PIXELFORMAT_XBGR1555</a></li>
+<li><a href="SDL_PIXELFORMAT_XBGR2101010.html">SDL_PIXELFORMAT_XBGR2101010</a></li>
+<li><a href="SDL_PIXELFORMAT_XBGR32.html">SDL_PIXELFORMAT_XBGR32</a></li>
+<li><a href="SDL_PIXELFORMAT_XBGR4444.html">SDL_PIXELFORMAT_XBGR4444</a></li>
+<li><a href="SDL_PIXELFORMAT_XBGR8888.html">SDL_PIXELFORMAT_XBGR8888</a></li>
+<li><a href="SDL_PIXELFORMAT_XRGB1555.html">SDL_PIXELFORMAT_XRGB1555</a></li>
+<li><a href="SDL_PIXELFORMAT_XRGB2101010.html">SDL_PIXELFORMAT_XRGB2101010</a></li>
+<li><a href="SDL_PIXELFORMAT_XRGB32.html">SDL_PIXELFORMAT_XRGB32</a></li>
+<li><a href="SDL_PIXELFORMAT_XRGB4444.html">SDL_PIXELFORMAT_XRGB4444</a></li>
+<li><a href="SDL_PIXELFORMAT_XRGB8888.html">SDL_PIXELFORMAT_XRGB8888</a></li>
+<li><a href="SDL_PIXELFORMAT_YUY2.html">SDL_PIXELFORMAT_YUY2</a></li>
+<li><a href="SDL_PIXELFORMAT_YV12.html">SDL_PIXELFORMAT_YV12</a></li>
+<li><a href="SDL_PIXELFORMAT_YVYU.html">SDL_PIXELFORMAT_YVYU</a></li>
+<li><a href="SDL_PIXELTYPE_ARRAYF16.html">SDL_PIXELTYPE_ARRAYF16</a></li>
+<li><a href="SDL_PIXELTYPE_ARRAYF32.html">SDL_PIXELTYPE_ARRAYF32</a></li>
+<li><a href="SDL_PIXELTYPE_ARRAYU16.html">SDL_PIXELTYPE_ARRAYU16</a></li>
+<li><a href="SDL_PIXELTYPE_ARRAYU32.html">SDL_PIXELTYPE_ARRAYU32</a></li>
+<li><a href="SDL_PIXELTYPE_ARRAYU8.html">SDL_PIXELTYPE_ARRAYU8</a></li>
+<li><a href="SDL_PIXELTYPE_INDEX1.html">SDL_PIXELTYPE_INDEX1</a></li>
+<li><a href="SDL_PIXELTYPE_INDEX2.html">SDL_PIXELTYPE_INDEX2</a></li>
+<li><a href="SDL_PIXELTYPE_INDEX4.html">SDL_PIXELTYPE_INDEX4</a></li>
+<li><a href="SDL_PIXELTYPE_INDEX8.html">SDL_PIXELTYPE_INDEX8</a></li>
+<li><a href="SDL_PIXELTYPE_PACKED16.html">SDL_PIXELTYPE_PACKED16</a></li>
+<li><a href="SDL_PIXELTYPE_PACKED32.html">SDL_PIXELTYPE_PACKED32</a></li>
+<li><a href="SDL_PIXELTYPE_PACKED8.html">SDL_PIXELTYPE_PACKED8</a></li>
+<li><a href="SDL_PIXELTYPE_UNKNOWN.html">SDL_PIXELTYPE_UNKNOWN</a></li>
+<li><a href="SDL_POWERSTATE_CHARGED.html">SDL_POWERSTATE_CHARGED</a></li>
+<li><a href="SDL_POWERSTATE_CHARGING.html">SDL_POWERSTATE_CHARGING</a></li>
+<li><a href="SDL_POWERSTATE_ERROR.html">SDL_POWERSTATE_ERROR</a></li>
+<li><a href="SDL_POWERSTATE_NO_BATTERY.html">SDL_POWERSTATE_NO_BATTERY</a></li>
+<li><a href="SDL_POWERSTATE_ON_BATTERY.html">SDL_POWERSTATE_ON_BATTERY</a></li>
+<li><a href="SDL_POWERSTATE_UNKNOWN.html">SDL_POWERSTATE_UNKNOWN</a></li>
+<li><a href="SDL_PROCESS_STDIO_APP.html">SDL_PROCESS_STDIO_APP</a></li>
+<li><a href="SDL_PROCESS_STDIO_INHERITED.html">SDL_PROCESS_STDIO_INHERITED</a></li>
+<li><a href="SDL_PROCESS_STDIO_NULL.html">SDL_PROCESS_STDIO_NULL</a></li>
+<li><a href="SDL_PROCESS_STDIO_REDIRECT.html">SDL_PROCESS_STDIO_REDIRECT</a></li>
+<li><a href="SDL_PROGRESS_STATE_ERROR.html">SDL_PROGRESS_STATE_ERROR</a></li>
+<li><a href="SDL_PROGRESS_STATE_INDETERMINATE.html">SDL_PROGRESS_STATE_INDETERMINATE</a></li>
+<li><a href="SDL_PROGRESS_STATE_INVALID.html">SDL_PROGRESS_STATE_INVALID</a></li>
+<li><a href="SDL_PROGRESS_STATE_NONE.html">SDL_PROGRESS_STATE_NONE</a></li>
+<li><a href="SDL_PROGRESS_STATE_NORMAL.html">SDL_PROGRESS_STATE_NORMAL</a></li>
+<li><a href="SDL_PROGRESS_STATE_PAUSED.html">SDL_PROGRESS_STATE_PAUSED</a></li>
+<li><a href="SDL_PROPERTY_TYPE_BOOLEAN.html">SDL_PROPERTY_TYPE_BOOLEAN</a></li>
+<li><a href="SDL_PROPERTY_TYPE_FLOAT.html">SDL_PROPERTY_TYPE_FLOAT</a></li>
+<li><a href="SDL_PROPERTY_TYPE_INVALID.html">SDL_PROPERTY_TYPE_INVALID</a></li>
+<li><a href="SDL_PROPERTY_TYPE_NUMBER.html">SDL_PROPERTY_TYPE_NUMBER</a></li>
+<li><a href="SDL_PROPERTY_TYPE_POINTER.html">SDL_PROPERTY_TYPE_POINTER</a></li>
+<li><a href="SDL_PROPERTY_TYPE_STRING.html">SDL_PROPERTY_TYPE_STRING</a></li>
+<li><a href="SDL_SANDBOX_FLATPAK.html">SDL_SANDBOX_FLATPAK</a></li>
+<li><a href="SDL_SANDBOX_MACOS.html">SDL_SANDBOX_MACOS</a></li>
+<li><a href="SDL_SANDBOX_NONE.html">SDL_SANDBOX_NONE</a></li>
+<li><a href="SDL_SANDBOX_SNAP.html">SDL_SANDBOX_SNAP</a></li>
+<li><a href="SDL_SANDBOX_UNKNOWN_CONTAINER.html">SDL_SANDBOX_UNKNOWN_CONTAINER</a></li>
+<li><a href="SDL_SCALEMODE_INVALID.html">SDL_SCALEMODE_INVALID</a></li>
+<li><a href="SDL_SCALEMODE_LINEAR.html">SDL_SCALEMODE_LINEAR</a></li>
+<li><a href="SDL_SCALEMODE_NEAREST.html">SDL_SCALEMODE_NEAREST</a></li>
+<li><a href="SDL_SCALEMODE_PIXELART.html">SDL_SCALEMODE_PIXELART</a></li>
+<li><a href="SDL_SCANCODE_0.html">SDL_SCANCODE_0</a></li>
+<li><a href="SDL_SCANCODE_1.html">SDL_SCANCODE_1</a></li>
+<li><a href="SDL_SCANCODE_2.html">SDL_SCANCODE_2</a></li>
+<li><a href="SDL_SCANCODE_3.html">SDL_SCANCODE_3</a></li>
+<li><a href="SDL_SCANCODE_4.html">SDL_SCANCODE_4</a></li>
+<li><a href="SDL_SCANCODE_5.html">SDL_SCANCODE_5</a></li>
+<li><a href="SDL_SCANCODE_6.html">SDL_SCANCODE_6</a></li>
+<li><a href="SDL_SCANCODE_7.html">SDL_SCANCODE_7</a></li>
+<li><a href="SDL_SCANCODE_8.html">SDL_SCANCODE_8</a></li>
+<li><a href="SDL_SCANCODE_9.html">SDL_SCANCODE_9</a></li>
+<li><a href="SDL_SCANCODE_A.html">SDL_SCANCODE_A</a></li>
+<li><a href="SDL_SCANCODE_AC_BACK.html">SDL_SCANCODE_AC_BACK</a></li>
+<li><a href="SDL_SCANCODE_AC_BOOKMARKS.html">SDL_SCANCODE_AC_BOOKMARKS</a></li>
+<li><a href="SDL_SCANCODE_AC_CLOSE.html">SDL_SCANCODE_AC_CLOSE</a></li>
+<li><a href="SDL_SCANCODE_AC_EXIT.html">SDL_SCANCODE_AC_EXIT</a></li>
+<li><a href="SDL_SCANCODE_AC_FORWARD.html">SDL_SCANCODE_AC_FORWARD</a></li>
+<li><a href="SDL_SCANCODE_AC_HOME.html">SDL_SCANCODE_AC_HOME</a></li>
+<li><a href="SDL_SCANCODE_AC_NEW.html">SDL_SCANCODE_AC_NEW</a></li>
+<li><a href="SDL_SCANCODE_AC_OPEN.html">SDL_SCANCODE_AC_OPEN</a></li>
+<li><a href="SDL_SCANCODE_AC_PRINT.html">SDL_SCANCODE_AC_PRINT</a></li>
+<li><a href="SDL_SCANCODE_AC_PROPERTIES.html">SDL_SCANCODE_AC_PROPERTIES</a></li>
+<li><a href="SDL_SCANCODE_AC_REFRESH.html">SDL_SCANCODE_AC_REFRESH</a></li>
+<li><a href="SDL_SCANCODE_AC_SAVE.html">SDL_SCANCODE_AC_SAVE</a></li>
+<li><a href="SDL_SCANCODE_AC_SEARCH.html">SDL_SCANCODE_AC_SEARCH</a></li>
+<li><a href="SDL_SCANCODE_AC_STOP.html">SDL_SCANCODE_AC_STOP</a></li>
+<li><a href="SDL_SCANCODE_AGAIN.html">SDL_SCANCODE_AGAIN</a></li>
+<li><a href="SDL_SCANCODE_ALTERASE.html">SDL_SCANCODE_ALTERASE</a></li>
+<li><a href="SDL_SCANCODE_APOSTROPHE.html">SDL_SCANCODE_APOSTROPHE</a></li>
+<li><a href="SDL_SCANCODE_APPLICATION.html">SDL_SCANCODE_APPLICATION</a></li>
+<li><a href="SDL_SCANCODE_B.html">SDL_SCANCODE_B</a></li>
+<li><a href="SDL_SCANCODE_BACKSPACE.html">SDL_SCANCODE_BACKSPACE</a></li>
+<li><a href="SDL_SCANCODE_C.html">SDL_SCANCODE_C</a></li>
+<li><a href="SDL_SCANCODE_CALL.html">SDL_SCANCODE_CALL</a></li>
+<li><a href="SDL_SCANCODE_CANCEL.html">SDL_SCANCODE_CANCEL</a></li>
+<li><a href="SDL_SCANCODE_CAPSLOCK.html">SDL_SCANCODE_CAPSLOCK</a></li>
+<li><a href="SDL_SCANCODE_CHANNEL_DECREMENT.html">SDL_SCANCODE_CHANNEL_DECREMENT</a></li>
+<li><a href="SDL_SCANCODE_CHANNEL_INCREMENT.html">SDL_SCANCODE_CHANNEL_INCREMENT</a></li>
+<li><a href="SDL_SCANCODE_CLEAR.html">SDL_SCANCODE_CLEAR</a></li>
+<li><a href="SDL_SCANCODE_CLEARAGAIN.html">SDL_SCANCODE_CLEARAGAIN</a></li>
+<li><a href="SDL_SCANCODE_COMMA.html">SDL_SCANCODE_COMMA</a></li>
+<li><a href="SDL_SCANCODE_COPY.html">SDL_SCANCODE_COPY</a></li>
+<li><a href="SDL_SCANCODE_COUNT.html">SDL_SCANCODE_COUNT</a></li>
+<li><a href="SDL_SCANCODE_CRSEL.html">SDL_SCANCODE_CRSEL</a></li>
+<li><a href="SDL_SCANCODE_CURRENCYSUBUNIT.html">SDL_SCANCODE_CURRENCYSUBUNIT</a></li>
+<li><a href="SDL_SCANCODE_CURRENCYUNIT.html">SDL_SCANCODE_CURRENCYUNIT</a></li>
+<li><a href="SDL_SCANCODE_CUT.html">SDL_SCANCODE_CUT</a></li>
+<li><a href="SDL_SCANCODE_D.html">SDL_SCANCODE_D</a></li>
+<li><a href="SDL_SCANCODE_DECIMALSEPARATOR.html">SDL_SCANCODE_DECIMALSEPARATOR</a></li>
+<li><a href="SDL_SCANCODE_DELETE.html">SDL_SCANCODE_DELETE</a></li>
+<li><a href="SDL_SCANCODE_DOWN.html">SDL_SCANCODE_DOWN</a></li>
+<li><a href="SDL_SCANCODE_E.html">SDL_SCANCODE_E</a></li>
+<li><a href="SDL_SCANCODE_END.html">SDL_SCANCODE_END</a></li>
+<li><a href="SDL_SCANCODE_ENDCALL.html">SDL_SCANCODE_ENDCALL</a></li>
+<li><a href="SDL_SCANCODE_EQUALS.html">SDL_SCANCODE_EQUALS</a></li>
+<li><a href="SDL_SCANCODE_ESCAPE.html">SDL_SCANCODE_ESCAPE</a></li>
+<li><a href="SDL_SCANCODE_EXECUTE.html">SDL_SCANCODE_EXECUTE</a></li>
+<li><a href="SDL_SCANCODE_EXSEL.html">SDL_SCANCODE_EXSEL</a></li>
+<li><a href="SDL_SCANCODE_F.html">SDL_SCANCODE_F</a></li>
+<li><a href="SDL_SCANCODE_F1.html">SDL_SCANCODE_F1</a></li>
+<li><a href="SDL_SCANCODE_F10.html">SDL_SCANCODE_F10</a></li>
+<li><a href="SDL_SCANCODE_F11.html">SDL_SCANCODE_F11</a></li>
+<li><a href="SDL_SCANCODE_F12.html">SDL_SCANCODE_F12</a></li>
+<li><a href="SDL_SCANCODE_F13.html">SDL_SCANCODE_F13</a></li>
+<li><a href="SDL_SCANCODE_F14.html">SDL_SCANCODE_F14</a></li>
+<li><a href="SDL_SCANCODE_F15.html">SDL_SCANCODE_F15</a></li>
+<li><a href="SDL_SCANCODE_F16.html">SDL_SCANCODE_F16</a></li>
+<li><a href="SDL_SCANCODE_F17.html">SDL_SCANCODE_F17</a></li>
+<li><a href="SDL_SCANCODE_F18.html">SDL_SCANCODE_F18</a></li>
+<li><a href="SDL_SCANCODE_F19.html">SDL_SCANCODE_F19</a></li>
+<li><a href="SDL_SCANCODE_F2.html">SDL_SCANCODE_F2</a></li>
+<li><a href="SDL_SCANCODE_F20.html">SDL_SCANCODE_F20</a></li>
+<li><a href="SDL_SCANCODE_F21.html">SDL_SCANCODE_F21</a></li>
+<li><a href="SDL_SCANCODE_F22.html">SDL_SCANCODE_F22</a></li>
+<li><a href="SDL_SCANCODE_F23.html">SDL_SCANCODE_F23</a></li>
+<li><a href="SDL_SCANCODE_F24.html">SDL_SCANCODE_F24</a></li>
+<li><a href="SDL_SCANCODE_F3.html">SDL_SCANCODE_F3</a></li>
+<li><a href="SDL_SCANCODE_F4.html">SDL_SCANCODE_F4</a></li>
+<li><a href="SDL_SCANCODE_F5.html">SDL_SCANCODE_F5</a></li>
+<li><a href="SDL_SCANCODE_F6.html">SDL_SCANCODE_F6</a></li>
+<li><a href="SDL_SCANCODE_F7.html">SDL_SCANCODE_F7</a></li>
+<li><a href="SDL_SCANCODE_F8.html">SDL_SCANCODE_F8</a></li>
+<li><a href="SDL_SCANCODE_F9.html">SDL_SCANCODE_F9</a></li>
+<li><a href="SDL_SCANCODE_FIND.html">SDL_SCANCODE_FIND</a></li>
+<li><a href="SDL_SCANCODE_G.html">SDL_SCANCODE_G</a></li>
+<li><a href="SDL_SCANCODE_H.html">SDL_SCANCODE_H</a></li>
+<li><a href="SDL_SCANCODE_HELP.html">SDL_SCANCODE_HELP</a></li>
+<li><a href="SDL_SCANCODE_HOME.html">SDL_SCANCODE_HOME</a></li>
+<li><a href="SDL_SCANCODE_I.html">SDL_SCANCODE_I</a></li>
+<li><a href="SDL_SCANCODE_INTERNATIONAL2.html">SDL_SCANCODE_INTERNATIONAL2</a></li>
+<li><a href="SDL_SCANCODE_INTERNATIONAL3.html">SDL_SCANCODE_INTERNATIONAL3</a></li>
+<li><a href="SDL_SCANCODE_INTERNATIONAL4.html">SDL_SCANCODE_INTERNATIONAL4</a></li>
+<li><a href="SDL_SCANCODE_INTERNATIONAL5.html">SDL_SCANCODE_INTERNATIONAL5</a></li>
+<li><a href="SDL_SCANCODE_INTERNATIONAL6.html">SDL_SCANCODE_INTERNATIONAL6</a></li>
+<li><a href="SDL_SCANCODE_INTERNATIONAL7.html">SDL_SCANCODE_INTERNATIONAL7</a></li>
+<li><a href="SDL_SCANCODE_INTERNATIONAL8.html">SDL_SCANCODE_INTERNATIONAL8</a></li>
+<li><a href="SDL_SCANCODE_INTERNATIONAL9.html">SDL_SCANCODE_INTERNATIONAL9</a></li>
+<li><a href="SDL_SCANCODE_J.html">SDL_SCANCODE_J</a></li>
+<li><a href="SDL_SCANCODE_K.html">SDL_SCANCODE_K</a></li>
+<li><a href="SDL_SCANCODE_KP_0.html">SDL_SCANCODE_KP_0</a></li>
+<li><a href="SDL_SCANCODE_KP_00.html">SDL_SCANCODE_KP_00</a></li>
+<li><a href="SDL_SCANCODE_KP_000.html">SDL_SCANCODE_KP_000</a></li>
+<li><a href="SDL_SCANCODE_KP_1.html">SDL_SCANCODE_KP_1</a></li>
+<li><a href="SDL_SCANCODE_KP_2.html">SDL_SCANCODE_KP_2</a></li>
+<li><a href="SDL_SCANCODE_KP_3.html">SDL_SCANCODE_KP_3</a></li>
+<li><a href="SDL_SCANCODE_KP_4.html">SDL_SCANCODE_KP_4</a></li>
+<li><a href="SDL_SCANCODE_KP_5.html">SDL_SCANCODE_KP_5</a></li>
+<li><a href="SDL_SCANCODE_KP_6.html">SDL_SCANCODE_KP_6</a></li>
+<li><a href="SDL_SCANCODE_KP_7.html">SDL_SCANCODE_KP_7</a></li>
+<li><a href="SDL_SCANCODE_KP_8.html">SDL_SCANCODE_KP_8</a></li>
+<li><a href="SDL_SCANCODE_KP_9.html">SDL_SCANCODE_KP_9</a></li>
+<li><a href="SDL_SCANCODE_KP_A.html">SDL_SCANCODE_KP_A</a></li>
+<li><a href="SDL_SCANCODE_KP_AMPERSAND.html">SDL_SCANCODE_KP_AMPERSAND</a></li>
+<li><a href="SDL_SCANCODE_KP_AT.html">SDL_SCANCODE_KP_AT</a></li>
+<li><a href="SDL_SCANCODE_KP_B.html">SDL_SCANCODE_KP_B</a></li>
+<li><a href="SDL_SCANCODE_KP_BACKSPACE.html">SDL_SCANCODE_KP_BACKSPACE</a></li>
+<li><a href="SDL_SCANCODE_KP_BINARY.html">SDL_SCANCODE_KP_BINARY</a></li>
+<li><a href="SDL_SCANCODE_KP_C.html">SDL_SCANCODE_KP_C</a></li>
+<li><a href="SDL_SCANCODE_KP_CLEAR.html">SDL_SCANCODE_KP_CLEAR</a></li>
+<li><a href="SDL_SCANCODE_KP_CLEARENTRY.html">SDL_SCANCODE_KP_CLEARENTRY</a></li>
+<li><a href="SDL_SCANCODE_KP_COLON.html">SDL_SCANCODE_KP_COLON</a></li>
+<li><a href="SDL_SCANCODE_KP_COMMA.html">SDL_SCANCODE_KP_COMMA</a></li>
+<li><a href="SDL_SCANCODE_KP_D.html">SDL_SCANCODE_KP_D</a></li>
+<li><a href="SDL_SCANCODE_KP_DBLAMPERSAND.html">SDL_SCANCODE_KP_DBLAMPERSAND</a></li>
+<li><a href="SDL_SCANCODE_KP_DBLVERTICALBAR.html">SDL_SCANCODE_KP_DBLVERTICALBAR</a></li>
+<li><a href="SDL_SCANCODE_KP_DECIMAL.html">SDL_SCANCODE_KP_DECIMAL</a></li>
+<li><a href="SDL_SCANCODE_KP_DIVIDE.html">SDL_SCANCODE_KP_DIVIDE</a></li>
+<li><a href="SDL_SCANCODE_KP_E.html">SDL_SCANCODE_KP_E</a></li>
+<li><a href="SDL_SCANCODE_KP_ENTER.html">SDL_SCANCODE_KP_ENTER</a></li>
+<li><a href="SDL_SCANCODE_KP_EQUALS.html">SDL_SCANCODE_KP_EQUALS</a></li>
+<li><a href="SDL_SCANCODE_KP_EQUALSAS400.html">SDL_SCANCODE_KP_EQUALSAS400</a></li>
+<li><a href="SDL_SCANCODE_KP_EXCLAM.html">SDL_SCANCODE_KP_EXCLAM</a></li>
+<li><a href="SDL_SCANCODE_KP_F.html">SDL_SCANCODE_KP_F</a></li>
+<li><a href="SDL_SCANCODE_KP_GREATER.html">SDL_SCANCODE_KP_GREATER</a></li>
+<li><a href="SDL_SCANCODE_KP_HASH.html">SDL_SCANCODE_KP_HASH</a></li>
+<li><a href="SDL_SCANCODE_KP_HEXADECIMAL.html">SDL_SCANCODE_KP_HEXADECIMAL</a></li>
+<li><a href="SDL_SCANCODE_KP_LEFTBRACE.html">SDL_SCANCODE_KP_LEFTBRACE</a></li>
+<li><a href="SDL_SCANCODE_KP_LEFTPAREN.html">SDL_SCANCODE_KP_LEFTPAREN</a></li>
+<li><a href="SDL_SCANCODE_KP_LESS.html">SDL_SCANCODE_KP_LESS</a></li>
+<li><a href="SDL_SCANCODE_KP_MEMADD.html">SDL_SCANCODE_KP_MEMADD</a></li>
+<li><a href="SDL_SCANCODE_KP_MEMCLEAR.html">SDL_SCANCODE_KP_MEMCLEAR</a></li>
+<li><a href="SDL_SCANCODE_KP_MEMDIVIDE.html">SDL_SCANCODE_KP_MEMDIVIDE</a></li>
+<li><a href="SDL_SCANCODE_KP_MEMMULTIPLY.html">SDL_SCANCODE_KP_MEMMULTIPLY</a></li>
+<li><a href="SDL_SCANCODE_KP_MEMRECALL.html">SDL_SCANCODE_KP_MEMRECALL</a></li>
+<li><a href="SDL_SCANCODE_KP_MEMSTORE.html">SDL_SCANCODE_KP_MEMSTORE</a></li>
+<li><a href="SDL_SCANCODE_KP_MEMSUBTRACT.html">SDL_SCANCODE_KP_MEMSUBTRACT</a></li>
+<li><a href="SDL_SCANCODE_KP_MINUS.html">SDL_SCANCODE_KP_MINUS</a></li>
+<li><a href="SDL_SCANCODE_KP_MULTIPLY.html">SDL_SCANCODE_KP_MULTIPLY</a></li>
+<li><a href="SDL_SCANCODE_KP_OCTAL.html">SDL_SCANCODE_KP_OCTAL</a></li>
+<li><a href="SDL_SCANCODE_KP_PERCENT.html">SDL_SCANCODE_KP_PERCENT</a></li>
+<li><a href="SDL_SCANCODE_KP_PERIOD.html">SDL_SCANCODE_KP_PERIOD</a></li>
+<li><a href="SDL_SCANCODE_KP_PLUS.html">SDL_SCANCODE_KP_PLUS</a></li>
+<li><a href="SDL_SCANCODE_KP_PLUSMINUS.html">SDL_SCANCODE_KP_PLUSMINUS</a></li>
+<li><a href="SDL_SCANCODE_KP_POWER.html">SDL_SCANCODE_KP_POWER</a></li>
+<li><a href="SDL_SCANCODE_KP_RIGHTBRACE.html">SDL_SCANCODE_KP_RIGHTBRACE</a></li>
+<li><a href="SDL_SCANCODE_KP_RIGHTPAREN.html">SDL_SCANCODE_KP_RIGHTPAREN</a></li>
+<li><a href="SDL_SCANCODE_KP_SPACE.html">SDL_SCANCODE_KP_SPACE</a></li>
+<li><a href="SDL_SCANCODE_KP_TAB.html">SDL_SCANCODE_KP_TAB</a></li>
+<li><a href="SDL_SCANCODE_KP_VERTICALBAR.html">SDL_SCANCODE_KP_VERTICALBAR</a></li>
+<li><a href="SDL_SCANCODE_KP_XOR.html">SDL_SCANCODE_KP_XOR</a></li>
+<li><a href="SDL_SCANCODE_L.html">SDL_SCANCODE_L</a></li>
+<li><a href="SDL_SCANCODE_LALT.html">SDL_SCANCODE_LALT</a></li>
+<li><a href="SDL_SCANCODE_LANG1.html">SDL_SCANCODE_LANG1</a></li>
+<li><a href="SDL_SCANCODE_LANG2.html">SDL_SCANCODE_LANG2</a></li>
+<li><a href="SDL_SCANCODE_LANG3.html">SDL_SCANCODE_LANG3</a></li>
+<li><a href="SDL_SCANCODE_LANG4.html">SDL_SCANCODE_LANG4</a></li>
+<li><a href="SDL_SCANCODE_LANG5.html">SDL_SCANCODE_LANG5</a></li>
+<li><a href="SDL_SCANCODE_LANG6.html">SDL_SCANCODE_LANG6</a></li>
+<li><a href="SDL_SCANCODE_LANG7.html">SDL_SCANCODE_LANG7</a></li>
+<li><a href="SDL_SCANCODE_LANG8.html">SDL_SCANCODE_LANG8</a></li>
+<li><a href="SDL_SCANCODE_LANG9.html">SDL_SCANCODE_LANG9</a></li>
+<li><a href="SDL_SCANCODE_LCTRL.html">SDL_SCANCODE_LCTRL</a></li>
+<li><a href="SDL_SCANCODE_LEFT.html">SDL_SCANCODE_LEFT</a></li>
+<li><a href="SDL_SCANCODE_LEFTBRACKET.html">SDL_SCANCODE_LEFTBRACKET</a></li>
+<li><a href="SDL_SCANCODE_LGUI.html">SDL_SCANCODE_LGUI</a></li>
+<li><a href="SDL_SCANCODE_LSHIFT.html">SDL_SCANCODE_LSHIFT</a></li>
+<li><a href="SDL_SCANCODE_M.html">SDL_SCANCODE_M</a></li>
+<li><a href="SDL_SCANCODE_MEDIA_EJECT.html">SDL_SCANCODE_MEDIA_EJECT</a></li>
+<li><a href="SDL_SCANCODE_MEDIA_FAST_FORWARD.html">SDL_SCANCODE_MEDIA_FAST_FORWARD</a></li>
+<li><a href="SDL_SCANCODE_MEDIA_NEXT_TRACK.html">SDL_SCANCODE_MEDIA_NEXT_TRACK</a></li>
+<li><a href="SDL_SCANCODE_MEDIA_PAUSE.html">SDL_SCANCODE_MEDIA_PAUSE</a></li>
+<li><a href="SDL_SCANCODE_MEDIA_PLAY.html">SDL_SCANCODE_MEDIA_PLAY</a></li>
+<li><a href="SDL_SCANCODE_MEDIA_PLAY_PAUSE.html">SDL_SCANCODE_MEDIA_PLAY_PAUSE</a></li>
+<li><a href="SDL_SCANCODE_MEDIA_PREVIOUS_TRACK.html">SDL_SCANCODE_MEDIA_PREVIOUS_TRACK</a></li>
+<li><a href="SDL_SCANCODE_MEDIA_RECORD.html">SDL_SCANCODE_MEDIA_RECORD</a></li>
+<li><a href="SDL_SCANCODE_MEDIA_REWIND.html">SDL_SCANCODE_MEDIA_REWIND</a></li>
+<li><a href="SDL_SCANCODE_MEDIA_SELECT.html">SDL_SCANCODE_MEDIA_SELECT</a></li>
+<li><a href="SDL_SCANCODE_MEDIA_STOP.html">SDL_SCANCODE_MEDIA_STOP</a></li>
+<li><a href="SDL_SCANCODE_MENU.html">SDL_SCANCODE_MENU</a></li>
+<li><a href="SDL_SCANCODE_MINUS.html">SDL_SCANCODE_MINUS</a></li>
+<li><a href="SDL_SCANCODE_MUTE.html">SDL_SCANCODE_MUTE</a></li>
+<li><a href="SDL_SCANCODE_N.html">SDL_SCANCODE_N</a></li>
+<li><a href="SDL_SCANCODE_O.html">SDL_SCANCODE_O</a></li>
+<li><a href="SDL_SCANCODE_OPER.html">SDL_SCANCODE_OPER</a></li>
+<li><a href="SDL_SCANCODE_OUT.html">SDL_SCANCODE_OUT</a></li>
+<li><a href="SDL_SCANCODE_P.html">SDL_SCANCODE_P</a></li>
+<li><a href="SDL_SCANCODE_PAGEDOWN.html">SDL_SCANCODE_PAGEDOWN</a></li>
+<li><a href="SDL_SCANCODE_PAGEUP.html">SDL_SCANCODE_PAGEUP</a></li>
+<li><a href="SDL_SCANCODE_PASTE.html">SDL_SCANCODE_PASTE</a></li>
+<li><a href="SDL_SCANCODE_PAUSE.html">SDL_SCANCODE_PAUSE</a></li>
+<li><a href="SDL_SCANCODE_PERIOD.html">SDL_SCANCODE_PERIOD</a></li>
+<li><a href="SDL_SCANCODE_PRINTSCREEN.html">SDL_SCANCODE_PRINTSCREEN</a></li>
+<li><a href="SDL_SCANCODE_PRIOR.html">SDL_SCANCODE_PRIOR</a></li>
+<li><a href="SDL_SCANCODE_Q.html">SDL_SCANCODE_Q</a></li>
+<li><a href="SDL_SCANCODE_R.html">SDL_SCANCODE_R</a></li>
+<li><a href="SDL_SCANCODE_RALT.html">SDL_SCANCODE_RALT</a></li>
+<li><a href="SDL_SCANCODE_RCTRL.html">SDL_SCANCODE_RCTRL</a></li>
+<li><a href="SDL_SCANCODE_RESERVED.html">SDL_SCANCODE_RESERVED</a></li>
+<li><a href="SDL_SCANCODE_RETURN.html">SDL_SCANCODE_RETURN</a></li>
+<li><a href="SDL_SCANCODE_RETURN2.html">SDL_SCANCODE_RETURN2</a></li>
+<li><a href="SDL_SCANCODE_RGUI.html">SDL_SCANCODE_RGUI</a></li>
+<li><a href="SDL_SCANCODE_RIGHT.html">SDL_SCANCODE_RIGHT</a></li>
+<li><a href="SDL_SCANCODE_RIGHTBRACKET.html">SDL_SCANCODE_RIGHTBRACKET</a></li>
+<li><a href="SDL_SCANCODE_RSHIFT.html">SDL_SCANCODE_RSHIFT</a></li>
+<li><a href="SDL_SCANCODE_S.html">SDL_SCANCODE_S</a></li>
+<li><a href="SDL_SCANCODE_SCROLLLOCK.html">SDL_SCANCODE_SCROLLLOCK</a></li>
+<li><a href="SDL_SCANCODE_SELECT.html">SDL_SCANCODE_SELECT</a></li>
+<li><a href="SDL_SCANCODE_SEMICOLON.html">SDL_SCANCODE_SEMICOLON</a></li>
+<li><a href="SDL_SCANCODE_SEPARATOR.html">SDL_SCANCODE_SEPARATOR</a></li>
+<li><a href="SDL_SCANCODE_SLASH.html">SDL_SCANCODE_SLASH</a></li>
+<li><a href="SDL_SCANCODE_SLEEP.html">SDL_SCANCODE_SLEEP</a></li>
+<li><a href="SDL_SCANCODE_SPACE.html">SDL_SCANCODE_SPACE</a></li>
+<li><a href="SDL_SCANCODE_STOP.html">SDL_SCANCODE_STOP</a></li>
+<li><a href="SDL_SCANCODE_SYSREQ.html">SDL_SCANCODE_SYSREQ</a></li>
+<li><a href="SDL_SCANCODE_T.html">SDL_SCANCODE_T</a></li>
+<li><a href="SDL_SCANCODE_TAB.html">SDL_SCANCODE_TAB</a></li>
+<li><a href="SDL_SCANCODE_THOUSANDSSEPARATOR.html">SDL_SCANCODE_THOUSANDSSEPARATOR</a></li>
+<li><a href="SDL_SCANCODE_U.html">SDL_SCANCODE_U</a></li>
+<li><a href="SDL_SCANCODE_UNDO.html">SDL_SCANCODE_UNDO</a></li>
+<li><a href="SDL_SCANCODE_UNKNOWN.html">SDL_SCANCODE_UNKNOWN</a></li>
+<li><a href="SDL_SCANCODE_UP.html">SDL_SCANCODE_UP</a></li>
+<li><a href="SDL_SCANCODE_V.html">SDL_SCANCODE_V</a></li>
+<li><a href="SDL_SCANCODE_VOLUMEDOWN.html">SDL_SCANCODE_VOLUMEDOWN</a></li>
+<li><a href="SDL_SCANCODE_VOLUMEUP.html">SDL_SCANCODE_VOLUMEUP</a></li>
+<li><a href="SDL_SCANCODE_W.html">SDL_SCANCODE_W</a></li>
+<li><a href="SDL_SCANCODE_WAKE.html">SDL_SCANCODE_WAKE</a></li>
+<li><a href="SDL_SCANCODE_X.html">SDL_SCANCODE_X</a></li>
+<li><a href="SDL_SCANCODE_Y.html">SDL_SCANCODE_Y</a></li>
+<li><a href="SDL_SCANCODE_Z.html">SDL_SCANCODE_Z</a></li>
+<li><a href="SDL_SENSOR_ACCEL.html">SDL_SENSOR_ACCEL</a></li>
+<li><a href="SDL_SENSOR_ACCEL_L.html">SDL_SENSOR_ACCEL_L</a></li>
+<li><a href="SDL_SENSOR_ACCEL_R.html">SDL_SENSOR_ACCEL_R</a></li>
+<li><a href="SDL_SENSOR_COUNT.html">SDL_SENSOR_COUNT</a></li>
+<li><a href="SDL_SENSOR_GYRO.html">SDL_SENSOR_GYRO</a></li>
+<li><a href="SDL_SENSOR_GYRO_L.html">SDL_SENSOR_GYRO_L</a></li>
+<li><a href="SDL_SENSOR_GYRO_R.html">SDL_SENSOR_GYRO_R</a></li>
+<li><a href="SDL_SENSOR_INVALID.html">SDL_SENSOR_INVALID</a></li>
+<li><a href="SDL_SENSOR_UNKNOWN.html">SDL_SENSOR_UNKNOWN</a></li>
+<li><a href="SDL_SYSTEM_CURSOR_COUNT.html">SDL_SYSTEM_CURSOR_COUNT</a></li>
+<li><a href="SDL_SYSTEM_CURSOR_CROSSHAIR.html">SDL_SYSTEM_CURSOR_CROSSHAIR</a></li>
+<li><a href="SDL_SYSTEM_CURSOR_DEFAULT.html">SDL_SYSTEM_CURSOR_DEFAULT</a></li>
+<li><a href="SDL_SYSTEM_CURSOR_E_RESIZE.html">SDL_SYSTEM_CURSOR_E_RESIZE</a></li>
+<li><a href="SDL_SYSTEM_CURSOR_EW_RESIZE.html">SDL_SYSTEM_CURSOR_EW_RESIZE</a></li>
+<li><a href="SDL_SYSTEM_CURSOR_MOVE.html">SDL_SYSTEM_CURSOR_MOVE</a></li>
+<li><a href="SDL_SYSTEM_CURSOR_N_RESIZE.html">SDL_SYSTEM_CURSOR_N_RESIZE</a></li>
+<li><a href="SDL_SYSTEM_CURSOR_NE_RESIZE.html">SDL_SYSTEM_CURSOR_NE_RESIZE</a></li>
+<li><a href="SDL_SYSTEM_CURSOR_NESW_RESIZE.html">SDL_SYSTEM_CURSOR_NESW_RESIZE</a></li>
+<li><a href="SDL_SYSTEM_CURSOR_NOT_ALLOWED.html">SDL_SYSTEM_CURSOR_NOT_ALLOWED</a></li>
+<li><a href="SDL_SYSTEM_CURSOR_NS_RESIZE.html">SDL_SYSTEM_CURSOR_NS_RESIZE</a></li>
+<li><a href="SDL_SYSTEM_CURSOR_NW_RESIZE.html">SDL_SYSTEM_CURSOR_NW_RESIZE</a></li>
+<li><a href="SDL_SYSTEM_CURSOR_NWSE_RESIZE.html">SDL_SYSTEM_CURSOR_NWSE_RESIZE</a></li>
+<li><a href="SDL_SYSTEM_CURSOR_POINTER.html">SDL_SYSTEM_CURSOR_POINTER</a></li>
+<li><a href="SDL_SYSTEM_CURSOR_PROGRESS.html">SDL_SYSTEM_CURSOR_PROGRESS</a></li>
+<li><a href="SDL_SYSTEM_CURSOR_S_RESIZE.html">SDL_SYSTEM_CURSOR_S_RESIZE</a></li>
+<li><a href="SDL_SYSTEM_CURSOR_SE_RESIZE.html">SDL_SYSTEM_CURSOR_SE_RESIZE</a></li>
+<li><a href="SDL_SYSTEM_CURSOR_SW_RESIZE.html">SDL_SYSTEM_CURSOR_SW_RESIZE</a></li>
+<li><a href="SDL_SYSTEM_CURSOR_TEXT.html">SDL_SYSTEM_CURSOR_TEXT</a></li>
+<li><a href="SDL_SYSTEM_CURSOR_W_RESIZE.html">SDL_SYSTEM_CURSOR_W_RESIZE</a></li>
+<li><a href="SDL_SYSTEM_CURSOR_WAIT.html">SDL_SYSTEM_CURSOR_WAIT</a></li>
+<li><a href="SDL_SYSTEM_THEME_DARK.html">SDL_SYSTEM_THEME_DARK</a></li>
+<li><a href="SDL_SYSTEM_THEME_LIGHT.html">SDL_SYSTEM_THEME_LIGHT</a></li>
+<li><a href="SDL_SYSTEM_THEME_UNKNOWN.html">SDL_SYSTEM_THEME_UNKNOWN</a></li>
+<li><a href="SDL_TEXTINPUT_TYPE_NUMBER.html">SDL_TEXTINPUT_TYPE_NUMBER</a></li>
+<li><a href="SDL_TEXTINPUT_TYPE_NUMBER_PASSWORD_HIDDEN.html">SDL_TEXTINPUT_TYPE_NUMBER_PASSWORD_HIDDEN</a></li>
+<li><a href="SDL_TEXTINPUT_TYPE_NUMBER_PASSWORD_VISIBLE.html">SDL_TEXTINPUT_TYPE_NUMBER_PASSWORD_VISIBLE</a></li>
+<li><a href="SDL_TEXTINPUT_TYPE_TEXT.html">SDL_TEXTINPUT_TYPE_TEXT</a></li>
+<li><a href="SDL_TEXTINPUT_TYPE_TEXT_EMAIL.html">SDL_TEXTINPUT_TYPE_TEXT_EMAIL</a></li>
+<li><a href="SDL_TEXTINPUT_TYPE_TEXT_NAME.html">SDL_TEXTINPUT_TYPE_TEXT_NAME</a></li>
+<li><a href="SDL_TEXTINPUT_TYPE_TEXT_PASSWORD_HIDDEN.html">SDL_TEXTINPUT_TYPE_TEXT_PASSWORD_HIDDEN</a></li>
+<li><a href="SDL_TEXTINPUT_TYPE_TEXT_PASSWORD_VISIBLE.html">SDL_TEXTINPUT_TYPE_TEXT_PASSWORD_VISIBLE</a></li>
+<li><a href="SDL_TEXTINPUT_TYPE_TEXT_USERNAME.html">SDL_TEXTINPUT_TYPE_TEXT_USERNAME</a></li>
+<li><a href="SDL_TEXTURE_ADDRESS_AUTO.html">SDL_TEXTURE_ADDRESS_AUTO</a></li>
+<li><a href="SDL_TEXTURE_ADDRESS_CLAMP.html">SDL_TEXTURE_ADDRESS_CLAMP</a></li>
+<li><a href="SDL_TEXTURE_ADDRESS_INVALID.html">SDL_TEXTURE_ADDRESS_INVALID</a></li>
+<li><a href="SDL_TEXTURE_ADDRESS_WRAP.html">SDL_TEXTURE_ADDRESS_WRAP</a></li>
+<li><a href="SDL_TEXTUREACCESS_STATIC.html">SDL_TEXTUREACCESS_STATIC</a></li>
+<li><a href="SDL_TEXTUREACCESS_STREAMING.html">SDL_TEXTUREACCESS_STREAMING</a></li>
+<li><a href="SDL_TEXTUREACCESS_TARGET.html">SDL_TEXTUREACCESS_TARGET</a></li>
+<li><a href="SDL_THREAD_ALIVE.html">SDL_THREAD_ALIVE</a></li>
+<li><a href="SDL_THREAD_COMPLETE.html">SDL_THREAD_COMPLETE</a></li>
+<li><a href="SDL_THREAD_DETACHED.html">SDL_THREAD_DETACHED</a></li>
+<li><a href="SDL_THREAD_PRIORITY_HIGH.html">SDL_THREAD_PRIORITY_HIGH</a></li>
+<li><a href="SDL_THREAD_PRIORITY_LOW.html">SDL_THREAD_PRIORITY_LOW</a></li>
+<li><a href="SDL_THREAD_PRIORITY_NORMAL.html">SDL_THREAD_PRIORITY_NORMAL</a></li>
+<li><a href="SDL_THREAD_PRIORITY_TIME_CRITICAL.html">SDL_THREAD_PRIORITY_TIME_CRITICAL</a></li>
+<li><a href="SDL_THREAD_UNKNOWN.html">SDL_THREAD_UNKNOWN</a></li>
+<li><a href="SDL_TIME_FORMAT_12HR.html">SDL_TIME_FORMAT_12HR</a></li>
+<li><a href="SDL_TIME_FORMAT_24HR.html">SDL_TIME_FORMAT_24HR</a></li>
+<li><a href="SDL_TOUCH_DEVICE_DIRECT.html">SDL_TOUCH_DEVICE_DIRECT</a></li>
+<li><a href="SDL_TOUCH_DEVICE_INDIRECT_ABSOLUTE.html">SDL_TOUCH_DEVICE_INDIRECT_ABSOLUTE</a></li>
+<li><a href="SDL_TOUCH_DEVICE_INDIRECT_RELATIVE.html">SDL_TOUCH_DEVICE_INDIRECT_RELATIVE</a></li>
+<li><a href="SDL_TOUCH_DEVICE_INVALID.html">SDL_TOUCH_DEVICE_INVALID</a></li>
+<li><a href="SDL_TRANSFER_CHARACTERISTICS_BT1361.html">SDL_TRANSFER_CHARACTERISTICS_BT1361</a></li>
+<li><a href="SDL_TRANSFER_CHARACTERISTICS_BT2020_10BIT.html">SDL_TRANSFER_CHARACTERISTICS_BT2020_10BIT</a></li>
+<li><a href="SDL_TRANSFER_CHARACTERISTICS_BT2020_12BIT.html">SDL_TRANSFER_CHARACTERISTICS_BT2020_12BIT</a></li>
+<li><a href="SDL_TRANSFER_CHARACTERISTICS_BT601.html">SDL_TRANSFER_CHARACTERISTICS_BT601</a></li>
+<li><a href="SDL_TRANSFER_CHARACTERISTICS_BT709.html">SDL_TRANSFER_CHARACTERISTICS_BT709</a></li>
+<li><a href="SDL_TRANSFER_CHARACTERISTICS_CUSTOM.html">SDL_TRANSFER_CHARACTERISTICS_CUSTOM</a></li>
+<li><a href="SDL_TRANSFER_CHARACTERISTICS_GAMMA22.html">SDL_TRANSFER_CHARACTERISTICS_GAMMA22</a></li>
+<li><a href="SDL_TRANSFER_CHARACTERISTICS_GAMMA28.html">SDL_TRANSFER_CHARACTERISTICS_GAMMA28</a></li>
+<li><a href="SDL_TRANSFER_CHARACTERISTICS_HLG.html">SDL_TRANSFER_CHARACTERISTICS_HLG</a></li>
+<li><a href="SDL_TRANSFER_CHARACTERISTICS_IEC61966.html">SDL_TRANSFER_CHARACTERISTICS_IEC61966</a></li>
+<li><a href="SDL_TRANSFER_CHARACTERISTICS_LINEAR.html">SDL_TRANSFER_CHARACTERISTICS_LINEAR</a></li>
+<li><a href="SDL_TRANSFER_CHARACTERISTICS_LOG100.html">SDL_TRANSFER_CHARACTERISTICS_LOG100</a></li>
+<li><a href="SDL_TRANSFER_CHARACTERISTICS_LOG100_SQRT10.html">SDL_TRANSFER_CHARACTERISTICS_LOG100_SQRT10</a></li>
+<li><a href="SDL_TRANSFER_CHARACTERISTICS_PQ.html">SDL_TRANSFER_CHARACTERISTICS_PQ</a></li>
+<li><a href="SDL_TRANSFER_CHARACTERISTICS_SMPTE240.html">SDL_TRANSFER_CHARACTERISTICS_SMPTE240</a></li>
+<li><a href="SDL_TRANSFER_CHARACTERISTICS_SMPTE428.html">SDL_TRANSFER_CHARACTERISTICS_SMPTE428</a></li>
+<li><a href="SDL_TRANSFER_CHARACTERISTICS_SRGB.html">SDL_TRANSFER_CHARACTERISTICS_SRGB</a></li>
+<li><a href="SDL_TRANSFER_CHARACTERISTICS_UNKNOWN.html">SDL_TRANSFER_CHARACTERISTICS_UNKNOWN</a></li>
+<li><a href="SDL_TRANSFER_CHARACTERISTICS_UNSPECIFIED.html">SDL_TRANSFER_CHARACTERISTICS_UNSPECIFIED</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+</body>
+</html>

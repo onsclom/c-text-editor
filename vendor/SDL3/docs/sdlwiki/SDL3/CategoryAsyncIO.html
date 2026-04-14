@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>CategoryAsyncIO</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">:root {
+color-scheme: dark light; 
+}
+body {
+background-color: white;
+padding: 2vw;
+color: #333;
+max-width: 1200px;
+margin: 0 auto;
+font-size: 16px;
+line-height: 1.5;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+overflow-wrap: break-word;
+}
+a {
+color: #0969da;
+
+}
+a:visited {
+color: #064998;
+}
+h1 {
+border-bottom: 2px solid #efefef;
+}
+h2 {
+border-bottom: 1px solid #efefef;
+}
+p {
+max-width: 85ch;
+}
+li {
+max-width: 85ch;
+}
+div.sourceCode {
+background-color: #f6f8fa;
+max-width: 100%;
+padding: 16px;
+}
+code {
+background-color: #f6f8fa;
+padding: 0px;
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+}
+table {
+border: 1px solid #808080;
+border-collapse: collapse;
+}
+td {
+border: 1px solid #808080;
+padding: 5px;
+}
+tr:nth-child(even) {
+background-color: #f6f8fa;
+}
+.wikitopbanner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #efefef;
+padding: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+.wikibottombanner {
+background-color: #efefef;
+padding: 10px;
+margin-top: 10px;
+width: auto;
+}
+.alertBox {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+max-width: 60%;
+padding: 10;
+margin: auto;
+}
+.anchorImage {
+visibility: hidden;
+padding-left: 0.2em;
+color: #fff;
+}
+.anchorText:hover .anchorImage {
+visibility: visible;
+}
+hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #efefef;
+margin: 1em 0;
+padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+color: #e6edf3;
+background-color: #0d1117;
+}
+h1 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+h2 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+hr {
+border-color: rgba(48, 54, 61, 0.7);
+}
+div.sourceCode {
+background-color: #161b22;
+}
+code {
+background-color: #161b22;
+}
+a {
+color: #4493f8;
+}
+a:visited {
+color: #2f66ad;
+}
+table {
+border-color: rgba(48, 54, 61, 0.7);
+}
+td {
+border-color: rgba(48, 54, 61, 0.7);
+}
+tr:nth-child(even) {
+background-color: #161b22;
+}
+.wikitopbanner {
+background-color: #263040;
+}
+.wikibottombanner {
+background-color: #263040;
+}
+.anchorText:hover .anchorImage {
+filter: invert(100%);
+}
+}
+@media print {
+body {
+font-size: 12px;
+}
+table {
+font-size: inherit;
+}
+a:visited {
+color: #0969da;
+}
+.wikitopbanner,
+.anchorText,
+.wikibottombanner {
+display: none;
+}
+}
+</style>
+  <style type="text/css"> code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+{ position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+{ content: attr(title);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; pointer-events: all; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+@media (prefers-color-scheme: dark) {
+code span.al { color: #95da4c; font-weight: bold; } 
+code span.an { color: #3f8058; } 
+code span.at { color: #2980b9; } 
+code span.bn { color: #f67400; } 
+code span.bu { color: #7f8c8d; } 
+code span.ch { color: #3daee9; } 
+code span.co { color: #7a7c7d; } 
+code span.cv { color: #7f8c8d; } 
+code span.cn { color: #27aeae; font-weight: bold; } 
+code span.cf { color: #fdbc4b; font-weight: bold; } 
+code span.dt { color: #2980b9; } 
+code span.dv { color: #f67400; } 
+code span.do { color: #a43340; } 
+code span.er { color: #da4453; } 
+code span.ex { color: #0099ff; font-weight: bold; } 
+code span.fl { color: #f67400; } 
+code span.fu { color: #8e44ad; } 
+code span.im { color: #27ae60; } 
+code span.in { color: #c45b00; } 
+code span.kw { color: #cfcfc2; font-weight: bold; } 
+code span.op { color: #cfcfc2; } 
+code span.ot { color: #27ae60; } 
+code span.pp { color: #27ae60; } 
+code span.sc { color: #3daee9; } 
+code span.ss { color: #da4453; } 
+code span.st { color: #f44f4f; } 
+code span.va { color: #27aeae; } 
+code span.vs { color: #da4453; } 
+code span.wa { color: #da4453; } 
+}</style>
+</head>
+<body>
+<h1 id="categoryasyncio">CategoryAsyncIO</h1>
+<p>SDL offers a way to perform I/O asynchronously. This allows an app to
+read or write files without waiting for data to actually transfer; the
+functions that request I/O never block while the request is
+fulfilled.</p>
+<p>Instead, the data moves in the background and the app can check for
+results at their leisure.</p>
+<p>This is more complicated than just reading and writing files in a
+synchronous way, but it can allow for more efficiency, and never having
+framerate drops as the hard drive catches up, etc.</p>
+<p>The general usage pattern for async I/O is:</p>
+<ul>
+<li>Create one or more <a href="SDL_AsyncIOQueue.html">SDL_AsyncIOQueue</a> objects.</li>
+<li>Open files with <a href="SDL_AsyncIOFromFile.html">SDL_AsyncIOFromFile</a>.</li>
+<li>Start I/O tasks to the files with <a href="SDL_ReadAsyncIO.html">SDL_ReadAsyncIO</a> or <a href="SDL_WriteAsyncIO.html">SDL_WriteAsyncIO</a>, putting those tasks
+into one of the queues.</li>
+<li>Later on, use <a href="SDL_GetAsyncIOResult.html">SDL_GetAsyncIOResult</a> on a queue to
+see if any task is finished without blocking. Tasks might finish in any
+order with success or failure.</li>
+<li>When all your tasks are done, close the file with <a href="SDL_CloseAsyncIO.html">SDL_CloseAsyncIO</a>. This also generates a
+task, since it might flush data to disk!</li>
+</ul>
+<p>This all works, without blocking, in a single thread, but one can
+also wait on a queue in a background thread, sleeping until new results
+have arrived:</p>
+<ul>
+<li>Call <a href="SDL_WaitAsyncIOResult.html">SDL_WaitAsyncIOResult</a>
+from one or more threads to efficiently block until new tasks
+complete.</li>
+<li>When shutting down, call <a href="SDL_SignalAsyncIOQueue.html">SDL_SignalAsyncIOQueue</a> to unblock
+any sleeping threads despite there being no new tasks completed.</li>
+</ul>
+<p>And, of course, to match the synchronous <a href="SDL_LoadFile.html">SDL_LoadFile</a>, we offer <a href="SDL_LoadFileAsync.html">SDL_LoadFileAsync</a> as a convenience
+function. This will handle allocating a buffer, slurping in the file
+data, and null-terminating it; you still check for results later.</p>
+<p>Behind the scenes, SDL will use newer, efficient APIs on platforms
+that support them: Linux&#39;s io_uring and Windows 11&#39;s IoRing, for
+example. If those technologies aren&#39;t available, SDL will offload the
+work to a thread pool that will manage otherwise-synchronous loads
+without blocking the app.</p>
+<h2 id="best-practices">Best Practices</h2>
+<p>Simple non-blocking I/O--for an app that just wants to pick up data
+whenever it&#39;s ready without losing framerate waiting on disks to
+spin--can use whatever pattern works well for the program. In this case,
+simply call <a href="SDL_ReadAsyncIO.html">SDL_ReadAsyncIO</a>, or maybe
+<a href="SDL_LoadFileAsync.html">SDL_LoadFileAsync</a>, as needed. Once
+a frame, call <a href="SDL_GetAsyncIOResult.html">SDL_GetAsyncIOResult</a> to check for
+any completed tasks and deal with the data as it arrives.</p>
+<p>If two separate pieces of the same program need their own I/O, it is
+legal for each to create their own queue. This will prevent either piece
+from accidentally consuming the other&#39;s completed tasks. Each queue does
+require some amount of resources, but it is not an overwhelming cost. Do
+not make a queue for each task, however. It is better to put many tasks
+into a single queue. They will be reported in order of completion, not
+in the order they were submitted, so it doesn&#39;t generally matter what
+order tasks are started.</p>
+<p>One async I/O queue can be shared by multiple threads, or one thread
+can have more than one queue, but the most efficient way--if ruthless
+efficiency is the goal--is to have one queue per thread, with multiple
+threads working in parallel, and attempt to keep each queue loaded with
+tasks that are both started by and consumed by the same thread. On
+modern platforms that can use newer interfaces, this can keep data
+flowing as efficiently as possible all the way from storage hardware to
+the app, with no contention between threads for access to the same
+queue.</p>
+<p>Written data is not guaranteed to make it to physical media by the
+time a closing task is completed, unless <a href="SDL_CloseAsyncIO.html">SDL_CloseAsyncIO</a> is called with its
+<code>flush</code> parameter set to true, which is to say that a
+successful result here can still result in lost data during an
+unfortunately-timed power outage if not flushed. However, flushing will
+take longer and may be unnecessary, depending on the app&#39;s needs.</p>
+<!-- END CATEGORY DOCUMENTATION -->
+
+<h2 id="functions">Functions</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryAsyncIO, CategoryAPIFunction -->
+
+<ul>
+<li><a href="SDL_AsyncIOFromFile.html">SDL_AsyncIOFromFile</a></li>
+<li><a href="SDL_CloseAsyncIO.html">SDL_CloseAsyncIO</a></li>
+<li><a href="SDL_CreateAsyncIOQueue.html">SDL_CreateAsyncIOQueue</a></li>
+<li><a href="SDL_DestroyAsyncIOQueue.html">SDL_DestroyAsyncIOQueue</a></li>
+<li><a href="SDL_GetAsyncIOResult.html">SDL_GetAsyncIOResult</a></li>
+<li><a href="SDL_GetAsyncIOSize.html">SDL_GetAsyncIOSize</a></li>
+<li><a href="SDL_LoadFileAsync.html">SDL_LoadFileAsync</a></li>
+<li><a href="SDL_ReadAsyncIO.html">SDL_ReadAsyncIO</a></li>
+<li><a href="SDL_SignalAsyncIOQueue.html">SDL_SignalAsyncIOQueue</a></li>
+<li><a href="SDL_WaitAsyncIOResult.html">SDL_WaitAsyncIOResult</a></li>
+<li><a href="SDL_WriteAsyncIO.html">SDL_WriteAsyncIO</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<h2 id="datatypes">Datatypes</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryAsyncIO, CategoryAPIDatatype -->
+
+<ul>
+<li><a href="SDL_AsyncIO.html">SDL_AsyncIO</a></li>
+<li><a href="SDL_AsyncIOQueue.html">SDL_AsyncIOQueue</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<h2 id="structs">Structs</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryAsyncIO, CategoryAPIStruct -->
+
+<ul>
+<li><a href="SDL_AsyncIOOutcome.html">SDL_AsyncIOOutcome</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<h2 id="enums">Enums</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryAsyncIO, CategoryAPIEnum -->
+
+<ul>
+<li><a href="SDL_AsyncIOResult.html">SDL_AsyncIOResult</a></li>
+<li><a href="SDL_AsyncIOTaskType.html">SDL_AsyncIOTaskType</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<h2 id="macros">Macros</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryAsyncIO, CategoryAPIMacro -->
+
+<ul>
+<li>(none.)</li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<hr />
+<p><a href="CategoryAPICategory.html">CategoryAPICategory</a></p>
+</body>
+</html>

@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>EnvironmentVariables</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">:root {
+color-scheme: dark light; 
+}
+body {
+background-color: white;
+padding: 2vw;
+color: #333;
+max-width: 1200px;
+margin: 0 auto;
+font-size: 16px;
+line-height: 1.5;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+overflow-wrap: break-word;
+}
+a {
+color: #0969da;
+
+}
+a:visited {
+color: #064998;
+}
+h1 {
+border-bottom: 2px solid #efefef;
+}
+h2 {
+border-bottom: 1px solid #efefef;
+}
+p {
+max-width: 85ch;
+}
+li {
+max-width: 85ch;
+}
+div.sourceCode {
+background-color: #f6f8fa;
+max-width: 100%;
+padding: 16px;
+}
+code {
+background-color: #f6f8fa;
+padding: 0px;
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+}
+table {
+border: 1px solid #808080;
+border-collapse: collapse;
+}
+td {
+border: 1px solid #808080;
+padding: 5px;
+}
+tr:nth-child(even) {
+background-color: #f6f8fa;
+}
+.wikitopbanner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #efefef;
+padding: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+.wikibottombanner {
+background-color: #efefef;
+padding: 10px;
+margin-top: 10px;
+width: auto;
+}
+.alertBox {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+max-width: 60%;
+padding: 10;
+margin: auto;
+}
+.anchorImage {
+visibility: hidden;
+padding-left: 0.2em;
+color: #fff;
+}
+.anchorText:hover .anchorImage {
+visibility: visible;
+}
+hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #efefef;
+margin: 1em 0;
+padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+color: #e6edf3;
+background-color: #0d1117;
+}
+h1 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+h2 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+hr {
+border-color: rgba(48, 54, 61, 0.7);
+}
+div.sourceCode {
+background-color: #161b22;
+}
+code {
+background-color: #161b22;
+}
+a {
+color: #4493f8;
+}
+a:visited {
+color: #2f66ad;
+}
+table {
+border-color: rgba(48, 54, 61, 0.7);
+}
+td {
+border-color: rgba(48, 54, 61, 0.7);
+}
+tr:nth-child(even) {
+background-color: #161b22;
+}
+.wikitopbanner {
+background-color: #263040;
+}
+.wikibottombanner {
+background-color: #263040;
+}
+.anchorText:hover .anchorImage {
+filter: invert(100%);
+}
+}
+@media print {
+body {
+font-size: 12px;
+}
+table {
+font-size: inherit;
+}
+a:visited {
+color: #0969da;
+}
+.wikitopbanner,
+.anchorText,
+.wikibottombanner {
+display: none;
+}
+}
+</style>
+  <style type="text/css"> code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+{ position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+{ content: attr(title);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; pointer-events: all; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+@media (prefers-color-scheme: dark) {
+code span.al { color: #95da4c; font-weight: bold; } 
+code span.an { color: #3f8058; } 
+code span.at { color: #2980b9; } 
+code span.bn { color: #f67400; } 
+code span.bu { color: #7f8c8d; } 
+code span.ch { color: #3daee9; } 
+code span.co { color: #7a7c7d; } 
+code span.cv { color: #7f8c8d; } 
+code span.cn { color: #27aeae; font-weight: bold; } 
+code span.cf { color: #fdbc4b; font-weight: bold; } 
+code span.dt { color: #2980b9; } 
+code span.dv { color: #f67400; } 
+code span.do { color: #a43340; } 
+code span.er { color: #da4453; } 
+code span.ex { color: #0099ff; font-weight: bold; } 
+code span.fl { color: #f67400; } 
+code span.fu { color: #8e44ad; } 
+code span.im { color: #27ae60; } 
+code span.in { color: #c45b00; } 
+code span.kw { color: #cfcfc2; font-weight: bold; } 
+code span.op { color: #cfcfc2; } 
+code span.ot { color: #27ae60; } 
+code span.pp { color: #27ae60; } 
+code span.sc { color: #3daee9; } 
+code span.ss { color: #da4453; } 
+code span.st { color: #f44f4f; } 
+code span.va { color: #27aeae; } 
+code span.vs { color: #da4453; } 
+code span.wa { color: #da4453; } 
+}</style>
+</head>
+<body>
+<!-- DO NOT EDIT THIS PAGE ON THE WIKI. IT WILL BE OVERWRITTEN BY WIKIHEADERS AND CHANGES WILL BE LOST! -->
+
+<h1 id="sdl3-environment-variables">SDL3 Environment Variables</h1>
+<p>SDL3 can be controlled by the user, externally, with environment
+variables. They are all operate exactly like the <a href="CategoryHints.html">hints you can get and set
+programmatically</a>, but named without the <code>_HINT</code> part (so
+<code>&quot;SDL_HINT_A&quot;</code> would be environment variable
+<code>&quot;SDL_A&quot;</code>).</p>
+<p>This list matches the latest in SDL3&#39;s revision control.</p>
+<h2 id="environment-variable-list">Environment Variable List</h2>
+<ul>
+<li><a href="SDL_HINT_ALLOW_ALT_TAB_WHILE_GRABBED.html">SDL_ALLOW_ALT_TAB_WHILE_GRABBED</a>:
+Specify the behavior of Alt+Tab while the keyboard is grabbed.</li>
+<li><a href="SDL_HINT_ANDROID_ALLOW_RECREATE_ACTIVITY.html">SDL_ANDROID_ALLOW_RECREATE_ACTIVITY</a>:
+A variable to control whether the SDL activity is allowed to be
+re-created.</li>
+<li><a href="SDL_HINT_ANDROID_BLOCK_ON_PAUSE.html">SDL_ANDROID_BLOCK_ON_PAUSE</a>:
+A variable to control whether the event loop will block itself when the
+app is paused.</li>
+<li><a href="SDL_HINT_ANDROID_LOW_LATENCY_AUDIO.html">SDL_ANDROID_LOW_LATENCY_AUDIO</a>:
+A variable to control whether low latency audio should be enabled.</li>
+<li><a href="SDL_HINT_ANDROID_TRAP_BACK_BUTTON.html">SDL_ANDROID_TRAP_BACK_BUTTON</a>:
+A variable to control whether we trap the Android back button to handle
+it manually.</li>
+<li><a href="SDL_HINT_APPLE_TV_CONTROLLER_UI_EVENTS.html">SDL_APPLE_TV_CONTROLLER_UI_EVENTS</a>:
+A variable controlling whether controllers used with the Apple TV
+generate UI events.</li>
+<li><a href="SDL_HINT_APPLE_TV_REMOTE_ALLOW_ROTATION.html">SDL_APPLE_TV_REMOTE_ALLOW_ROTATION</a>:
+A variable controlling whether the Apple TV remote&#39;s joystick axes will
+automatically match the rotation of the remote.</li>
+<li><a href="SDL_HINT_APP_ID.html">SDL_APP_ID</a>: A variable setting
+the app ID string.</li>
+<li><a href="SDL_HINT_APP_NAME.html">SDL_APP_NAME</a>: A variable
+setting the application name.</li>
+<li><a href="SDL_HINT_ASSERT.html">SDL_ASSERT</a>: A variable
+controlling response to SDL_assert failures.</li>
+<li><a href="SDL_HINT_AUDIO_ALSA_DEFAULT_DEVICE.html">SDL_AUDIO_ALSA_DEFAULT_DEVICE</a>:
+Specify the default ALSA audio device name.</li>
+<li><a href="SDL_HINT_AUDIO_ALSA_DEFAULT_PLAYBACK_DEVICE.html">SDL_AUDIO_ALSA_DEFAULT_PLAYBACK_DEVICE</a>:
+Specify the default ALSA audio playback device name.</li>
+<li><a href="SDL_HINT_AUDIO_ALSA_DEFAULT_RECORDING_DEVICE.html">SDL_AUDIO_ALSA_DEFAULT_RECORDING_DEVICE</a>:
+Specify the default ALSA audio recording device name.</li>
+<li><a href="SDL_HINT_AUDIO_CATEGORY.html">SDL_AUDIO_CATEGORY</a>: A
+variable controlling the audio category on iOS and macOS.</li>
+<li><a href="SDL_HINT_AUDIO_CHANNELS.html">SDL_AUDIO_CHANNELS</a>: A
+variable controlling the default audio channel count.</li>
+<li><a href="SDL_HINT_AUDIO_DEVICE_APP_ICON_NAME.html">SDL_AUDIO_DEVICE_APP_ICON_NAME</a>:
+Specify an application icon name for an audio device.</li>
+<li><a href="SDL_HINT_AUDIO_DEVICE_RAW_STREAM.html">SDL_AUDIO_DEVICE_RAW_STREAM</a>:
+Specify whether this audio device should do audio processing.</li>
+<li><a href="SDL_HINT_AUDIO_DEVICE_SAMPLE_FRAMES.html">SDL_AUDIO_DEVICE_SAMPLE_FRAMES</a>:
+A variable controlling device buffer size.</li>
+<li><a href="SDL_HINT_AUDIO_DEVICE_STREAM_NAME.html">SDL_AUDIO_DEVICE_STREAM_NAME</a>:
+Specify an audio stream name for an audio device.</li>
+<li><a href="SDL_HINT_AUDIO_DEVICE_STREAM_ROLE.html">SDL_AUDIO_DEVICE_STREAM_ROLE</a>:
+Specify an application role for an audio device.</li>
+<li><a href="SDL_HINT_AUDIO_DISK_INPUT_FILE.html">SDL_AUDIO_DISK_INPUT_FILE</a>:
+Specify the input file when recording audio using the disk audio
+driver.</li>
+<li><a href="SDL_HINT_AUDIO_DISK_OUTPUT_FILE.html">SDL_AUDIO_DISK_OUTPUT_FILE</a>:
+Specify the output file when playing audio using the disk audio
+driver.</li>
+<li><a href="SDL_HINT_AUDIO_DISK_TIMESCALE.html">SDL_AUDIO_DISK_TIMESCALE</a>:
+A variable controlling the audio rate when using the disk audio
+driver.</li>
+<li><a href="SDL_HINT_AUDIO_DRIVER.html">SDL_AUDIO_DRIVER</a>: A
+variable that specifies an audio backend to use.</li>
+<li><a href="SDL_HINT_AUDIO_DUMMY_TIMESCALE.html">SDL_AUDIO_DUMMY_TIMESCALE</a>:
+A variable controlling the audio rate when using the dummy audio
+driver.</li>
+<li><a href="SDL_HINT_AUDIO_FORMAT.html">SDL_AUDIO_FORMAT</a>: A
+variable controlling the default audio format.</li>
+<li><a href="SDL_HINT_AUDIO_FREQUENCY.html">SDL_AUDIO_FREQUENCY</a>: A
+variable controlling the default audio frequency.</li>
+<li><a href="SDL_HINT_AUDIO_INCLUDE_MONITORS.html">SDL_AUDIO_INCLUDE_MONITORS</a>:
+A variable that causes SDL to not ignore audio &quot;monitors&quot;.</li>
+<li><a href="SDL_HINT_AUTO_UPDATE_JOYSTICKS.html">SDL_AUTO_UPDATE_JOYSTICKS</a>:
+A variable controlling whether SDL updates joystick state when getting
+input events.</li>
+<li><a href="SDL_HINT_AUTO_UPDATE_SENSORS.html">SDL_AUTO_UPDATE_SENSORS</a>: A
+variable controlling whether SDL updates sensor state when getting input
+events.</li>
+<li><a href="SDL_HINT_BMP_SAVE_LEGACY_FORMAT.html">SDL_BMP_SAVE_LEGACY_FORMAT</a>:
+Prevent SDL from using version 4 of the bitmap header when saving
+BMPs.</li>
+<li><a href="SDL_HINT_CAMERA_DRIVER.html">SDL_CAMERA_DRIVER</a>: A
+variable that decides what camera backend to use.</li>
+<li><a href="SDL_HINT_CPU_FEATURE_MASK.html">SDL_CPU_FEATURE_MASK</a>: A
+variable that limits what CPU features are available.</li>
+<li><a href="SDL_HINT_DISPLAY_USABLE_BOUNDS.html">SDL_DISPLAY_USABLE_BOUNDS</a>:
+Override for SDL_GetDisplayUsableBounds().</li>
+<li><a href="SDL_HINT_EGL_LIBRARY.html">SDL_EGL_LIBRARY</a>: Specify the
+EGL library to load.</li>
+<li><a href="SDL_HINT_EMSCRIPTEN_ASYNCIFY.html">SDL_EMSCRIPTEN_ASYNCIFY</a>:
+Disable giving back control to the browser automatically when running
+with asyncify.</li>
+<li><a href="SDL_HINT_EMSCRIPTEN_CANVAS_SELECTOR.html">SDL_EMSCRIPTEN_CANVAS_SELECTOR</a>:
+Specify the CSS selector used for the &quot;default&quot; window/canvas.</li>
+<li><a href="SDL_HINT_EMSCRIPTEN_KEYBOARD_ELEMENT.html">SDL_EMSCRIPTEN_KEYBOARD_ELEMENT</a>:
+Override the binding element for keyboard inputs for Emscripten
+builds.</li>
+<li><a href="SDL_HINT_ENABLE_SCREEN_KEYBOARD.html">SDL_ENABLE_SCREEN_KEYBOARD</a>:
+A variable that controls whether the on-screen keyboard should be shown
+when text input is active.</li>
+<li><a href="SDL_HINT_EVDEV_DEVICES.html">SDL_EVDEV_DEVICES</a>: A
+variable containing a list of evdev devices to use if udev is not
+available.</li>
+<li><a href="SDL_HINT_EVENT_LOGGING.html">SDL_EVENT_LOGGING</a>: A
+variable controlling verbosity of the logging of SDL events pushed onto
+the internal queue.</li>
+<li><a href="SDL_HINT_FILE_DIALOG_DRIVER.html">SDL_FILE_DIALOG_DRIVER</a>: A
+variable that specifies a dialog backend to use.</li>
+<li><a href="SDL_HINT_FORCE_RAISEWINDOW.html">SDL_FORCE_RAISEWINDOW</a>:
+A variable controlling whether raising the window should be done more
+forcefully.</li>
+<li><a href="SDL_HINT_FRAMEBUFFER_ACCELERATION.html">SDL_FRAMEBUFFER_ACCELERATION</a>:
+A variable controlling how 3D acceleration is used to accelerate the SDL
+screen surface.</li>
+<li><a href="SDL_HINT_GAMECONTROLLERCONFIG.html">SDL_GAMECONTROLLERCONFIG</a>:
+A variable that lets you manually hint extra gamecontroller db
+entries.</li>
+<li><a href="SDL_HINT_GAMECONTROLLERCONFIG_FILE.html">SDL_GAMECONTROLLERCONFIG_FILE</a>:
+A variable that lets you provide a file with extra gamecontroller db
+entries.</li>
+<li><a href="SDL_HINT_GAMECONTROLLERTYPE.html">SDL_GAMECONTROLLERTYPE</a>: A
+variable that overrides the automatic controller type detection.</li>
+<li><a href="SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES.html">SDL_GAMECONTROLLER_IGNORE_DEVICES</a>:
+A variable containing a list of devices to skip when scanning for game
+controllers.</li>
+<li><a href="SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT.html">SDL_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT</a>:
+If set, all devices will be skipped when scanning for game controllers
+except for the ones listed in this variable.</li>
+<li><a href="SDL_HINT_GAMECONTROLLER_SENSOR_FUSION.html">SDL_GAMECONTROLLER_SENSOR_FUSION</a>:
+A variable that controls whether the device&#39;s built-in accelerometer and
+gyro should be used as sensors for gamepads.</li>
+<li><a href="SDL_HINT_GDK_TEXTINPUT_DEFAULT_TEXT.html">SDL_GDK_TEXTINPUT_DEFAULT_TEXT</a>:
+This variable sets the default text of the TextInput window on GDK
+platforms.</li>
+<li><a href="SDL_HINT_GDK_TEXTINPUT_DESCRIPTION.html">SDL_GDK_TEXTINPUT_DESCRIPTION</a>:
+This variable sets the description of the TextInput window on GDK
+platforms.</li>
+<li><a href="SDL_HINT_GDK_TEXTINPUT_MAX_LENGTH.html">SDL_GDK_TEXTINPUT_MAX_LENGTH</a>:
+This variable sets the maximum input length of the TextInput window on
+GDK platforms.</li>
+<li><a href="SDL_HINT_GDK_TEXTINPUT_SCOPE.html">SDL_GDK_TEXTINPUT_SCOPE</a>:
+This variable sets the input scope of the TextInput window on GDK
+platforms.</li>
+<li><a href="SDL_HINT_GDK_TEXTINPUT_TITLE.html">SDL_GDK_TEXTINPUT_TITLE</a>:
+This variable sets the title of the TextInput window on GDK
+platforms.</li>
+<li><a href="SDL_HINT_GPU_DRIVER.html">SDL_GPU_DRIVER</a>: A variable
+that specifies a GPU backend to use.</li>
+<li><a href="SDL_HINT_HIDAPI_ENUMERATE_ONLY_CONTROLLERS.html">SDL_HIDAPI_ENUMERATE_ONLY_CONTROLLERS</a>:
+A variable to control whether SDL_hid_enumerate() enumerates all HID
+devices or only controllers.</li>
+<li><a href="SDL_HINT_HIDAPI_IGNORE_DEVICES.html">SDL_HIDAPI_IGNORE_DEVICES</a>:
+A variable containing a list of devices to ignore in
+SDL_hid_enumerate().</li>
+<li><a href="SDL_HINT_HIDAPI_LIBUSB.html">SDL_HIDAPI_LIBUSB</a>: A
+variable to control whether HIDAPI uses libusb for device access.</li>
+<li><a href="SDL_HINT_HIDAPI_LIBUSB_GAMECUBE.html">SDL_HIDAPI_LIBUSB_GAMECUBE</a>:
+A variable to control whether HIDAPI uses libusb for GameCube
+adapters.</li>
+<li><a href="SDL_HINT_HIDAPI_LIBUSB_WHITELIST.html">SDL_HIDAPI_LIBUSB_WHITELIST</a>:
+A variable to control whether HIDAPI uses libusb only for whitelisted
+devices.</li>
+<li><a href="SDL_HINT_HIDAPI_UDEV.html">SDL_HIDAPI_UDEV</a>: A variable
+to control whether HIDAPI uses udev for device detection.</li>
+<li><a href="SDL_HINT_IME_IMPLEMENTED_UI.html">SDL_IME_IMPLEMENTED_UI</a>: A
+variable describing what IME UI elements the application can
+display.</li>
+<li><a href="SDL_HINT_INVALID_PARAM_CHECKS.html">SDL_INVALID_PARAM_CHECKS</a>:
+Set the level of checking for invalid parameters passed to SDL
+functions.</li>
+<li><a href="SDL_HINT_IOS_HIDE_HOME_INDICATOR.html">SDL_IOS_HIDE_HOME_INDICATOR</a>:
+A variable controlling whether the home indicator bar on iPhone X and
+later should be hidden.</li>
+<li><a href="SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS.html">SDL_JOYSTICK_ALLOW_BACKGROUND_EVENTS</a>:
+A variable that lets you enable joystick (and gamecontroller) events
+even when your app is in the background.</li>
+<li><a href="SDL_HINT_JOYSTICK_ARCADESTICK_DEVICES.html">SDL_JOYSTICK_ARCADESTICK_DEVICES</a>:
+A variable containing a list of arcade stick style controllers.</li>
+<li><a href="SDL_HINT_JOYSTICK_ARCADESTICK_DEVICES_EXCLUDED.html">SDL_JOYSTICK_ARCADESTICK_DEVICES_EXCLUDED</a>:
+A variable containing a list of devices that are not arcade stick style
+controllers.</li>
+<li><a href="SDL_HINT_JOYSTICK_BLACKLIST_DEVICES.html">SDL_JOYSTICK_BLACKLIST_DEVICES</a>:
+A variable containing a list of devices that should not be considered
+joysticks.</li>
+<li><a href="SDL_HINT_JOYSTICK_BLACKLIST_DEVICES_EXCLUDED.html">SDL_JOYSTICK_BLACKLIST_DEVICES_EXCLUDED</a>:
+A variable containing a list of devices that should be considered
+joysticks.</li>
+<li><a href="SDL_HINT_JOYSTICK_DEVICE.html">SDL_JOYSTICK_DEVICE</a>: A
+variable containing a comma separated list of devices to open as
+joysticks.</li>
+<li><a href="SDL_HINT_JOYSTICK_DIRECTINPUT.html">SDL_JOYSTICK_DIRECTINPUT</a>:
+A variable controlling whether DirectInput should be used for
+controllers.</li>
+<li><a href="SDL_HINT_JOYSTICK_DRUM_DEVICES.html">SDL_JOYSTICK_DRUM_DEVICES</a>:
+A variable containing a list of drum style controllers.</li>
+<li><a href="SDL_HINT_JOYSTICK_ENHANCED_REPORTS.html">SDL_JOYSTICK_ENHANCED_REPORTS</a>:
+A variable controlling whether enhanced reports should be used for
+controllers when using the HIDAPI driver.</li>
+<li><a href="SDL_HINT_JOYSTICK_FLIGHTSTICK_DEVICES.html">SDL_JOYSTICK_FLIGHTSTICK_DEVICES</a>:
+A variable containing a list of flightstick style controllers.</li>
+<li><a href="SDL_HINT_JOYSTICK_FLIGHTSTICK_DEVICES_EXCLUDED.html">SDL_JOYSTICK_FLIGHTSTICK_DEVICES_EXCLUDED</a>:
+A variable containing a list of devices that are not flightstick style
+controllers.</li>
+<li><a href="SDL_HINT_JOYSTICK_GAMECUBE_DEVICES.html">SDL_JOYSTICK_GAMECUBE_DEVICES</a>:
+A variable containing a list of devices known to have a GameCube form
+factor.</li>
+<li><a href="SDL_HINT_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED.html">SDL_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED</a>:
+A variable containing a list of devices known not to have a GameCube
+form factor.</li>
+<li><a href="SDL_HINT_JOYSTICK_GAMEINPUT.html">SDL_JOYSTICK_GAMEINPUT</a>: A
+variable controlling whether GameInput should be used for controller
+handling on Windows.</li>
+<li><a href="SDL_HINT_JOYSTICK_GAMEINPUT_RAW.html">SDL_JOYSTICK_GAMEINPUT_RAW</a>:
+A variable controlling whether GameInput should be used for handling GIP
+devices that require raw report processing, but aren&#39;t supported by
+HIDRAW, such as Xbox One Guitars.</li>
+<li><a href="SDL_HINT_JOYSTICK_GUITAR_DEVICES.html">SDL_JOYSTICK_GUITAR_DEVICES</a>:
+A variable containing a list of guitar style controllers.</li>
+<li><a href="SDL_HINT_JOYSTICK_HAPTIC_AXES.html">SDL_JOYSTICK_HAPTIC_AXES</a>:
+A variable containing a list of devices and their desired number of
+haptic (force feedback) enabled axis.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI.html">SDL_JOYSTICK_HIDAPI</a>: A
+variable controlling whether the HIDAPI joystick drivers should be
+used.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_8BITDO.html">SDL_JOYSTICK_HIDAPI_8BITDO</a>:
+A variable controlling whether the HIDAPI driver for 8BitDo controllers
+should be used.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_COMBINE_JOY_CONS.html">SDL_JOYSTICK_HIDAPI_COMBINE_JOY_CONS</a>:
+A variable controlling whether Nintendo Switch Joy-Con controllers will
+be combined into a single Pro-like controller when using the HIDAPI
+driver.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_FLYDIGI.html">SDL_JOYSTICK_HIDAPI_FLYDIGI</a>:
+A variable controlling whether the HIDAPI driver for Flydigi controllers
+should be used.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_GAMECUBE.html">SDL_JOYSTICK_HIDAPI_GAMECUBE</a>:
+A variable controlling whether the HIDAPI driver for Nintendo GameCube
+controllers should be used.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_GAMECUBE_RUMBLE_BRAKE.html">SDL_JOYSTICK_HIDAPI_GAMECUBE_RUMBLE_BRAKE</a>:
+A variable controlling whether rumble is used to implement the GameCube
+controller&#39;s 3 rumble modes, Stop(0), Rumble(1), and StopHard(2).</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_GAMESIR.html">SDL_JOYSTICK_HIDAPI_GAMESIR</a>:
+A variable controlling whether the HIDAPI driver for GameSir controllers
+should be used.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_GIP.html">SDL_JOYSTICK_HIDAPI_GIP</a>: A
+variable controlling whether the new HIDAPI driver for wired Xbox One
+(GIP) controllers should be used.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_GIP_RESET_FOR_METADATA.html">SDL_JOYSTICK_HIDAPI_GIP_RESET_FOR_METADATA</a>:
+A variable controlling whether the new HIDAPI driver for wired Xbox One
+(GIP) controllers should reset the controller if it can&#39;t get the
+metadata from the controller.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_JOYCON_HOME_LED.html">SDL_JOYSTICK_HIDAPI_JOYCON_HOME_LED</a>:
+A variable controlling whether the Home button LED should be turned on
+when a Nintendo Switch Joy-Con controller is opened.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_JOY_CONS.html">SDL_JOYSTICK_HIDAPI_JOY_CONS</a>:
+A variable controlling whether the HIDAPI driver for Nintendo Switch
+Joy-Cons should be used.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_LG4FF.html">SDL_JOYSTICK_HIDAPI_LG4FF</a>:
+A variable controlling whether the HIDAPI driver for some Logitech
+wheels should be used.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_LUNA.html">SDL_JOYSTICK_HIDAPI_LUNA</a>:
+A variable controlling whether the HIDAPI driver for Amazon Luna
+controllers connected via Bluetooth should be used.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_NINTENDO_CLASSIC.html">SDL_JOYSTICK_HIDAPI_NINTENDO_CLASSIC</a>:
+A variable controlling whether the HIDAPI driver for Nintendo Online
+classic controllers should be used.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_PS3.html">SDL_JOYSTICK_HIDAPI_PS3</a>: A
+variable controlling whether the HIDAPI driver for PS3 controllers
+should be used.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_PS3_SIXAXIS_DRIVER.html">SDL_JOYSTICK_HIDAPI_PS3_SIXAXIS_DRIVER</a>:
+A variable controlling whether the Sony driver (sixaxis.sys) for PS3
+controllers (Sixaxis/DualShock 3) should be used.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_PS4.html">SDL_JOYSTICK_HIDAPI_PS4</a>: A
+variable controlling whether the HIDAPI driver for PS4 controllers
+should be used.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_PS4_REPORT_INTERVAL.html">SDL_JOYSTICK_HIDAPI_PS4_REPORT_INTERVAL</a>:
+A variable controlling the update rate of the PS4 controller over
+Bluetooth when using the HIDAPI driver.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_PS5.html">SDL_JOYSTICK_HIDAPI_PS5</a>: A
+variable controlling whether the HIDAPI driver for PS5 controllers
+should be used.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_PS5_PLAYER_LED.html">SDL_JOYSTICK_HIDAPI_PS5_PLAYER_LED</a>:
+A variable controlling whether the player LEDs should be lit to indicate
+which player is associated with a PS5 controller.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_SHIELD.html">SDL_JOYSTICK_HIDAPI_SHIELD</a>:
+A variable controlling whether the HIDAPI driver for NVIDIA SHIELD
+controllers should be used.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_SINPUT.html">SDL_JOYSTICK_HIDAPI_SINPUT</a>:
+A variable controlling whether the HIDAPI driver for SInput controllers
+should be used.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_STADIA.html">SDL_JOYSTICK_HIDAPI_STADIA</a>:
+A variable controlling whether the HIDAPI driver for Google Stadia
+controllers should be used.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_STEAM.html">SDL_JOYSTICK_HIDAPI_STEAM</a>:
+A variable controlling whether the HIDAPI driver for Bluetooth Steam
+Controllers should be used.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_STEAMDECK.html">SDL_JOYSTICK_HIDAPI_STEAMDECK</a>:
+A variable controlling whether the HIDAPI driver for the Steam Deck
+builtin controller should be used.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_STEAM_HOME_LED.html">SDL_JOYSTICK_HIDAPI_STEAM_HOME_LED</a>:
+A variable controlling whether the Steam button LED should be turned on
+when a Steam controller is opened.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_STEAM_HORI.html">SDL_JOYSTICK_HIDAPI_STEAM_HORI</a>:
+A variable controlling whether the HIDAPI driver for HORI licensed Steam
+controllers should be used.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_SWITCH.html">SDL_JOYSTICK_HIDAPI_SWITCH</a>:
+A variable controlling whether the HIDAPI driver for Nintendo Switch
+controllers should be used.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_SWITCH2.html">SDL_JOYSTICK_HIDAPI_SWITCH2</a>:
+A variable controlling whether the HIDAPI driver for Nintendo Switch 2
+controllers should be used.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_SWITCH_HOME_LED.html">SDL_JOYSTICK_HIDAPI_SWITCH_HOME_LED</a>:
+A variable controlling whether the Home button LED should be turned on
+when a Nintendo Switch Pro controller is opened.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_SWITCH_PLAYER_LED.html">SDL_JOYSTICK_HIDAPI_SWITCH_PLAYER_LED</a>:
+A variable controlling whether the player LEDs should be lit to indicate
+which player is associated with a Nintendo Switch controller.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_VERTICAL_JOY_CONS.html">SDL_JOYSTICK_HIDAPI_VERTICAL_JOY_CONS</a>:
+A variable controlling whether Nintendo Switch Joy-Con controllers will
+be in vertical mode when using the HIDAPI driver.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_WII.html">SDL_JOYSTICK_HIDAPI_WII</a>: A
+variable controlling whether the HIDAPI driver for Nintendo Wii and Wii
+U controllers should be used.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_WII_PLAYER_LED.html">SDL_JOYSTICK_HIDAPI_WII_PLAYER_LED</a>:
+A variable controlling whether the player LEDs should be lit to indicate
+which player is associated with a Wii controller.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_XBOX.html">SDL_JOYSTICK_HIDAPI_XBOX</a>:
+A variable controlling whether the HIDAPI driver for XBox controllers
+should be used.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_XBOX_360.html">SDL_JOYSTICK_HIDAPI_XBOX_360</a>:
+A variable controlling whether the HIDAPI driver for XBox 360
+controllers should be used.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_XBOX_360_PLAYER_LED.html">SDL_JOYSTICK_HIDAPI_XBOX_360_PLAYER_LED</a>:
+A variable controlling whether the player LEDs should be lit to indicate
+which player is associated with an Xbox 360 controller.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_XBOX_360_WIRELESS.html">SDL_JOYSTICK_HIDAPI_XBOX_360_WIRELESS</a>:
+A variable controlling whether the HIDAPI driver for XBox 360 wireless
+controllers should be used.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_XBOX_ONE.html">SDL_JOYSTICK_HIDAPI_XBOX_ONE</a>:
+A variable controlling whether the HIDAPI driver for XBox One
+controllers should be used.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_XBOX_ONE_HOME_LED.html">SDL_JOYSTICK_HIDAPI_XBOX_ONE_HOME_LED</a>:
+A variable controlling whether the Home button LED should be turned on
+when an Xbox One controller is opened.</li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_ZUIKI.html">SDL_JOYSTICK_HIDAPI_ZUIKI</a>:
+A variable controlling whether the HIDAPI driver for ZUIKI controllers
+should be used.</li>
+<li><a href="SDL_HINT_JOYSTICK_IOKIT.html">SDL_JOYSTICK_IOKIT</a>: A
+variable controlling whether IOKit should be used for controller
+handling.</li>
+<li><a href="SDL_HINT_JOYSTICK_LINUX_CLASSIC.html">SDL_JOYSTICK_LINUX_CLASSIC</a>:
+A variable controlling whether to use the classic /dev/input/js*
+joystick interface or the newer /dev/input/event* joystick interface on
+Linux.</li>
+<li><a href="SDL_HINT_JOYSTICK_LINUX_DEADZONES.html">SDL_JOYSTICK_LINUX_DEADZONES</a>:
+A variable controlling whether joysticks on Linux adhere to their
+HID-defined deadzones or return unfiltered values.</li>
+<li><a href="SDL_HINT_JOYSTICK_LINUX_DIGITAL_HATS.html">SDL_JOYSTICK_LINUX_DIGITAL_HATS</a>:
+A variable controlling whether joysticks on Linux will always treat
+&#39;hat&#39; axis inputs (ABS_HAT0X - ABS_HAT3Y) as 8-way digital hats without
+checking whether they may be analog.</li>
+<li><a href="SDL_HINT_JOYSTICK_LINUX_HAT_DEADZONES.html">SDL_JOYSTICK_LINUX_HAT_DEADZONES</a>:
+A variable controlling whether digital hats on Linux will apply
+deadzones to their underlying input axes or use unfiltered values.</li>
+<li><a href="SDL_HINT_JOYSTICK_MFI.html">SDL_JOYSTICK_MFI</a>: A
+variable controlling whether GCController should be used for controller
+handling.</li>
+<li><a href="SDL_HINT_JOYSTICK_RAWINPUT.html">SDL_JOYSTICK_RAWINPUT</a>:
+A variable controlling whether the RAWINPUT joystick drivers should be
+used for better handling XInput-capable devices.</li>
+<li><a href="SDL_HINT_JOYSTICK_RAWINPUT_CORRELATE_XINPUT.html">SDL_JOYSTICK_RAWINPUT_CORRELATE_XINPUT</a>:
+A variable controlling whether the RAWINPUT driver should pull
+correlated data from XInput.</li>
+<li><a href="SDL_HINT_JOYSTICK_ROG_CHAKRAM.html">SDL_JOYSTICK_ROG_CHAKRAM</a>:
+A variable controlling whether the ROG Chakram mice should show up as
+joysticks.</li>
+<li><a href="SDL_HINT_JOYSTICK_THREAD.html">SDL_JOYSTICK_THREAD</a>: A
+variable controlling whether a separate thread should be used for
+handling joystick detection and raw input messages on Windows.</li>
+<li><a href="SDL_HINT_JOYSTICK_THROTTLE_DEVICES.html">SDL_JOYSTICK_THROTTLE_DEVICES</a>:
+A variable containing a list of throttle style controllers.</li>
+<li><a href="SDL_HINT_JOYSTICK_THROTTLE_DEVICES_EXCLUDED.html">SDL_JOYSTICK_THROTTLE_DEVICES_EXCLUDED</a>:
+A variable containing a list of devices that are not throttle style
+controllers.</li>
+<li><a href="SDL_HINT_JOYSTICK_WGI.html">SDL_JOYSTICK_WGI</a>: A
+variable controlling whether Windows.Gaming.Input should be used for
+controller handling.</li>
+<li><a href="SDL_HINT_JOYSTICK_WHEEL_DEVICES.html">SDL_JOYSTICK_WHEEL_DEVICES</a>:
+A variable containing a list of wheel style controllers.</li>
+<li><a href="SDL_HINT_JOYSTICK_WHEEL_DEVICES_EXCLUDED.html">SDL_JOYSTICK_WHEEL_DEVICES_EXCLUDED</a>:
+A variable containing a list of devices that are not wheel style
+controllers.</li>
+<li><a href="SDL_HINT_JOYSTICK_ZERO_CENTERED_DEVICES.html">SDL_JOYSTICK_ZERO_CENTERED_DEVICES</a>:
+A variable containing a list of devices known to have all axes centered
+at zero.</li>
+<li><a href="SDL_HINT_KEYCODE_OPTIONS.html">SDL_KEYCODE_OPTIONS</a>: A
+variable that controls keycode representation in keyboard events.</li>
+<li><a href="SDL_HINT_KMSDRM_ATOMIC.html">SDL_KMSDRM_ATOMIC</a>: A
+variable that controls whether KMSDRM will use &quot;atomic&quot;
+functionality.</li>
+<li><a href="SDL_HINT_KMSDRM_DEVICE_INDEX.html">SDL_KMSDRM_DEVICE_INDEX</a>: A
+variable that controls what KMSDRM device to use.</li>
+<li><a href="SDL_HINT_KMSDRM_REQUIRE_DRM_MASTER.html">SDL_KMSDRM_REQUIRE_DRM_MASTER</a>:
+A variable that controls whether SDL requires DRM master access in order
+to initialize the KMSDRM video backend.</li>
+<li><a href="SDL_HINT_LOGGING.html">SDL_LOGGING</a>: A variable
+controlling the default SDL log levels.</li>
+<li><a href="SDL_HINT_MAC_BACKGROUND_APP.html">SDL_MAC_BACKGROUND_APP</a>: A
+variable controlling whether to force the application to become the
+foreground process when launched on macOS.</li>
+<li><a href="SDL_HINT_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK.html">SDL_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK</a>:
+A variable that determines whether Ctrl+Click should generate a
+right-click event on macOS.</li>
+<li><a href="SDL_HINT_MAC_OPENGL_ASYNC_DISPATCH.html">SDL_MAC_OPENGL_ASYNC_DISPATCH</a>:
+A variable controlling whether dispatching OpenGL context updates should
+block the dispatching thread until the main thread finishes processing
+on macOS.</li>
+<li><a href="SDL_HINT_MAC_OPTION_AS_ALT.html">SDL_MAC_OPTION_AS_ALT</a>:
+A variable controlling whether the Option key on macOS should be
+remapped to act as the Alt key.</li>
+<li><a href="SDL_HINT_MAC_PRESS_AND_HOLD.html">SDL_MAC_PRESS_AND_HOLD</a>: A
+variable controlling whether holding down a key will repeat the pressed
+key or open the accents menu on macOS.</li>
+<li><a href="SDL_HINT_MAC_SCROLL_MOMENTUM.html">SDL_MAC_SCROLL_MOMENTUM</a>: A
+variable controlling whether SDL_EVENT_MOUSE_WHEEL event values will
+have momentum on macOS.</li>
+<li><a href="SDL_HINT_MAIN_CALLBACK_RATE.html">SDL_MAIN_CALLBACK_RATE</a>:
+Request SDL_AppIterate() be called at a specific rate.</li>
+<li><a href="SDL_HINT_MOUSE_AUTO_CAPTURE.html">SDL_MOUSE_AUTO_CAPTURE</a>: A
+variable controlling whether the mouse is captured while mouse buttons
+are pressed.</li>
+<li><a href="SDL_HINT_MOUSE_DEFAULT_SYSTEM_CURSOR.html">SDL_MOUSE_DEFAULT_SYSTEM_CURSOR</a>:
+A variable setting which system cursor to use as the default
+cursor.</li>
+<li><a href="SDL_HINT_MOUSE_DOUBLE_CLICK_RADIUS.html">SDL_MOUSE_DOUBLE_CLICK_RADIUS</a>:
+A variable setting the double click radius, in pixels.</li>
+<li><a href="SDL_HINT_MOUSE_DOUBLE_CLICK_TIME.html">SDL_MOUSE_DOUBLE_CLICK_TIME</a>:
+A variable setting the double click time, in milliseconds.</li>
+<li><a href="SDL_HINT_MOUSE_DPI_SCALE_CURSORS.html">SDL_MOUSE_DPI_SCALE_CURSORS</a>:
+A variable setting whether we should scale cursors by the current
+display scale.</li>
+<li><a href="SDL_HINT_MOUSE_EMULATE_WARP_WITH_RELATIVE.html">SDL_MOUSE_EMULATE_WARP_WITH_RELATIVE</a>:
+A variable controlling whether warping a hidden mouse cursor will
+activate relative mouse mode.</li>
+<li><a href="SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH.html">SDL_MOUSE_FOCUS_CLICKTHROUGH</a>:
+Allow mouse click events when clicking to focus an SDL window.</li>
+<li><a href="SDL_HINT_MOUSE_NORMAL_SPEED_SCALE.html">SDL_MOUSE_NORMAL_SPEED_SCALE</a>:
+A variable setting the speed scale for mouse motion, in floating point,
+when the mouse is not in relative mode.</li>
+<li><a href="SDL_HINT_MOUSE_RELATIVE_CURSOR_VISIBLE.html">SDL_MOUSE_RELATIVE_CURSOR_VISIBLE</a>:
+A variable controlling whether the hardware cursor stays visible when
+relative mode is active.</li>
+<li><a href="SDL_HINT_MOUSE_RELATIVE_MODE_CENTER.html">SDL_MOUSE_RELATIVE_MODE_CENTER</a>:
+A variable controlling whether relative mouse mode constrains the mouse
+to the center of the window.</li>
+<li><a href="SDL_HINT_MOUSE_RELATIVE_SPEED_SCALE.html">SDL_MOUSE_RELATIVE_SPEED_SCALE</a>:
+A variable setting the scale for mouse motion, in floating point, when
+the mouse is in relative mode.</li>
+<li><a href="SDL_HINT_MOUSE_RELATIVE_SYSTEM_SCALE.html">SDL_MOUSE_RELATIVE_SYSTEM_SCALE</a>:
+A variable controlling whether the system mouse acceleration curve is
+used for relative mouse motion.</li>
+<li><a href="SDL_HINT_MOUSE_RELATIVE_WARP_MOTION.html">SDL_MOUSE_RELATIVE_WARP_MOTION</a>:
+A variable controlling whether a motion event should be generated for
+mouse warping in relative mode.</li>
+<li><a href="SDL_HINT_MOUSE_TOUCH_EVENTS.html">SDL_MOUSE_TOUCH_EVENTS</a>: A
+variable controlling whether mouse events should generate synthetic
+touch events.</li>
+<li><a href="SDL_HINT_MUTE_CONSOLE_KEYBOARD.html">SDL_MUTE_CONSOLE_KEYBOARD</a>:
+A variable controlling whether the keyboard should be muted on the
+console.</li>
+<li><a href="SDL_HINT_NO_SIGNAL_HANDLERS.html">SDL_NO_SIGNAL_HANDLERS</a>: Tell
+SDL not to catch the SIGINT or SIGTERM signals on POSIX platforms.</li>
+<li><a href="SDL_HINT_OPENGL_ES_DRIVER.html">SDL_OPENGL_ES_DRIVER</a>: A
+variable controlling what driver to use for OpenGL ES contexts.</li>
+<li><a href="SDL_HINT_OPENGL_FORCE_SRGB_FRAMEBUFFER.html">SDL_OPENGL_FORCE_SRGB_FRAMEBUFFER</a>:
+A variable controlling whether to force an sRGB-capable OpenGL
+context.</li>
+<li><a href="SDL_HINT_OPENGL_LIBRARY.html">SDL_OPENGL_LIBRARY</a>:
+Specify the OpenGL library to load.</li>
+<li><a href="SDL_HINT_OPENVR_LIBRARY.html">SDL_OPENVR_LIBRARY</a>:
+Mechanism to specify openvr_api library location</li>
+<li><a href="SDL_HINT_OPENXR_LIBRARY.html">SDL_OPENXR_LIBRARY</a>: A
+variable that specifies the library name to use when loading the OpenXR
+loader.</li>
+<li><a href="SDL_HINT_ORIENTATIONS.html">SDL_ORIENTATIONS</a>: A
+variable controlling which orientations are allowed on iOS/Android.</li>
+<li><a href="SDL_HINT_PEN_MOUSE_EVENTS.html">SDL_PEN_MOUSE_EVENTS</a>: A
+variable controlling whether pen events should generate synthetic mouse
+events.</li>
+<li><a href="SDL_HINT_PEN_TOUCH_EVENTS.html">SDL_PEN_TOUCH_EVENTS</a>: A
+variable controlling whether pen events should generate synthetic touch
+events.</li>
+<li><a href="SDL_HINT_POLL_SENTINEL.html">SDL_POLL_SENTINEL</a>: A
+variable controlling the use of a sentinel event when polling the event
+queue.</li>
+<li><a href="SDL_HINT_PREFERRED_LOCALES.html">SDL_PREFERRED_LOCALES</a>:
+Override for SDL_GetPreferredLocales().</li>
+<li><a href="SDL_HINT_PS2_GS_HEIGHT.html">SDL_PS2_GS_HEIGHT</a>: A
+variable controlling the height of the PS2&#39;s framebuffer in pixels.</li>
+<li><a href="SDL_HINT_PS2_GS_MODE.html">SDL_PS2_GS_MODE</a>: A variable
+controlling the video mode of the console.</li>
+<li><a href="SDL_HINT_PS2_GS_PROGRESSIVE.html">SDL_PS2_GS_PROGRESSIVE</a>: A
+variable controlling whether the signal is interlaced or
+progressive.</li>
+<li><a href="SDL_HINT_PS2_GS_WIDTH.html">SDL_PS2_GS_WIDTH</a>: A
+variable controlling the width of the PS2&#39;s framebuffer in pixels.</li>
+<li><a href="SDL_HINT_QUIT_ON_LAST_WINDOW_CLOSE.html">SDL_QUIT_ON_LAST_WINDOW_CLOSE</a>:
+A variable that decides whether to send SDL_EVENT_QUIT when closing the
+last window.</li>
+<li><a href="SDL_HINT_RENDER_DIRECT3D11_DEBUG.html">SDL_RENDER_DIRECT3D11_DEBUG</a>:
+A variable controlling whether to enable Direct3D 11+&#39;s Debug
+Layer.</li>
+<li><a href="SDL_HINT_RENDER_DIRECT3D11_WARP.html">SDL_RENDER_DIRECT3D11_WARP</a>:
+A variable controlling whether to use the Direct3D 11 WARP software
+rasterizer.</li>
+<li><a href="SDL_HINT_RENDER_DIRECT3D_THREADSAFE.html">SDL_RENDER_DIRECT3D_THREADSAFE</a>:
+A variable controlling whether the Direct3D device is initialized for
+thread-safe operations.</li>
+<li><a href="SDL_HINT_RENDER_DRIVER.html">SDL_RENDER_DRIVER</a>: A
+variable specifying which render driver to use.</li>
+<li><a href="SDL_HINT_RENDER_GPU_DEBUG.html">SDL_RENDER_GPU_DEBUG</a>: A
+variable controlling whether to create the GPU device in debug
+mode.</li>
+<li><a href="SDL_HINT_RENDER_GPU_LOW_POWER.html">SDL_RENDER_GPU_LOW_POWER</a>:
+A variable controlling whether to prefer a low-power GPU on multi-GPU
+systems.</li>
+<li><a href="SDL_HINT_RENDER_LINE_METHOD.html">SDL_RENDER_LINE_METHOD</a>: A
+variable controlling how the 2D render API renders lines.</li>
+<li><a href="SDL_HINT_RENDER_METAL_PREFER_LOW_POWER_DEVICE.html">SDL_RENDER_METAL_PREFER_LOW_POWER_DEVICE</a>:
+A variable controlling whether the Metal render driver select low power
+device over default one.</li>
+<li><a href="SDL_HINT_RENDER_VSYNC.html">SDL_RENDER_VSYNC</a>: A
+variable controlling whether updates to the SDL screen surface should be
+synchronized with the vertical refresh, to avoid tearing.</li>
+<li><a href="SDL_HINT_RENDER_VULKAN_DEBUG.html">SDL_RENDER_VULKAN_DEBUG</a>: A
+variable controlling whether to enable Vulkan Validation Layers.</li>
+<li><a href="SDL_HINT_RETURN_KEY_HIDES_IME.html">SDL_RETURN_KEY_HIDES_IME</a>:
+A variable to control whether the return key on the soft keyboard should
+hide the soft keyboard on Android and iOS.</li>
+<li><a href="SDL_HINT_ROG_GAMEPAD_MICE.html">SDL_ROG_GAMEPAD_MICE</a>: A
+variable containing a list of ROG gamepad capable mice.</li>
+<li><a href="SDL_HINT_ROG_GAMEPAD_MICE_EXCLUDED.html">SDL_ROG_GAMEPAD_MICE_EXCLUDED</a>:
+A variable containing a list of devices that are not ROG gamepad capable
+mice.</li>
+<li><a href="SDL_HINT_RPI_VIDEO_LAYER.html">SDL_RPI_VIDEO_LAYER</a>: A
+variable controlling which Dispmanx layer to use on a Raspberry PI.</li>
+<li><a href="SDL_HINT_SCREENSAVER_INHIBIT_ACTIVITY_NAME.html">SDL_SCREENSAVER_INHIBIT_ACTIVITY_NAME</a>:
+Specify an &quot;activity name&quot; for screensaver inhibition.</li>
+<li><a href="SDL_HINT_SHUTDOWN_DBUS_ON_QUIT.html">SDL_SHUTDOWN_DBUS_ON_QUIT</a>:
+A variable controlling whether SDL calls dbus_shutdown() on quit.</li>
+<li><a href="SDL_HINT_STORAGE_TITLE_DRIVER.html">SDL_STORAGE_TITLE_DRIVER</a>:
+A variable that specifies a backend to use for title storage.</li>
+<li><a href="SDL_HINT_STORAGE_USER_DRIVER.html">SDL_STORAGE_USER_DRIVER</a>: A
+variable that specifies a backend to use for user storage.</li>
+<li><a href="SDL_HINT_THREAD_FORCE_REALTIME_TIME_CRITICAL.html">SDL_THREAD_FORCE_REALTIME_TIME_CRITICAL</a>:
+Specifies whether SDL_THREAD_PRIORITY_TIME_CRITICAL should be treated as
+realtime.</li>
+<li><a href="SDL_HINT_THREAD_PRIORITY_POLICY.html">SDL_THREAD_PRIORITY_POLICY</a>:
+A string specifying additional information to use with
+SDL_SetCurrentThreadPriority.</li>
+<li><a href="SDL_HINT_TIMER_RESOLUTION.html">SDL_TIMER_RESOLUTION</a>: A
+variable that controls the timer resolution, in milliseconds.</li>
+<li><a href="SDL_HINT_TOUCH_MOUSE_EVENTS.html">SDL_TOUCH_MOUSE_EVENTS</a>: A
+variable controlling whether touch events should generate synthetic
+mouse events.</li>
+<li><a href="SDL_HINT_TRACKPAD_IS_TOUCH_ONLY.html">SDL_TRACKPAD_IS_TOUCH_ONLY</a>:
+A variable controlling whether trackpads should be treated as touch
+devices.</li>
+<li><a href="SDL_HINT_TV_REMOTE_AS_JOYSTICK.html">SDL_TV_REMOTE_AS_JOYSTICK</a>:
+A variable controlling whether the Android / tvOS remotes should be
+listed as joystick devices, instead of sending keyboard events.</li>
+<li><a href="SDL_HINT_VIDEO_ALLOW_SCREENSAVER.html">SDL_VIDEO_ALLOW_SCREENSAVER</a>:
+A variable controlling whether the screensaver is enabled.</li>
+<li><a href="SDL_HINT_VIDEO_DISPLAY_PRIORITY.html">SDL_VIDEO_DISPLAY_PRIORITY</a>:
+A comma separated list containing the names of the displays that SDL
+should sort to the front of the display list.</li>
+<li><a href="SDL_HINT_VIDEO_DOUBLE_BUFFER.html">SDL_VIDEO_DOUBLE_BUFFER</a>:
+Tell the video driver that we only want a double buffer.</li>
+<li><a href="SDL_HINT_VIDEO_DRIVER.html">SDL_VIDEO_DRIVER</a>: A
+variable that specifies a video backend to use.</li>
+<li><a href="SDL_HINT_VIDEO_DUMMY_SAVE_FRAMES.html">SDL_VIDEO_DUMMY_SAVE_FRAMES</a>:
+A variable controlling whether the dummy video driver saves output
+frames.</li>
+<li><a href="SDL_HINT_VIDEO_EGL_ALLOW_GETDISPLAY_FALLBACK.html">SDL_VIDEO_EGL_ALLOW_GETDISPLAY_FALLBACK</a>:
+If eglGetPlatformDisplay fails, fall back to calling eglGetDisplay.</li>
+<li><a href="SDL_HINT_VIDEO_FORCE_EGL.html">SDL_VIDEO_FORCE_EGL</a>: A
+variable controlling whether the OpenGL context should be created with
+EGL.</li>
+<li><a href="SDL_HINT_VIDEO_MAC_FULLSCREEN_MENU_VISIBILITY.html">SDL_VIDEO_MAC_FULLSCREEN_MENU_VISIBILITY</a>:
+A variable that specifies the menu visibility when a window is
+fullscreen in Spaces on macOS.</li>
+<li><a href="SDL_HINT_VIDEO_MAC_FULLSCREEN_SPACES.html">SDL_VIDEO_MAC_FULLSCREEN_SPACES</a>:
+A variable that specifies the policy for fullscreen Spaces on
+macOS.</li>
+<li><a href="SDL_HINT_VIDEO_MATCH_EXCLUSIVE_MODE_ON_MOVE.html">SDL_VIDEO_MATCH_EXCLUSIVE_MODE_ON_MOVE</a>:
+A variable controlling whether SDL will attempt to automatically set the
+destination display to a mode most closely matching that of the previous
+display if an exclusive fullscreen window is moved onto it.</li>
+<li><a href="SDL_HINT_VIDEO_METAL_AUTO_RESIZE_DRAWABLE.html">SDL_VIDEO_METAL_AUTO_RESIZE_DRAWABLE</a>:
+A variable indicating whether the metal layer drawable size should be
+updated for the SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED event on macOS.</li>
+<li><a href="SDL_HINT_VIDEO_MINIMIZE_ON_FOCUS_LOSS.html">SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS</a>:
+A variable controlling whether fullscreen windows are minimized when
+they lose focus.</li>
+<li><a href="SDL_HINT_VIDEO_OFFSCREEN_SAVE_FRAMES.html">SDL_VIDEO_OFFSCREEN_SAVE_FRAMES</a>:
+A variable controlling whether the offscreen video driver saves output
+frames.</li>
+<li><a href="SDL_HINT_VIDEO_SYNC_WINDOW_OPERATIONS.html">SDL_VIDEO_SYNC_WINDOW_OPERATIONS</a>:
+A variable controlling whether all window operations will block until
+complete.</li>
+<li><a href="SDL_HINT_VIDEO_WAYLAND_ALLOW_LIBDECOR.html">SDL_VIDEO_WAYLAND_ALLOW_LIBDECOR</a>:
+A variable controlling whether the libdecor Wayland backend is allowed
+to be used.</li>
+<li><a href="SDL_HINT_VIDEO_WAYLAND_MODE_EMULATION.html">SDL_VIDEO_WAYLAND_MODE_EMULATION</a>:
+A variable controlling whether video mode emulation is enabled under
+Wayland.</li>
+<li><a href="SDL_HINT_VIDEO_WAYLAND_MODE_SCALING.html">SDL_VIDEO_WAYLAND_MODE_SCALING</a>:
+A variable controlling how modes with a non-native aspect ratio are
+displayed under Wayland.</li>
+<li><a href="SDL_HINT_VIDEO_WAYLAND_PREFER_LIBDECOR.html">SDL_VIDEO_WAYLAND_PREFER_LIBDECOR</a>:
+A variable controlling whether the libdecor Wayland backend is preferred
+over native decorations.</li>
+<li><a href="SDL_HINT_VIDEO_WAYLAND_SCALE_TO_DISPLAY.html">SDL_VIDEO_WAYLAND_SCALE_TO_DISPLAY</a>:
+A variable forcing non-DPI-aware Wayland windows to output at 1:1
+scaling.</li>
+<li><a href="SDL_HINT_VIDEO_WIN_D3DCOMPILER.html">SDL_VIDEO_WIN_D3DCOMPILER</a>:
+A variable specifying which shader compiler to preload when using the
+Chrome ANGLE binaries.</li>
+<li><a href="SDL_HINT_VIDEO_X11_EXTERNAL_WINDOW_INPUT.html">SDL_VIDEO_X11_EXTERNAL_WINDOW_INPUT</a>:
+A variable controlling whether SDL should call XSelectInput() to enable
+input events on X11 windows wrapped by SDL windows.</li>
+<li><a href="SDL_HINT_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR.html">SDL_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR</a>:
+A variable controlling whether the X11 _NET_WM_BYPASS_COMPOSITOR hint
+should be used.</li>
+<li><a href="SDL_HINT_VIDEO_X11_NET_WM_PING.html">SDL_VIDEO_X11_NET_WM_PING</a>:
+A variable controlling whether the X11 _NET_WM_PING protocol should be
+supported.</li>
+<li><a href="SDL_HINT_VIDEO_X11_NODIRECTCOLOR.html">SDL_VIDEO_X11_NODIRECTCOLOR</a>:
+A variable controlling whether SDL uses DirectColor visuals.</li>
+<li><a href="SDL_HINT_VIDEO_X11_SCALING_FACTOR.html">SDL_VIDEO_X11_SCALING_FACTOR</a>:
+A variable forcing the content scaling factor for X11 displays.</li>
+<li><a href="SDL_HINT_VIDEO_X11_VISUALID.html">SDL_VIDEO_X11_VISUALID</a>: A
+variable forcing the visual ID used for X11 display modes.</li>
+<li><a href="SDL_HINT_VIDEO_X11_WINDOW_VISUALID.html">SDL_VIDEO_X11_WINDOW_VISUALID</a>:
+A variable forcing the visual ID chosen for new X11 windows.</li>
+<li><a href="SDL_HINT_VIDEO_X11_XRANDR.html">SDL_VIDEO_X11_XRANDR</a>: A
+variable controlling whether the X11 XRandR extension should be
+used.</li>
+<li><a href="SDL_HINT_VITA_ENABLE_BACK_TOUCH.html">SDL_VITA_ENABLE_BACK_TOUCH</a>:
+A variable controlling whether touch should be enabled on the back panel
+of the PlayStation Vita.</li>
+<li><a href="SDL_HINT_VITA_ENABLE_FRONT_TOUCH.html">SDL_VITA_ENABLE_FRONT_TOUCH</a>:
+A variable controlling whether touch should be enabled on the front
+panel of the PlayStation Vita.</li>
+<li><a href="SDL_HINT_VITA_MODULE_PATH.html">SDL_VITA_MODULE_PATH</a>: A
+variable controlling the module path on the PlayStation Vita.</li>
+<li><a href="SDL_HINT_VITA_PVR_INIT.html">SDL_VITA_PVR_INIT</a>: A
+variable controlling whether to perform PVR initialization on the
+PlayStation Vita.</li>
+<li><a href="SDL_HINT_VITA_PVR_OPENGL.html">SDL_VITA_PVR_OPENGL</a>: A
+variable controlling whether OpenGL should be used instead of OpenGL ES
+on the PlayStation Vita.</li>
+<li><a href="SDL_HINT_VITA_RESOLUTION.html">SDL_VITA_RESOLUTION</a>: A
+variable overriding the resolution reported on the PlayStation
+Vita.</li>
+<li><a href="SDL_HINT_VITA_TOUCH_MOUSE_DEVICE.html">SDL_VITA_TOUCH_MOUSE_DEVICE</a>:
+A variable controlling which touchpad should generate synthetic mouse
+events.</li>
+<li><a href="SDL_HINT_VULKAN_DISPLAY.html">SDL_VULKAN_DISPLAY</a>: A
+variable overriding the display index used in
+SDL_Vulkan_CreateSurface()</li>
+<li><a href="SDL_HINT_VULKAN_LIBRARY.html">SDL_VULKAN_LIBRARY</a>:
+Specify the Vulkan library to load.</li>
+<li><a href="SDL_HINT_WAVE_CHUNK_LIMIT.html">SDL_WAVE_CHUNK_LIMIT</a>: A
+variable controlling the maximum number of chunks in a WAVE file.</li>
+<li><a href="SDL_HINT_WAVE_FACT_CHUNK.html">SDL_WAVE_FACT_CHUNK</a>: A
+variable controlling how the fact chunk affects the loading of a WAVE
+file.</li>
+<li><a href="SDL_HINT_WAVE_RIFF_CHUNK_SIZE.html">SDL_WAVE_RIFF_CHUNK_SIZE</a>:
+A variable controlling how the size of the RIFF chunk affects the
+loading of a WAVE file.</li>
+<li><a href="SDL_HINT_WAVE_TRUNCATION.html">SDL_WAVE_TRUNCATION</a>: A
+variable controlling how a truncated WAVE file is handled.</li>
+<li><a href="SDL_HINT_WINDOWS_CLOSE_ON_ALT_F4.html">SDL_WINDOWS_CLOSE_ON_ALT_F4</a>:
+A variable controlling whether SDL generates window-close events for
+Alt+F4 on Windows.</li>
+<li><a href="SDL_HINT_WINDOWS_ENABLE_MENU_MNEMONICS.html">SDL_WINDOWS_ENABLE_MENU_MNEMONICS</a>:
+A variable controlling whether menus can be opened with their keyboard
+shortcut (Alt+mnemonic).</li>
+<li><a href="SDL_HINT_WINDOWS_ENABLE_MESSAGELOOP.html">SDL_WINDOWS_ENABLE_MESSAGELOOP</a>:
+A variable controlling whether the windows message loop is processed by
+SDL.</li>
+<li><a href="SDL_HINT_WINDOWS_ERASE_BACKGROUND_MODE.html">SDL_WINDOWS_ERASE_BACKGROUND_MODE</a>:
+A variable controlling whether SDL will clear the window contents when
+the WM_ERASEBKGND message is received.</li>
+<li><a href="SDL_HINT_WINDOWS_FORCE_SEMAPHORE_KERNEL.html">SDL_WINDOWS_FORCE_SEMAPHORE_KERNEL</a>:
+A variable controlling whether SDL uses Kernel Semaphores on
+Windows.</li>
+<li><a href="SDL_HINT_WINDOWS_GAMEINPUT.html">SDL_WINDOWS_GAMEINPUT</a>:
+A variable controlling whether GameInput is used for raw keyboard and
+mouse on Windows.</li>
+<li><a href="SDL_HINT_WINDOWS_INTRESOURCE_ICON.html">SDL_WINDOWS_INTRESOURCE_ICON</a>:
+A variable to specify custom icon resource id from RC file on Windows
+platform.</li>
+<li><a href="SDL_HINT_WINDOWS_INTRESOURCE_ICON_SMALL.html">SDL_WINDOWS_INTRESOURCE_ICON_SMALL</a>:
+A variable to specify custom icon resource id from RC file on Windows
+platform.</li>
+<li><a href="SDL_HINT_WINDOWS_RAW_KEYBOARD.html">SDL_WINDOWS_RAW_KEYBOARD</a>:
+A variable controlling whether raw keyboard events are used on
+Windows.</li>
+<li><a href="SDL_HINT_WINDOWS_RAW_KEYBOARD_EXCLUDE_HOTKEYS.html">SDL_WINDOWS_RAW_KEYBOARD_EXCLUDE_HOTKEYS</a>:
+A variable controlling whether or not the RIDEV_NOHOTKEYS flag is set
+when enabling Windows raw keyboard events.</li>
+<li><a href="SDL_HINT_WINDOWS_RAW_KEYBOARD_INPUTSINK.html">SDL_WINDOWS_RAW_KEYBOARD_INPUTSINK</a>:
+A variable controlling whether the RIDEV_INPUTSINK flag is set when
+enabling Windows raw keyboard events.</li>
+<li><a href="SDL_HINT_WINDOWS_USE_D3D9EX.html">SDL_WINDOWS_USE_D3D9EX</a>: A
+variable controlling whether SDL uses the D3D9Ex API introduced in
+Windows Vista, instead of normal D3D9.</li>
+<li><a href="SDL_HINT_WINDOW_ACTIVATE_WHEN_RAISED.html">SDL_WINDOW_ACTIVATE_WHEN_RAISED</a>:
+A variable controlling whether the window is activated when the
+SDL_RaiseWindow function is called.</li>
+<li><a href="SDL_HINT_WINDOW_ACTIVATE_WHEN_SHOWN.html">SDL_WINDOW_ACTIVATE_WHEN_SHOWN</a>:
+A variable controlling whether the window is activated when the
+SDL_ShowWindow function is called.</li>
+<li><a href="SDL_HINT_WINDOW_ALLOW_TOPMOST.html">SDL_WINDOW_ALLOW_TOPMOST</a>:
+If set to &quot;0&quot; then never set the top-most flag on an SDL Window even if
+the application requests it.</li>
+<li><a href="SDL_HINT_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN.html">SDL_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN</a>:
+A variable controlling whether the window frame and title bar are
+interactive when the cursor is hidden.</li>
+<li><a href="SDL_HINT_X11_FORCE_OVERRIDE_REDIRECT.html">SDL_X11_FORCE_OVERRIDE_REDIRECT</a>:
+A variable controlling whether X11 windows are marked as
+override-redirect.</li>
+<li><a href="SDL_HINT_X11_WINDOW_TYPE.html">SDL_X11_WINDOW_TYPE</a>: A
+variable specifying the type of an X11 window.</li>
+<li><a href="SDL_HINT_X11_XCB_LIBRARY.html">SDL_X11_XCB_LIBRARY</a>:
+Specify the XCB library to load for the X11 driver.</li>
+<li><a href="SDL_HINT_XINPUT_ENABLED.html">SDL_XINPUT_ENABLED</a>: A
+variable controlling whether XInput should be used for controller
+handling.</li>
+</ul>
+</body>
+</html>

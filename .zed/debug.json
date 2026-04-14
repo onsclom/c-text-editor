@@ -1,0 +1,22 @@
+[
+  {
+    "label": "Debug test.c",
+    "build": {
+      "command": "cc",
+      "args": [
+        "src/main.c",
+        "-Wall",
+        "-Wextra",
+        "-std=c99",
+        "-g",
+        "-O0",
+        "-o",
+        "test_runner",
+      ],
+      "cwd": "$ZED_WORKTREE_ROOT",
+    },
+    "program": "$ZED_WORKTREE_ROOT/test_runner",
+    "request": "launch",
+    "adapter": "CodeLLDB",
+  },
+]

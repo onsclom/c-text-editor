@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SDL_Scancode</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">:root {
+color-scheme: dark light; 
+}
+body {
+background-color: white;
+padding: 2vw;
+color: #333;
+max-width: 1200px;
+margin: 0 auto;
+font-size: 16px;
+line-height: 1.5;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+overflow-wrap: break-word;
+}
+a {
+color: #0969da;
+
+}
+a:visited {
+color: #064998;
+}
+h1 {
+border-bottom: 2px solid #efefef;
+}
+h2 {
+border-bottom: 1px solid #efefef;
+}
+p {
+max-width: 85ch;
+}
+li {
+max-width: 85ch;
+}
+div.sourceCode {
+background-color: #f6f8fa;
+max-width: 100%;
+padding: 16px;
+}
+code {
+background-color: #f6f8fa;
+padding: 0px;
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+}
+table {
+border: 1px solid #808080;
+border-collapse: collapse;
+}
+td {
+border: 1px solid #808080;
+padding: 5px;
+}
+tr:nth-child(even) {
+background-color: #f6f8fa;
+}
+.wikitopbanner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #efefef;
+padding: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+.wikibottombanner {
+background-color: #efefef;
+padding: 10px;
+margin-top: 10px;
+width: auto;
+}
+.alertBox {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+max-width: 60%;
+padding: 10;
+margin: auto;
+}
+.anchorImage {
+visibility: hidden;
+padding-left: 0.2em;
+color: #fff;
+}
+.anchorText:hover .anchorImage {
+visibility: visible;
+}
+hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #efefef;
+margin: 1em 0;
+padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+color: #e6edf3;
+background-color: #0d1117;
+}
+h1 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+h2 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+hr {
+border-color: rgba(48, 54, 61, 0.7);
+}
+div.sourceCode {
+background-color: #161b22;
+}
+code {
+background-color: #161b22;
+}
+a {
+color: #4493f8;
+}
+a:visited {
+color: #2f66ad;
+}
+table {
+border-color: rgba(48, 54, 61, 0.7);
+}
+td {
+border-color: rgba(48, 54, 61, 0.7);
+}
+tr:nth-child(even) {
+background-color: #161b22;
+}
+.wikitopbanner {
+background-color: #263040;
+}
+.wikibottombanner {
+background-color: #263040;
+}
+.anchorText:hover .anchorImage {
+filter: invert(100%);
+}
+}
+@media print {
+body {
+font-size: 12px;
+}
+table {
+font-size: inherit;
+}
+a:visited {
+color: #0969da;
+}
+.wikitopbanner,
+.anchorText,
+.wikibottombanner {
+display: none;
+}
+}
+</style>
+  <style type="text/css"> code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+{ position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+{ content: attr(title);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; pointer-events: all; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+@media (prefers-color-scheme: dark) {
+code span.al { color: #95da4c; font-weight: bold; } 
+code span.an { color: #3f8058; } 
+code span.at { color: #2980b9; } 
+code span.bn { color: #f67400; } 
+code span.bu { color: #7f8c8d; } 
+code span.ch { color: #3daee9; } 
+code span.co { color: #7a7c7d; } 
+code span.cv { color: #7f8c8d; } 
+code span.cn { color: #27aeae; font-weight: bold; } 
+code span.cf { color: #fdbc4b; font-weight: bold; } 
+code span.dt { color: #2980b9; } 
+code span.dv { color: #f67400; } 
+code span.do { color: #a43340; } 
+code span.er { color: #da4453; } 
+code span.ex { color: #0099ff; font-weight: bold; } 
+code span.fl { color: #f67400; } 
+code span.fu { color: #8e44ad; } 
+code span.im { color: #27ae60; } 
+code span.in { color: #c45b00; } 
+code span.kw { color: #cfcfc2; font-weight: bold; } 
+code span.op { color: #cfcfc2; } 
+code span.ot { color: #27ae60; } 
+code span.pp { color: #27ae60; } 
+code span.sc { color: #3daee9; } 
+code span.ss { color: #da4453; } 
+code span.st { color: #f44f4f; } 
+code span.va { color: #27aeae; } 
+code span.vs { color: #da4453; } 
+code span.wa { color: #da4453; } 
+}</style>
+</head>
+<body>
+<h1 id="sdl_scancode">SDL_Scancode</h1>
+<p>The SDL keyboard scancode representation.</p>
+<h2 id="header-file">Header File</h2>
+<p>Defined in <a href="https://github.com/libsdl-org/SDL/blob/main/include/SDL3/SDL_scancode.h">&lt;SDL3/SDL_scancode.h&gt;</a></p>
+<h2 id="syntax">Syntax</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">enum</span> SDL_Scancode</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_UNKNOWN <span class="op">=</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">     *  </span><span class="an">\name</span><span class="co"> </span><span class="do">Usage</span><span class="co"> </span><span class="do">page</span><span class="co"> </span><span class="do">0x07</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">     *</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">     *  These values are from usage page 0x07 (USB keyboard page).</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="re">/* @{ */</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_A <span class="op">=</span> <span class="dv">4</span><span class="op">,</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_B <span class="op">=</span> <span class="dv">5</span><span class="op">,</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_C <span class="op">=</span> <span class="dv">6</span><span class="op">,</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_D <span class="op">=</span> <span class="dv">7</span><span class="op">,</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_E <span class="op">=</span> <span class="dv">8</span><span class="op">,</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_F <span class="op">=</span> <span class="dv">9</span><span class="op">,</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_G <span class="op">=</span> <span class="dv">10</span><span class="op">,</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_H <span class="op">=</span> <span class="dv">11</span><span class="op">,</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_I <span class="op">=</span> <span class="dv">12</span><span class="op">,</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_J <span class="op">=</span> <span class="dv">13</span><span class="op">,</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_K <span class="op">=</span> <span class="dv">14</span><span class="op">,</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_L <span class="op">=</span> <span class="dv">15</span><span class="op">,</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_M <span class="op">=</span> <span class="dv">16</span><span class="op">,</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_N <span class="op">=</span> <span class="dv">17</span><span class="op">,</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_O <span class="op">=</span> <span class="dv">18</span><span class="op">,</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_P <span class="op">=</span> <span class="dv">19</span><span class="op">,</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_Q <span class="op">=</span> <span class="dv">20</span><span class="op">,</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_R <span class="op">=</span> <span class="dv">21</span><span class="op">,</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_S <span class="op">=</span> <span class="dv">22</span><span class="op">,</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_T <span class="op">=</span> <span class="dv">23</span><span class="op">,</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_U <span class="op">=</span> <span class="dv">24</span><span class="op">,</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_V <span class="op">=</span> <span class="dv">25</span><span class="op">,</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_W <span class="op">=</span> <span class="dv">26</span><span class="op">,</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_X <span class="op">=</span> <span class="dv">27</span><span class="op">,</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_Y <span class="op">=</span> <span class="dv">28</span><span class="op">,</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_Z <span class="op">=</span> <span class="dv">29</span><span class="op">,</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_1 <span class="op">=</span> <span class="dv">30</span><span class="op">,</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_2 <span class="op">=</span> <span class="dv">31</span><span class="op">,</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_3 <span class="op">=</span> <span class="dv">32</span><span class="op">,</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_4 <span class="op">=</span> <span class="dv">33</span><span class="op">,</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_5 <span class="op">=</span> <span class="dv">34</span><span class="op">,</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_6 <span class="op">=</span> <span class="dv">35</span><span class="op">,</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_7 <span class="op">=</span> <span class="dv">36</span><span class="op">,</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_8 <span class="op">=</span> <span class="dv">37</span><span class="op">,</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_9 <span class="op">=</span> <span class="dv">38</span><span class="op">,</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_0 <span class="op">=</span> <span class="dv">39</span><span class="op">,</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_RETURN <span class="op">=</span> <span class="dv">40</span><span class="op">,</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_ESCAPE <span class="op">=</span> <span class="dv">41</span><span class="op">,</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_BACKSPACE <span class="op">=</span> <span class="dv">42</span><span class="op">,</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_TAB <span class="op">=</span> <span class="dv">43</span><span class="op">,</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_SPACE <span class="op">=</span> <span class="dv">44</span><span class="op">,</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_MINUS <span class="op">=</span> <span class="dv">45</span><span class="op">,</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_EQUALS <span class="op">=</span> <span class="dv">46</span><span class="op">,</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_LEFTBRACKET <span class="op">=</span> <span class="dv">47</span><span class="op">,</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_RIGHTBRACKET <span class="op">=</span> <span class="dv">48</span><span class="op">,</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_BACKSLASH <span class="op">=</span> <span class="dv">49</span><span class="op">,</span> <span class="co">/**&lt; Located at the lower left of the return</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="co">                                  *   key on ISO keyboards and at the right end</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="co">                                  *   of the QWERTY row on ANSI keyboards.</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="co">                                  *   Produces REVERSE SOLIDUS (backslash) and</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="co">                                  *   VERTICAL LINE in a US layout, REVERSE</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="co">                                  *   SOLIDUS and VERTICAL LINE in a UK Mac</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="co">                                  *   layout, NUMBER SIGN and TILDE in a UK</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="co">                                  *   Windows layout, DOLLAR SIGN and POUND SIGN</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="co">                                  *   in a Swiss German layout, NUMBER SIGN and</span></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="co">                                  *   APOSTROPHE in a German layout, GRAVE</span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="co">                                  *   ACCENT and POUND SIGN in a French Mac</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="co">                                  *   layout, and ASTERISK and MICRO SIGN in a</span></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="co">                                  *   French Windows layout.</span></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="co">                                  */</span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_NONUSHASH <span class="op">=</span> <span class="dv">50</span><span class="op">,</span> <span class="co">/**&lt; ISO USB keyboards actually use this code</span></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="co">                                  *   instead of 49 for the same key, but all</span></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="co">                                  *   OSes I&#39;ve seen treat the two codes</span></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="co">                                  *   identically. So, as an implementer, unless</span></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="co">                                  *   your keyboard generates both of those</span></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="co">                                  *   codes and your OS treats them differently,</span></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="co">                                  *   you should generate SDL_SCANCODE_BACKSLASH</span></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="co">                                  *   instead of this code. As a user, you</span></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="co">                                  *   should not rely on this code because SDL</span></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a><span class="co">                                  *   will never generate it with most (all?)</span></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="co">                                  *   keyboards.</span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a><span class="co">                                  */</span></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_SEMICOLON <span class="op">=</span> <span class="dv">51</span><span class="op">,</span></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_APOSTROPHE <span class="op">=</span> <span class="dv">52</span><span class="op">,</span></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_GRAVE <span class="op">=</span> <span class="dv">53</span><span class="op">,</span> <span class="co">/**&lt; Located in the top left corner (on both ANSI</span></span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="co">                              *   and ISO keyboards). Produces GRAVE ACCENT and</span></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="co">                              *   TILDE in a US Windows layout and in US and UK</span></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="co">                              *   Mac layouts on ANSI keyboards, GRAVE ACCENT</span></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a><span class="co">                              *   and NOT SIGN in a UK Windows layout, SECTION</span></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="co">                              *   SIGN and PLUS-MINUS SIGN in US and UK Mac</span></span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a><span class="co">                              *   layouts on ISO keyboards, SECTION SIGN and</span></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a><span class="co">                              *   DEGREE SIGN in a Swiss German layout (Mac:</span></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="co">                              *   only on ISO keyboards), CIRCUMFLEX ACCENT and</span></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="co">                              *   DEGREE SIGN in a German layout (Mac: only on</span></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a><span class="co">                              *   ISO keyboards), SUPERSCRIPT TWO and TILDE in a</span></span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="co">                              *   French Windows layout, COMMERCIAL AT and</span></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="co">                              *   NUMBER SIGN in a French Mac layout on ISO</span></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a><span class="co">                              *   keyboards, and LESS-THAN SIGN and GREATER-THAN</span></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a><span class="co">                              *   SIGN in a Swiss German, German, or French Mac</span></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a><span class="co">                              *   layout on ANSI keyboards.</span></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a><span class="co">                              */</span></span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_COMMA <span class="op">=</span> <span class="dv">54</span><span class="op">,</span></span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_PERIOD <span class="op">=</span> <span class="dv">55</span><span class="op">,</span></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_SLASH <span class="op">=</span> <span class="dv">56</span><span class="op">,</span></span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_CAPSLOCK <span class="op">=</span> <span class="dv">57</span><span class="op">,</span></span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_F1 <span class="op">=</span> <span class="dv">58</span><span class="op">,</span></span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_F2 <span class="op">=</span> <span class="dv">59</span><span class="op">,</span></span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_F3 <span class="op">=</span> <span class="dv">60</span><span class="op">,</span></span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_F4 <span class="op">=</span> <span class="dv">61</span><span class="op">,</span></span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_F5 <span class="op">=</span> <span class="dv">62</span><span class="op">,</span></span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_F6 <span class="op">=</span> <span class="dv">63</span><span class="op">,</span></span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_F7 <span class="op">=</span> <span class="dv">64</span><span class="op">,</span></span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_F8 <span class="op">=</span> <span class="dv">65</span><span class="op">,</span></span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_F9 <span class="op">=</span> <span class="dv">66</span><span class="op">,</span></span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_F10 <span class="op">=</span> <span class="dv">67</span><span class="op">,</span></span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_F11 <span class="op">=</span> <span class="dv">68</span><span class="op">,</span></span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_F12 <span class="op">=</span> <span class="dv">69</span><span class="op">,</span></span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_PRINTSCREEN <span class="op">=</span> <span class="dv">70</span><span class="op">,</span></span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_SCROLLLOCK <span class="op">=</span> <span class="dv">71</span><span class="op">,</span></span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_PAUSE <span class="op">=</span> <span class="dv">72</span><span class="op">,</span></span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_INSERT <span class="op">=</span> <span class="dv">73</span><span class="op">,</span> <span class="co">/**&lt; insert on PC, help on some Mac keyboards (but</span></span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a><span class="co">                                   does send code 73, not 117) */</span></span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_HOME <span class="op">=</span> <span class="dv">74</span><span class="op">,</span></span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_PAGEUP <span class="op">=</span> <span class="dv">75</span><span class="op">,</span></span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_DELETE <span class="op">=</span> <span class="dv">76</span><span class="op">,</span></span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_END <span class="op">=</span> <span class="dv">77</span><span class="op">,</span></span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_PAGEDOWN <span class="op">=</span> <span class="dv">78</span><span class="op">,</span></span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_RIGHT <span class="op">=</span> <span class="dv">79</span><span class="op">,</span></span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_LEFT <span class="op">=</span> <span class="dv">80</span><span class="op">,</span></span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_DOWN <span class="op">=</span> <span class="dv">81</span><span class="op">,</span></span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_UP <span class="op">=</span> <span class="dv">82</span><span class="op">,</span></span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_NUMLOCKCLEAR <span class="op">=</span> <span class="dv">83</span><span class="op">,</span> <span class="co">/**&lt; num lock on PC, clear on Mac keyboards</span></span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a><span class="co">                                     */</span></span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_DIVIDE <span class="op">=</span> <span class="dv">84</span><span class="op">,</span></span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_MULTIPLY <span class="op">=</span> <span class="dv">85</span><span class="op">,</span></span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_MINUS <span class="op">=</span> <span class="dv">86</span><span class="op">,</span></span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_PLUS <span class="op">=</span> <span class="dv">87</span><span class="op">,</span></span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_ENTER <span class="op">=</span> <span class="dv">88</span><span class="op">,</span></span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_1 <span class="op">=</span> <span class="dv">89</span><span class="op">,</span></span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_2 <span class="op">=</span> <span class="dv">90</span><span class="op">,</span></span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_3 <span class="op">=</span> <span class="dv">91</span><span class="op">,</span></span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_4 <span class="op">=</span> <span class="dv">92</span><span class="op">,</span></span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_5 <span class="op">=</span> <span class="dv">93</span><span class="op">,</span></span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_6 <span class="op">=</span> <span class="dv">94</span><span class="op">,</span></span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_7 <span class="op">=</span> <span class="dv">95</span><span class="op">,</span></span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_8 <span class="op">=</span> <span class="dv">96</span><span class="op">,</span></span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_9 <span class="op">=</span> <span class="dv">97</span><span class="op">,</span></span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_0 <span class="op">=</span> <span class="dv">98</span><span class="op">,</span></span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_PERIOD <span class="op">=</span> <span class="dv">99</span><span class="op">,</span></span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_NONUSBACKSLASH <span class="op">=</span> <span class="dv">100</span><span class="op">,</span> <span class="co">/**&lt; This is the additional key that ISO</span></span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a><span class="co">                                        *   keyboards have over ANSI ones,</span></span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a><span class="co">                                        *   located between left shift and Z.</span></span>
+<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a><span class="co">                                        *   Produces GRAVE ACCENT and TILDE in a</span></span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a><span class="co">                                        *   US or UK Mac layout, REVERSE SOLIDUS</span></span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a><span class="co">                                        *   (backslash) and VERTICAL LINE in a</span></span>
+<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a><span class="co">                                        *   US or UK Windows layout, and</span></span>
+<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a><span class="co">                                        *   LESS-THAN SIGN and GREATER-THAN SIGN</span></span>
+<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a><span class="co">                                        *   in a Swiss German, German, or French</span></span>
+<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a><span class="co">                                        *   layout. */</span></span>
+<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_APPLICATION <span class="op">=</span> <span class="dv">101</span><span class="op">,</span> <span class="co">/**&lt; windows contextual menu, compose */</span></span>
+<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_POWER <span class="op">=</span> <span class="dv">102</span><span class="op">,</span> <span class="co">/**&lt; The USB document says this is a status flag,</span></span>
+<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a><span class="co">                               *   not a physical key - but some Mac keyboards</span></span>
+<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a><span class="co">                               *   do have a power key. */</span></span>
+<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_EQUALS <span class="op">=</span> <span class="dv">103</span><span class="op">,</span></span>
+<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_F13 <span class="op">=</span> <span class="dv">104</span><span class="op">,</span></span>
+<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_F14 <span class="op">=</span> <span class="dv">105</span><span class="op">,</span></span>
+<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_F15 <span class="op">=</span> <span class="dv">106</span><span class="op">,</span></span>
+<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_F16 <span class="op">=</span> <span class="dv">107</span><span class="op">,</span></span>
+<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_F17 <span class="op">=</span> <span class="dv">108</span><span class="op">,</span></span>
+<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_F18 <span class="op">=</span> <span class="dv">109</span><span class="op">,</span></span>
+<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_F19 <span class="op">=</span> <span class="dv">110</span><span class="op">,</span></span>
+<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_F20 <span class="op">=</span> <span class="dv">111</span><span class="op">,</span></span>
+<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_F21 <span class="op">=</span> <span class="dv">112</span><span class="op">,</span></span>
+<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_F22 <span class="op">=</span> <span class="dv">113</span><span class="op">,</span></span>
+<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_F23 <span class="op">=</span> <span class="dv">114</span><span class="op">,</span></span>
+<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_F24 <span class="op">=</span> <span class="dv">115</span><span class="op">,</span></span>
+<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_EXECUTE <span class="op">=</span> <span class="dv">116</span><span class="op">,</span></span>
+<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_HELP <span class="op">=</span> <span class="dv">117</span><span class="op">,</span>    <span class="co">/**&lt; AL Integrated Help Center */</span></span>
+<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_MENU <span class="op">=</span> <span class="dv">118</span><span class="op">,</span>    <span class="co">/**&lt; Menu (show menu) */</span></span>
+<span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_SELECT <span class="op">=</span> <span class="dv">119</span><span class="op">,</span></span>
+<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_STOP <span class="op">=</span> <span class="dv">120</span><span class="op">,</span>    <span class="co">/**&lt; AC Stop */</span></span>
+<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_AGAIN <span class="op">=</span> <span class="dv">121</span><span class="op">,</span>   <span class="co">/**&lt; AC Redo/Repeat */</span></span>
+<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_UNDO <span class="op">=</span> <span class="dv">122</span><span class="op">,</span>    <span class="co">/**&lt; AC Undo */</span></span>
+<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_CUT <span class="op">=</span> <span class="dv">123</span><span class="op">,</span>     <span class="co">/**&lt; AC Cut */</span></span>
+<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_COPY <span class="op">=</span> <span class="dv">124</span><span class="op">,</span>    <span class="co">/**&lt; AC Copy */</span></span>
+<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_PASTE <span class="op">=</span> <span class="dv">125</span><span class="op">,</span>   <span class="co">/**&lt; AC Paste */</span></span>
+<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_FIND <span class="op">=</span> <span class="dv">126</span><span class="op">,</span>    <span class="co">/**&lt; AC Find */</span></span>
+<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_MUTE <span class="op">=</span> <span class="dv">127</span><span class="op">,</span></span>
+<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_VOLUMEUP <span class="op">=</span> <span class="dv">128</span><span class="op">,</span></span>
+<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_VOLUMEDOWN <span class="op">=</span> <span class="dv">129</span><span class="op">,</span></span>
+<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a><span class="co">/* not sure whether there&#39;s a reason to enable these */</span></span>
+<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a><span class="co">/*     SDL_SCANCODE_LOCKINGCAPSLOCK = 130,  */</span></span>
+<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a><span class="co">/*     SDL_SCANCODE_LOCKINGNUMLOCK = 131, */</span></span>
+<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a><span class="co">/*     SDL_SCANCODE_LOCKINGSCROLLLOCK = 132, */</span></span>
+<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_COMMA <span class="op">=</span> <span class="dv">133</span><span class="op">,</span></span>
+<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_EQUALSAS400 <span class="op">=</span> <span class="dv">134</span><span class="op">,</span></span>
+<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_INTERNATIONAL1 <span class="op">=</span> <span class="dv">135</span><span class="op">,</span> <span class="co">/**&lt; used on Asian keyboards, see</span></span>
+<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a><span class="co">                                            footnotes in USB doc */</span></span>
+<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_INTERNATIONAL2 <span class="op">=</span> <span class="dv">136</span><span class="op">,</span></span>
+<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_INTERNATIONAL3 <span class="op">=</span> <span class="dv">137</span><span class="op">,</span> <span class="co">/**&lt; Yen */</span></span>
+<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_INTERNATIONAL4 <span class="op">=</span> <span class="dv">138</span><span class="op">,</span></span>
+<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_INTERNATIONAL5 <span class="op">=</span> <span class="dv">139</span><span class="op">,</span></span>
+<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_INTERNATIONAL6 <span class="op">=</span> <span class="dv">140</span><span class="op">,</span></span>
+<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_INTERNATIONAL7 <span class="op">=</span> <span class="dv">141</span><span class="op">,</span></span>
+<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_INTERNATIONAL8 <span class="op">=</span> <span class="dv">142</span><span class="op">,</span></span>
+<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_INTERNATIONAL9 <span class="op">=</span> <span class="dv">143</span><span class="op">,</span></span>
+<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_LANG1 <span class="op">=</span> <span class="dv">144</span><span class="op">,</span> <span class="co">/**&lt; Hangul/English toggle */</span></span>
+<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_LANG2 <span class="op">=</span> <span class="dv">145</span><span class="op">,</span> <span class="co">/**&lt; Hanja conversion */</span></span>
+<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_LANG3 <span class="op">=</span> <span class="dv">146</span><span class="op">,</span> <span class="co">/**&lt; Katakana */</span></span>
+<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_LANG4 <span class="op">=</span> <span class="dv">147</span><span class="op">,</span> <span class="co">/**&lt; Hiragana */</span></span>
+<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_LANG5 <span class="op">=</span> <span class="dv">148</span><span class="op">,</span> <span class="co">/**&lt; Zenkaku/Hankaku */</span></span>
+<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_LANG6 <span class="op">=</span> <span class="dv">149</span><span class="op">,</span> <span class="co">/**&lt; reserved */</span></span>
+<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_LANG7 <span class="op">=</span> <span class="dv">150</span><span class="op">,</span> <span class="co">/**&lt; reserved */</span></span>
+<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_LANG8 <span class="op">=</span> <span class="dv">151</span><span class="op">,</span> <span class="co">/**&lt; reserved */</span></span>
+<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_LANG9 <span class="op">=</span> <span class="dv">152</span><span class="op">,</span> <span class="co">/**&lt; reserved */</span></span>
+<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_ALTERASE <span class="op">=</span> <span class="dv">153</span><span class="op">,</span>    <span class="co">/**&lt; Erase-Eaze */</span></span>
+<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_SYSREQ <span class="op">=</span> <span class="dv">154</span><span class="op">,</span></span>
+<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_CANCEL <span class="op">=</span> <span class="dv">155</span><span class="op">,</span>      <span class="co">/**&lt; AC Cancel */</span></span>
+<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_CLEAR <span class="op">=</span> <span class="dv">156</span><span class="op">,</span></span>
+<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_PRIOR <span class="op">=</span> <span class="dv">157</span><span class="op">,</span></span>
+<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_RETURN2 <span class="op">=</span> <span class="dv">158</span><span class="op">,</span></span>
+<span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_SEPARATOR <span class="op">=</span> <span class="dv">159</span><span class="op">,</span></span>
+<span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_OUT <span class="op">=</span> <span class="dv">160</span><span class="op">,</span></span>
+<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_OPER <span class="op">=</span> <span class="dv">161</span><span class="op">,</span></span>
+<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_CLEARAGAIN <span class="op">=</span> <span class="dv">162</span><span class="op">,</span></span>
+<span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_CRSEL <span class="op">=</span> <span class="dv">163</span><span class="op">,</span></span>
+<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_EXSEL <span class="op">=</span> <span class="dv">164</span><span class="op">,</span></span>
+<span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_00 <span class="op">=</span> <span class="dv">176</span><span class="op">,</span></span>
+<span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_000 <span class="op">=</span> <span class="dv">177</span><span class="op">,</span></span>
+<span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_THOUSANDSSEPARATOR <span class="op">=</span> <span class="dv">178</span><span class="op">,</span></span>
+<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_DECIMALSEPARATOR <span class="op">=</span> <span class="dv">179</span><span class="op">,</span></span>
+<span id="cb1-243"><a href="#cb1-243" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_CURRENCYUNIT <span class="op">=</span> <span class="dv">180</span><span class="op">,</span></span>
+<span id="cb1-244"><a href="#cb1-244" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_CURRENCYSUBUNIT <span class="op">=</span> <span class="dv">181</span><span class="op">,</span></span>
+<span id="cb1-245"><a href="#cb1-245" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_LEFTPAREN <span class="op">=</span> <span class="dv">182</span><span class="op">,</span></span>
+<span id="cb1-246"><a href="#cb1-246" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_RIGHTPAREN <span class="op">=</span> <span class="dv">183</span><span class="op">,</span></span>
+<span id="cb1-247"><a href="#cb1-247" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_LEFTBRACE <span class="op">=</span> <span class="dv">184</span><span class="op">,</span></span>
+<span id="cb1-248"><a href="#cb1-248" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_RIGHTBRACE <span class="op">=</span> <span class="dv">185</span><span class="op">,</span></span>
+<span id="cb1-249"><a href="#cb1-249" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_TAB <span class="op">=</span> <span class="dv">186</span><span class="op">,</span></span>
+<span id="cb1-250"><a href="#cb1-250" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_BACKSPACE <span class="op">=</span> <span class="dv">187</span><span class="op">,</span></span>
+<span id="cb1-251"><a href="#cb1-251" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_A <span class="op">=</span> <span class="dv">188</span><span class="op">,</span></span>
+<span id="cb1-252"><a href="#cb1-252" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_B <span class="op">=</span> <span class="dv">189</span><span class="op">,</span></span>
+<span id="cb1-253"><a href="#cb1-253" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_C <span class="op">=</span> <span class="dv">190</span><span class="op">,</span></span>
+<span id="cb1-254"><a href="#cb1-254" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_D <span class="op">=</span> <span class="dv">191</span><span class="op">,</span></span>
+<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_E <span class="op">=</span> <span class="dv">192</span><span class="op">,</span></span>
+<span id="cb1-256"><a href="#cb1-256" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_F <span class="op">=</span> <span class="dv">193</span><span class="op">,</span></span>
+<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_XOR <span class="op">=</span> <span class="dv">194</span><span class="op">,</span></span>
+<span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_POWER <span class="op">=</span> <span class="dv">195</span><span class="op">,</span></span>
+<span id="cb1-259"><a href="#cb1-259" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_PERCENT <span class="op">=</span> <span class="dv">196</span><span class="op">,</span></span>
+<span id="cb1-260"><a href="#cb1-260" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_LESS <span class="op">=</span> <span class="dv">197</span><span class="op">,</span></span>
+<span id="cb1-261"><a href="#cb1-261" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_GREATER <span class="op">=</span> <span class="dv">198</span><span class="op">,</span></span>
+<span id="cb1-262"><a href="#cb1-262" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_AMPERSAND <span class="op">=</span> <span class="dv">199</span><span class="op">,</span></span>
+<span id="cb1-263"><a href="#cb1-263" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_DBLAMPERSAND <span class="op">=</span> <span class="dv">200</span><span class="op">,</span></span>
+<span id="cb1-264"><a href="#cb1-264" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_VERTICALBAR <span class="op">=</span> <span class="dv">201</span><span class="op">,</span></span>
+<span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_DBLVERTICALBAR <span class="op">=</span> <span class="dv">202</span><span class="op">,</span></span>
+<span id="cb1-266"><a href="#cb1-266" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_COLON <span class="op">=</span> <span class="dv">203</span><span class="op">,</span></span>
+<span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_HASH <span class="op">=</span> <span class="dv">204</span><span class="op">,</span></span>
+<span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_SPACE <span class="op">=</span> <span class="dv">205</span><span class="op">,</span></span>
+<span id="cb1-269"><a href="#cb1-269" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_AT <span class="op">=</span> <span class="dv">206</span><span class="op">,</span></span>
+<span id="cb1-270"><a href="#cb1-270" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_EXCLAM <span class="op">=</span> <span class="dv">207</span><span class="op">,</span></span>
+<span id="cb1-271"><a href="#cb1-271" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_MEMSTORE <span class="op">=</span> <span class="dv">208</span><span class="op">,</span></span>
+<span id="cb1-272"><a href="#cb1-272" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_MEMRECALL <span class="op">=</span> <span class="dv">209</span><span class="op">,</span></span>
+<span id="cb1-273"><a href="#cb1-273" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_MEMCLEAR <span class="op">=</span> <span class="dv">210</span><span class="op">,</span></span>
+<span id="cb1-274"><a href="#cb1-274" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_MEMADD <span class="op">=</span> <span class="dv">211</span><span class="op">,</span></span>
+<span id="cb1-275"><a href="#cb1-275" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_MEMSUBTRACT <span class="op">=</span> <span class="dv">212</span><span class="op">,</span></span>
+<span id="cb1-276"><a href="#cb1-276" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_MEMMULTIPLY <span class="op">=</span> <span class="dv">213</span><span class="op">,</span></span>
+<span id="cb1-277"><a href="#cb1-277" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_MEMDIVIDE <span class="op">=</span> <span class="dv">214</span><span class="op">,</span></span>
+<span id="cb1-278"><a href="#cb1-278" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_PLUSMINUS <span class="op">=</span> <span class="dv">215</span><span class="op">,</span></span>
+<span id="cb1-279"><a href="#cb1-279" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_CLEAR <span class="op">=</span> <span class="dv">216</span><span class="op">,</span></span>
+<span id="cb1-280"><a href="#cb1-280" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_CLEARENTRY <span class="op">=</span> <span class="dv">217</span><span class="op">,</span></span>
+<span id="cb1-281"><a href="#cb1-281" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_BINARY <span class="op">=</span> <span class="dv">218</span><span class="op">,</span></span>
+<span id="cb1-282"><a href="#cb1-282" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_OCTAL <span class="op">=</span> <span class="dv">219</span><span class="op">,</span></span>
+<span id="cb1-283"><a href="#cb1-283" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_DECIMAL <span class="op">=</span> <span class="dv">220</span><span class="op">,</span></span>
+<span id="cb1-284"><a href="#cb1-284" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_KP_HEXADECIMAL <span class="op">=</span> <span class="dv">221</span><span class="op">,</span></span>
+<span id="cb1-285"><a href="#cb1-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-286"><a href="#cb1-286" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_LCTRL <span class="op">=</span> <span class="dv">224</span><span class="op">,</span></span>
+<span id="cb1-287"><a href="#cb1-287" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_LSHIFT <span class="op">=</span> <span class="dv">225</span><span class="op">,</span></span>
+<span id="cb1-288"><a href="#cb1-288" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_LALT <span class="op">=</span> <span class="dv">226</span><span class="op">,</span> <span class="co">/**&lt; alt, option */</span></span>
+<span id="cb1-289"><a href="#cb1-289" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_LGUI <span class="op">=</span> <span class="dv">227</span><span class="op">,</span> <span class="co">/**&lt; windows, command (apple), meta */</span></span>
+<span id="cb1-290"><a href="#cb1-290" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_RCTRL <span class="op">=</span> <span class="dv">228</span><span class="op">,</span></span>
+<span id="cb1-291"><a href="#cb1-291" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_RSHIFT <span class="op">=</span> <span class="dv">229</span><span class="op">,</span></span>
+<span id="cb1-292"><a href="#cb1-292" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_RALT <span class="op">=</span> <span class="dv">230</span><span class="op">,</span> <span class="co">/**&lt; alt gr, option */</span></span>
+<span id="cb1-293"><a href="#cb1-293" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_RGUI <span class="op">=</span> <span class="dv">231</span><span class="op">,</span> <span class="co">/**&lt; windows, command (apple), meta */</span></span>
+<span id="cb1-294"><a href="#cb1-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-295"><a href="#cb1-295" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_MODE <span class="op">=</span> <span class="dv">257</span><span class="op">,</span>    <span class="co">/**&lt; I&#39;m not sure if this is really not covered</span></span>
+<span id="cb1-296"><a href="#cb1-296" aria-hidden="true" tabindex="-1"></a><span class="co">                                 *   by any of the above, but since there&#39;s a</span></span>
+<span id="cb1-297"><a href="#cb1-297" aria-hidden="true" tabindex="-1"></a><span class="co">                                 *   special SDL_KMOD_MODE for it I&#39;m adding it here</span></span>
+<span id="cb1-298"><a href="#cb1-298" aria-hidden="true" tabindex="-1"></a><span class="co">                                 */</span></span>
+<span id="cb1-299"><a href="#cb1-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-300"><a href="#cb1-300" aria-hidden="true" tabindex="-1"></a>    <span class="re">/* @} */</span><span class="co">/* Usage page 0x07 */</span></span>
+<span id="cb1-301"><a href="#cb1-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-302"><a href="#cb1-302" aria-hidden="true" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb1-303"><a href="#cb1-303" aria-hidden="true" tabindex="-1"></a><span class="co">     *  </span><span class="an">\name</span><span class="co"> </span><span class="do">Usage</span><span class="co"> </span><span class="do">page</span><span class="co"> </span><span class="do">0x0C</span></span>
+<span id="cb1-304"><a href="#cb1-304" aria-hidden="true" tabindex="-1"></a><span class="co">     *</span></span>
+<span id="cb1-305"><a href="#cb1-305" aria-hidden="true" tabindex="-1"></a><span class="co">     *  These values are mapped from usage page 0x0C (USB consumer page).</span></span>
+<span id="cb1-306"><a href="#cb1-306" aria-hidden="true" tabindex="-1"></a><span class="co">     *</span></span>
+<span id="cb1-307"><a href="#cb1-307" aria-hidden="true" tabindex="-1"></a><span class="co">     *  There are way more keys in the spec than we can represent in the</span></span>
+<span id="cb1-308"><a href="#cb1-308" aria-hidden="true" tabindex="-1"></a><span class="co">     *  current scancode range, so pick the ones that commonly come up in</span></span>
+<span id="cb1-309"><a href="#cb1-309" aria-hidden="true" tabindex="-1"></a><span class="co">     *  real world usage.</span></span>
+<span id="cb1-310"><a href="#cb1-310" aria-hidden="true" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb1-311"><a href="#cb1-311" aria-hidden="true" tabindex="-1"></a>    <span class="re">/* @{ */</span></span>
+<span id="cb1-312"><a href="#cb1-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-313"><a href="#cb1-313" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_SLEEP <span class="op">=</span> <span class="dv">258</span><span class="op">,</span>                   <span class="co">/**&lt; Sleep */</span></span>
+<span id="cb1-314"><a href="#cb1-314" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_WAKE <span class="op">=</span> <span class="dv">259</span><span class="op">,</span>                    <span class="co">/**&lt; Wake */</span></span>
+<span id="cb1-315"><a href="#cb1-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-316"><a href="#cb1-316" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_CHANNEL_INCREMENT <span class="op">=</span> <span class="dv">260</span><span class="op">,</span>       <span class="co">/**&lt; Channel Increment */</span></span>
+<span id="cb1-317"><a href="#cb1-317" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_CHANNEL_DECREMENT <span class="op">=</span> <span class="dv">261</span><span class="op">,</span>       <span class="co">/**&lt; Channel Decrement */</span></span>
+<span id="cb1-318"><a href="#cb1-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-319"><a href="#cb1-319" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_MEDIA_PLAY <span class="op">=</span> <span class="dv">262</span><span class="op">,</span>          <span class="co">/**&lt; Play */</span></span>
+<span id="cb1-320"><a href="#cb1-320" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_MEDIA_PAUSE <span class="op">=</span> <span class="dv">263</span><span class="op">,</span>         <span class="co">/**&lt; Pause */</span></span>
+<span id="cb1-321"><a href="#cb1-321" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_MEDIA_RECORD <span class="op">=</span> <span class="dv">264</span><span class="op">,</span>        <span class="co">/**&lt; Record */</span></span>
+<span id="cb1-322"><a href="#cb1-322" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_MEDIA_FAST_FORWARD <span class="op">=</span> <span class="dv">265</span><span class="op">,</span>  <span class="co">/**&lt; Fast Forward */</span></span>
+<span id="cb1-323"><a href="#cb1-323" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_MEDIA_REWIND <span class="op">=</span> <span class="dv">266</span><span class="op">,</span>        <span class="co">/**&lt; Rewind */</span></span>
+<span id="cb1-324"><a href="#cb1-324" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_MEDIA_NEXT_TRACK <span class="op">=</span> <span class="dv">267</span><span class="op">,</span>    <span class="co">/**&lt; Next Track */</span></span>
+<span id="cb1-325"><a href="#cb1-325" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_MEDIA_PREVIOUS_TRACK <span class="op">=</span> <span class="dv">268</span><span class="op">,</span> <span class="co">/**&lt; Previous Track */</span></span>
+<span id="cb1-326"><a href="#cb1-326" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_MEDIA_STOP <span class="op">=</span> <span class="dv">269</span><span class="op">,</span>          <span class="co">/**&lt; Stop */</span></span>
+<span id="cb1-327"><a href="#cb1-327" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_MEDIA_EJECT <span class="op">=</span> <span class="dv">270</span><span class="op">,</span>         <span class="co">/**&lt; Eject */</span></span>
+<span id="cb1-328"><a href="#cb1-328" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_MEDIA_PLAY_PAUSE <span class="op">=</span> <span class="dv">271</span><span class="op">,</span>    <span class="co">/**&lt; Play / Pause */</span></span>
+<span id="cb1-329"><a href="#cb1-329" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_MEDIA_SELECT <span class="op">=</span> <span class="dv">272</span><span class="op">,</span>        <span class="co">/* Media Select */</span></span>
+<span id="cb1-330"><a href="#cb1-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-331"><a href="#cb1-331" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_AC_NEW <span class="op">=</span> <span class="dv">273</span><span class="op">,</span>              <span class="co">/**&lt; AC New */</span></span>
+<span id="cb1-332"><a href="#cb1-332" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_AC_OPEN <span class="op">=</span> <span class="dv">274</span><span class="op">,</span>             <span class="co">/**&lt; AC Open */</span></span>
+<span id="cb1-333"><a href="#cb1-333" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_AC_CLOSE <span class="op">=</span> <span class="dv">275</span><span class="op">,</span>            <span class="co">/**&lt; AC Close */</span></span>
+<span id="cb1-334"><a href="#cb1-334" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_AC_EXIT <span class="op">=</span> <span class="dv">276</span><span class="op">,</span>             <span class="co">/**&lt; AC Exit */</span></span>
+<span id="cb1-335"><a href="#cb1-335" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_AC_SAVE <span class="op">=</span> <span class="dv">277</span><span class="op">,</span>             <span class="co">/**&lt; AC Save */</span></span>
+<span id="cb1-336"><a href="#cb1-336" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_AC_PRINT <span class="op">=</span> <span class="dv">278</span><span class="op">,</span>            <span class="co">/**&lt; AC Print */</span></span>
+<span id="cb1-337"><a href="#cb1-337" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_AC_PROPERTIES <span class="op">=</span> <span class="dv">279</span><span class="op">,</span>       <span class="co">/**&lt; AC Properties */</span></span>
+<span id="cb1-338"><a href="#cb1-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-339"><a href="#cb1-339" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_AC_SEARCH <span class="op">=</span> <span class="dv">280</span><span class="op">,</span>           <span class="co">/**&lt; AC Search */</span></span>
+<span id="cb1-340"><a href="#cb1-340" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_AC_HOME <span class="op">=</span> <span class="dv">281</span><span class="op">,</span>             <span class="co">/**&lt; AC Home */</span></span>
+<span id="cb1-341"><a href="#cb1-341" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_AC_BACK <span class="op">=</span> <span class="dv">282</span><span class="op">,</span>             <span class="co">/**&lt; AC Back */</span></span>
+<span id="cb1-342"><a href="#cb1-342" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_AC_FORWARD <span class="op">=</span> <span class="dv">283</span><span class="op">,</span>          <span class="co">/**&lt; AC Forward */</span></span>
+<span id="cb1-343"><a href="#cb1-343" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_AC_STOP <span class="op">=</span> <span class="dv">284</span><span class="op">,</span>             <span class="co">/**&lt; AC Stop */</span></span>
+<span id="cb1-344"><a href="#cb1-344" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_AC_REFRESH <span class="op">=</span> <span class="dv">285</span><span class="op">,</span>          <span class="co">/**&lt; AC Refresh */</span></span>
+<span id="cb1-345"><a href="#cb1-345" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_AC_BOOKMARKS <span class="op">=</span> <span class="dv">286</span><span class="op">,</span>        <span class="co">/**&lt; AC Bookmarks */</span></span>
+<span id="cb1-346"><a href="#cb1-346" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-347"><a href="#cb1-347" aria-hidden="true" tabindex="-1"></a>    <span class="re">/* @} */</span><span class="co">/* Usage page 0x0C */</span></span>
+<span id="cb1-348"><a href="#cb1-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-349"><a href="#cb1-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-350"><a href="#cb1-350" aria-hidden="true" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb1-351"><a href="#cb1-351" aria-hidden="true" tabindex="-1"></a><span class="co">     *  </span><span class="an">\name</span><span class="co"> </span><span class="do">Mobile</span><span class="co"> </span><span class="do">keys</span></span>
+<span id="cb1-352"><a href="#cb1-352" aria-hidden="true" tabindex="-1"></a><span class="co">     *</span></span>
+<span id="cb1-353"><a href="#cb1-353" aria-hidden="true" tabindex="-1"></a><span class="co">     *  These are values that are often used on mobile phones.</span></span>
+<span id="cb1-354"><a href="#cb1-354" aria-hidden="true" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb1-355"><a href="#cb1-355" aria-hidden="true" tabindex="-1"></a>    <span class="re">/* @{ */</span></span>
+<span id="cb1-356"><a href="#cb1-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-357"><a href="#cb1-357" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_SOFTLEFT <span class="op">=</span> <span class="dv">287</span><span class="op">,</span> <span class="co">/**&lt; Usually situated below the display on phones and</span></span>
+<span id="cb1-358"><a href="#cb1-358" aria-hidden="true" tabindex="-1"></a><span class="co">                                      used as a multi-function feature key for selecting</span></span>
+<span id="cb1-359"><a href="#cb1-359" aria-hidden="true" tabindex="-1"></a><span class="co">                                      a software defined function shown on the bottom left</span></span>
+<span id="cb1-360"><a href="#cb1-360" aria-hidden="true" tabindex="-1"></a><span class="co">                                      of the display. */</span></span>
+<span id="cb1-361"><a href="#cb1-361" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_SOFTRIGHT <span class="op">=</span> <span class="dv">288</span><span class="op">,</span> <span class="co">/**&lt; Usually situated below the display on phones and</span></span>
+<span id="cb1-362"><a href="#cb1-362" aria-hidden="true" tabindex="-1"></a><span class="co">                                       used as a multi-function feature key for selecting</span></span>
+<span id="cb1-363"><a href="#cb1-363" aria-hidden="true" tabindex="-1"></a><span class="co">                                       a software defined function shown on the bottom right</span></span>
+<span id="cb1-364"><a href="#cb1-364" aria-hidden="true" tabindex="-1"></a><span class="co">                                       of the display. */</span></span>
+<span id="cb1-365"><a href="#cb1-365" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_CALL <span class="op">=</span> <span class="dv">289</span><span class="op">,</span> <span class="co">/**&lt; Used for accepting phone calls. */</span></span>
+<span id="cb1-366"><a href="#cb1-366" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_ENDCALL <span class="op">=</span> <span class="dv">290</span><span class="op">,</span> <span class="co">/**&lt; Used for rejecting phone calls. */</span></span>
+<span id="cb1-367"><a href="#cb1-367" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-368"><a href="#cb1-368" aria-hidden="true" tabindex="-1"></a>    <span class="re">/* @} */</span><span class="co">/* Mobile keys */</span></span>
+<span id="cb1-369"><a href="#cb1-369" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-370"><a href="#cb1-370" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Add any other keys here. */</span></span>
+<span id="cb1-371"><a href="#cb1-371" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-372"><a href="#cb1-372" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_RESERVED <span class="op">=</span> <span class="dv">400</span><span class="op">,</span>    <span class="co">/**&lt; 400-500 reserved for dynamic keycodes */</span></span>
+<span id="cb1-373"><a href="#cb1-373" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-374"><a href="#cb1-374" aria-hidden="true" tabindex="-1"></a>    SDL_SCANCODE_COUNT <span class="op">=</span> <span class="dv">512</span> <span class="co">/**&lt; not a key, just marks the number of scancodes for array bounds */</span></span>
+<span id="cb1-375"><a href="#cb1-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-376"><a href="#cb1-376" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> SDL_Scancode<span class="op">;</span></span></code></pre></div>
+<h2 id="remarks">Remarks</h2>
+<p>An SDL scancode is the physical representation of a key on the
+keyboard, independent of language and keyboard mapping.</p>
+<p>Values of this type are used to represent keyboard keys, among other
+places in the <code>scancode</code> field of the <a href="SDL_KeyboardEvent.html">SDL_KeyboardEvent</a> structure.</p>
+<p>The values in this enumeration are based on the USB usage page
+standard: <a href="https://usb.org/sites/default/files/hut1_5.pdf">https://usb.org/sites/default/files/hut1_5.pdf</a></p>
+<h2 id="version">Version</h2>
+<p>This enum is available since SDL 3.2.0.</p>
+<hr />
+<p><a href="CategoryAPI.html">CategoryAPI</a>, <a href="CategoryAPIEnum.html">CategoryAPIEnum</a>, <a href="CategoryScancode.html">CategoryScancode</a></p>
+</body>
+</html>

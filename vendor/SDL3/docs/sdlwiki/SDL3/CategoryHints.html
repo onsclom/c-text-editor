@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>CategoryHints</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">:root {
+color-scheme: dark light; 
+}
+body {
+background-color: white;
+padding: 2vw;
+color: #333;
+max-width: 1200px;
+margin: 0 auto;
+font-size: 16px;
+line-height: 1.5;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+overflow-wrap: break-word;
+}
+a {
+color: #0969da;
+
+}
+a:visited {
+color: #064998;
+}
+h1 {
+border-bottom: 2px solid #efefef;
+}
+h2 {
+border-bottom: 1px solid #efefef;
+}
+p {
+max-width: 85ch;
+}
+li {
+max-width: 85ch;
+}
+div.sourceCode {
+background-color: #f6f8fa;
+max-width: 100%;
+padding: 16px;
+}
+code {
+background-color: #f6f8fa;
+padding: 0px;
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+}
+table {
+border: 1px solid #808080;
+border-collapse: collapse;
+}
+td {
+border: 1px solid #808080;
+padding: 5px;
+}
+tr:nth-child(even) {
+background-color: #f6f8fa;
+}
+.wikitopbanner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #efefef;
+padding: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+.wikibottombanner {
+background-color: #efefef;
+padding: 10px;
+margin-top: 10px;
+width: auto;
+}
+.alertBox {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+max-width: 60%;
+padding: 10;
+margin: auto;
+}
+.anchorImage {
+visibility: hidden;
+padding-left: 0.2em;
+color: #fff;
+}
+.anchorText:hover .anchorImage {
+visibility: visible;
+}
+hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #efefef;
+margin: 1em 0;
+padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+color: #e6edf3;
+background-color: #0d1117;
+}
+h1 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+h2 {
+border-color: rgba(48, 54, 61, 0.7);
+}
+hr {
+border-color: rgba(48, 54, 61, 0.7);
+}
+div.sourceCode {
+background-color: #161b22;
+}
+code {
+background-color: #161b22;
+}
+a {
+color: #4493f8;
+}
+a:visited {
+color: #2f66ad;
+}
+table {
+border-color: rgba(48, 54, 61, 0.7);
+}
+td {
+border-color: rgba(48, 54, 61, 0.7);
+}
+tr:nth-child(even) {
+background-color: #161b22;
+}
+.wikitopbanner {
+background-color: #263040;
+}
+.wikibottombanner {
+background-color: #263040;
+}
+.anchorText:hover .anchorImage {
+filter: invert(100%);
+}
+}
+@media print {
+body {
+font-size: 12px;
+}
+table {
+font-size: inherit;
+}
+a:visited {
+color: #0969da;
+}
+.wikitopbanner,
+.anchorText,
+.wikibottombanner {
+display: none;
+}
+}
+</style>
+  <style type="text/css"> code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+{ position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+{ content: attr(title);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; pointer-events: all; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+@media (prefers-color-scheme: dark) {
+code span.al { color: #95da4c; font-weight: bold; } 
+code span.an { color: #3f8058; } 
+code span.at { color: #2980b9; } 
+code span.bn { color: #f67400; } 
+code span.bu { color: #7f8c8d; } 
+code span.ch { color: #3daee9; } 
+code span.co { color: #7a7c7d; } 
+code span.cv { color: #7f8c8d; } 
+code span.cn { color: #27aeae; font-weight: bold; } 
+code span.cf { color: #fdbc4b; font-weight: bold; } 
+code span.dt { color: #2980b9; } 
+code span.dv { color: #f67400; } 
+code span.do { color: #a43340; } 
+code span.er { color: #da4453; } 
+code span.ex { color: #0099ff; font-weight: bold; } 
+code span.fl { color: #f67400; } 
+code span.fu { color: #8e44ad; } 
+code span.im { color: #27ae60; } 
+code span.in { color: #c45b00; } 
+code span.kw { color: #cfcfc2; font-weight: bold; } 
+code span.op { color: #cfcfc2; } 
+code span.ot { color: #27ae60; } 
+code span.pp { color: #27ae60; } 
+code span.sc { color: #3daee9; } 
+code span.ss { color: #da4453; } 
+code span.st { color: #f44f4f; } 
+code span.va { color: #27aeae; } 
+code span.vs { color: #da4453; } 
+code span.wa { color: #da4453; } 
+}</style>
+</head>
+<body>
+<h1 id="categoryhints">CategoryHints</h1>
+<p>This file contains functions to set and get configuration hints, as
+well as listing each of them alphabetically.</p>
+<p>The convention for naming hints is <a href="SDL_HINT_X.html">SDL_HINT_X</a>, where &quot;<a href="SDL_X.html">SDL_X</a>&quot; is the environment variable that can be
+used to override the default.</p>
+<p>In general these hints are just that - they may or may not be
+supported or applicable on any given platform, but they provide a way
+for an application or user to give the library a hint as to how they
+would like the library to work.</p>
+<!-- END CATEGORY DOCUMENTATION -->
+
+<h2 id="functions">Functions</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryHints, CategoryAPIFunction -->
+
+<ul>
+<li><a href="SDL_AddHintCallback.html">SDL_AddHintCallback</a></li>
+<li><a href="SDL_GetHint.html">SDL_GetHint</a></li>
+<li><a href="SDL_GetHintBoolean.html">SDL_GetHintBoolean</a></li>
+<li><a href="SDL_RemoveHintCallback.html">SDL_RemoveHintCallback</a></li>
+<li><a href="SDL_ResetHint.html">SDL_ResetHint</a></li>
+<li><a href="SDL_ResetHints.html">SDL_ResetHints</a></li>
+<li><a href="SDL_SetHint.html">SDL_SetHint</a></li>
+<li><a href="SDL_SetHintWithPriority.html">SDL_SetHintWithPriority</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<h2 id="datatypes">Datatypes</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryHints, CategoryAPIDatatype -->
+
+<ul>
+<li><a href="SDL_HintCallback.html">SDL_HintCallback</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<h2 id="structs">Structs</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryHints, CategoryAPIStruct -->
+
+<ul>
+<li>(none.)</li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<h2 id="enums">Enums</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryHints, CategoryAPIEnum -->
+
+<ul>
+<li><a href="SDL_HintPriority.html">SDL_HintPriority</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<h2 id="macros">Macros</h2>
+<!-- DO NOT HAND-EDIT CATEGORY LISTS, THEY ARE AUTOGENERATED AND WILL BE OVERWRITTEN, BASED ON TAGS IN INDIVIDUAL PAGE FOOTERS. EDIT THOSE INSTEAD. -->
+
+<!-- BEGIN CATEGORY LIST: CategoryHints, CategoryAPIMacro -->
+
+<ul>
+<li><a href="SDL_HINT_ALLOW_ALT_TAB_WHILE_GRABBED.html">SDL_HINT_ALLOW_ALT_TAB_WHILE_GRABBED</a></li>
+<li><a href="SDL_HINT_ANDROID_ALLOW_RECREATE_ACTIVITY.html">SDL_HINT_ANDROID_ALLOW_RECREATE_ACTIVITY</a></li>
+<li><a href="SDL_HINT_ANDROID_BLOCK_ON_PAUSE.html">SDL_HINT_ANDROID_BLOCK_ON_PAUSE</a></li>
+<li><a href="SDL_HINT_ANDROID_LOW_LATENCY_AUDIO.html">SDL_HINT_ANDROID_LOW_LATENCY_AUDIO</a></li>
+<li><a href="SDL_HINT_ANDROID_TRAP_BACK_BUTTON.html">SDL_HINT_ANDROID_TRAP_BACK_BUTTON</a></li>
+<li><a href="SDL_HINT_APP_ID.html">SDL_HINT_APP_ID</a></li>
+<li><a href="SDL_HINT_APP_NAME.html">SDL_HINT_APP_NAME</a></li>
+<li><a href="SDL_HINT_APPLE_TV_CONTROLLER_UI_EVENTS.html">SDL_HINT_APPLE_TV_CONTROLLER_UI_EVENTS</a></li>
+<li><a href="SDL_HINT_APPLE_TV_REMOTE_ALLOW_ROTATION.html">SDL_HINT_APPLE_TV_REMOTE_ALLOW_ROTATION</a></li>
+<li><a href="SDL_HINT_ASSERT.html">SDL_HINT_ASSERT</a></li>
+<li><a href="SDL_HINT_AUDIO_ALSA_DEFAULT_DEVICE.html">SDL_HINT_AUDIO_ALSA_DEFAULT_DEVICE</a></li>
+<li><a href="SDL_HINT_AUDIO_ALSA_DEFAULT_PLAYBACK_DEVICE.html">SDL_HINT_AUDIO_ALSA_DEFAULT_PLAYBACK_DEVICE</a></li>
+<li><a href="SDL_HINT_AUDIO_ALSA_DEFAULT_RECORDING_DEVICE.html">SDL_HINT_AUDIO_ALSA_DEFAULT_RECORDING_DEVICE</a></li>
+<li><a href="SDL_HINT_AUDIO_CATEGORY.html">SDL_HINT_AUDIO_CATEGORY</a></li>
+<li><a href="SDL_HINT_AUDIO_CHANNELS.html">SDL_HINT_AUDIO_CHANNELS</a></li>
+<li><a href="SDL_HINT_AUDIO_DEVICE_APP_ICON_NAME.html">SDL_HINT_AUDIO_DEVICE_APP_ICON_NAME</a></li>
+<li><a href="SDL_HINT_AUDIO_DEVICE_RAW_STREAM.html">SDL_HINT_AUDIO_DEVICE_RAW_STREAM</a></li>
+<li><a href="SDL_HINT_AUDIO_DEVICE_SAMPLE_FRAMES.html">SDL_HINT_AUDIO_DEVICE_SAMPLE_FRAMES</a></li>
+<li><a href="SDL_HINT_AUDIO_DEVICE_STREAM_NAME.html">SDL_HINT_AUDIO_DEVICE_STREAM_NAME</a></li>
+<li><a href="SDL_HINT_AUDIO_DEVICE_STREAM_ROLE.html">SDL_HINT_AUDIO_DEVICE_STREAM_ROLE</a></li>
+<li><a href="SDL_HINT_AUDIO_DISK_INPUT_FILE.html">SDL_HINT_AUDIO_DISK_INPUT_FILE</a></li>
+<li><a href="SDL_HINT_AUDIO_DISK_OUTPUT_FILE.html">SDL_HINT_AUDIO_DISK_OUTPUT_FILE</a></li>
+<li><a href="SDL_HINT_AUDIO_DISK_TIMESCALE.html">SDL_HINT_AUDIO_DISK_TIMESCALE</a></li>
+<li><a href="SDL_HINT_AUDIO_DRIVER.html">SDL_HINT_AUDIO_DRIVER</a></li>
+<li><a href="SDL_HINT_AUDIO_DUMMY_TIMESCALE.html">SDL_HINT_AUDIO_DUMMY_TIMESCALE</a></li>
+<li><a href="SDL_HINT_AUDIO_FORMAT.html">SDL_HINT_AUDIO_FORMAT</a></li>
+<li><a href="SDL_HINT_AUDIO_FREQUENCY.html">SDL_HINT_AUDIO_FREQUENCY</a></li>
+<li><a href="SDL_HINT_AUDIO_INCLUDE_MONITORS.html">SDL_HINT_AUDIO_INCLUDE_MONITORS</a></li>
+<li><a href="SDL_HINT_AUTO_UPDATE_JOYSTICKS.html">SDL_HINT_AUTO_UPDATE_JOYSTICKS</a></li>
+<li><a href="SDL_HINT_AUTO_UPDATE_SENSORS.html">SDL_HINT_AUTO_UPDATE_SENSORS</a></li>
+<li><a href="SDL_HINT_BMP_SAVE_LEGACY_FORMAT.html">SDL_HINT_BMP_SAVE_LEGACY_FORMAT</a></li>
+<li><a href="SDL_HINT_CAMERA_DRIVER.html">SDL_HINT_CAMERA_DRIVER</a></li>
+<li><a href="SDL_HINT_CPU_FEATURE_MASK.html">SDL_HINT_CPU_FEATURE_MASK</a></li>
+<li><a href="SDL_HINT_DISPLAY_USABLE_BOUNDS.html">SDL_HINT_DISPLAY_USABLE_BOUNDS</a></li>
+<li><a href="SDL_HINT_EGL_LIBRARY.html">SDL_HINT_EGL_LIBRARY</a></li>
+<li><a href="SDL_HINT_EMSCRIPTEN_ASYNCIFY.html">SDL_HINT_EMSCRIPTEN_ASYNCIFY</a></li>
+<li><a href="SDL_HINT_EMSCRIPTEN_CANVAS_SELECTOR.html">SDL_HINT_EMSCRIPTEN_CANVAS_SELECTOR</a></li>
+<li><a href="SDL_HINT_EMSCRIPTEN_KEYBOARD_ELEMENT.html">SDL_HINT_EMSCRIPTEN_KEYBOARD_ELEMENT</a></li>
+<li><a href="SDL_HINT_ENABLE_SCREEN_KEYBOARD.html">SDL_HINT_ENABLE_SCREEN_KEYBOARD</a></li>
+<li><a href="SDL_HINT_EVDEV_DEVICES.html">SDL_HINT_EVDEV_DEVICES</a></li>
+<li><a href="SDL_HINT_EVENT_LOGGING.html">SDL_HINT_EVENT_LOGGING</a></li>
+<li><a href="SDL_HINT_FILE_DIALOG_DRIVER.html">SDL_HINT_FILE_DIALOG_DRIVER</a></li>
+<li><a href="SDL_HINT_FORCE_RAISEWINDOW.html">SDL_HINT_FORCE_RAISEWINDOW</a></li>
+<li><a href="SDL_HINT_FRAMEBUFFER_ACCELERATION.html">SDL_HINT_FRAMEBUFFER_ACCELERATION</a></li>
+<li><a href="SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES.html">SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES</a></li>
+<li><a href="SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT.html">SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT</a></li>
+<li><a href="SDL_HINT_GAMECONTROLLER_SENSOR_FUSION.html">SDL_HINT_GAMECONTROLLER_SENSOR_FUSION</a></li>
+<li><a href="SDL_HINT_GAMECONTROLLERCONFIG.html">SDL_HINT_GAMECONTROLLERCONFIG</a></li>
+<li><a href="SDL_HINT_GAMECONTROLLERCONFIG_FILE.html">SDL_HINT_GAMECONTROLLERCONFIG_FILE</a></li>
+<li><a href="SDL_HINT_GAMECONTROLLERTYPE.html">SDL_HINT_GAMECONTROLLERTYPE</a></li>
+<li><a href="SDL_HINT_GDK_TEXTINPUT_DEFAULT_TEXT.html">SDL_HINT_GDK_TEXTINPUT_DEFAULT_TEXT</a></li>
+<li><a href="SDL_HINT_GDK_TEXTINPUT_DESCRIPTION.html">SDL_HINT_GDK_TEXTINPUT_DESCRIPTION</a></li>
+<li><a href="SDL_HINT_GDK_TEXTINPUT_MAX_LENGTH.html">SDL_HINT_GDK_TEXTINPUT_MAX_LENGTH</a></li>
+<li><a href="SDL_HINT_GDK_TEXTINPUT_SCOPE.html">SDL_HINT_GDK_TEXTINPUT_SCOPE</a></li>
+<li><a href="SDL_HINT_GDK_TEXTINPUT_TITLE.html">SDL_HINT_GDK_TEXTINPUT_TITLE</a></li>
+<li><a href="SDL_HINT_GPU_DRIVER.html">SDL_HINT_GPU_DRIVER</a></li>
+<li><a href="SDL_HINT_HIDAPI_ENUMERATE_ONLY_CONTROLLERS.html">SDL_HINT_HIDAPI_ENUMERATE_ONLY_CONTROLLERS</a></li>
+<li><a href="SDL_HINT_HIDAPI_IGNORE_DEVICES.html">SDL_HINT_HIDAPI_IGNORE_DEVICES</a></li>
+<li><a href="SDL_HINT_HIDAPI_LIBUSB.html">SDL_HINT_HIDAPI_LIBUSB</a></li>
+<li><a href="SDL_HINT_HIDAPI_LIBUSB_GAMECUBE.html">SDL_HINT_HIDAPI_LIBUSB_GAMECUBE</a></li>
+<li><a href="SDL_HINT_HIDAPI_LIBUSB_WHITELIST.html">SDL_HINT_HIDAPI_LIBUSB_WHITELIST</a></li>
+<li><a href="SDL_HINT_HIDAPI_UDEV.html">SDL_HINT_HIDAPI_UDEV</a></li>
+<li><a href="SDL_HINT_IME_IMPLEMENTED_UI.html">SDL_HINT_IME_IMPLEMENTED_UI</a></li>
+<li><a href="SDL_HINT_INVALID_PARAM_CHECKS.html">SDL_HINT_INVALID_PARAM_CHECKS</a></li>
+<li><a href="SDL_HINT_IOS_HIDE_HOME_INDICATOR.html">SDL_HINT_IOS_HIDE_HOME_INDICATOR</a></li>
+<li><a href="SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS.html">SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS</a></li>
+<li><a href="SDL_HINT_JOYSTICK_ARCADESTICK_DEVICES.html">SDL_HINT_JOYSTICK_ARCADESTICK_DEVICES</a></li>
+<li><a href="SDL_HINT_JOYSTICK_ARCADESTICK_DEVICES_EXCLUDED.html">SDL_HINT_JOYSTICK_ARCADESTICK_DEVICES_EXCLUDED</a></li>
+<li><a href="SDL_HINT_JOYSTICK_BLACKLIST_DEVICES.html">SDL_HINT_JOYSTICK_BLACKLIST_DEVICES</a></li>
+<li><a href="SDL_HINT_JOYSTICK_BLACKLIST_DEVICES_EXCLUDED.html">SDL_HINT_JOYSTICK_BLACKLIST_DEVICES_EXCLUDED</a></li>
+<li><a href="SDL_HINT_JOYSTICK_DEVICE.html">SDL_HINT_JOYSTICK_DEVICE</a></li>
+<li><a href="SDL_HINT_JOYSTICK_DIRECTINPUT.html">SDL_HINT_JOYSTICK_DIRECTINPUT</a></li>
+<li><a href="SDL_HINT_JOYSTICK_DRUM_DEVICES.html">SDL_HINT_JOYSTICK_DRUM_DEVICES</a></li>
+<li><a href="SDL_HINT_JOYSTICK_ENHANCED_REPORTS.html">SDL_HINT_JOYSTICK_ENHANCED_REPORTS</a></li>
+<li><a href="SDL_HINT_JOYSTICK_FLIGHTSTICK_DEVICES.html">SDL_HINT_JOYSTICK_FLIGHTSTICK_DEVICES</a></li>
+<li><a href="SDL_HINT_JOYSTICK_FLIGHTSTICK_DEVICES_EXCLUDED.html">SDL_HINT_JOYSTICK_FLIGHTSTICK_DEVICES_EXCLUDED</a></li>
+<li><a href="SDL_HINT_JOYSTICK_GAMECUBE_DEVICES.html">SDL_HINT_JOYSTICK_GAMECUBE_DEVICES</a></li>
+<li><a href="SDL_HINT_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED.html">SDL_HINT_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED</a></li>
+<li><a href="SDL_HINT_JOYSTICK_GAMEINPUT.html">SDL_HINT_JOYSTICK_GAMEINPUT</a></li>
+<li><a href="SDL_HINT_JOYSTICK_GAMEINPUT_RAW.html">SDL_HINT_JOYSTICK_GAMEINPUT_RAW</a></li>
+<li><a href="SDL_HINT_JOYSTICK_GUITAR_DEVICES.html">SDL_HINT_JOYSTICK_GUITAR_DEVICES</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HAPTIC_AXES.html">SDL_HINT_JOYSTICK_HAPTIC_AXES</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI.html">SDL_HINT_JOYSTICK_HIDAPI</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_8BITDO.html">SDL_HINT_JOYSTICK_HIDAPI_8BITDO</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_COMBINE_JOY_CONS.html">SDL_HINT_JOYSTICK_HIDAPI_COMBINE_JOY_CONS</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_FLYDIGI.html">SDL_HINT_JOYSTICK_HIDAPI_FLYDIGI</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_GAMECUBE.html">SDL_HINT_JOYSTICK_HIDAPI_GAMECUBE</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_GAMECUBE_RUMBLE_BRAKE.html">SDL_HINT_JOYSTICK_HIDAPI_GAMECUBE_RUMBLE_BRAKE</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_GAMESIR.html">SDL_HINT_JOYSTICK_HIDAPI_GAMESIR</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_GIP.html">SDL_HINT_JOYSTICK_HIDAPI_GIP</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_GIP_RESET_FOR_METADATA.html">SDL_HINT_JOYSTICK_HIDAPI_GIP_RESET_FOR_METADATA</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_JOY_CONS.html">SDL_HINT_JOYSTICK_HIDAPI_JOY_CONS</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_JOYCON_HOME_LED.html">SDL_HINT_JOYSTICK_HIDAPI_JOYCON_HOME_LED</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_LG4FF.html">SDL_HINT_JOYSTICK_HIDAPI_LG4FF</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_LUNA.html">SDL_HINT_JOYSTICK_HIDAPI_LUNA</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_NINTENDO_CLASSIC.html">SDL_HINT_JOYSTICK_HIDAPI_NINTENDO_CLASSIC</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_PS3.html">SDL_HINT_JOYSTICK_HIDAPI_PS3</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_PS3_SIXAXIS_DRIVER.html">SDL_HINT_JOYSTICK_HIDAPI_PS3_SIXAXIS_DRIVER</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_PS4.html">SDL_HINT_JOYSTICK_HIDAPI_PS4</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_PS4_REPORT_INTERVAL.html">SDL_HINT_JOYSTICK_HIDAPI_PS4_REPORT_INTERVAL</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_PS5.html">SDL_HINT_JOYSTICK_HIDAPI_PS5</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_PS5_PLAYER_LED.html">SDL_HINT_JOYSTICK_HIDAPI_PS5_PLAYER_LED</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_SHIELD.html">SDL_HINT_JOYSTICK_HIDAPI_SHIELD</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_SINPUT.html">SDL_HINT_JOYSTICK_HIDAPI_SINPUT</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_STADIA.html">SDL_HINT_JOYSTICK_HIDAPI_STADIA</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_STEAM.html">SDL_HINT_JOYSTICK_HIDAPI_STEAM</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_STEAM_HOME_LED.html">SDL_HINT_JOYSTICK_HIDAPI_STEAM_HOME_LED</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_STEAM_HORI.html">SDL_HINT_JOYSTICK_HIDAPI_STEAM_HORI</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_STEAMDECK.html">SDL_HINT_JOYSTICK_HIDAPI_STEAMDECK</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_SWITCH.html">SDL_HINT_JOYSTICK_HIDAPI_SWITCH</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_SWITCH2.html">SDL_HINT_JOYSTICK_HIDAPI_SWITCH2</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_SWITCH_HOME_LED.html">SDL_HINT_JOYSTICK_HIDAPI_SWITCH_HOME_LED</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_SWITCH_PLAYER_LED.html">SDL_HINT_JOYSTICK_HIDAPI_SWITCH_PLAYER_LED</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_VERTICAL_JOY_CONS.html">SDL_HINT_JOYSTICK_HIDAPI_VERTICAL_JOY_CONS</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_WII.html">SDL_HINT_JOYSTICK_HIDAPI_WII</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_WII_PLAYER_LED.html">SDL_HINT_JOYSTICK_HIDAPI_WII_PLAYER_LED</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_XBOX.html">SDL_HINT_JOYSTICK_HIDAPI_XBOX</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_XBOX_360.html">SDL_HINT_JOYSTICK_HIDAPI_XBOX_360</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_XBOX_360_PLAYER_LED.html">SDL_HINT_JOYSTICK_HIDAPI_XBOX_360_PLAYER_LED</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_XBOX_360_WIRELESS.html">SDL_HINT_JOYSTICK_HIDAPI_XBOX_360_WIRELESS</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_XBOX_ONE.html">SDL_HINT_JOYSTICK_HIDAPI_XBOX_ONE</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_XBOX_ONE_HOME_LED.html">SDL_HINT_JOYSTICK_HIDAPI_XBOX_ONE_HOME_LED</a></li>
+<li><a href="SDL_HINT_JOYSTICK_HIDAPI_ZUIKI.html">SDL_HINT_JOYSTICK_HIDAPI_ZUIKI</a></li>
+<li><a href="SDL_HINT_JOYSTICK_IOKIT.html">SDL_HINT_JOYSTICK_IOKIT</a></li>
+<li><a href="SDL_HINT_JOYSTICK_LINUX_CLASSIC.html">SDL_HINT_JOYSTICK_LINUX_CLASSIC</a></li>
+<li><a href="SDL_HINT_JOYSTICK_LINUX_DEADZONES.html">SDL_HINT_JOYSTICK_LINUX_DEADZONES</a></li>
+<li><a href="SDL_HINT_JOYSTICK_LINUX_DIGITAL_HATS.html">SDL_HINT_JOYSTICK_LINUX_DIGITAL_HATS</a></li>
+<li><a href="SDL_HINT_JOYSTICK_LINUX_HAT_DEADZONES.html">SDL_HINT_JOYSTICK_LINUX_HAT_DEADZONES</a></li>
+<li><a href="SDL_HINT_JOYSTICK_MFI.html">SDL_HINT_JOYSTICK_MFI</a></li>
+<li><a href="SDL_HINT_JOYSTICK_RAWINPUT.html">SDL_HINT_JOYSTICK_RAWINPUT</a></li>
+<li><a href="SDL_HINT_JOYSTICK_RAWINPUT_CORRELATE_XINPUT.html">SDL_HINT_JOYSTICK_RAWINPUT_CORRELATE_XINPUT</a></li>
+<li><a href="SDL_HINT_JOYSTICK_ROG_CHAKRAM.html">SDL_HINT_JOYSTICK_ROG_CHAKRAM</a></li>
+<li><a href="SDL_HINT_JOYSTICK_THREAD.html">SDL_HINT_JOYSTICK_THREAD</a></li>
+<li><a href="SDL_HINT_JOYSTICK_THROTTLE_DEVICES.html">SDL_HINT_JOYSTICK_THROTTLE_DEVICES</a></li>
+<li><a href="SDL_HINT_JOYSTICK_THROTTLE_DEVICES_EXCLUDED.html">SDL_HINT_JOYSTICK_THROTTLE_DEVICES_EXCLUDED</a></li>
+<li><a href="SDL_HINT_JOYSTICK_WGI.html">SDL_HINT_JOYSTICK_WGI</a></li>
+<li><a href="SDL_HINT_JOYSTICK_WHEEL_DEVICES.html">SDL_HINT_JOYSTICK_WHEEL_DEVICES</a></li>
+<li><a href="SDL_HINT_JOYSTICK_WHEEL_DEVICES_EXCLUDED.html">SDL_HINT_JOYSTICK_WHEEL_DEVICES_EXCLUDED</a></li>
+<li><a href="SDL_HINT_JOYSTICK_ZERO_CENTERED_DEVICES.html">SDL_HINT_JOYSTICK_ZERO_CENTERED_DEVICES</a></li>
+<li><a href="SDL_HINT_KEYCODE_OPTIONS.html">SDL_HINT_KEYCODE_OPTIONS</a></li>
+<li><a href="SDL_HINT_KMSDRM_ATOMIC.html">SDL_HINT_KMSDRM_ATOMIC</a></li>
+<li><a href="SDL_HINT_KMSDRM_DEVICE_INDEX.html">SDL_HINT_KMSDRM_DEVICE_INDEX</a></li>
+<li><a href="SDL_HINT_KMSDRM_REQUIRE_DRM_MASTER.html">SDL_HINT_KMSDRM_REQUIRE_DRM_MASTER</a></li>
+<li><a href="SDL_HINT_LOGGING.html">SDL_HINT_LOGGING</a></li>
+<li><a href="SDL_HINT_MAC_BACKGROUND_APP.html">SDL_HINT_MAC_BACKGROUND_APP</a></li>
+<li><a href="SDL_HINT_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK.html">SDL_HINT_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK</a></li>
+<li><a href="SDL_HINT_MAC_OPENGL_ASYNC_DISPATCH.html">SDL_HINT_MAC_OPENGL_ASYNC_DISPATCH</a></li>
+<li><a href="SDL_HINT_MAC_OPTION_AS_ALT.html">SDL_HINT_MAC_OPTION_AS_ALT</a></li>
+<li><a href="SDL_HINT_MAC_PRESS_AND_HOLD.html">SDL_HINT_MAC_PRESS_AND_HOLD</a></li>
+<li><a href="SDL_HINT_MAC_SCROLL_MOMENTUM.html">SDL_HINT_MAC_SCROLL_MOMENTUM</a></li>
+<li><a href="SDL_HINT_MAIN_CALLBACK_RATE.html">SDL_HINT_MAIN_CALLBACK_RATE</a></li>
+<li><a href="SDL_HINT_MOUSE_AUTO_CAPTURE.html">SDL_HINT_MOUSE_AUTO_CAPTURE</a></li>
+<li><a href="SDL_HINT_MOUSE_DEFAULT_SYSTEM_CURSOR.html">SDL_HINT_MOUSE_DEFAULT_SYSTEM_CURSOR</a></li>
+<li><a href="SDL_HINT_MOUSE_DOUBLE_CLICK_RADIUS.html">SDL_HINT_MOUSE_DOUBLE_CLICK_RADIUS</a></li>
+<li><a href="SDL_HINT_MOUSE_DOUBLE_CLICK_TIME.html">SDL_HINT_MOUSE_DOUBLE_CLICK_TIME</a></li>
+<li><a href="SDL_HINT_MOUSE_DPI_SCALE_CURSORS.html">SDL_HINT_MOUSE_DPI_SCALE_CURSORS</a></li>
+<li><a href="SDL_HINT_MOUSE_EMULATE_WARP_WITH_RELATIVE.html">SDL_HINT_MOUSE_EMULATE_WARP_WITH_RELATIVE</a></li>
+<li><a href="SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH.html">SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH</a></li>
+<li><a href="SDL_HINT_MOUSE_NORMAL_SPEED_SCALE.html">SDL_HINT_MOUSE_NORMAL_SPEED_SCALE</a></li>
+<li><a href="SDL_HINT_MOUSE_RELATIVE_CURSOR_VISIBLE.html">SDL_HINT_MOUSE_RELATIVE_CURSOR_VISIBLE</a></li>
+<li><a href="SDL_HINT_MOUSE_RELATIVE_MODE_CENTER.html">SDL_HINT_MOUSE_RELATIVE_MODE_CENTER</a></li>
+<li><a href="SDL_HINT_MOUSE_RELATIVE_SPEED_SCALE.html">SDL_HINT_MOUSE_RELATIVE_SPEED_SCALE</a></li>
+<li><a href="SDL_HINT_MOUSE_RELATIVE_SYSTEM_SCALE.html">SDL_HINT_MOUSE_RELATIVE_SYSTEM_SCALE</a></li>
+<li><a href="SDL_HINT_MOUSE_RELATIVE_WARP_MOTION.html">SDL_HINT_MOUSE_RELATIVE_WARP_MOTION</a></li>
+<li><a href="SDL_HINT_MOUSE_TOUCH_EVENTS.html">SDL_HINT_MOUSE_TOUCH_EVENTS</a></li>
+<li><a href="SDL_HINT_MUTE_CONSOLE_KEYBOARD.html">SDL_HINT_MUTE_CONSOLE_KEYBOARD</a></li>
+<li><a href="SDL_HINT_NO_SIGNAL_HANDLERS.html">SDL_HINT_NO_SIGNAL_HANDLERS</a></li>
+<li><a href="SDL_HINT_OPENGL_ES_DRIVER.html">SDL_HINT_OPENGL_ES_DRIVER</a></li>
+<li><a href="SDL_HINT_OPENGL_FORCE_SRGB_CAPABLE.html">SDL_HINT_OPENGL_FORCE_SRGB_CAPABLE</a></li>
+<li><a href="SDL_HINT_OPENGL_FORCE_SRGB_FRAMEBUFFER.html">SDL_HINT_OPENGL_FORCE_SRGB_FRAMEBUFFER</a></li>
+<li><a href="SDL_HINT_OPENGL_LIBRARY.html">SDL_HINT_OPENGL_LIBRARY</a></li>
+<li><a href="SDL_HINT_OPENVR_LIBRARY.html">SDL_HINT_OPENVR_LIBRARY</a></li>
+<li><a href="SDL_HINT_OPENXR_LIBRARY.html">SDL_HINT_OPENXR_LIBRARY</a></li>
+<li><a href="SDL_HINT_ORIENTATIONS.html">SDL_HINT_ORIENTATIONS</a></li>
+<li><a href="SDL_HINT_PEN_MOUSE_EVENTS.html">SDL_HINT_PEN_MOUSE_EVENTS</a></li>
+<li><a href="SDL_HINT_PEN_TOUCH_EVENTS.html">SDL_HINT_PEN_TOUCH_EVENTS</a></li>
+<li><a href="SDL_HINT_POLL_SENTINEL.html">SDL_HINT_POLL_SENTINEL</a></li>
+<li><a href="SDL_HINT_PREFERRED_LOCALES.html">SDL_HINT_PREFERRED_LOCALES</a></li>
+<li><a href="SDL_HINT_PS2_GS_HEIGHT.html">SDL_HINT_PS2_GS_HEIGHT</a></li>
+<li><a href="SDL_HINT_PS2_GS_MODE.html">SDL_HINT_PS2_GS_MODE</a></li>
+<li><a href="SDL_HINT_PS2_GS_PROGRESSIVE.html">SDL_HINT_PS2_GS_PROGRESSIVE</a></li>
+<li><a href="SDL_HINT_PS2_GS_WIDTH.html">SDL_HINT_PS2_GS_WIDTH</a></li>
+<li><a href="SDL_HINT_QUIT_ON_LAST_WINDOW_CLOSE.html">SDL_HINT_QUIT_ON_LAST_WINDOW_CLOSE</a></li>
+<li><a href="SDL_HINT_RENDER_DIRECT3D11_DEBUG.html">SDL_HINT_RENDER_DIRECT3D11_DEBUG</a></li>
+<li><a href="SDL_HINT_RENDER_DIRECT3D11_WARP.html">SDL_HINT_RENDER_DIRECT3D11_WARP</a></li>
+<li><a href="SDL_HINT_RENDER_DIRECT3D_THREADSAFE.html">SDL_HINT_RENDER_DIRECT3D_THREADSAFE</a></li>
+<li><a href="SDL_HINT_RENDER_DRIVER.html">SDL_HINT_RENDER_DRIVER</a></li>
+<li><a href="SDL_HINT_RENDER_GPU_DEBUG.html">SDL_HINT_RENDER_GPU_DEBUG</a></li>
+<li><a href="SDL_HINT_RENDER_GPU_LOW_POWER.html">SDL_HINT_RENDER_GPU_LOW_POWER</a></li>
+<li><a href="SDL_HINT_RENDER_LINE_METHOD.html">SDL_HINT_RENDER_LINE_METHOD</a></li>
+<li><a href="SDL_HINT_RENDER_METAL_PREFER_LOW_POWER_DEVICE.html">SDL_HINT_RENDER_METAL_PREFER_LOW_POWER_DEVICE</a></li>
+<li><a href="SDL_HINT_RENDER_VSYNC.html">SDL_HINT_RENDER_VSYNC</a></li>
+<li><a href="SDL_HINT_RENDER_VULKAN_DEBUG.html">SDL_HINT_RENDER_VULKAN_DEBUG</a></li>
+<li><a href="SDL_HINT_RETURN_KEY_HIDES_IME.html">SDL_HINT_RETURN_KEY_HIDES_IME</a></li>
+<li><a href="SDL_HINT_ROG_GAMEPAD_MICE.html">SDL_HINT_ROG_GAMEPAD_MICE</a></li>
+<li><a href="SDL_HINT_ROG_GAMEPAD_MICE_EXCLUDED.html">SDL_HINT_ROG_GAMEPAD_MICE_EXCLUDED</a></li>
+<li><a href="SDL_HINT_RPI_VIDEO_LAYER.html">SDL_HINT_RPI_VIDEO_LAYER</a></li>
+<li><a href="SDL_HINT_SCREENSAVER_INHIBIT_ACTIVITY_NAME.html">SDL_HINT_SCREENSAVER_INHIBIT_ACTIVITY_NAME</a></li>
+<li><a href="SDL_HINT_SHUTDOWN_DBUS_ON_QUIT.html">SDL_HINT_SHUTDOWN_DBUS_ON_QUIT</a></li>
+<li><a href="SDL_HINT_STORAGE_TITLE_DRIVER.html">SDL_HINT_STORAGE_TITLE_DRIVER</a></li>
+<li><a href="SDL_HINT_STORAGE_USER_DRIVER.html">SDL_HINT_STORAGE_USER_DRIVER</a></li>
+<li><a href="SDL_HINT_THREAD_FORCE_REALTIME_TIME_CRITICAL.html">SDL_HINT_THREAD_FORCE_REALTIME_TIME_CRITICAL</a></li>
+<li><a href="SDL_HINT_THREAD_PRIORITY_POLICY.html">SDL_HINT_THREAD_PRIORITY_POLICY</a></li>
+<li><a href="SDL_HINT_TIMER_RESOLUTION.html">SDL_HINT_TIMER_RESOLUTION</a></li>
+<li><a href="SDL_HINT_TOUCH_MOUSE_EVENTS.html">SDL_HINT_TOUCH_MOUSE_EVENTS</a></li>
+<li><a href="SDL_HINT_TRACKPAD_IS_TOUCH_ONLY.html">SDL_HINT_TRACKPAD_IS_TOUCH_ONLY</a></li>
+<li><a href="SDL_HINT_TV_REMOTE_AS_JOYSTICK.html">SDL_HINT_TV_REMOTE_AS_JOYSTICK</a></li>
+<li><a href="SDL_HINT_VIDEO_ALLOW_SCREENSAVER.html">SDL_HINT_VIDEO_ALLOW_SCREENSAVER</a></li>
+<li><a href="SDL_HINT_VIDEO_DISPLAY_PRIORITY.html">SDL_HINT_VIDEO_DISPLAY_PRIORITY</a></li>
+<li><a href="SDL_HINT_VIDEO_DOUBLE_BUFFER.html">SDL_HINT_VIDEO_DOUBLE_BUFFER</a></li>
+<li><a href="SDL_HINT_VIDEO_DRIVER.html">SDL_HINT_VIDEO_DRIVER</a></li>
+<li><a href="SDL_HINT_VIDEO_DUMMY_SAVE_FRAMES.html">SDL_HINT_VIDEO_DUMMY_SAVE_FRAMES</a></li>
+<li><a href="SDL_HINT_VIDEO_EGL_ALLOW_GETDISPLAY_FALLBACK.html">SDL_HINT_VIDEO_EGL_ALLOW_GETDISPLAY_FALLBACK</a></li>
+<li><a href="SDL_HINT_VIDEO_FORCE_EGL.html">SDL_HINT_VIDEO_FORCE_EGL</a></li>
+<li><a href="SDL_HINT_VIDEO_MAC_FULLSCREEN_MENU_VISIBILITY.html">SDL_HINT_VIDEO_MAC_FULLSCREEN_MENU_VISIBILITY</a></li>
+<li><a href="SDL_HINT_VIDEO_MAC_FULLSCREEN_SPACES.html">SDL_HINT_VIDEO_MAC_FULLSCREEN_SPACES</a></li>
+<li><a href="SDL_HINT_VIDEO_MATCH_EXCLUSIVE_MODE_ON_MOVE.html">SDL_HINT_VIDEO_MATCH_EXCLUSIVE_MODE_ON_MOVE</a></li>
+<li><a href="SDL_HINT_VIDEO_METAL_AUTO_RESIZE_DRAWABLE.html">SDL_HINT_VIDEO_METAL_AUTO_RESIZE_DRAWABLE</a></li>
+<li><a href="SDL_HINT_VIDEO_MINIMIZE_ON_FOCUS_LOSS.html">SDL_HINT_VIDEO_MINIMIZE_ON_FOCUS_LOSS</a></li>
+<li><a href="SDL_HINT_VIDEO_OFFSCREEN_SAVE_FRAMES.html">SDL_HINT_VIDEO_OFFSCREEN_SAVE_FRAMES</a></li>
+<li><a href="SDL_HINT_VIDEO_SYNC_WINDOW_OPERATIONS.html">SDL_HINT_VIDEO_SYNC_WINDOW_OPERATIONS</a></li>
+<li><a href="SDL_HINT_VIDEO_WAYLAND_ALLOW_LIBDECOR.html">SDL_HINT_VIDEO_WAYLAND_ALLOW_LIBDECOR</a></li>
+<li><a href="SDL_HINT_VIDEO_WAYLAND_MODE_EMULATION.html">SDL_HINT_VIDEO_WAYLAND_MODE_EMULATION</a></li>
+<li><a href="SDL_HINT_VIDEO_WAYLAND_MODE_SCALING.html">SDL_HINT_VIDEO_WAYLAND_MODE_SCALING</a></li>
+<li><a href="SDL_HINT_VIDEO_WAYLAND_PREFER_LIBDECOR.html">SDL_HINT_VIDEO_WAYLAND_PREFER_LIBDECOR</a></li>
+<li><a href="SDL_HINT_VIDEO_WAYLAND_SCALE_TO_DISPLAY.html">SDL_HINT_VIDEO_WAYLAND_SCALE_TO_DISPLAY</a></li>
+<li><a href="SDL_HINT_VIDEO_WIN_D3DCOMPILER.html">SDL_HINT_VIDEO_WIN_D3DCOMPILER</a></li>
+<li><a href="SDL_HINT_VIDEO_X11_EXTERNAL_WINDOW_INPUT.html">SDL_HINT_VIDEO_X11_EXTERNAL_WINDOW_INPUT</a></li>
+<li><a href="SDL_HINT_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR.html">SDL_HINT_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR</a></li>
+<li><a href="SDL_HINT_VIDEO_X11_NET_WM_PING.html">SDL_HINT_VIDEO_X11_NET_WM_PING</a></li>
+<li><a href="SDL_HINT_VIDEO_X11_NODIRECTCOLOR.html">SDL_HINT_VIDEO_X11_NODIRECTCOLOR</a></li>
+<li><a href="SDL_HINT_VIDEO_X11_SCALING_FACTOR.html">SDL_HINT_VIDEO_X11_SCALING_FACTOR</a></li>
+<li><a href="SDL_HINT_VIDEO_X11_VISUALID.html">SDL_HINT_VIDEO_X11_VISUALID</a></li>
+<li><a href="SDL_HINT_VIDEO_X11_WINDOW_VISUALID.html">SDL_HINT_VIDEO_X11_WINDOW_VISUALID</a></li>
+<li><a href="SDL_HINT_VIDEO_X11_XRANDR.html">SDL_HINT_VIDEO_X11_XRANDR</a></li>
+<li><a href="SDL_HINT_VITA_ENABLE_BACK_TOUCH.html">SDL_HINT_VITA_ENABLE_BACK_TOUCH</a></li>
+<li><a href="SDL_HINT_VITA_ENABLE_FRONT_TOUCH.html">SDL_HINT_VITA_ENABLE_FRONT_TOUCH</a></li>
+<li><a href="SDL_HINT_VITA_MODULE_PATH.html">SDL_HINT_VITA_MODULE_PATH</a></li>
+<li><a href="SDL_HINT_VITA_PVR_INIT.html">SDL_HINT_VITA_PVR_INIT</a></li>
+<li><a href="SDL_HINT_VITA_PVR_OPENGL.html">SDL_HINT_VITA_PVR_OPENGL</a></li>
+<li><a href="SDL_HINT_VITA_RESOLUTION.html">SDL_HINT_VITA_RESOLUTION</a></li>
+<li><a href="SDL_HINT_VITA_TOUCH_MOUSE_DEVICE.html">SDL_HINT_VITA_TOUCH_MOUSE_DEVICE</a></li>
+<li><a href="SDL_HINT_VULKAN_DISPLAY.html">SDL_HINT_VULKAN_DISPLAY</a></li>
+<li><a href="SDL_HINT_VULKAN_LIBRARY.html">SDL_HINT_VULKAN_LIBRARY</a></li>
+<li><a href="SDL_HINT_WAVE_CHUNK_LIMIT.html">SDL_HINT_WAVE_CHUNK_LIMIT</a></li>
+<li><a href="SDL_HINT_WAVE_FACT_CHUNK.html">SDL_HINT_WAVE_FACT_CHUNK</a></li>
+<li><a href="SDL_HINT_WAVE_RIFF_CHUNK_SIZE.html">SDL_HINT_WAVE_RIFF_CHUNK_SIZE</a></li>
+<li><a href="SDL_HINT_WAVE_TRUNCATION.html">SDL_HINT_WAVE_TRUNCATION</a></li>
+<li><a href="SDL_HINT_WINDOW_ACTIVATE_WHEN_RAISED.html">SDL_HINT_WINDOW_ACTIVATE_WHEN_RAISED</a></li>
+<li><a href="SDL_HINT_WINDOW_ACTIVATE_WHEN_SHOWN.html">SDL_HINT_WINDOW_ACTIVATE_WHEN_SHOWN</a></li>
+<li><a href="SDL_HINT_WINDOW_ALLOW_TOPMOST.html">SDL_HINT_WINDOW_ALLOW_TOPMOST</a></li>
+<li><a href="SDL_HINT_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN.html">SDL_HINT_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN</a></li>
+<li><a href="SDL_HINT_WINDOWS_CLOSE_ON_ALT_F4.html">SDL_HINT_WINDOWS_CLOSE_ON_ALT_F4</a></li>
+<li><a href="SDL_HINT_WINDOWS_ENABLE_MENU_MNEMONICS.html">SDL_HINT_WINDOWS_ENABLE_MENU_MNEMONICS</a></li>
+<li><a href="SDL_HINT_WINDOWS_ENABLE_MESSAGELOOP.html">SDL_HINT_WINDOWS_ENABLE_MESSAGELOOP</a></li>
+<li><a href="SDL_HINT_WINDOWS_ERASE_BACKGROUND_MODE.html">SDL_HINT_WINDOWS_ERASE_BACKGROUND_MODE</a></li>
+<li><a href="SDL_HINT_WINDOWS_FORCE_SEMAPHORE_KERNEL.html">SDL_HINT_WINDOWS_FORCE_SEMAPHORE_KERNEL</a></li>
+<li><a href="SDL_HINT_WINDOWS_GAMEINPUT.html">SDL_HINT_WINDOWS_GAMEINPUT</a></li>
+<li><a href="SDL_HINT_WINDOWS_INTRESOURCE_ICON.html">SDL_HINT_WINDOWS_INTRESOURCE_ICON</a></li>
+<li><a href="SDL_HINT_WINDOWS_INTRESOURCE_ICON_SMALL.html">SDL_HINT_WINDOWS_INTRESOURCE_ICON_SMALL</a></li>
+<li><a href="SDL_HINT_WINDOWS_RAW_KEYBOARD.html">SDL_HINT_WINDOWS_RAW_KEYBOARD</a></li>
+<li><a href="SDL_HINT_WINDOWS_RAW_KEYBOARD_EXCLUDE_HOTKEYS.html">SDL_HINT_WINDOWS_RAW_KEYBOARD_EXCLUDE_HOTKEYS</a></li>
+<li><a href="SDL_HINT_WINDOWS_RAW_KEYBOARD_INPUTSINK.html">SDL_HINT_WINDOWS_RAW_KEYBOARD_INPUTSINK</a></li>
+<li><a href="SDL_HINT_WINDOWS_USE_D3D9EX.html">SDL_HINT_WINDOWS_USE_D3D9EX</a></li>
+<li><a href="SDL_HINT_X11_FORCE_OVERRIDE_REDIRECT.html">SDL_HINT_X11_FORCE_OVERRIDE_REDIRECT</a></li>
+<li><a href="SDL_HINT_X11_WINDOW_TYPE.html">SDL_HINT_X11_WINDOW_TYPE</a></li>
+<li><a href="SDL_HINT_X11_XCB_LIBRARY.html">SDL_HINT_X11_XCB_LIBRARY</a></li>
+<li><a href="SDL_HINT_XINPUT_ENABLED.html">SDL_HINT_XINPUT_ENABLED</a></li>
+</ul>
+<!-- END CATEGORY LIST -->
+
+<hr />
+<p><a href="CategoryAPICategory.html">CategoryAPICategory</a></p>
+</body>
+</html>
