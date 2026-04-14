@@ -12,4 +12,3 @@ emcc src/main.c -Wall -Wextra -std=c99 \
   -o build-web/index.html
 
 echo "Build complete: build-web/index.html"
-echo "Serve with: python3 -m http.server -d build-web"
