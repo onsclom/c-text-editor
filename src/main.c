@@ -39,7 +39,7 @@ static struct {
   i32 cursor_visible;
   const char *filepath;
   u64 save_flash_time;
-} state = {.font = 1, .scale = 4, .cursor_visible = 1};
+} state = {.font = 1, .cursor_visible = 1};
 
 static i32 font_height(void) { return state.font == 0 ? 8 : 16; }
 
@@ -232,6 +232,7 @@ SDL_AppResult SDL_AppInit(void **appstate, i32 argc, char *argv[]) {
   state.dpr = SDL_GetWindowPixelDensity(state.window);
   if (state.dpr < 1.0f)
     state.dpr = 1.0f;
+  state.scale = (i32)(state.dpr * 2.0f);
 
   state.renderer = SDL_CreateRenderer(state.window, NULL);
   if (!state.renderer) {
@@ -257,9 +258,15 @@ SDL_AppResult SDL_AppInit(void **appstate, i32 argc, char *argv[]) {
     if (f) {
       Sint64 size = SDL_GetIOSize(f);
       if (size > 0 && size < TEXT_BUF_SIZE) {
-        state.buf_len = (i32)SDL_ReadIO(f, text_buf, (size_t)size);
-        if (state.buf_len < 0)
-          state.buf_len = 0;
+        i32 raw_len = (i32)SDL_ReadIO(f, text_buf, (size_t)size);
+        if (raw_len < 0)
+          raw_len = 0;
+        i32 j = 0;
+        for (i32 i = 0; i < raw_len; i++) {
+          if (text_buf[i] != '\r')
+            text_buf[j++] = text_buf[i];
+        }
+        state.buf_len = j;
       }
       SDL_CloseIO(f);
     }
