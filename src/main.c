@@ -19,7 +19,7 @@ static struct {
   int canvas_h;
   int font;
   int scale;
-  float dpi;
+  float dpr;
   u64 last_time;
   int fps;
   int frame_count;
@@ -87,6 +87,8 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
   (void)argv;
   (void)appstate;
 
+  SDL_SetHint(SDL_HINT_EMSCRIPTEN_KEYBOARD_ELEMENT, "#canvas");
+
   if (!SDL_Init(SDL_INIT_VIDEO)) {
     SDL_Log("SDL_Init failed: %s", SDL_GetError());
     return SDL_APP_FAILURE;
@@ -99,9 +101,9 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
     return SDL_APP_FAILURE;
   }
 
-  state.dpi = SDL_GetWindowPixelDensity(state.window);
-  if (state.dpi < 1.0f)
-    state.dpi = 1.0f;
+  state.dpr = SDL_GetWindowPixelDensity(state.window);
+  if (state.dpr < 1.0f)
+    state.dpr = 1.0f;
 
   state.renderer = SDL_CreateRenderer(state.window, NULL);
   if (!state.renderer) {
@@ -111,8 +113,8 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
 
   SDL_DisplayID display = SDL_GetDisplayForWindow(state.window);
   const SDL_DisplayMode *mode = SDL_GetCurrentDisplayMode(display);
-  int max_w = (int)(mode->w * state.dpi);
-  int max_h = (int)(mode->h * state.dpi);
+  int max_w = (int)(mode->w * state.dpr);
+  int max_h = (int)(mode->h * state.dpr);
 
   state.canvas = SDL_CreateTexture(state.renderer, SDL_PIXELFORMAT_RGBA8888,
                                    SDL_TEXTUREACCESS_STREAMING, max_w, max_h);
@@ -121,6 +123,56 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
   update_canvas_size();
 
   return SDL_APP_CONTINUE;
+}
+
+static void render(void) {
+  state.frame_count++;
+  u64 now = SDL_GetTicksNS();
+  if (now - state.last_time >= 1000000000ULL) {
+    state.fps = state.frame_count;
+    state.frame_count = 0;
+    state.last_time = now;
+  }
+
+  void *pixel_ptr;
+  int pitch_bytes;
+  SDL_Rect canvas_rect = {0, 0, state.canvas_w, state.canvas_h};
+  if (!SDL_LockTexture(state.canvas, &canvas_rect, &pixel_ptr, &pitch_bytes))
+    return;
+
+  u32 *pixels = (u32 *)pixel_ptr;
+  int pitch = pitch_bytes / 4;
+
+  for (int i = 0; i < pitch * state.canvas_h; i++)
+    pixels[i] = COLOR_BG;
+
+  draw_string(pixels, pitch, 10, 10, "Hello, world!", COLOR_TEXT, state.font);
+
+  const char *font_label = (state.font == 0) ? "[1] 8x8" : "[2] 8x16";
+  draw_string(pixels, pitch, 10, 40, font_label, COLOR_TEXT, state.font);
+
+  char scale_label[32];
+  SDL_snprintf(scale_label, sizeof(scale_label), "scale: %dx", state.scale);
+  draw_string(pixels, pitch, 10, 60, scale_label, COLOR_TEXT, state.font);
+
+  draw_string(pixels, pitch, 10, 90, "[ ] scale  1/2 font  ESC quit",
+              COLOR_TEXT, state.font);
+
+  if (state.show_fps) {
+    char fps_buf[16];
+    SDL_snprintf(fps_buf, sizeof(fps_buf), "%d fps", state.fps);
+    int len = (int)SDL_strlen(fps_buf);
+    draw_string(pixels, pitch, state.canvas_w - len * 8 - 4, 4, fps_buf,
+                COLOR_TEXT, state.font);
+  }
+
+  SDL_UnlockTexture(state.canvas);
+
+  SDL_FRect src = {0, 0, (float)state.canvas_w, (float)state.canvas_h};
+  SDL_SetRenderDrawColor(state.renderer, 30, 30, 30, 255);
+  SDL_RenderClear(state.renderer);
+  SDL_RenderTexture(state.renderer, state.canvas, &src, NULL);
+  SDL_RenderPresent(state.renderer);
 }
 
 SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
@@ -165,54 +217,7 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
 
 SDL_AppResult SDL_AppIterate(void *appstate) {
   (void)appstate;
-
-  state.frame_count++;
-  u64 now = SDL_GetTicksNS();
-  if (now - state.last_time >= 1000000000ULL) {
-    state.fps = state.frame_count;
-    state.frame_count = 0;
-    state.last_time = now;
-  }
-
-  void *pixel_ptr;
-  int pitch_bytes;
-  SDL_Rect canvas_rect = {0, 0, state.canvas_w, state.canvas_h};
-  if (!SDL_LockTexture(state.canvas, &canvas_rect, &pixel_ptr, &pitch_bytes))
-    return SDL_APP_FAILURE;
-
-  u32 *pixels = (u32 *)pixel_ptr;
-  int pitch = pitch_bytes / 4;
-
-  for (int i = 0; i < pitch * state.canvas_h; i++)
-    pixels[i] = COLOR_BG;
-
-  draw_string(pixels, pitch, 10, 10, "Hello, world!", COLOR_TEXT, state.font);
-
-  const char *font_label = (state.font == 0) ? "[1] 8x8" : "[2] 8x16";
-  draw_string(pixels, pitch, 10, 40, font_label, COLOR_TEXT, state.font);
-
-  char scale_label[32];
-  SDL_snprintf(scale_label, sizeof(scale_label), "scale: %dx", state.scale);
-  draw_string(pixels, pitch, 10, 60, scale_label, COLOR_TEXT, state.font);
-
-  draw_string(pixels, pitch, 10, 90, "[ ] scale  1/2 font  ESC quit",
-              COLOR_TEXT, state.font);
-
-  if (state.show_fps) {
-    char fps_buf[16];
-    SDL_snprintf(fps_buf, sizeof(fps_buf), "%d fps", state.fps);
-    int len = (int)SDL_strlen(fps_buf);
-    draw_string(pixels, pitch, state.canvas_w - len * 8 - 4, 4, fps_buf,
-                COLOR_TEXT, state.font);
-  }
-
-  SDL_UnlockTexture(state.canvas);
-
-  SDL_FRect src = {0, 0, (float)state.canvas_w, (float)state.canvas_h};
-  SDL_SetRenderDrawColor(state.renderer, 0, 0, 0, 255);
-  SDL_RenderClear(state.renderer);
-  SDL_RenderTexture(state.renderer, state.canvas, &src, NULL);
-  SDL_RenderPresent(state.renderer);
+  render();
 
   return SDL_APP_CONTINUE;
 }
