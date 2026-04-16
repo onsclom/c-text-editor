@@ -17,6 +17,8 @@
 #define COLOR_STATUS_TEXT COLOR_BG
 
 #define TEXT_BUFFER_SIZE (1024 * 1024)
+#define CURSOR_BLINK_MS 500
+#define SCROLL_SPEED 16
 
 static char text_buffer[TEXT_BUFFER_SIZE];
 
@@ -57,8 +59,8 @@ static struct {
 
   i32 buffer_length;
   i32 cursor;
-  i32 scroll_x;
-  i32 scroll_y;
+  f32 scroll_x;
+  f32 scroll_y;
   u64 cursor_blink_time;
   bool cursor_visible;
   const char *filepath;
@@ -184,9 +186,12 @@ static void buffer_delete(i32 position) {
   state.buffer_length--;
 }
 
+static void ensure_cursor_visible(void);
+
 static void reset_blink(void) {
   state.cursor_blink_time = SDL_GetTicksNS();
   state.cursor_visible = true;
+  ensure_cursor_visible();
 }
 
 static void save_file(void) {
@@ -436,22 +441,18 @@ static void ensure_cursor_visible(void) {
   cursor_row_col(&row, &col);
   const Font *font = current_font();
   i32 text_area_height = state.canvas_height - font->height - 2;
-  i32 visible_lines = text_area_height / font->height;
-  if (visible_lines < 1)
-    visible_lines = 1;
-  i32 visible_cols = state.canvas_width / font->width;
-  if (visible_cols < 1)
-    visible_cols = 1;
+  f32 cursor_py = (f32)(row * font->height);
+  f32 cursor_px = (f32)(col * font->width);
 
-  if (row < state.scroll_y)
-    state.scroll_y = row;
-  else if (row >= state.scroll_y + visible_lines)
-    state.scroll_y = row - visible_lines + 1;
+  if (cursor_py < state.scroll_y)
+    state.scroll_y = cursor_py;
+  else if (cursor_py + font->height > state.scroll_y + text_area_height)
+    state.scroll_y = cursor_py + font->height - text_area_height;
 
-  if (col < state.scroll_x)
-    state.scroll_x = col;
-  else if (col >= state.scroll_x + visible_cols)
-    state.scroll_x = col - visible_cols + 1;
+  if (cursor_px < state.scroll_x)
+    state.scroll_x = cursor_px;
+  else if (cursor_px + font->width > state.scroll_x + state.canvas_width)
+    state.scroll_x = cursor_px + font->width - state.canvas_width;
 }
 
 SDL_AppResult SDL_AppInit(void **appstate, i32 argc, char *argv[]) {
@@ -539,12 +540,10 @@ static void render(void) {
     state.last_time = now;
   }
 
-  if ((now - state.cursor_blink_time) / 1000000ULL > 530) {
+  if ((now - state.cursor_blink_time) / 1000000ULL > CURSOR_BLINK_MS) {
     state.cursor_visible = !state.cursor_visible;
     state.cursor_blink_time = now;
   }
-
-  ensure_cursor_visible();
 
   void *pixel_ptr;
   i32 pitch_bytes;
@@ -566,10 +565,8 @@ static void render(void) {
 
   i32 row = 0, col = 0;
   for (i32 i = 0; i <= state.buffer_length; i++) {
-    i32 screen_row = row - state.scroll_y;
-    i32 screen_col = col - state.scroll_x;
-    i32 pixel_y = screen_row * font->height;
-    i32 pixel_x = screen_col * font->width;
+    i32 pixel_y = row * font->height - (i32)state.scroll_y;
+    i32 pixel_x = col * font->width - (i32)state.scroll_x;
     bool visible = (pixel_y + font->height > 0 && pixel_y < text_area_height &&
                     pixel_x + font->width > 0 && pixel_x < state.canvas_width);
 
@@ -650,13 +647,22 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
   if (event->type == SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED)
     update_canvas_size();
 
+  if (event->type == SDL_EVENT_MOUSE_WHEEL) {
+    state.scroll_y -= event->wheel.y * SCROLL_SPEED;
+    state.scroll_x += event->wheel.x * SCROLL_SPEED;
+    if (state.scroll_y < 0)
+      state.scroll_y = 0;
+    if (state.scroll_x < 0)
+      state.scroll_x = 0;
+  }
+
   if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN &&
       event->button.button == SDL_BUTTON_LEFT) {
     const Font *font = current_font();
     i32 pixel_x = (i32)(event->button.x * state.pixel_density) / state.scale;
     i32 pixel_y = (i32)(event->button.y * state.pixel_density) / state.scale;
-    i32 click_row = pixel_y / font->height + state.scroll_y;
-    i32 click_col = pixel_x / font->width + state.scroll_x;
+    i32 click_row = (pixel_y + (i32)state.scroll_y) / font->height;
+    i32 click_col = (pixel_x + (i32)state.scroll_x) / font->width;
     if (click_col < 0)
       click_col = 0;
     state.cursor = pos_from_row_col(click_row, click_col);
