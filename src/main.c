@@ -1,4 +1,5 @@
 #include "base/base_inc.c"
+#include "tokenize.c"
 
 #define SDL_MAIN_USE_CALLBACKS 1
 #include <SDL3/SDL.h>
@@ -9,15 +10,119 @@
 #include "fonts/font_ibmvga8.h"
 #include "fonts/font_pixelcode.h"
 
-#define COLOR_BG 0x1E1E1EFF
-#define COLOR_TEXT 0x00FF00FF
+#define COLOR_BG 0x1C1A2EFF
 
-#define COLOR_CURSOR COLOR_TEXT
-#define COLOR_STATUS_BG COLOR_TEXT
+#define SYN_TEXT 0xE8D5C5FF
+#define SYN_KEYWORD 0xE86A9DFF
+#define SYN_TYPE 0xF0A868FF
+#define SYN_STRING 0xF5B091FF
+#define SYN_NUMBER 0xEBC27AFF
+#define SYN_COMMENT 0x6B5C7FFF
+#define SYN_PREPROC 0x9E8F8FFF
+#define SYN_CONST 0xE87662FF
+#define SYN_PUNCT 0x8A7682FF
+#define SYN_OPERATOR 0xE89050FF
+
+#define COLOR_CURSOR SYN_TEXT
+#define COLOR_STATUS_BG SYN_OPERATOR
 #define COLOR_STATUS_TEXT COLOR_BG
+
+static u32 color_for_token_type(TokenType t) {
+  switch (t) {
+  case TOKEN_COMMENT_LINE:
+  case TOKEN_COMMENT_BLOCK:
+    return SYN_COMMENT;
+  case TOKEN_PREPROCESSOR:
+    return SYN_PREPROC;
+  case TOKEN_STRING_LITERAL:
+  case TOKEN_CHAR_LITERAL:
+    return SYN_STRING;
+  case TOKEN_INT_LITERAL:
+  case TOKEN_FLOAT_LITERAL:
+    return SYN_NUMBER;
+  case TOKEN_CONST_TRUE:
+  case TOKEN_CONST_FALSE:
+  case TOKEN_CONST_NULL:
+    return SYN_CONST;
+  case TOKEN_TYPE_INT:
+  case TOKEN_TYPE_FLOAT:
+  case TOKEN_TYPE_CHAR:
+  case TOKEN_TYPE_VOID:
+  case TOKEN_TYPE_SHORT:
+  case TOKEN_TYPE_LONG:
+  case TOKEN_TYPE_SIGNED:
+  case TOKEN_TYPE_UNSIGNED:
+  case TOKEN_TYPE_DOUBLE:
+  case TOKEN_TYPE_BOOL:
+  case TOKEN_TYPE_BUILTIN:
+    return SYN_TYPE;
+  case TOKEN_KEYWORD_RETURN:
+  case TOKEN_KEYWORD_IF:
+  case TOKEN_KEYWORD_ELSE:
+  case TOKEN_KEYWORD_WHILE:
+  case TOKEN_KEYWORD_FOR:
+  case TOKEN_KEYWORD_DO:
+  case TOKEN_KEYWORD_SWITCH:
+  case TOKEN_KEYWORD_CASE:
+  case TOKEN_KEYWORD_DEFAULT:
+  case TOKEN_KEYWORD_BREAK:
+  case TOKEN_KEYWORD_CONTINUE:
+  case TOKEN_KEYWORD_GOTO:
+  case TOKEN_KEYWORD_SIZEOF:
+  case TOKEN_KEYWORD_STATIC:
+  case TOKEN_KEYWORD_CONST:
+  case TOKEN_KEYWORD_EXTERN:
+  case TOKEN_KEYWORD_TYPEDEF:
+  case TOKEN_KEYWORD_STRUCT:
+  case TOKEN_KEYWORD_ENUM:
+  case TOKEN_KEYWORD_UNION:
+  case TOKEN_KEYWORD_VOLATILE:
+  case TOKEN_KEYWORD_INLINE:
+  case TOKEN_KEYWORD_REGISTER:
+    return SYN_KEYWORD;
+  case TOKEN_PLUS:
+  case TOKEN_PLUS_PLUS:
+  case TOKEN_MINUS:
+  case TOKEN_MINUS_MINUS:
+  case TOKEN_STAR:
+  case TOKEN_DIVIDE:
+  case TOKEN_PERCENT:
+  case TOKEN_EQ:
+  case TOKEN_EQ_EQ:
+  case TOKEN_BANG:
+  case TOKEN_BANG_EQ:
+  case TOKEN_LT:
+  case TOKEN_LT_EQ:
+  case TOKEN_GT:
+  case TOKEN_GT_EQ:
+  case TOKEN_AND:
+  case TOKEN_AND_AND:
+  case TOKEN_OR:
+  case TOKEN_OR_OR:
+  case TOKEN_CARET:
+  case TOKEN_TILDE:
+  case TOKEN_QUESTION:
+  case TOKEN_ARROW:
+    return SYN_OPERATOR;
+  case TOKEN_LPAREN:
+  case TOKEN_RPAREN:
+  case TOKEN_LBRACE:
+  case TOKEN_RBRACE:
+  case TOKEN_LBRACKET:
+  case TOKEN_RBRACKET:
+  case TOKEN_COMMA:
+  case TOKEN_SEMICOLON:
+  case TOKEN_COLON:
+  case TOKEN_DOT:
+    return SYN_PUNCT;
+  default:
+    return SYN_TEXT;
+  }
+}
 
 #define TEXT_BUFFER_SIZE (1024 * 1024)
 #define CURSOR_BLINK_MS 500
+#define CURSOR_ANIM_DECAY 40.0f
 #define SCROLL_SPEED 16
 
 static char text_buffer[TEXT_BUFFER_SIZE];
@@ -61,6 +166,9 @@ static struct {
   i32 cursor;
   f32 scroll_x;
   f32 scroll_y;
+  f32 cursor_display_x;
+  f32 cursor_display_y;
+  u64 last_frame_time;
   u64 cursor_blink_time;
   bool cursor_visible;
   const char *filepath;
@@ -74,6 +182,31 @@ static struct {
     bool in_command;
   } vim;
 } state = {.font_index = 2, .cursor_visible = true};
+
+#define TOKEN_ARENA_SIZE (8 * 1024 * 1024)
+static u8 token_arena_buffer[TOKEN_ARENA_SIZE];
+static Arena token_arena;
+static Token *syntax_tokens;
+static size_t syntax_token_count;
+static bool tokens_dirty = true;
+
+static void retokenize_if_dirty(void) {
+  if (!tokens_dirty)
+    return;
+  tokens_dirty = false;
+  token_arena.base = token_arena_buffer;
+  token_arena.cap = TOKEN_ARENA_SIZE;
+  arena_reset(&token_arena);
+  if ((size_t)state.buffer_length * sizeof(Token) + 64 > TOKEN_ARENA_SIZE) {
+    syntax_tokens = NULL;
+    syntax_token_count = 0;
+    return;
+  }
+  s8 src = {.data = (u8 *)text_buffer, .length = (size_t)state.buffer_length};
+  TokenizeResult r = tokenize(&token_arena, src);
+  syntax_tokens = r.tokens;
+  syntax_token_count = r.count;
+}
 
 static const Font *current_font(void) { return &fonts[state.font_index]; }
 
@@ -176,6 +309,7 @@ static void buffer_insert(i32 position, char character) {
               state.buffer_length - position);
   text_buffer[position] = character;
   state.buffer_length++;
+  tokens_dirty = true;
 }
 
 static void buffer_delete(i32 position) {
@@ -184,6 +318,7 @@ static void buffer_delete(i32 position) {
   SDL_memmove(text_buffer + position, text_buffer + position + 1,
               state.buffer_length - position - 1);
   state.buffer_length--;
+  tokens_dirty = true;
 }
 
 static void ensure_cursor_visible(void);
@@ -281,6 +416,7 @@ static void delete_line(void) {
               state.buffer_length - end);
   state.buffer_length -= count;
   state.cursor = start;
+  tokens_dirty = true;
   if (state.cursor > 0 && state.cursor >= state.buffer_length &&
       state.buffer_length > 0)
     state.cursor = state.buffer_length - 1;
@@ -380,6 +516,7 @@ static void handle_normal_char(char c) {
     i32 end = line_end(state.cursor);
     if (end < state.buffer_length) {
       text_buffer[end] = ' ';
+      tokens_dirty = true;
     }
     break;
   }
@@ -532,8 +669,19 @@ SDL_AppResult SDL_AppInit(void **appstate, i32 argc, char *argv[]) {
 }
 
 static void render(void) {
+  retokenize_if_dirty();
+
   state.frame_count++;
   u64 now = SDL_GetTicksNS();
+
+  f32 dt = 0.0f;
+  if (state.last_frame_time != 0) {
+    dt = (f32)(now - state.last_frame_time) / 1.0e9f;
+    if (dt > 0.1f)
+      dt = 0.1f;
+  }
+  state.last_frame_time = now;
+
   if (now - state.last_time >= 1000000000ULL) {
     state.fps = state.frame_count;
     state.frame_count = 0;
@@ -563,36 +711,70 @@ static void render(void) {
   i32 cursor_row, cursor_col;
   cursor_row_col(&cursor_row, &cursor_col);
 
+  f32 target_x = (f32)(cursor_col * font->width);
+  f32 target_y = (f32)(cursor_row * font->height);
+  f32 factor = 1.0f - SDL_expf(-CURSOR_ANIM_DECAY * dt);
+  state.cursor_display_x += (target_x - state.cursor_display_x) * factor;
+  state.cursor_display_y += (target_y - state.cursor_display_y) * factor;
+
   i32 row = 0, col = 0;
-  for (i32 i = 0; i <= state.buffer_length; i++) {
+  size_t tok_idx = 0;
+  for (i32 i = 0; i < state.buffer_length; i++) {
     i32 pixel_y = row * font->height - (i32)state.scroll_y;
     i32 pixel_x = col * font->width - (i32)state.scroll_x;
     bool visible = (pixel_y + font->height > 0 && pixel_y < text_area_height &&
                     pixel_x + font->width > 0 && pixel_x < state.canvas_width);
 
-    if (i == state.cursor && state.cursor_visible && visible) {
-      draw_rect(pixels, pitch, pixel_x, pixel_y, font->width, font->height,
-                COLOR_CURSOR);
-      u8 under = (i < state.buffer_length && text_buffer[i] != '\n')
-                     ? (u8)text_buffer[i]
-                     : ' ';
-      if (under != ' ')
-        draw_char(pixels, pitch, pixel_x, pixel_y, under, COLOR_BG);
+    u32 char_color = SYN_TEXT;
+    if (syntax_tokens) {
+      while (tok_idx < syntax_token_count &&
+             syntax_tokens[tok_idx].span.end <= (size_t)i)
+        tok_idx++;
+      if (tok_idx < syntax_token_count &&
+          syntax_tokens[tok_idx].span.start <= (size_t)i &&
+          (size_t)i < syntax_tokens[tok_idx].span.end) {
+        char_color = color_for_token_type(syntax_tokens[tok_idx].type);
+      }
     }
 
-    if (i < state.buffer_length) {
-      char character = text_buffer[i];
-      if (character == '\n') {
-        row++;
-        col = 0;
-      } else {
-        if (i != state.cursor || !state.cursor_visible) {
-          if (visible)
-            draw_char(pixels, pitch, pixel_x, pixel_y, (u8)character,
-                      COLOR_TEXT);
-        }
-        col++;
-      }
+    char character = text_buffer[i];
+    if (character == '\n') {
+      row++;
+      col = 0;
+    } else {
+      if (visible)
+        draw_char(pixels, pitch, pixel_x, pixel_y, (u8)character, char_color);
+      col++;
+    }
+  }
+
+  if (state.cursor_visible) {
+    i32 grid_px = cursor_col * font->width - (i32)state.scroll_x;
+    i32 grid_py = cursor_row * font->height - (i32)state.scroll_y;
+
+    f32 anim_dx = state.cursor_display_x - target_x;
+    f32 anim_dy = state.cursor_display_y - target_y;
+    i32 rect_px = grid_px + (i32)SDL_roundf(anim_dx);
+    i32 rect_py = grid_py + (i32)SDL_roundf(anim_dy);
+
+    if (rect_py + font->height > 0 && rect_py < text_area_height &&
+        rect_px + font->width > 0 && rect_px < state.canvas_width) {
+      i32 rect_height = font->height;
+      if (rect_py + rect_height > text_area_height)
+        rect_height = text_area_height - rect_py;
+      if (rect_height > 0)
+        draw_rect(pixels, pitch, rect_px, rect_py, font->width, rect_height,
+                  COLOR_CURSOR);
+    }
+
+    bool settled = (anim_dx * anim_dx + anim_dy * anim_dy) < 0.25f;
+    if (settled && state.cursor < state.buffer_length && grid_py >= 0 &&
+        grid_py + font->height <= text_area_height) {
+      u8 under = text_buffer[state.cursor] != '\n'
+                     ? (u8)text_buffer[state.cursor]
+                     : ' ';
+      if (under != ' ')
+        draw_char(pixels, pitch, grid_px, grid_py, under, COLOR_BG);
     }
   }
 
