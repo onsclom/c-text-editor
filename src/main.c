@@ -6,6 +6,8 @@
 
 #include "fonts/font8x16.h"
 #include "fonts/font8x8_basic.h"
+#include "fonts/font_ibmvga8.h"
+#include "fonts/font_pixelcode.h"
 
 #define COLOR_BG 0x1E1E1EFF
 #define COLOR_TEXT 0x00FF00FF
@@ -39,9 +41,17 @@ static struct {
   i32 cursor_visible;
   const char *filepath;
   u64 save_flash_time;
-} state = {.font = 1, .cursor_visible = 1};
+} state = {.font = 2, .cursor_visible = 1};
 
-static i32 font_height(void) { return state.font == 0 ? 8 : 16; }
+static i32 font_width(void) { return state.font == 2 ? PIXELCODE_FONT_WIDTH : 8; }
+static i32 font_height(void) {
+  switch (state.font) {
+  case 0: return 8;
+  case 2: return PIXELCODE_FONT_HEIGHT;
+  case 3: return IBMVGA8_FONT_HEIGHT;
+  default: return 16;
+  }
+}
 
 static void update_canvas_size(void) {
   i32 pw, ph;
@@ -88,18 +98,55 @@ static void draw_char_8x16(u32 *pixels, i32 pitch, i32 x, i32 y, char ch,
   }
 }
 
+static void draw_char_6x9(u32 *pixels, i32 pitch, i32 x, i32 y, char ch,
+                           u32 color) {
+  if (ch < 0 || ch > 127)
+    return;
+  for (i32 row = 0; row < PIXELCODE_FONT_HEIGHT; row++) {
+    if (y + row < 0 || y + row >= state.canvas_h)
+      continue;
+    u8 bits = font_pixelcode[(i32)ch][row];
+    for (i32 col = 0; col < PIXELCODE_FONT_WIDTH; col++) {
+      if (x + col < 0 || x + col >= state.canvas_w)
+        continue;
+      if (bits & (1 << col))
+        pixels[(y + row) * pitch + (x + col)] = color;
+    }
+  }
+}
+
+static void draw_char_ibmvga8(u32 *pixels, i32 pitch, i32 x, i32 y, char ch,
+                              u32 color) {
+  if (ch < 0 || ch > 127)
+    return;
+  for (i32 row = 0; row < IBMVGA8_FONT_HEIGHT; row++) {
+    if (y + row < 0 || y + row >= state.canvas_h)
+      continue;
+    u8 bits = font_ibmvga8[(i32)ch][row];
+    for (i32 col = 0; col < IBMVGA8_FONT_WIDTH; col++) {
+      if (x + col < 0 || x + col >= state.canvas_w)
+        continue;
+      if (bits & (1 << col))
+        pixels[(y + row) * pitch + (x + col)] = color;
+    }
+  }
+}
+
 static void draw_char(u32 *pixels, i32 pitch, i32 x, i32 y, char ch,
                        u32 color) {
-  if (state.font == 0)
-    draw_char_8x8(pixels, pitch, x, y, ch, color);
-  else
-    draw_char_8x16(pixels, pitch, x, y, ch, color);
+  switch (state.font) {
+  case 0: draw_char_8x8(pixels, pitch, x, y, ch, color); break;
+  case 2: draw_char_6x9(pixels, pitch, x, y, ch, color); break;
+  case 3: draw_char_ibmvga8(pixels, pitch, x, y, ch, color); break;
+  default: draw_char_8x16(pixels, pitch, x, y, ch, color); break;
+  }
 }
 
 static void draw_string(u32 *pixels, i32 pitch, i32 x, i32 y, const char *str,
                          u32 color) {
+  i32 fw = font_width();
   for (i32 i = 0; str[i]; i++)
-    draw_char(pixels, pitch, x + i * 8, y, str[i], color);
+    draw_char(pixels, pitch, x + i * fw, y, str[i], color);
 }
 
 static void draw_rect(u32 *pixels, i32 pitch, i32 x, i32 y, i32 w, i32 h,
@@ -195,7 +242,7 @@ static void ensure_cursor_visible(void) {
   i32 visible_lines = text_area_h / fh;
   if (visible_lines < 1)
     visible_lines = 1;
-  i32 visible_cols = state.canvas_w / 8;
+  i32 visible_cols = state.canvas_w / font_width();
   if (visible_cols < 1)
     visible_cols = 1;
 
@@ -311,6 +358,7 @@ static void render(void) {
   for (i32 i = 0; i < pitch * state.canvas_h; i++)
     pixels[i] = COLOR_BG;
 
+  i32 fw = font_width();
   i32 fh = font_height();
   i32 text_area_h = state.canvas_h - fh - 2;
 
@@ -322,12 +370,12 @@ static void render(void) {
     i32 screen_row = row - state.scroll_y;
     i32 screen_col = col - state.scroll_x;
     i32 py = screen_row * fh;
-    i32 px = screen_col * 8;
-    i32 visible = (py >= 0 && py + fh <= text_area_h && px >= 0 &&
-                   px + 8 <= state.canvas_w);
+    i32 px = screen_col * fw;
+    i32 visible = (py + fh > 0 && py < text_area_h && px + fw > 0 &&
+                   px < state.canvas_w);
 
     if (i == state.cursor && state.cursor_visible && visible) {
-      draw_rect(pixels, pitch, px, py, 8, fh, COLOR_CURSOR);
+      draw_rect(pixels, pitch, px, py, fw, fh, COLOR_CURSOR);
       char under =
           (i < state.buf_len && text_buf[i] != '\n') ? text_buf[i] : ' ';
       if (under != ' ')
@@ -363,7 +411,8 @@ static void render(void) {
   } else {
     SDL_snprintf(status, sizeof(status), "%d:%d  (F1) %dx  (F2) %s%s%s",
                  cur_row + 1, cur_col + 1, state.scale,
-                 state.font == 0 ? "8x8" : "8x16", state.filepath ? "  " : "",
+                 state.font == 0 ? "8x8" : state.font == 2 ? "6x9" : state.font == 3 ? "VGA8" : "8x16",
+                 state.filepath ? "  " : "",
                  state.filepath ? state.filepath : "");
   }
   draw_string(pixels, pitch, 0, status_y + 1, status, COLOR_STATUS_TEXT);
@@ -372,7 +421,7 @@ static void render(void) {
     char fps_buf[16];
     SDL_snprintf(fps_buf, sizeof(fps_buf), "%d fps", state.fps);
     i32 len = (i32)SDL_strlen(fps_buf);
-    draw_string(pixels, pitch, state.canvas_w - len * 8, status_y + 1, fps_buf,
+    draw_string(pixels, pitch, state.canvas_w - len * fw, status_y + 1, fps_buf,
                 COLOR_STATUS_TEXT);
   }
 
@@ -399,7 +448,7 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
     i32 px = (i32)(event->button.x * state.dpr) / state.scale;
     i32 py = (i32)(event->button.y * state.dpr) / state.scale;
     i32 click_row = py / fh + state.scroll_y;
-    i32 click_col = px / 8 + state.scroll_x;
+    i32 click_col = px / font_width() + state.scroll_x;
     if (click_col < 0)
       click_col = 0;
     state.cursor = pos_from_row_col(click_row, click_col);
@@ -439,7 +488,7 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
       break;
 
     case SDLK_F2:
-      state.font = 1 - state.font;
+      state.font = (state.font + 1) % 4;
       break;
 
     case SDLK_RETURN:
