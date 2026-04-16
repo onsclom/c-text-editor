@@ -20,6 +20,8 @@
 
 static char text_buffer[TEXT_BUFFER_SIZE];
 
+typedef enum { MODE_NORMAL, MODE_INSERT } EditorMode;
+
 typedef struct {
   const u8 *data;
   i32 glyph_stride;
@@ -61,6 +63,14 @@ static struct {
   bool cursor_visible;
   const char *filepath;
   u64 save_flash_time;
+
+  struct {
+    EditorMode mode;
+    char pending;
+    char cmd_buf[64];
+    i32 cmd_len;
+    bool in_command;
+  } vim;
 } state = {.font_index = 2, .cursor_visible = true};
 
 static const Font *current_font(void) { return &fonts[state.font_index]; }
@@ -174,6 +184,11 @@ static void buffer_delete(i32 position) {
   state.buffer_length--;
 }
 
+static void reset_blink(void) {
+  state.cursor_blink_time = SDL_GetTicksNS();
+  state.cursor_visible = true;
+}
+
 static void save_file(void) {
   if (!state.filepath)
     return;
@@ -185,9 +200,235 @@ static void save_file(void) {
   state.save_flash_time = SDL_GetTicksNS();
 }
 
-static void reset_blink(void) {
-  state.cursor_blink_time = SDL_GetTicksNS();
-  state.cursor_visible = true;
+static bool is_word_char(char c) {
+  return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
+         (c >= '0' && c <= '9') || c == '_';
+}
+
+static bool is_whitespace(char c) { return c == ' ' || c == '\t' || c == '\n'; }
+
+static i32 word_forward(i32 pos) {
+  if (pos >= state.buffer_length)
+    return pos;
+  char c = text_buffer[pos];
+  if (is_word_char(c)) {
+    while (pos < state.buffer_length && is_word_char(text_buffer[pos]))
+      pos++;
+  } else if (!is_whitespace(c)) {
+    while (pos < state.buffer_length && !is_word_char(text_buffer[pos]) &&
+           !is_whitespace(text_buffer[pos]))
+      pos++;
+  }
+  while (pos < state.buffer_length && is_whitespace(text_buffer[pos]))
+    pos++;
+  return pos;
+}
+
+static i32 word_backward(i32 pos) {
+  if (pos <= 0)
+    return 0;
+  pos--;
+  while (pos > 0 && text_buffer[pos] == ' ')
+    pos--;
+  if (is_word_char(text_buffer[pos])) {
+    while (pos > 0 && is_word_char(text_buffer[pos - 1]))
+      pos--;
+  } else {
+    while (pos > 0 && !is_word_char(text_buffer[pos - 1]) &&
+           text_buffer[pos - 1] != '\n')
+      pos--;
+  }
+  return pos;
+}
+
+static i32 word_end(i32 pos) {
+  if (pos >= state.buffer_length - 1)
+    return state.buffer_length > 0 ? state.buffer_length - 1 : 0;
+  pos++;
+  while (pos < state.buffer_length && text_buffer[pos] == ' ')
+    pos++;
+  if (pos < state.buffer_length && is_word_char(text_buffer[pos])) {
+    while (pos < state.buffer_length - 1 && is_word_char(text_buffer[pos + 1]))
+      pos++;
+  } else {
+    while (pos < state.buffer_length - 1 &&
+           !is_word_char(text_buffer[pos + 1]) && text_buffer[pos + 1] != '\n')
+      pos++;
+  }
+  return pos;
+}
+
+static i32 total_lines(void) {
+  i32 count = 1;
+  for (i32 i = 0; i < state.buffer_length; i++)
+    if (text_buffer[i] == '\n')
+      count++;
+  return count;
+}
+
+static void delete_line(void) {
+  i32 start = line_start(state.cursor);
+  i32 end = line_end(state.cursor);
+  if (end < state.buffer_length)
+    end++;
+  i32 count = end - start;
+  SDL_memmove(text_buffer + start, text_buffer + end,
+              state.buffer_length - end);
+  state.buffer_length -= count;
+  state.cursor = start;
+  if (state.cursor > 0 && state.cursor >= state.buffer_length &&
+      state.buffer_length > 0)
+    state.cursor = state.buffer_length - 1;
+  i32 le = line_end(state.cursor);
+  if (state.cursor < le) { /* already on a char */
+  } else
+    state.cursor = line_start(state.cursor);
+}
+
+static void clamp_cursor_to_line(void) {
+  i32 end = line_end(state.cursor);
+  i32 start = line_start(state.cursor);
+  if (end > start && state.cursor >= end)
+    state.cursor = end - 1;
+}
+
+static void handle_normal_char(char c) {
+  i32 row, col;
+  cursor_row_col(&row, &col);
+
+  if (state.vim.pending == 'd') {
+    state.vim.pending = 0;
+    if (c == 'd')
+      delete_line();
+    return;
+  }
+  if (state.vim.pending == 'g') {
+    state.vim.pending = 0;
+    if (c == 'g')
+      state.cursor = 0;
+    return;
+  }
+
+  state.vim.pending = 0;
+
+  switch (c) {
+  case 'h':
+    if (state.cursor > 0) {
+      i32 start = line_start(state.cursor);
+      if (state.cursor > start)
+        state.cursor--;
+    }
+    break;
+  case 'l': {
+    i32 end = line_end(state.cursor);
+    if (state.cursor < end - 1)
+      state.cursor++;
+    break;
+  }
+  case 'j':
+    if (line_end(state.cursor) < state.buffer_length) {
+      state.cursor = pos_from_row_col(row + 1, col);
+      clamp_cursor_to_line();
+    }
+    break;
+  case 'k':
+    if (row > 0) {
+      state.cursor = pos_from_row_col(row - 1, col);
+      clamp_cursor_to_line();
+    }
+    break;
+  case 'w':
+    state.cursor = word_forward(state.cursor);
+    break;
+  case 'b':
+    state.cursor = word_backward(state.cursor);
+    break;
+  case 'e':
+    state.cursor = word_end(state.cursor);
+    break;
+  case '0':
+    state.cursor = line_start(state.cursor);
+    break;
+  case '$': {
+    i32 end = line_end(state.cursor);
+    if (end > line_start(state.cursor))
+      state.cursor = end - 1;
+    break;
+  }
+  case 'x':
+    if (state.cursor < state.buffer_length &&
+        text_buffer[state.cursor] != '\n') {
+      buffer_delete(state.cursor);
+      clamp_cursor_to_line();
+    }
+    break;
+  case 'd':
+    state.vim.pending = 'd';
+    return;
+  case 'g':
+    state.vim.pending = 'g';
+    return;
+  case 'G':
+    state.cursor = pos_from_row_col(total_lines() - 1, 0);
+    break;
+  case 'J': {
+    i32 end = line_end(state.cursor);
+    if (end < state.buffer_length) {
+      text_buffer[end] = ' ';
+    }
+    break;
+  }
+  case 'i':
+    state.vim.mode = MODE_INSERT;
+    break;
+  case 'a':
+    if (state.cursor < line_end(state.cursor))
+      state.cursor++;
+    state.vim.mode = MODE_INSERT;
+    break;
+  case 'I':
+    state.cursor = line_start(state.cursor);
+    state.vim.mode = MODE_INSERT;
+    break;
+  case 'A':
+    state.cursor = line_end(state.cursor);
+    state.vim.mode = MODE_INSERT;
+    break;
+  case 'o':
+    state.cursor = line_end(state.cursor);
+    buffer_insert(state.cursor, '\n');
+    state.cursor++;
+    state.vim.mode = MODE_INSERT;
+    break;
+  case 'O':
+    state.cursor = line_start(state.cursor);
+    buffer_insert(state.cursor, '\n');
+    state.vim.mode = MODE_INSERT;
+    break;
+  case ':':
+    state.vim.in_command = true;
+    state.vim.cmd_len = 0;
+    break;
+  default:
+    break;
+  }
+
+  reset_blink();
+}
+
+static SDL_AppResult handle_command(void) {
+  state.vim.cmd_buf[state.vim.cmd_len] = '\0';
+  state.vim.in_command = false;
+
+  if (SDL_strcmp(state.vim.cmd_buf, "w") == 0) {
+    save_file();
+  } else if (SDL_strcmp(state.vim.cmd_buf, "q") == 0) {
+    return SDL_APP_SUCCESS;
+  } else if (SDL_strcmp(state.vim.cmd_buf, "wq") == 0) {
+    save_file();
+    return SDL_APP_SUCCESS;
+  }
+  return SDL_APP_CONTINUE;
 }
 
 static void ensure_cursor_visible(void) {
@@ -365,14 +606,21 @@ static void render(void) {
   bool show_saved = state.save_flash_time &&
                     (now - state.save_flash_time) / 1000000ULL < 2000;
 
+  const char *mode_str = state.vim.mode == MODE_INSERT ? "INSERT" : "NORMAL";
+
   char status[256];
-  if (show_saved) {
+  if (state.vim.in_command) {
+    char cmd_display[65];
+    SDL_memcpy(cmd_display, state.vim.cmd_buf, state.vim.cmd_len);
+    cmd_display[state.vim.cmd_len] = '\0';
+    SDL_snprintf(status, sizeof(status), ":%s", cmd_display);
+  } else if (show_saved) {
     SDL_snprintf(status, sizeof(status), "%d:%d  saved %s", cursor_row + 1,
                  cursor_col + 1, state.filepath ? state.filepath : "");
   } else {
-    SDL_snprintf(status, sizeof(status), "%d:%d  (F1) %dx  (F2) %s%s%s",
-                 cursor_row + 1, cursor_col + 1, state.scale, font->name,
-                 state.filepath ? "  " : "",
+    SDL_snprintf(status, sizeof(status), "%d:%d  %s  (F1) %dx  (F2) %s%s%s",
+                 cursor_row + 1, cursor_col + 1, mode_str, state.scale,
+                 font->name, state.filepath ? "  " : "",
                  state.filepath ? state.filepath : "");
   }
   draw_string(pixels, pitch, 0, status_y + 1, status, COLOR_STATUS_TEXT);
@@ -417,28 +665,71 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
 
   if (event->type == SDL_EVENT_TEXT_INPUT) {
     const char *text = event->text.text;
-    for (i32 i = 0; text[i]; i++) {
-      char character = text[i];
-      if (character >= 32 && character < 127) {
-        buffer_insert(state.cursor, character);
-        state.cursor++;
+    if (state.vim.in_command) {
+      for (i32 i = 0; text[i]; i++) {
+        char c = text[i];
+        if (c >= 32 && c < 127 && state.vim.cmd_len < 63)
+          state.vim.cmd_buf[state.vim.cmd_len++] = c;
+      }
+    } else if (state.vim.mode == MODE_INSERT) {
+      for (i32 i = 0; text[i]; i++) {
+        char c = text[i];
+        if (c >= 32 && c < 127) {
+          buffer_insert(state.cursor, c);
+          state.cursor++;
+        }
+      }
+      reset_blink();
+    } else {
+      for (i32 i = 0; text[i]; i++) {
+        char c = text[i];
+        if (c >= 32 && c < 127)
+          handle_normal_char(c);
       }
     }
-    reset_blink();
   }
 
   if (event->type == SDL_EVENT_KEY_DOWN) {
     i32 row, col;
     cursor_row_col(&row, &col);
 
+    if (state.vim.in_command) {
+      switch (event->key.key) {
+      case SDLK_RETURN: {
+        SDL_AppResult result = handle_command();
+        if (result != SDL_APP_CONTINUE)
+          return result;
+        break;
+      }
+      case SDLK_ESCAPE:
+        state.vim.in_command = false;
+        break;
+      case SDLK_BACKSPACE:
+        if (state.vim.cmd_len > 0)
+          state.vim.cmd_len--;
+        else
+          state.vim.in_command = false;
+        break;
+      default:
+        break;
+      }
+      return SDL_APP_CONTINUE;
+    }
+
     switch (event->key.key) {
     case SDLK_ESCAPE:
-      return SDL_APP_SUCCESS;
+      if (state.vim.mode == MODE_INSERT) {
+        state.vim.mode = MODE_NORMAL;
+        state.vim.pending = 0;
+        if (state.cursor > 0 && state.cursor > line_start(state.cursor))
+          state.cursor--;
+        reset_blink();
+      }
+      break;
 
     case SDLK_S:
-      if (event->key.mod & (SDL_KMOD_GUI | SDL_KMOD_CTRL)) {
+      if (event->key.mod & (SDL_KMOD_GUI | SDL_KMOD_CTRL))
         save_file();
-      }
       break;
 
     case SDLK_F1:
@@ -451,13 +742,15 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
       break;
 
     case SDLK_RETURN:
-      buffer_insert(state.cursor, '\n');
-      state.cursor++;
-      reset_blink();
+      if (state.vim.mode == MODE_INSERT) {
+        buffer_insert(state.cursor, '\n');
+        state.cursor++;
+        reset_blink();
+      }
       break;
 
     case SDLK_BACKSPACE:
-      if (state.cursor > 0) {
+      if (state.vim.mode == MODE_INSERT && state.cursor > 0) {
         state.cursor--;
         buffer_delete(state.cursor);
         reset_blink();
@@ -465,7 +758,7 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
       break;
 
     case SDLK_DELETE:
-      if (state.cursor < state.buffer_length) {
+      if (state.vim.mode == MODE_INSERT && state.cursor < state.buffer_length) {
         buffer_delete(state.cursor);
         reset_blink();
       }
