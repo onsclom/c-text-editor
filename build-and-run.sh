@@ -21,4 +21,4 @@ cc src/main.c -Wall -Wextra -std=c99 \
   -framework CoreServices \
   -liconv \
   -ObjC \
-  -o ted && ./ted
+  -o ted && ./ted src/main.c

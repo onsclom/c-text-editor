@@ -16,168 +16,122 @@
 #define COLOR_STATUS_BG COLOR_TEXT
 #define COLOR_STATUS_TEXT COLOR_BG
 
-#define TEXT_BUF_SIZE (1024 * 1024)
+#define TEXT_BUFFER_SIZE (1024 * 1024)
 
-static char text_buf[TEXT_BUF_SIZE];
+static char text_buffer[TEXT_BUFFER_SIZE];
+
+typedef struct {
+  const u8 *data;
+  i32 glyph_stride;
+  i32 width;
+  i32 height;
+  bool msb_first;
+  const char *name;
+} Font;
+
+static const Font fonts[] = {
+    {(const u8 *)font8x8_basic, 8, 8, 8, false, "8x8"},
+    {(const u8 *)font8x16, 16, 8, 16, true, "8x16"},
+    {(const u8 *)font_pixelcode, PIXELCODE_FONT_HEIGHT, PIXELCODE_FONT_WIDTH,
+     PIXELCODE_FONT_HEIGHT, false, "6x9"},
+    {(const u8 *)font_ibmvga8, IBMVGA8_FONT_HEIGHT, IBMVGA8_FONT_WIDTH,
+     IBMVGA8_FONT_HEIGHT, false, "VGA8"},
+};
+
+#define FONT_COUNT ((i32)(sizeof(fonts) / sizeof(fonts[0])))
 
 static struct {
   SDL_Window *window;
   SDL_Renderer *renderer;
   SDL_Texture *canvas;
-  i32 canvas_w;
-  i32 canvas_h;
-  i32 font;
+  i32 canvas_width;
+  i32 canvas_height;
+  i32 font_index;
   i32 scale;
-  f32 dpr;
+  f32 pixel_density;
   u64 last_time;
   i32 fps;
   i32 frame_count;
 
-  i32 buf_len;
+  i32 buffer_length;
   i32 cursor;
   i32 scroll_x;
   i32 scroll_y;
   u64 cursor_blink_time;
-  i32 cursor_visible;
+  bool cursor_visible;
   const char *filepath;
   u64 save_flash_time;
-} state = {.font = 2, .cursor_visible = 1};
+} state = {.font_index = 2, .cursor_visible = true};
 
-static i32 font_width(void) { return state.font == 2 ? PIXELCODE_FONT_WIDTH : 8; }
-static i32 font_height(void) {
-  switch (state.font) {
-  case 0: return 8;
-  case 2: return PIXELCODE_FONT_HEIGHT;
-  case 3: return IBMVGA8_FONT_HEIGHT;
-  default: return 16;
-  }
-}
+static const Font *current_font(void) { return &fonts[state.font_index]; }
 
 static void update_canvas_size(void) {
-  i32 pw, ph;
-  SDL_GetWindowSizeInPixels(state.window, &pw, &ph);
-  state.canvas_w = pw / state.scale;
-  state.canvas_h = ph / state.scale;
-  if (state.canvas_w < 1)
-    state.canvas_w = 1;
-  if (state.canvas_h < 1)
-    state.canvas_h = 1;
+  i32 pixel_width, pixel_height;
+  SDL_GetWindowSizeInPixels(state.window, &pixel_width, &pixel_height);
+  state.canvas_width = pixel_width / state.scale;
+  state.canvas_height = pixel_height / state.scale;
+  if (state.canvas_width < 1)
+    state.canvas_width = 1;
+  if (state.canvas_height < 1)
+    state.canvas_height = 1;
 }
 
-static void draw_char_8x8(u32 *pixels, i32 pitch, i32 x, i32 y, char ch,
-                           u32 color) {
-  if (ch < 0 || ch > 127)
+static void draw_char(u32 *pixels, i32 pitch, i32 x, i32 y, u8 character,
+                      u32 color) {
+  if (character > 127)
     return;
-  for (i32 row = 0; row < 8; row++) {
-    if (y + row < 0 || y + row >= state.canvas_h)
+  const Font *font = current_font();
+  const u8 *glyph = font->data + character * font->glyph_stride;
+  for (i32 row = 0; row < font->height; row++) {
+    if (y + row < 0 || y + row >= state.canvas_height)
       continue;
-    u8 bits = (u8)font8x8_basic[(i32)ch][row];
-    for (i32 col = 0; col < 8; col++) {
-      if (x + col < 0 || x + col >= state.canvas_w)
+    u8 bits = glyph[row];
+    for (i32 col = 0; col < font->width; col++) {
+      if (x + col < 0 || x + col >= state.canvas_width)
         continue;
-      if (bits & (1 << col))
+      bool lit = font->msb_first ? (bits & (0x80 >> col)) : (bits & (1 << col));
+      if (lit)
         pixels[(y + row) * pitch + (x + col)] = color;
     }
-  }
-}
-
-static void draw_char_8x16(u32 *pixels, i32 pitch, i32 x, i32 y, char ch,
-                            u32 color) {
-  if (ch < 0 || ch > 127)
-    return;
-  for (i32 row = 0; row < 16; row++) {
-    if (y + row < 0 || y + row >= state.canvas_h)
-      continue;
-    u8 bits = font8x16[(i32)ch][row];
-    for (i32 col = 0; col < 8; col++) {
-      if (x + col < 0 || x + col >= state.canvas_w)
-        continue;
-      if (bits & (0x80 >> col))
-        pixels[(y + row) * pitch + (x + col)] = color;
-    }
-  }
-}
-
-static void draw_char_6x9(u32 *pixels, i32 pitch, i32 x, i32 y, char ch,
-                           u32 color) {
-  if (ch < 0 || ch > 127)
-    return;
-  for (i32 row = 0; row < PIXELCODE_FONT_HEIGHT; row++) {
-    if (y + row < 0 || y + row >= state.canvas_h)
-      continue;
-    u8 bits = font_pixelcode[(i32)ch][row];
-    for (i32 col = 0; col < PIXELCODE_FONT_WIDTH; col++) {
-      if (x + col < 0 || x + col >= state.canvas_w)
-        continue;
-      if (bits & (1 << col))
-        pixels[(y + row) * pitch + (x + col)] = color;
-    }
-  }
-}
-
-static void draw_char_ibmvga8(u32 *pixels, i32 pitch, i32 x, i32 y, char ch,
-                              u32 color) {
-  if (ch < 0 || ch > 127)
-    return;
-  for (i32 row = 0; row < IBMVGA8_FONT_HEIGHT; row++) {
-    if (y + row < 0 || y + row >= state.canvas_h)
-      continue;
-    u8 bits = font_ibmvga8[(i32)ch][row];
-    for (i32 col = 0; col < IBMVGA8_FONT_WIDTH; col++) {
-      if (x + col < 0 || x + col >= state.canvas_w)
-        continue;
-      if (bits & (1 << col))
-        pixels[(y + row) * pitch + (x + col)] = color;
-    }
-  }
-}
-
-static void draw_char(u32 *pixels, i32 pitch, i32 x, i32 y, char ch,
-                       u32 color) {
-  switch (state.font) {
-  case 0: draw_char_8x8(pixels, pitch, x, y, ch, color); break;
-  case 2: draw_char_6x9(pixels, pitch, x, y, ch, color); break;
-  case 3: draw_char_ibmvga8(pixels, pitch, x, y, ch, color); break;
-  default: draw_char_8x16(pixels, pitch, x, y, ch, color); break;
   }
 }
 
 static void draw_string(u32 *pixels, i32 pitch, i32 x, i32 y, const char *str,
-                         u32 color) {
-  i32 fw = font_width();
+                        u32 color) {
+  i32 char_width = current_font()->width;
   for (i32 i = 0; str[i]; i++)
-    draw_char(pixels, pitch, x + i * fw, y, str[i], color);
+    draw_char(pixels, pitch, x + i * char_width, y, (u8)str[i], color);
 }
 
-static void draw_rect(u32 *pixels, i32 pitch, i32 x, i32 y, i32 w, i32 h,
-                       u32 color) {
-  for (i32 row = y; row < y + h; row++) {
-    if (row < 0 || row >= state.canvas_h)
+static void draw_rect(u32 *pixels, i32 pitch, i32 x, i32 y, i32 width,
+                      i32 height, u32 color) {
+  for (i32 row = y; row < y + height; row++) {
+    if (row < 0 || row >= state.canvas_height)
       continue;
-    for (i32 col = x; col < x + w; col++) {
-      if (col < 0 || col >= state.canvas_w)
+    for (i32 col = x; col < x + width; col++) {
+      if (col < 0 || col >= state.canvas_width)
         continue;
       pixels[row * pitch + col] = color;
     }
   }
 }
 
-static i32 line_start(i32 pos) {
-  while (pos > 0 && text_buf[pos - 1] != '\n')
-    pos--;
-  return pos;
+static i32 line_start(i32 position) {
+  while (position > 0 && text_buffer[position - 1] != '\n')
+    position--;
+  return position;
 }
 
-static i32 line_end(i32 pos) {
-  while (pos < state.buf_len && text_buf[pos] != '\n')
-    pos++;
-  return pos;
+static i32 line_end(i32 position) {
+  while (position < state.buffer_length && text_buffer[position] != '\n')
+    position++;
+  return position;
 }
 
 static void cursor_row_col(i32 *out_row, i32 *out_col) {
   i32 row = 0, col = 0;
   for (i32 i = 0; i < state.cursor; i++) {
-    if (text_buf[i] == '\n') {
+    if (text_buffer[i] == '\n') {
       row++;
       col = 0;
     } else {
@@ -190,59 +144,61 @@ static void cursor_row_col(i32 *out_row, i32 *out_col) {
 
 static i32 pos_from_row_col(i32 target_row, i32 target_col) {
   i32 row = 0, i = 0;
-  while (i < state.buf_len && row < target_row) {
-    if (text_buf[i] == '\n')
+  while (i < state.buffer_length && row < target_row) {
+    if (text_buffer[i] == '\n')
       row++;
     i++;
   }
-  i32 ls = i;
-  i32 le = line_end(ls);
-  i32 line_len = le - ls;
-  if (target_col > line_len)
-    target_col = line_len;
-  return ls + target_col;
+  i32 start = i;
+  i32 end = line_end(start);
+  i32 length = end - start;
+  if (target_col > length)
+    target_col = length;
+  return start + target_col;
 }
 
-static void buf_insert(i32 pos, char ch) {
-  if (state.buf_len >= TEXT_BUF_SIZE - 1)
+static void buffer_insert(i32 position, char character) {
+  if (state.buffer_length >= TEXT_BUFFER_SIZE - 1)
     return;
-  SDL_memmove(text_buf + pos + 1, text_buf + pos, state.buf_len - pos);
-  text_buf[pos] = ch;
-  state.buf_len++;
+  SDL_memmove(text_buffer + position + 1, text_buffer + position,
+              state.buffer_length - position);
+  text_buffer[position] = character;
+  state.buffer_length++;
 }
 
-static void buf_delete(i32 pos) {
-  if (pos < 0 || pos >= state.buf_len)
+static void buffer_delete(i32 position) {
+  if (position < 0 || position >= state.buffer_length)
     return;
-  SDL_memmove(text_buf + pos, text_buf + pos + 1, state.buf_len - pos - 1);
-  state.buf_len--;
+  SDL_memmove(text_buffer + position, text_buffer + position + 1,
+              state.buffer_length - position - 1);
+  state.buffer_length--;
 }
 
 static void save_file(void) {
   if (!state.filepath)
     return;
-  SDL_IOStream *f = SDL_IOFromFile(state.filepath, "wb");
-  if (!f)
+  SDL_IOStream *file = SDL_IOFromFile(state.filepath, "wb");
+  if (!file)
     return;
-  SDL_WriteIO(f, text_buf, (size_t)state.buf_len);
-  SDL_CloseIO(f);
+  SDL_WriteIO(file, text_buffer, (size_t)state.buffer_length);
+  SDL_CloseIO(file);
   state.save_flash_time = SDL_GetTicksNS();
 }
 
 static void reset_blink(void) {
   state.cursor_blink_time = SDL_GetTicksNS();
-  state.cursor_visible = 1;
+  state.cursor_visible = true;
 }
 
 static void ensure_cursor_visible(void) {
   i32 row, col;
   cursor_row_col(&row, &col);
-  i32 fh = font_height();
-  i32 text_area_h = state.canvas_h - fh - 2;
-  i32 visible_lines = text_area_h / fh;
+  const Font *font = current_font();
+  i32 text_area_height = state.canvas_height - font->height - 2;
+  i32 visible_lines = text_area_height / font->height;
   if (visible_lines < 1)
     visible_lines = 1;
-  i32 visible_cols = state.canvas_w / font_width();
+  i32 visible_cols = state.canvas_width / font->width;
   if (visible_cols < 1)
     visible_cols = 1;
 
@@ -276,10 +232,10 @@ SDL_AppResult SDL_AppInit(void **appstate, i32 argc, char *argv[]) {
     return SDL_APP_FAILURE;
   }
 
-  state.dpr = SDL_GetWindowPixelDensity(state.window);
-  if (state.dpr < 1.0f)
-    state.dpr = 1.0f;
-  state.scale = (i32)(state.dpr * 2.0f);
+  state.pixel_density = SDL_GetWindowPixelDensity(state.window);
+  if (state.pixel_density < 1.0f)
+    state.pixel_density = 1.0f;
+  state.scale = (i32)(state.pixel_density * 2.0f);
 
   state.renderer = SDL_CreateRenderer(state.window, NULL);
   if (!state.renderer) {
@@ -289,33 +245,34 @@ SDL_AppResult SDL_AppInit(void **appstate, i32 argc, char *argv[]) {
 
   SDL_DisplayID display = SDL_GetDisplayForWindow(state.window);
   const SDL_DisplayMode *mode = SDL_GetCurrentDisplayMode(display);
-  i32 max_w = (i32)(mode->w * state.dpr);
-  i32 max_h = (i32)(mode->h * state.dpr);
+  i32 max_width = (i32)(mode->w * state.pixel_density);
+  i32 max_height = (i32)(mode->h * state.pixel_density);
 
-  state.canvas = SDL_CreateTexture(state.renderer, SDL_PIXELFORMAT_RGBA8888,
-                                   SDL_TEXTUREACCESS_STREAMING, max_w, max_h);
+  state.canvas =
+      SDL_CreateTexture(state.renderer, SDL_PIXELFORMAT_RGBA8888,
+                        SDL_TEXTUREACCESS_STREAMING, max_width, max_height);
   SDL_SetTextureScaleMode(state.canvas, SDL_SCALEMODE_NEAREST);
 
-  state.buf_len = 0;
+  state.buffer_length = 0;
   state.cursor = 0;
 
   if (argc > 1) {
     state.filepath = argv[1];
-    SDL_IOStream *f = SDL_IOFromFile(state.filepath, "rb");
-    if (f) {
-      Sint64 size = SDL_GetIOSize(f);
-      if (size > 0 && size < TEXT_BUF_SIZE) {
-        i32 raw_len = (i32)SDL_ReadIO(f, text_buf, (size_t)size);
-        if (raw_len < 0)
-          raw_len = 0;
-        i32 j = 0;
-        for (i32 i = 0; i < raw_len; i++) {
-          if (text_buf[i] != '\r')
-            text_buf[j++] = text_buf[i];
+    SDL_IOStream *file = SDL_IOFromFile(state.filepath, "rb");
+    if (file) {
+      Sint64 size = SDL_GetIOSize(file);
+      if (size > 0 && size < TEXT_BUFFER_SIZE) {
+        i32 raw_length = (i32)SDL_ReadIO(file, text_buffer, (size_t)size);
+        if (raw_length < 0)
+          raw_length = 0;
+        i32 write_pos = 0;
+        for (i32 i = 0; i < raw_length; i++) {
+          if (text_buffer[i] != '\r')
+            text_buffer[write_pos++] = text_buffer[i];
         }
-        state.buf_len = j;
+        state.buffer_length = write_pos;
       }
-      SDL_CloseIO(f);
+      SDL_CloseIO(file);
     }
   }
 
@@ -346,91 +303,94 @@ static void render(void) {
     state.cursor_blink_time = now;
   }
 
+  ensure_cursor_visible();
+
   void *pixel_ptr;
   i32 pitch_bytes;
-  SDL_Rect canvas_rect = {0, 0, state.canvas_w, state.canvas_h};
+  SDL_Rect canvas_rect = {0, 0, state.canvas_width, state.canvas_height};
   if (!SDL_LockTexture(state.canvas, &canvas_rect, &pixel_ptr, &pitch_bytes))
     return;
 
   u32 *pixels = (u32 *)pixel_ptr;
   i32 pitch = pitch_bytes / 4;
 
-  for (i32 i = 0; i < pitch * state.canvas_h; i++)
+  for (i32 i = 0; i < pitch * state.canvas_height; i++)
     pixels[i] = COLOR_BG;
 
-  i32 fw = font_width();
-  i32 fh = font_height();
-  i32 text_area_h = state.canvas_h - fh - 2;
+  const Font *font = current_font();
+  i32 text_area_height = state.canvas_height - font->height - 2;
 
-  i32 cur_row, cur_col;
-  cursor_row_col(&cur_row, &cur_col);
+  i32 cursor_row, cursor_col;
+  cursor_row_col(&cursor_row, &cursor_col);
 
   i32 row = 0, col = 0;
-  for (i32 i = 0; i <= state.buf_len; i++) {
+  for (i32 i = 0; i <= state.buffer_length; i++) {
     i32 screen_row = row - state.scroll_y;
     i32 screen_col = col - state.scroll_x;
-    i32 py = screen_row * fh;
-    i32 px = screen_col * fw;
-    i32 visible = (py + fh > 0 && py < text_area_h && px + fw > 0 &&
-                   px < state.canvas_w);
+    i32 pixel_y = screen_row * font->height;
+    i32 pixel_x = screen_col * font->width;
+    bool visible = (pixel_y + font->height > 0 && pixel_y < text_area_height &&
+                    pixel_x + font->width > 0 && pixel_x < state.canvas_width);
 
     if (i == state.cursor && state.cursor_visible && visible) {
-      draw_rect(pixels, pitch, px, py, fw, fh, COLOR_CURSOR);
-      char under =
-          (i < state.buf_len && text_buf[i] != '\n') ? text_buf[i] : ' ';
+      draw_rect(pixels, pitch, pixel_x, pixel_y, font->width, font->height,
+                COLOR_CURSOR);
+      u8 under = (i < state.buffer_length && text_buffer[i] != '\n')
+                     ? (u8)text_buffer[i]
+                     : ' ';
       if (under != ' ')
-        draw_char(pixels, pitch, px, py, under, COLOR_BG);
+        draw_char(pixels, pitch, pixel_x, pixel_y, under, COLOR_BG);
     }
 
-    if (i < state.buf_len) {
-      char ch = text_buf[i];
-      if (ch == '\n') {
+    if (i < state.buffer_length) {
+      char character = text_buffer[i];
+      if (character == '\n') {
         row++;
         col = 0;
       } else {
         if (i != state.cursor || !state.cursor_visible) {
           if (visible)
-            draw_char(pixels, pitch, px, py, ch, COLOR_TEXT);
+            draw_char(pixels, pitch, pixel_x, pixel_y, (u8)character,
+                      COLOR_TEXT);
         }
         col++;
       }
     }
   }
 
-  i32 status_y = state.canvas_h - fh - 1;
-  draw_rect(pixels, pitch, 0, status_y, state.canvas_w, fh + 1,
+  i32 status_y = state.canvas_height - font->height - 1;
+  draw_rect(pixels, pitch, 0, status_y, state.canvas_width, font->height + 1,
             COLOR_STATUS_BG);
 
-  i32 show_saved = state.save_flash_time &&
-                   (now - state.save_flash_time) / 1000000ULL < 2000;
+  bool show_saved = state.save_flash_time &&
+                    (now - state.save_flash_time) / 1000000ULL < 2000;
 
   char status[256];
   if (show_saved) {
-    SDL_snprintf(status, sizeof(status), "%d:%d  saved %s", cur_row + 1,
-                 cur_col + 1, state.filepath ? state.filepath : "");
+    SDL_snprintf(status, sizeof(status), "%d:%d  saved %s", cursor_row + 1,
+                 cursor_col + 1, state.filepath ? state.filepath : "");
   } else {
     SDL_snprintf(status, sizeof(status), "%d:%d  (F1) %dx  (F2) %s%s%s",
-                 cur_row + 1, cur_col + 1, state.scale,
-                 state.font == 0 ? "8x8" : state.font == 2 ? "6x9" : state.font == 3 ? "VGA8" : "8x16",
+                 cursor_row + 1, cursor_col + 1, state.scale, font->name,
                  state.filepath ? "  " : "",
                  state.filepath ? state.filepath : "");
   }
   draw_string(pixels, pitch, 0, status_y + 1, status, COLOR_STATUS_TEXT);
 
   {
-    char fps_buf[16];
-    SDL_snprintf(fps_buf, sizeof(fps_buf), "%d fps", state.fps);
-    i32 len = (i32)SDL_strlen(fps_buf);
-    draw_string(pixels, pitch, state.canvas_w - len * fw, status_y + 1, fps_buf,
-                COLOR_STATUS_TEXT);
+    char fps_text[16];
+    SDL_snprintf(fps_text, sizeof(fps_text), "%d fps", state.fps);
+    i32 length = (i32)SDL_strlen(fps_text);
+    draw_string(pixels, pitch, state.canvas_width - length * font->width,
+                status_y + 1, fps_text, COLOR_STATUS_TEXT);
   }
 
   SDL_UnlockTexture(state.canvas);
 
-  SDL_FRect src = {0, 0, (f32)state.canvas_w, (f32)state.canvas_h};
+  SDL_FRect source = {0, 0, (f32)state.canvas_width, (f32)state.canvas_height};
   SDL_SetRenderDrawColor(state.renderer, 30, 30, 30, 255);
   SDL_RenderClear(state.renderer);
-  SDL_RenderTexture(state.renderer, state.canvas, &src, NULL);
+  SDL_RenderTexture(state.renderer, state.canvas, &source, NULL);
   SDL_RenderPresent(state.renderer);
 }
 
@@ -444,11 +404,11 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
 
   if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN &&
       event->button.button == SDL_BUTTON_LEFT) {
-    i32 fh = font_height();
-    i32 px = (i32)(event->button.x * state.dpr) / state.scale;
-    i32 py = (i32)(event->button.y * state.dpr) / state.scale;
-    i32 click_row = py / fh + state.scroll_y;
-    i32 click_col = px / font_width() + state.scroll_x;
+    const Font *font = current_font();
+    i32 pixel_x = (i32)(event->button.x * state.pixel_density) / state.scale;
+    i32 pixel_y = (i32)(event->button.y * state.pixel_density) / state.scale;
+    i32 click_row = pixel_y / font->height + state.scroll_y;
+    i32 click_col = pixel_x / font->width + state.scroll_x;
     if (click_col < 0)
       click_col = 0;
     state.cursor = pos_from_row_col(click_row, click_col);
@@ -458,14 +418,13 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
   if (event->type == SDL_EVENT_TEXT_INPUT) {
     const char *text = event->text.text;
     for (i32 i = 0; text[i]; i++) {
-      char ch = text[i];
-      if (ch >= 32 && ch < 127) {
-        buf_insert(state.cursor, ch);
+      char character = text[i];
+      if (character >= 32 && character < 127) {
+        buffer_insert(state.cursor, character);
         state.cursor++;
       }
     }
     reset_blink();
-    ensure_cursor_visible();
   }
 
   if (event->type == SDL_EVENT_KEY_DOWN) {
@@ -488,28 +447,26 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
       break;
 
     case SDLK_F2:
-      state.font = (state.font + 1) % 4;
+      state.font_index = (state.font_index + 1) % FONT_COUNT;
       break;
 
     case SDLK_RETURN:
-      buf_insert(state.cursor, '\n');
+      buffer_insert(state.cursor, '\n');
       state.cursor++;
       reset_blink();
-      ensure_cursor_visible();
       break;
 
     case SDLK_BACKSPACE:
       if (state.cursor > 0) {
         state.cursor--;
-        buf_delete(state.cursor);
+        buffer_delete(state.cursor);
         reset_blink();
-        ensure_cursor_visible();
       }
       break;
 
     case SDLK_DELETE:
-      if (state.cursor < state.buf_len) {
-        buf_delete(state.cursor);
+      if (state.cursor < state.buffer_length) {
+        buffer_delete(state.cursor);
         reset_blink();
       }
       break;
@@ -518,15 +475,13 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
       if (state.cursor > 0) {
         state.cursor--;
         reset_blink();
-        ensure_cursor_visible();
       }
       break;
 
     case SDLK_RIGHT:
-      if (state.cursor < state.buf_len) {
+      if (state.cursor < state.buffer_length) {
         state.cursor++;
         reset_blink();
-        ensure_cursor_visible();
       }
       break;
 
@@ -534,16 +489,14 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
       if (row > 0) {
         state.cursor = pos_from_row_col(row - 1, col);
         reset_blink();
-        ensure_cursor_visible();
       }
       break;
 
     case SDLK_DOWN: {
-      i32 ls = line_end(state.cursor);
-      if (ls < state.buf_len) {
+      i32 end = line_end(state.cursor);
+      if (end < state.buffer_length) {
         state.cursor = pos_from_row_col(row + 1, col);
         reset_blink();
-        ensure_cursor_visible();
       }
       break;
     }
@@ -551,13 +504,11 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
     case SDLK_HOME:
       state.cursor = line_start(state.cursor);
       reset_blink();
-      ensure_cursor_visible();
       break;
 
     case SDLK_END:
       state.cursor = line_end(state.cursor);
       reset_blink();
-      ensure_cursor_visible();
       break;
 
     default:
